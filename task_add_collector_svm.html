@@ -1,0 +1,2458 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head class="at-element-marker">
+  <title>Configuration du SVM Data Collector de ONTAP</title>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge,chrome=1">
+  <meta http-equiv="language" content="en">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="og:title" content="Configuration du SVM Data Collector de ONTAP" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://docs.netapp.com/fr-fr/test/task_add_collector_svm.html" />
+	<meta property="og:description" content="Ajout de collecteurs de données" />
+  <meta property="og:image" content="https://docs.netapp.com/fr-fr/test/images/logo-tophat-social.png" />
+  <meta property="og:image:alt" content="NetApp Logo" />
+  <meta name="format-detection" content="telephone=no">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="encoding" content="utf-8">
+  <meta http-equiv="nss-type" content="Product Documentation"/>
+  <meta http-equiv="nss-subtype" content="User Guide"/><meta name="description" content="Ajout de collecteurs de données">
+  <meta name="keywords" content=" data collector, ONTAP, NetApp, SVM, cloud ontap, firewall"><meta name="robots" content="noindex" /><!-- Icons -->
+  <link rel="icon" href="/fr-fr/test/images/favicon.ico" type="image/x-icon">
+
+  <!-- RSS Feed --><!-- CSS Definitions: NetApp CSS should be defined after generic css -->
+
+  <!-- Elastic Search -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/searchkit/0.10.0/theme.css">
+
+  <!-- Combined CSS -->
+  <link rel="stylesheet" type="text/css" href="/fr-fr/test/css/netappdocs.css">
+
+  
+  <link rel="stylesheet" href="/fr-fr/test/css/landing-page.css" type="text/css">
+  <link rel="stylesheet" href="/fr-fr/test/css/tabbed-blocks.css" type="text/css">
+  <!-- Canonical url -->
+  <!-- Top level site integrations --><script>
+    function addAdobeLaunch(adobeId) {
+      var head = document.getElementsByTagName('head')[0];
+      var adobe = document.createElement("script");
+      adobe.type = "text/plain";
+      adobe.className = "optanon-category-C0002";
+      adobe.src = "//assets.adobedtm.com/60287eadf1ee/c284da483c83/"+adobeId+".min.js";
+      head.appendChild(adobe);
+    }
+
+    function addGoogleAnalytics(gtagId) {
+      var google = document.createElement("script");
+      google.type = "text/plain";
+      google.className = "optanon-category-C0002";
+      google.src = "https://www.googletagmanager.com/gtag/js?id="+gtagId;
+      var head = document.getElementsByTagName('head')[0];
+      head.appendChild(google);
+
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', gtagId);
+    }
+
+    function addConsent(consentId) {
+      var head = document.getElementsByTagName('head')[0];
+      var onetrustConsent = document.createElement("script");
+      onetrustConsent.type = "text/javascript";
+      onetrustConsent.src = "https://cdn.cookielaw.org/consent/"+consentId+"/OtAutoBlock.js";
+      head.appendChild(onetrustConsent);
+
+      var onetrustScript = document.createElement("script");
+      onetrustScript.type = "text/javascript";
+      onetrustScript.src = "https://cdn.cookielaw.org/scripttemplates/otSDKStub.js";
+      onetrustScript.charset = "UTF-8";
+      onetrustScript.dataset.documentLanguage = "true";
+      onetrustScript.dataset.domainScript = consentId;
+      head.appendChild(onetrustScript);
+    }addConsent("72570c5c-fe30-465f-b0e0-b77f7fb4ae34");
+    addAdobeLaunch("launch-e9ff3acac59f");
+    addGoogleAnalytics("UA-81697994-3");function OptanonWrapper() { }
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+  <!-- Used for Product Family Page Sidebar Visibility --><!-- Used to import Promise for IE. Required for SearchKit -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.5/bluebird.min.js"></script><script src='/fr-fr/test/js/na-search.js'></script><script src='/fr-fr/test/js/na-pagenav.js'></script><script src='/fr-fr/test/js/na-utility.js'></script>
+  <script src='/fr-fr/test/js/clouddocs.js'></script>
+  <script src='/fr-fr/test/js/jquery.navgoco.min.js'></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src='/fr-fr/test/js/toc.js'></script>
+  <script src='/fr-fr/test/js/customscripts.js'></script><script>
+      $(document).ready(function() {
+          
+          var collapseOnInit = true;
+          
+
+          var navSettings = {
+              "caretHtml": '',
+              "accordion": collapseOnInit,
+              "openClass": 'active', // open
+              "save": false, // leave false or nav highlighting doesn't work right
+              "cookie": {
+                  "name": 'navgoco',
+                  "expires": false,
+                  "path": '/'
+              },
+              "slide": {
+                  "duration": 400,
+                  "easing": 'swing'
+              }
+          };
+
+          // Initialize navgoco with default options
+          $("#mysidebar").navgoco(navSettings);
+          
+
+          $("#collapseAll").click(function(e) {
+              e.preventDefault();
+              $("#mysidebar").navgoco('toggle', false);
+          });
+
+          $("#expandAll").click(function(e) {
+              e.preventDefault();
+              $("#mysidebar").navgoco('toggle', true);
+          });
+
+          $(".sidebar-nav-container").on("scroll", function() {
+            $.cookie("sidebarScroll", $(".sidebar-nav-container").scrollTop(), {
+              path    : "/fr-fr/test"  
+            });
+          });
+          $(function() {
+            if ($.cookie("sidebarScroll")) {
+              $(".sidebar-nav-container").scrollTop($.cookie("sidebarScroll"));
+            }
+          });
+
+      });
+
+  </script>
+  <script>
+      $(document).ready(function() {
+          $("#tg-sb-link").click(function() {
+              $("#tg-sb-sidebar").toggle();
+              $("#tg-sb-content").toggleClass('col-md-9');
+              $("#tg-sb-content").toggleClass('col-md-12');
+              $("#tg-sb-icon").toggleClass('fa-toggle-on');
+              $("#tg-sb-icon").toggleClass('fa-toggle-off');
+          });
+      });
+  </script>
+  <script src='/fr-fr/test/js/custom-dropdown.js'></script>
+  <script src='/fr-fr/test/js/FileSaver.min.js'></script>
+  <script src='/fr-fr/test/js/jszip-utils.min.js'></script>
+  <script src='/fr-fr/test/js/jszip.min.js'></script>
+  <script src='/fr-fr/test/js/pdf-ux.js'></script>
+</head>
+
+
+  <body class role="document" data-flavor="">
+    <div id="page" class="n-off-canvas-menu">
+      <div class="n-off-canvas-menu__menu"><!--TODO: Add offcanvas code --></div>
+      <div class="n-off-canvas-menu__content-wrap">
+        <header class="site-header" id="banner">
+  
+  <!-- Start Page Toolbar -->
+  
+  <div class="page-nav-toolbar"><div class="page-nav-contribute"><a target="_blank" href="https://github.com/NetAppDocs/test/issues/new?body=Page%3A%20[Configuration du SVM Data Collector de ONTAP](https://docs.netapp.com/fr-fr/test/task_add_collector_svm.html)&template=public-issue-template.md" class="page-nav-contribute-link" role="button"><img src="/fr-fr/test/images/discuss-sm.svg" alt="" class="github-icon" />Demander de modifier un document</a><a target="_blank" href="https://github.com/NetAppDocs/test/blob/main/task_add_collector_svm.adoc" class="page-nav-contribute-link" role="button"><img src="/fr-fr/test/images/edit-sm.svg" alt="" class="github-icon" />Modifier sur GitHub</a><a target="_blank" href="https://docs.netapp.com/us-en/contribute/" class="page-nav-contribute-link"  ><img src="/fr-fr/test/images/article-sm.svg" alt="" class="github-icon" />Guide des contributeurs</a></div>
+    <div class="page-nav-container">
+      <nav class="page-nav-fixed">
+        <div class="page-nav-title">SUR CETTE PAGE</div>
+        <div class="page-nav-links">
+          <ul class="page-nav-inner" id="page-menu"></ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+  
+  
+  <!-- Start top_hat -->
+  <div class="n-top-hat">
+    <div class="n-container">
+      <div class="n-top-hat__cross-property-nav">
+        <ul class="n-top-hat__list">
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/products-a-z/" class="n-top-hat__link">Produits et solutions</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/support-and-training/netapp-university/" class="n-top-hat__link">Support et formation</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://cloud.netapp.com" class="n-top-hat__link">Cloud Central</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://community.netapp.com/" class="n-top-hat__link">Communauté</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://blog.netapp.com/" class="n-top-hat__link">Blog</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://customers.netapp.com/en/" class="n-top-hat__link">Témoignages clients</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/us/contact-us/index.aspx" target="_self" class="n-top-hat__link" data-ntap-ui="contact-us">Contact</a>
+          </li>
+        </ul>
+      </div>
+      <div class="n-top-hat__utils">
+        <ul class="n-top-hat__list">
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/us/contact-us/index.aspx" target="_self" class="n-top-hat__link" data-ntap-ui="contact-us">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- End top_hat -->
+
+  <!-- Start property bar -->
+  <style>
+    .n-property-navigation-bar__menus--desktop-experience .n-menu--mega__default-content__heading span {
+    color: #34B0FF;
+    }
+  </style>
+  <div class="n-property-bar " data-ntap-ui="sticky-nav">
+    <div class="n-property-bar__inner-wrap">
+      <div class="n-property-bar__menu-toggle">
+        <a href="#" class="n-property-bar__menu-toggle-link">
+          <span class="n-property-bar__menu-toggle-text">Menu</span>
+          <svg class="n-icon-bars n-property-bar__menu-toggle-icon" aria-labelledby="title">
+            <title>bars</title>
+            <use xlink:href="/fr-fr/test/common/svg/sprite.svg#bars"></use>
+          </svg>
+        </a>
+      </div>
+      <div class="n-property-bar__property-mark ">
+        <a href="https://www.netapp.com" class="n-property-bar__property-link">
+          <div class="n-property-bar__logo">
+            <svg class="n-icon-netapp-mark n-icon-netapp-mark n-property-bar__netapp-mark-icon" aria-labelledby="title">
+              <title>netapp-mark</title>
+              <use xlink:href="/fr-fr/test/common/svg/sprite.svg#netapp-mark"></use>
+            </svg>
+            <svg class="n-icon-netapp-logo n-property-bar__logo-svg" aria-labelledby="title">
+              <title>netapp-logo</title>
+              <use xlink:href="/fr-fr/test/common/svg/sprite.svg#netapp-logo"></use>
+            </svg>
+          </div>
+        </a>
+      </div>
+
+      
+      
+      
+      <div class="search-property-bar">
+        <div id="search-demo-container" class="searchbox n-property-bar__search">
+          <div id="react-search" 
+          data-search-html="/fr-fr/test/search.html"
+          data-type="widget" 
+          data-placeholder="Rechercher une documentation"
+          data-no-results-found="Aucun résultat n'a été trouvé pour {query}"
+          data-did-you-mean="Rechercher {suggestion}."
+          data-no-results-found-did-you-mean="Aucun résultat n’a été trouvé pour {query}. Voulez-vous dire {suggestion} ?"
+          data-results-found="{hitCount} résultats trouvés"
+          data-error-message="We're sorry, an issue occurred when fetching your results. Please try again."
+          data-error-reset="Reset Search"
+          data-sk-es-pf-indexes=""
+          data-flavor=""></div>
+          <button class="n-property-bar__search-toggle-button" type="button">
+            <svg class="n-icon-search n-property-bar__search-toggle-button-icon" aria-labelledby="title">
+              <title>search</title>
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/fr-fr/test/common/svg/sprite.svg#search"></use>
+            </svg>
+          </button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <div class="n-property-bar__toolbar">
+    <!-- Start Language Selector --><div id="language-dropdown" class="custom-dropdown custom-dropdown-lang">
+      <div class="custom-dropdown-select custom-dropdown-select-lang">
+      <span class="lang-name">Français</span>
+          <svg class="n-globe__icon" aria-labelledby="title">
+            <title>globe</title>
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/fr-fr/test/common/svg/sprite.svg#globe"></use>
+          </svg>
+        </button>
+      </div>
+
+      <ul class="custom-dropdown-menu"><li>
+          <a href="https://docs.netapp.com/fr-fr/test/task_add_collector_svm.html" target="_self"><span translate="no" class="notranslate">Français</span></a>
+        </li><li>
+          <a href="https://docs.netapp.com/us-en/test/task_add_collector_svm.html" target="_self"><span translate="no" class="notranslate">English</span></a>
+        </li><li>
+          <a href="https://docs.netapp.com/ja-jp/test/task_add_collector_svm.html" target="_self"><span translate="no" class="notranslate">日本語</span></a>
+        </li><li>
+          <a href="https://docs.netapp.com/zh-cn/test/task_add_collector_svm.html" target="_self"><span translate="no" class="notranslate">简体中文</span></a>
+        </li><li>
+          <a href="https://docs.netapp.com/zh-tw/test/task_add_collector_svm.html" target="_self"><span translate="no" class="notranslate">繁體中文</span></a>
+        </li><li>
+          <a href="https://docs.netapp.com/ko-kr/test/task_add_collector_svm.html" target="_self"><span translate="no" class="notranslate">한국어</span></a>
+        </li><li>
+          <a href="https://docs.netapp.com/de-de/test/task_add_collector_svm.html" target="_self"><span translate="no" class="notranslate">Deutsch</span></a>
+        </li></ul>
+    </div><!-- End Language Selector -->
+
+    <div class="n-property-bar__cta"></div>
+  </div>
+  <script>
+    $(function(){
+        var currentLocalization = $('html').attr('lang');
+
+        var localizationsDictionary = {
+            "en-CA" : "https://www.netapp.com/search/index.aspx?for_cr=canada&",
+            "en-IN" : "https://www.netapp.com/search/index.aspx?for_cr=india&",
+            "nl-NL" : "https://www.netapp.com/search/index.aspx?for_cr=netherlands&",
+            "ru-RU" : "https://www.netapp.com/search/index.aspx?for_cr=russia&",
+            "sv-SE" : "https://www.netapp.com/search/index.aspx?for_cr=sweden&",
+            "it-IT" : "https://www.netapp.com/search/index.aspx?for_cr=italy&",
+            "he-IL" : "https://www.netapp.com/search/index.aspx?for_cr=israel&",
+            "ko-KR" : "https://www.netapp.com/search/index.aspx?for_cr=korea&",
+            "zh-TW" : "https://www.netapp.com/search/index.aspx?for_cr=taiwan&",
+            "en-GB" : "https://www.netapp.com/search/index.aspx?for_cr=unitedkingdom&",
+            "en-SG" : "https://www.netapp.com/search/index.aspx?for_cr=asean&",
+            "en-AU" : "https://www.netapp.com/search/index.aspx?for_cr=australia&",
+            "pt-BR" : "https://www.netapp.com/search/index.aspx?for_cr=brasil&",
+            "de-CH" : "https://www.netapp.com/search/index.aspx?for_cr=switzerland&",
+            "es-MX" : "https://www.netapp.com/search/index.aspx?for_cr=mexico&"
+        };
+
+        if($('html').hasClass('ntap-whitelisted') && localizationsDictionary.hasOwnProperty(currentLocalization)) {
+            $('.n-property-bar__property-link').attr('href', '/');
+        }
+    });
+  </script>
+  <!-- End property bar -->
+</header>
+
+
+        <main id="n-main-content" class="n-main-content">
+          <!-- Start Documentation Content -->
+<div class="ie-main">
+  <!-- Sidebar Column -->
+  
+  <div class="col-md-3" id="sidebar-height">
+      <button id="btn-sidebar-collapse" onclick="hideSidebar()"><img src="/fr-fr/test/images/collapse.png" alt="Réduire le panneau de navigation"></button>
+      <div class="sidebar-nav-container" id="mysidebardiv">
+  <ul id="mysidebar" class="nav"><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Documentation Cloud Insights"
+      data-li-level="1#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/index.html">
+        Documentation Cloud Insights
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Nouveautés"
+      data-li-level="1#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_whats_new.html">
+        Nouveautés
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Inscription à Cloud Insights"
+      data-li-level="1#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_cloud_insights_onboarding_1.html">
+        Inscription à Cloud Insights
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Sécurité"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Sécurité</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Pratiques de sécurité"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/security_overview.html">
+        Pratiques de sécurité
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Ce que nous Store et où"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/security_information_and_region.html">
+        Ce que nous Store et où
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Mise en route"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Mise en route</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Tutoriels de fonctionnalités"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_feature_tutorials.html">
+        Tutoriels de fonctionnalités
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Collecte des données"
+      data-li-level="2" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Collecte des données</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Présentation"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_getting_started_with_cloud_insights.html">
+        Présentation
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Exigences relatives à l'unité d'acquisition"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_acquisition_unit_requirements.html">
+        Exigences relatives à l'unité d'acquisition
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration d'une unité d'acquisition"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_configure_acquisition_unit.html">
+        Configuration d'une unité d'acquisition
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration d'un agent"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_agent.html">
+        Configuration d'un agent
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration des collecteurs de données"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_configure_data_collectors.html">
+        Configuration des collecteurs de données
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Détermination de l'état d'acquisition du Data Collector"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_determining_data_collector_acq_status.html">
+        Détermination de l'état d'acquisition du Data Collector
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Gérer les collecteurs de données configurés"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_view_configured_data_collectors.html">
+        Gérer les collecteurs de données configurés
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Erreurs de collecte de données de recherche"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_research_failed_collector.html">
+        Erreurs de collecte de données de recherche
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Importation des tableaux de bord recommandés"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_import_from_dashboard_gallery.html">
+        Importation des tableaux de bord recommandés
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Comptes utilisateur et rôles"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_user_roles.html">
+        Comptes utilisateur et rôles
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Passage à d'autres produits Cloud Central"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_other_cloud_products.html">
+        Passage à d'autres produits Cloud Central
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Liste Data Collector"
+      data-li-level="1#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/data_collector_list.html">
+        Liste Data Collector
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Abonnement à Cloud Insights"
+      data-li-level="1#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_subscribing_to_cloud_insights.html">
+        Abonnement à Cloud Insights
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Résolution automatique des périphériques"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Résolution automatique des périphériques</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Présentation de la résolution des périphériques"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_device_resolution_overview.html">
+        Présentation de la résolution des périphériques
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Règles de résolution des périphériques"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_device_resolution_rules.html">
+        Règles de résolution des périphériques
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Résolution de périphérique Fibre Channel"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_device_resolution_fibre_channel.html">
+        Résolution de périphérique Fibre Channel
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Résolution de périphérique IP"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_device_resolution_ip.html">
+        Résolution de périphérique IP
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Définition des préférences de résolution du périphérique"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_device_resolution_preferences.html">
+        Définition des préférences de résolution du périphérique
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Exemples d'expression régulière"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_device_resolution_regex_examples.html">
+        Exemples d'expression régulière
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Création de tableaux de bord"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Création de tableaux de bord</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Présentation du tableau de bord"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_dashboards_overview.html">
+        Présentation du tableau de bord
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Caractéristiques des tableaux de bord"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_dashboard_features.html">
+        Caractéristiques des tableaux de bord
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Exemple de tableaux de bord"
+      data-li-level="2" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Exemple de tableaux de bord</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Performances des ordinateurs virtuels"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dashboard_example_VM_performance.html">
+        Performances des ordinateurs virtuels
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Meilleures pratiques de tableau de bord"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_dashboard_best_practices.html">
+        Meilleures pratiques de tableau de bord
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Kubernetes Explorer"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Kubernetes Explorer</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Page de présentation de Kubernetes"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/kubernetes_landing_page.html">
+        Page de présentation de Kubernetes
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Page du cluster Kubernetes"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/kubernetes_cluster_detail.html">
+        Page du cluster Kubernetes
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Utilisation des requêtes"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Utilisation des requêtes</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Interrogation des ressources"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_querying_assets.html">
+        Interrogation des ressources
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Création d'une requête"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_create_query.html">
+        Création d'une requête
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Affichage des requêtes disponibles"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_view_queries.html">
+        Affichage des requêtes disponibles
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Exportation des résultats de la requête au format .CSV"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_export_query_results.html">
+        Exportation des résultats de la requête au format .CSV
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Modification ou suppression d'une requête"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_modify_delete_query.html">
+        Modification ou suppression d'une requête
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Affectation de plusieurs applications/annotations à des objets"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_query_assign_multiple_applicationss.html">
+        Affectation de plusieurs applications/annotations à des objets
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Copie des valeurs de table dans le presse-papiers"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_query_copy_table_values.html">
+        Copie des valeurs de table dans le presse-papiers
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Interrogation des journaux"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_log_explorer.html">
+        Interrogation des journaux
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Utilisation des annotations"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Utilisation des annotations</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Définition d'annotations"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_defining_annotations.html">
+        Définition d'annotations
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Utilisation d'annotations"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_create_annotation.html">
+        Utilisation d'annotations
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Utilisation des règles d'annotation"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_create_annotation_rules.html">
+        Utilisation des règles d'annotation
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Importation d'annotations avec l'API"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_annotation_import.html">
+        Importation d'annotations avec l'API
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Utilisation des applications"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Utilisation des applications</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Concepts d'application"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_about_applications.html">
+        Concepts d'application
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration des applications"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_create_application.html">
+        Configuration des applications
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Surveille et alerte"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Surveille et alerte</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Création de moniteurs"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_create_monitor.html">
+        Création de moniteurs
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Affichage et gestion des alertes"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_view_and_manage_alerts.html">
+        Affichage et gestion des alertes
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration des destinataires de notification"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_notifications_email.html">
+        Configuration des destinataires de notification
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Moniteurs définis par le système"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_system_monitors.html">
+        Moniteurs définis par le système
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Utilisation d'API"
+      data-li-level="1#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/API_Overview.html">
+        Utilisation d'API
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Notification Webhook"
+      data-li-level="1#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_create_webhook.html">
+        Notification Webhook
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Contrôle de votre environnement"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Contrôle de votre environnement</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Événements d'audit"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_audit.html">
+        Événements d'audit
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="TTL et sous-échantillonnage"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_ttl_and_downsampling.html">
+        TTL et sous-échantillonnage
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Informations sur la page de ressources"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Informations sur la page de ressources</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Présentation de la page de ressources"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_asset_page_overview.html">
+        Présentation de la page de ressources
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Filtrage dans le contexte pour les objets"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_in_context_filters.html">
+        Filtrage dans le contexte pour les objets
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Récapitulatif des sections de topologie"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_asset_summary_section.html">
+        Récapitulatif des sections de topologie
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Section vue expert"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_asset_expert_view_section.html">
+        Section vue expert
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Section données utilisateur"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_asset_user_data_section.html">
+        Section données utilisateur
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Section alertes associées"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_asset_alerts_section.html">
+        Section alertes associées
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Conseils et astuces pour rechercher des ressources"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_searching_assets.html">
+        Conseils et astuces pour rechercher des ressources
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Création de rapports"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Création de rapports</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Présentation des rapports"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reporting_overview.html">
+        Présentation des rapports
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Génération de rapports des rôles utilisateur"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reporting_user_roles.html">
+        Génération de rapports des rôles utilisateur
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Utilisation de rapports prédéfinis"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reporting_predefined_reports.html">
+        Utilisation de rapports prédéfinis
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Tableau de bord de Storage Manager"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reporting_storage_manager_dashboard.html">
+        Tableau de bord de Storage Manager
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Création d'un exemple de rapport"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reporting_create_example.html">
+        Création d'un exemple de rapport
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Gestion des rapports"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reporting_managing_reports.html">
+        Gestion des rapports
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Rapports personnalisés"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reporting_creating_custom_reports.html">
+        Rapports personnalisés
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Modèles de données"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reporting_creating_custom_reports.html#reporting-data-models">
+        Modèles de données
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="API de base de données de reporting"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reporting_querying_database.html">
+        API de base de données de reporting
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Conservation des données"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reporting_data_retention.html">
+        Conservation des données
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Diagrammes de schéma"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reporting_schema_diagrams.html">
+        Diagrammes de schéma
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Tables de schéma"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reference_schemas.html">
+        Tables de schéma
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Cloud Secure"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Cloud Secure</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="À propos de Cloud Secure"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/cs_intro.html">
+        À propos de Cloud Secure
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Mise en route"
+      data-li-level="2" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Mise en route</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Mise en route de Cloud Secure"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_cs_getting_started.html">
+        Mise en route de Cloud Secure
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration requise pour l'agent Cloud Secure"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_cs_agent_requirements.html">
+        Configuration requise pour l'agent Cloud Secure
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration d'un agent Cloud Secure"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_cs_add_agent.html">
+        Configuration d'un agent Cloud Secure
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Suppression d'un agent Cloud Secure"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_cs_delete_agent.html">
+        Suppression d'un agent Cloud Secure
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration d'un collecteur AD Directory"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_user_dir_connect.html">
+        Configuration d'un collecteur AD Directory
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration d'un collecteur d'annuaire LDAP"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_user_dir_connect_ldap.html">
+        Configuration d'un collecteur d'annuaire LDAP
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration d'Amazon FSX pour NetApp ONTAP Collector"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_cs_amazon_fsx.html">
+        Configuration d'Amazon FSX pour NetApp ONTAP Collector
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration du SVM Data Collector de ONTAP"
+      data-li-level="3#" 
+      class="  active "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_add_collector_svm.html">
+        Configuration du SVM Data Collector de ONTAP
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration du collecteur de données Cloud ONTAP"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_cs_incloud.html">
+        Configuration du collecteur de données Cloud ONTAP
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Gestion des utilisateurs Cloud Secure"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_cs_user_management.html">
+        Gestion des utilisateurs Cloud Secure
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Vérificateur de taux d'événement"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_cs_event_rate_checker.html">
+        Vérificateur de taux d'événement
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Alertes"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/cs_alert_data.html">
+        Alertes
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Médecine légale"
+      data-li-level="2" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Médecine légale</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Activités médico-légales - toutes les activités"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/forensic_activity_history.html">
+        Activités médico-légales - toutes les activités
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Activités médico-légales - entités"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/forensic_entity_detail.html">
+        Activités médico-légales - entités
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Utilisateurs"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/forensic_user_overview.html">
+        Utilisateurs
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Stratégies de réponse automatisées"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/cs_automated_response_policies.html">
+        Stratégies de réponse automatisées
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Restriction de l'accès des utilisateurs"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/cs_restrict_user_access.html">
+        Restriction de l'accès des utilisateurs
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Simulation d'une attaque par ransomware"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_cs_attack_simulator.html">
+        Simulation d'une attaque par ransomware
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Notifications"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/cs_notifications_email.html">
+        Notifications
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="API Cloud Secure"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_cs_api.html">
+        API Cloud Secure
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Active IQ"
+      data-li-level="1#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_activeiq.html">
+        Active IQ
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Dépannage"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Dépannage</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Dépannage général"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_troubleshooting_general_problems.html">
+        Dépannage général
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Dépannage des problèmes d'unité d'acquisition Linux"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_troubleshooting_linux_acquisition_unit_problems.html">
+        Dépannage des problèmes d'unité d'acquisition Linux
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Dépannage des problèmes d'unité d'acquisition Windows"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_troubleshooting_windows_acquisition_unit_problems.html">
+        Dépannage des problèmes d'unité d'acquisition Windows
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Recherche d'erreurs du Data Collector"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_research_failed_collector.html">
+        Recherche d'erreurs du Data Collector
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Support de référence"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Support de référence</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Demande d'aide"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_requesting_support.html">
+        Demande d'aide
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Matrice de prise en charge du Data Collector"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reference_data_collector_support_matrix.html">
+        Matrice de prise en charge du Data Collector
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Data Collector Reference - Infrastructure"
+      data-li-level="2" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Data Collector Reference - Infrastructure</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Présentation de référence des fournisseurs"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_data_collector_reference.html">
+        Présentation de référence des fournisseurs
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="AWS"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_amazon_ec2.html">
+        AWS
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Azure"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_ms_azure.html">
+        Azure
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Broadcom"
+      data-li-level="3" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Broadcom</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Brocade Network Advisor"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_brocade_bna.html">
+        Brocade Network Advisor
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Commutateur Fibre Channel"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_brocade_fc_switch.html">
+        Commutateur Fibre Channel
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Cisco"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_cisco_fc_switch.html">
+        Cisco
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Dell"
+      data-li-level="3" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Dell</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Série XC"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_dell_xc_series.html">
+        Série XC
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Dell EMC"
+      data-li-level="3" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Dell EMC</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Data Domain"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_emc_datadomain.html">
+        Data Domain
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="ECS"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_emc_ecs.html">
+        ECS
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="PowerScale"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_emc_isilon.html">
+        PowerScale
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="PowerStore"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_emc_powerstore.html">
+        PowerStore
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="RecoverPoint"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_emc_recoverpoint.html">
+        RecoverPoint
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="ScaleIO"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_emc_scaleio.html">
+        ScaleIO
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Unity (VNXe)"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_emc_unity.html">
+        Unity (VNXe)
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="VMAX/PowerMax"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_emc_vmax_powermax.html">
+        VMAX/PowerMax
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="VNX Block (CLARiiON)"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_emc_vnx_block.html">
+        VNX Block (CLARiiON)
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="VNX File (Celerra)"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_emc_vnx_file.html">
+        VNX File (Celerra)
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="VNX Unified"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_emc_vnx_unified.html">
+        VNX Unified
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="VPLEX"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_emc_vplex.html">
+        VPLEX
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="XtremIO"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_emc_xio.html">
+        XtremIO
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Fujitsu"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_fujitsu_eternus.html">
+        Fujitsu
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Google"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_google_cloud.html">
+        Google
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="HP Enterprise"
+      data-li-level="3" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> HP Enterprise</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="HP Alletra 9000 et Primera"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_hp_3par.html">
+        HP Alletra 9000 et Primera
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="AE HP Command View"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_hpe_commandview.html">
+        AE HP Command View
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="HPE Alletra 6000"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_hpe_nimble.html">
+        HPE Alletra 6000
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Hitachi Data Systems"
+      data-li-level="3" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Hitachi Data Systems</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="HDS Command Suite"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_hds_commandsuite.html">
+        HDS Command Suite
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="HDS HNAS"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_hds_nas.html">
+        HDS HNAS
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="HDS Ops Center"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_hds_ops_center.html">
+        HDS Ops Center
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Infinidat"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_infinidat_infinibox.html">
+        Infinidat
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Huawei"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_huawei_oceanstor.html">
+        Huawei
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="IBM"
+      data-li-level="3" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> IBM</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Cleversafe"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_ibm_cleversafe.html">
+        Cleversafe
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Gamme CS"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_ibm_cs.html">
+        Gamme CS
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Systèmes de stockage DS8000"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_ibm_ds.html">
+        Systèmes de stockage DS8000
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="PowerVM"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_ibm_powervm.html">
+        PowerVM
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Contrôleur de volume SAN (SVC)"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_ibm_svc.html">
+        Contrôleur de volume SAN (SVC)
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="XIV/A9000"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_ibm_xiv.html">
+        XIV/A9000
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Lenovo"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_lenovo.html">
+        Lenovo
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Microsoft"
+      data-li-level="3" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Microsoft</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Azure NetApp Files"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_ms_anf.html">
+        Azure NetApp Files
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Hyper-V"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_ms_hyperv.html">
+        Hyper-V
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="NetApp"
+      data-li-level="3" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> NetApp</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Magasin de données Astra"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_na_astra_data_store.html">
+        Magasin de données Astra
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Connexion cloud pour ONTAP 9.9+"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_na_cloud_connection.html">
+        Connexion cloud pour ONTAP 9.9+
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Cloud Volumes ONTAP"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_na_cloud_volumes_ontap.html">
+        Cloud Volumes ONTAP
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Cloud volumes Services pour AWS"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_na_cloud_volumes.html">
+        Cloud volumes Services pour AWS
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Logiciel de gestion des données ONTAP"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_na_cdot.html">
+        Logiciel de gestion des données ONTAP
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Data ONTAP 7-mode"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_na_7mode.html">
+        Data ONTAP 7-mode
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="E-Series"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_na_eseries.html">
+        E-Series
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Serveur de gestion NetApp HCI"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_na_hci.html">
+        Serveur de gestion NetApp HCI
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="SolidFire"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_na_solidfire.html">
+        SolidFire
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="StorageGRID"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_na_storagegrid.html">
+        StorageGRID
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Nutanix"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_nutanix.html">
+        Nutanix
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="OpenStack"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_openstack.html">
+        OpenStack
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Oracle"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_oracle_zfs.html">
+        Oracle
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Pure"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_pure_flasharray.html">
+        Pure
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Red Hat"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_redhat_virtualization.html">
+        Red Hat
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="VMware"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_vmware.html">
+        VMware
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Data Collector Reference - Services"
+      data-li-level="2" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Data Collector Reference - Services</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Hôte/nœud"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_node.html">
+        Hôte/nœud
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="ActiveMQ"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_activemq.html">
+        ActiveMQ
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Apache"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_apache.html">
+        Apache
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Consul"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_consul.html">
+        Consul
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Couchbase"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_couchbase.html">
+        Couchbase
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="CouchDB"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_couchdb.html">
+        CouchDB
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Docker"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_docker.html">
+        Docker
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="ElasticSearch"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_elasticsearch.html">
+        ElasticSearch
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Encre"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_flink.html">
+        Encre
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Hadoop"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_hadoop.html">
+        Hadoop
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="HABProxy"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_haproxy.html">
+        HABProxy
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Java"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_jvm.html">
+        Java
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Kafka"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_kafka.html">
+        Kafka
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Kapacitor"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_kapacitor.html">
+        Kapacitor
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Kibana"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_kibana.html">
+        Kibana
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Kubernetes"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_agent.html#kubernetes">
+        Kubernetes
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Mise en mémoire cache"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_memcached.html">
+        Mise en mémoire cache
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="MongoDB"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_mongodb.html">
+        MongoDB
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="MySQL"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_mysql.html">
+        MySQL
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Netstat"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_netstat.html">
+        Netstat
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Nginx"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_nginx.html">
+        Nginx
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="OpenZFS"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_openzfs.html">
+        OpenZFS
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="PostgreSQL"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_postgresql.html">
+        PostgreSQL
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Puppet"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_puppetagent.html">
+        Puppet
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Redis"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_redis.html">
+        Redis
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="RethinkDB"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_rethinkdb.html">
+        RethinkDB
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Zookeeper"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_zookeeper.html">
+        Zookeeper
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Référence de l'icône d'objet"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reference_object_icons.html">
+        Référence de l'icône d'objet
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Mentions légales"
+      data-li-level="1#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reference_legal_notices.html">
+        Mentions légales
+      </a></li></ul>
+</div>
+<script>
+  window.onscroll = () => {
+    const value = -40 - (document.body.scrollHeight - (window.innerHeight + document.scrollingElement.scrollTop));
+    
+    document.getElementById("sidebar-height").style.bottom = Math.max(0,value) + "px";
+};
+</script>
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+<script>$("#mysidebar li.active").parents('ul').css("display","block");</script>
+
+
+  </div>
+  
+
+  <div class="ie-content-pane n-doc__component-detail-content n-doc__component-detail-content--show-code">
+    <!-- Begin of page container --><article class="page-content" id="main">
+      <div class="ie-utility">
+  <button id="btn-sidebar-expand" onclick="showSidebar()"><img src="/fr-fr/test/images/expand.png" alt="Développer le panneau de navigation"></button>
+  <div class="ie-menu">
+    <div class="n-breadcrumb">
+      <ul class="n-breadcrumb__list">
+        <li class="n-breadcrumb__list-item">
+          <a href="https://docs.netapp.com">docs.netapp.com</a>
+        </li>
+        
+
+        
+
+        <li class="n-breadcrumb__list-item">
+          <a href="/fr-fr/test/">Cloud&nbsp;Insights</a>
+        </li>
+
+      </ul>
+    </div>
+    <div style="clear: both"></div><!-- Main needs to have height -->
+  </div>
+</div>
+
+      <div class="ie-nmt-disclaimer">
+  <span>
+    <div class="ie-nmt-disclaimer-container">
+      <div class="ie-nmt-disclaimer-icon">
+        <svg class="luci-icon" aria-hidden="true">
+          <use xlink:href="/fr-fr/test/common/svg/sprite.svg#circle-info">
+        </svg>
+      </div>
+      <div class="ie-nmt-disclaimer-content">
+        <span> La version française est une traduction automatique. La version anglaise prévaut sur la française en cas de divergence. </span>
+      </div>
+      <div style="clear:both;"></div>
+    </div>
+  </span>
+</div><div class="n-doc__component-detail-heading-wrap">
+  <h1 class="n-doc__component-detail-heading">Configuration du SVM Data Collector de ONTAP</h1>
+</div>
+
+
+<p class="page-details">
+  
+    
+    <time datetime="2022-12-14 18:25:28 +0000">12/14/2022</time>
+    
+  
+
+<span>Contributeurs
+</span>
+
+
+</p>
+
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Cloud Secure utilise des collecteurs de données pour collecter les données d&#8217;accès des fichiers et des utilisateurs à partir de terminaux.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="avant-de-commencer">Avant de commencer</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Ce collecteur de données est pris en charge avec les éléments suivants :</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Data ONTAP 9.2 et versions ultérieures Pour obtenir des performances optimales, utilisez la version Data ONTAP où <a href="https://mysupport.netapp.com/site/bugs-online/product/ONTAP/BURT/1372994">"cette question"</a> est fixe.</p>
+</li>
+<li>
+<p>Protocole SMB version 3.1 et antérieure</p>
+</li>
+<li>
+<p>Protocole NFS version 4.0 et antérieure</p>
+</li>
+<li>
+<p>FlexGroup est pris en charge à partir de ONTAP 9.4 et versions ultérieures</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Seuls les SVM de type données sont pris en charge. Les SVM avec Infinite volumes ne sont pas pris en charge.</p>
+</li>
+<li>
+<p>SVM possède plusieurs sous-types. Parmi ces derniers, seuls <em>default</em> et <em>sync_source</em> sont pris en charge.</p>
+</li>
+<li>
+<p>Un agent <a href="task_cs_add_agent.html">"doit être configuré"</a> avant de pouvoir configurer des collecteurs de données.</p>
+</li>
+<li>
+<p>Assurez-vous que vous disposez d&#8217;un connecteur d&#8217;annuaire utilisateur correctement configuré. Dans le cas contraire, les événements affichent des noms d&#8217;utilisateur codés et non le nom réel de l&#8217;utilisateur (tel qu&#8217;il est stocké dans Active Directory) dans la page « activités approfondies ».</p>
+</li>
+<li>
+<p>Pour des performances optimales, il est recommandé de configurer le serveur FPolicy sur le même sous-réseau que le système de stockage.</p>
+</li>
+<li>
+<p>Vous devez ajouter un SVM à l&#8217;aide de l&#8217;une des deux méthodes suivantes :</p>
+<div class="ulist">
+<ul>
+<li>
+<p>En utilisant l&#8217;IP du cluster, le nom du SVM et le nom d&#8217;utilisateur et mot de passe de Cluster Management. <em>Il s&#8217;agit de la méthode recommandée.</em></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Le nom du SVM doit être exactement comme indiqué dans ONTAP et est sensible à la casse.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>En utilisant SVM Vserver Management IP, Nom d&#8217;utilisateur et Mot de passe</p>
+</li>
+<li>
+<p>Si vous ne pouvez pas ou n&#8217;êtes pas disposé à utiliser le nom d&#8217;utilisateur et le mot de passe administrateur complet Cluster/SVM Management, vous pouvez créer un utilisateur personnalisé avec des privilèges moins importants comme indiqué dans la <a href="#a-note-about-permissions">"“Une note sur les autorisations”"</a> section ci-dessous. Cet utilisateur personnalisé peut être créé pour l&#8217;accès au SVM ou au cluster.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>o vous pouvez également utiliser un utilisateur AD avec un rôle qui possède au moins les autorisations de csrole, comme indiqué dans la section “Une note sur les autorisations” ci-dessous. Reportez-vous également à la <a href="https://docs.netapp.com/ontap-9/index.jsp?topic=%2Fcom.netapp.doc.pow-adm-auth-rbac%2FGUID-0DB65B04-71DB-43F4-9A0F-850C93C4896C.html">"Documentation ONTAP"</a>.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>S&#8217;assurer que les applications correctes sont définies pour le SVM en exécutant la commande suivante :</p>
+<div class="literalblock">
+<div class="content">
+<pre>clustershell::&gt; security login show -vserver &lt;vservername&gt; -user-or-group-name &lt;username&gt;</pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Exemple de résultat :<span class="image"><img src="cs_svm_sample_output.png" alt="Exemple de sortie de commande SVM"></span></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>S&#8217;assurer que le SVM dispose d&#8217;un serveur CIFS configuré : clustershell :&gt; <code>vserver cifs show</code></p>
+<div class="paragraph">
+<p>Le système renvoie le nom du Vserver, le nom du serveur CIFS et les champs supplémentaires.</p>
+</div>
+</li>
+<li>
+<p>Définir un mot de passe pour l&#8217;utilisateur SVM vsadmin. Si vous utilisez un utilisateur personnalisé ou un utilisateur administrateur de cluster, ignorez cette étape. cluster shell ::&gt; <code>security login password -username vsadmin -vserver svmname</code></p>
+</li>
+<li>
+<p>Déverouiller l&#8217;utilisateur SVM vsadmin pour l&#8217;accès externe Si vous utilisez un utilisateur personnalisé ou un utilisateur administrateur de cluster, ignorez cette étape. cluster shell ::&gt; <code>security login unlock -username vsadmin -vserver svmname</code></p>
+</li>
+<li>
+<p>Assurez-vous que la politique de pare-feu de la LIF de données est définie sur «mgmt» (et non «data»). Ignorez cette étape si vous utilisez une lif de gestion dédiée pour ajouter un SVM. cluster shell ::&gt; <code>network interface modify -lif &lt;SVM_data_LIF_name&gt; -firewall-policy mgmt</code></p>
+</li>
+<li>
+<p>Lorsqu&#8217;un pare-feu est activé, une exception doit être définie pour autoriser le trafic TCP pour le port à l&#8217;aide du Data Collector Data ONTAP.</p>
+<div class="paragraph">
+<p>Voir <a href="concept_cs_agent_requirements.html">"Exigences de l&#8217;agent"</a> pour des informations de configuration. Cela s&#8217;applique aux agents et agents installés sur site dans le Cloud.</p>
+</div>
+</li>
+<li>
+<p>Lorsqu&#8217;un agent est installé dans une instance EC2 AWS pour contrôler un SVM Cloud ONTAP, l&#8217;agent et le stockage doivent se trouver dans le même VPC. S&#8217;ils sont dans des VPC distincts, il doit y avoir une route valide entre les VPC.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="remarque-sur-les-autorisations">Remarque sur les autorisations</h3>
+<div class="sect3">
+<h4 id="autorisations-lors-de-lajout-via-cluster-management-ip">Autorisations lors de l&#8217;ajout via <strong>Cluster Management IP</strong> :</h4>
+<div class="paragraph">
+<p>Si vous ne pouvez pas utiliser l&#8217;administrateur de gestion du cluster pour autoriser Cloud Secure à accéder au collecteur de données SVM ONTAP, vous pouvez créer un nouvel utilisateur nommé « csuser » avec les rôles décrits dans les commandes ci-dessous. Utilisez le nom d&#8217;utilisateur "csuser" et le mot de passe "csuser" lors de la configuration du collecteur de données Cloud Secure pour utiliser l&#8217;adresse IP de gestion du cluster.</p>
+</div>
+<div class="paragraph">
+<p>Pour créer le nouvel utilisateur, connectez-vous à ONTAP à l&#8217;aide du nom d&#8217;utilisateur/mot de passe de l&#8217;administrateur de gestion des clusters et exécutez les commandes suivantes sur le serveur ONTAP :</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>security login role create -role csrole -cmddirname DEFAULT -access none
+security login role create -role csrole -cmddirname "network interface" -access readonly
+security login role create -role csrole -cmddirname version -access readonly
+security login role create -role csrole -cmddirname volume -access readonly
+security login role create -role csrole -cmddirname vserver -access readonly
+security login role create -role csrole -cmddirname "vserver fpolicy" -access all
+security login role create -role csrole -cmddirname "volume snapshot" -access all -query "-snapshot cloudsecure_*"
+security login role create -role csrole -cmddirname "event catalog" -access all
+security login role create -role csrole -cmddirname "event filter" -access all
+security login role create -role csrole -cmddirname "event notification destination" -access all
+security login role create -role csrole -cmddirname "event notification" -access all
+security login role create -role csrole -cmddirname "security certificate" -access all
+security login create -user-or-group-name csuser -application ontapi -authmethod password -role csrole
+security login create -user-or-group-name csuser -application ssh -authmethod password -role csrole
+security login role create -role csrole -cmddirname "vserver export-policy rule" -access all -query "-policyname cloudsecure_*"</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="autorisations-lors-de-lajout-via-vserver-management-ip">Autorisations lors de l&#8217;ajout via <strong>Vserver Management IP</strong> :</h4>
+<div class="paragraph">
+<p>Si vous ne pouvez pas utiliser l&#8217;administrateur de gestion du cluster pour autoriser Cloud Secure à accéder au collecteur de données SVM ONTAP, vous pouvez créer un nouvel utilisateur nommé « csuser » avec les rôles décrits dans les commandes ci-dessous. Utilisez le nom d&#8217;utilisateur "csuser" et le mot de passe "csuser" lors de la configuration du collecteur de données Cloud Secure pour utiliser l&#8217;IP de gestion Vserver.</p>
+</div>
+<div class="paragraph">
+<p>Pour créer le nouvel utilisateur, connectez-vous à ONTAP à l&#8217;aide du nom d&#8217;utilisateur/mot de passe de l&#8217;administrateur de gestion des clusters et exécutez les commandes suivantes sur le serveur ONTAP. Pour faciliter la gestion, copiez ces commandes dans un éditeur de texte et remplacez &lt;vservername&gt; par votre nom de Vserver avant d&#8217;exécuter les commandes suivantes sur ONTAP :</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>security login role create -vserver &lt;vservername&gt; -role csrole -cmddirname DEFAULT -access none
+security login role create -vserver &lt;vservername&gt; -role csrole -cmddirname "network interface" -access readonly
+security login role create -vserver &lt;vservername&gt; -role csrole -cmddirname version -access readonly
+security login role create -vserver &lt;vservername&gt; -role csrole -cmddirname volume -access readonly
+security login role create -vserver &lt;vservername&gt; -role csrole -cmddirname vserver -access readonly
+security login role create -vserver &lt;vservername&gt; -role csrole -cmddirname "vserver fpolicy" -access all
+security login role create -vserver &lt;vservername&gt; -role csrole -cmddirname "volume snapshot" -access all
+security login create -user-or-group-name csuser -application ontapi -authmethod password -role csrole -vserver &lt;vservername&gt;
+security login role create -vserver &lt;vservername&gt; -role csrole -cmddirname "vserver export-policy rule" -access all -query "-policyname cloudsecure_*"</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="configurer-le-collecteur-de-données">Configurer le collecteur de données</h3>
+<div class="olist arabic">
+<div class="title">Étapes de configuration</div>
+<ol class="arabic">
+<li>
+<p>Connectez-vous en tant qu&#8217;administrateur ou responsable de compte à votre environnement Cloud Insights.</p>
+</li>
+<li>
+<p>Cliquez sur <strong>Admin &gt; Data Collectors &gt; +Data Collectors</strong></p>
+<div class="paragraph">
+<p>Le système affiche les collecteurs de données disponibles.</p>
+</div>
+</li>
+<li>
+<p>Placez le curseur de la souris sur la vignette <strong>NetApp SVM et cliquez sur *+Monitor</strong>.</p>
+<div class="paragraph">
+<p>Le système affiche la page de configuration du SVM ONTAP. Entrez les données requises pour chaque champ.</p>
+</div>
+</li>
+</ol>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Champ</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Nom</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Nom unique pour le Data Collector</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Agent</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Sélectionnez un agent configuré dans la liste.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Se connecter via l&#8217;IP de gestion pour :</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Sélectionnez IP de cluster ou IP de gestion SVM</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Adresse IP de gestion cluster / SVM</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L&#8217;adresse IP du cluster ou du SVM, en fonction de votre choix ci-dessus.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Nom du SVM</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Le nom du SVM (ce champ est requis lors de la connexion via IP du cluster)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Nom d&#8217;utilisateur</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Nom d&#8217;utilisateur pour accéder au SVM/Cluster lors de l&#8217;ajout via IP du cluster les options sont : 1. Cluster-admin 2. 'csuser' 3. UTILISATEUR AD ayant le rôle similaire à celui de csuser. Lors de l&#8217;ajout via SVM IP, les options sont les suivantes : 4. vsadmin 5 'csuser' 6. AD-username ayant le rôle similaire à csuser.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mot de passe</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mot de passe du nom d&#8217;utilisateur ci-dessus</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Filtrer les partages/volumes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Choisissez d&#8217;inclure ou d&#8217;exclure des partages/volumes de la collection d&#8217;événements</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Entrez les noms de partage complets à exclure/inclure</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Liste de partages séparés par des virgules à exclure ou inclure (le cas échéant) de la collection d&#8217;événements</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Entrez les noms complets des volumes à exclure/inclure</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Liste de volumes séparés par des virgules à exclure ou inclure (le cas échéant) de la collection d&#8217;événements</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Surveiller l&#8217;accès au dossier</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Lorsque cette case est cochée, active les événements pour la surveillance de l&#8217;accès aux dossiers. Notez que la création/le renommage et la suppression de dossiers seront contrôlés même si cette option n&#8217;est pas sélectionnée. L&#8217;activation de cette option augmente le nombre d&#8217;événements surveillés.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Définir la taille de la mémoire tampon d&#8217;envoi ONTAP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Définit la taille du tampon d&#8217;envoi de la Fpolicy ONTAP. Si une version antérieure à ONTAP 9.8p7 est utilisée et qu&#8217;un problème de performances est détecté, la taille de la mémoire tampon d&#8217;envoi ONTAP peut être modifiée pour améliorer les performances de ONTAP. Contactez le support NetApp si vous ne voyez pas cette option et souhaitez l&#8217;explorer.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Définir la taille de la mémoire tampon d&#8217;envoi ONTAP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Définit la taille du tampon d&#8217;envoi de la Fpolicy ONTAP. Si des versions ONTAP antérieures à 9.8p7 sont utilisées et que le problème de performances ONTAP est atteint, la taille de la mémoire tampon d&#8217;envoi ONTAP peut être modifiée pour améliorer les performances ONTAP. Il s&#8217;agit d&#8217;une fonction masquée et activée par client sur demande.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="ulist">
+<div class="title">Une fois que vous avez terminé</div>
+<ul>
+<li>
+<p>Dans la page collecteurs de données installés, utilisez le menu d&#8217;options à droite de chaque collecteur pour modifier le collecteur de données. Vous pouvez redémarrer le collecteur de données ou modifier les attributs de configuration du collecteur de données.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="dépannage">Dépannage</h3>
+<div class="paragraph">
+<p>Les problèmes connus et leurs résolutions sont décrits dans le tableau suivant.</p>
+</div>
+<div class="paragraph">
+<p>En cas d&#8217;erreur, cliquez sur <em>more detail</em> dans la colonne <em>Status</em> pour obtenir des détails sur l&#8217;erreur.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="CS_Data_Collector_Error.png" alt=""></span></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Problème :</th>
+<th class="tableblock halign-left valign-top">Résolution :</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Data Collector s&#8217;exécute pendant un certain temps et s&#8217;arrête après un temps aléatoire, en échouant avec: "Message d&#8217;erreur: Le connecteur est à l&#8217;état d&#8217;erreur. Nom du service : audit. Cause de la panne : serveur fpolicy externe surchargé. »</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Le taux d&#8217;événement de ONTAP était beaucoup plus élevé que ce que l&#8217;Agent Box peut traiter. Par conséquent, la connexion a été interrompue. Vérifiez le trafic maximal dans CloudSecure lorsque la déconnexion s&#8217;est produite. Vous pouvez effectuer cette vérification à partir de la page <strong>CloudSecure &gt; activités approfondies &gt; toutes les activités</strong>. Si le pic de trafic agrégé est supérieur à ce que l&#8217;Agent Box peut traiter, reportez-vous à la page Event Rate Checker sur la taille du déploiement collecteur dans une boîte d&#8217;agent. Si l&#8217;agent a été installé dans la boîte Agent avant le 4 mars 2021, exécutez les commandes suivantes dans la boîte Agent : echo 'net.core.rmem_max=8388608' &gt;&gt; /etc/sysctl.conf echo 'net.ipv4.tcp_rmem = 4096 2097152 8388608' &gt;&gt; /etc/sysctl.conf sysctl -p après le redimensionnement de l&#8217;interface utilisateur.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Le collecteur signale un message d&#8217;erreur : “aucune adresse IP locale trouvée sur le connecteur qui peut atteindre les interfaces de données de la SVM”.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cela est probablement dû à un problème de réseau côté ONTAP. Veuillez suivre les étapes suivantes : 1. S&#8217;assurer qu&#8217;il n&#8217;y a aucun pare-feu sur la lif de données du SVM ou la lif de gestion qui bloquent la connexion de la SVM. 2. Lorsque vous ajoutez un SVM via une IP de gestion du cluster, veillez à ce que la lif de données et la lif de gestion de la SVM soient pingable à partir de la machine virtuelle de l&#8217;agent. En cas de problème, vérifier la passerelle, le masque de réseau et les routes de la lif. Vous pouvez également essayer de vous connecter au cluster via ssh à l&#8217;aide de l&#8217;IP de gestion de cluster et envoyer une requête ping à l&#8217;IP de l&#8217;agent. Vérifier que l&#8217;IP de l&#8217;agent est pingable : <em>network ping -vserver &lt;nom du vserver&gt; -destination &lt;adresse IP de l&#8217;agent&gt; -lif &lt;nom de la LIF&gt; -show-detail</em> si ne peut pas être pingable, s&#8217;assurer que les paramètres réseau dans ONTAP sont corrects, et que la machine de l&#8217;agent soit pingable. 3. Si vous avez essayé de vous connecter via Cluster IP et qu&#8217;il ne fonctionne pas, essayez de vous connecter directement via SVM IP. Voir ci-dessus pour les étapes de connexion via SVM IP. 4. Lors de l&#8217;ajout du collecteur via les identifiants SVM IP et vsadmin, vérifier si le LIF du SVM a le rôle de gestion et Data est activé Dans ce cas, le ping vers la LIF du SVM va fonctionner, mais SSH vers la LIF du SVM ne fonctionnera pas. Si oui, créer une LIF SVM Mgmt uniquement et tenter de se connecter via cette LIF de management SVM uniquement. 5. Si elle ne fonctionne toujours pas, créez une nouvelle LIF de SVM et essayez de vous connecter via cette LIF. Vérifiez que le masque de sous-réseau est correctement défini. 6. Débogage avancé : a) démarrez une trace de paquet dans ONTAP. b) essayer de connecter un collecteur de données au SVM à partir de l&#8217;interface utilisateur CloudSecure. c) attendez que l&#8217;erreur s&#8217;affiche. Arrêtez la trace de paquet dans ONTAP. d) Ouvrez la trace de paquet à partir de ONTAP. Il est disponible à cet emplacement <em>https://&lt;cluster_mgmt_ip&gt;/spi/&lt;clustername&gt;/etc/log/packet_traces/</em> e) Assurez-vous qu&#8217;il y a un SYN de ONTAP à la boîte de l&#8217;agent. f) s&#8217;il n&#8217;y a pas SYN de ONTAP, c&#8217;est un problème avec le pare-feu dans ONTAP. g) Ouvrez le pare-feu dans ONTAP, de sorte que ONTAP puisse connecter la boîte de l&#8217;agent. 7. Si elle ne fonctionne toujours pas, veuillez consulter l&#8217;équipe réseau pour vous assurer qu&#8217;aucun pare-feu externe ne bloque la connexion entre ONTAP et la boîte de l&#8217;agent. 8. Si aucune des solutions ci-dessus ne résout le problème, ouvrez un dossier avec <a href="http://docs.netapp.com/us-en/cloudinsights/concept_requesting_support.html">"Support NetApp"</a> pour obtenir de l&#8217;aide.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Message : « Impossible de déterminer le type de ONTAP pour [nom d&#8217;hôte : &lt;adresse IP&gt;. Motif : erreur de connexion au système de stockage &lt;adresse IP&gt; : l&#8217;hôte est injoignable (hôte inaccessible) »</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1. Vérifier que l&#8217;adresse IP de gestion du SVM ou l&#8217;IP de gestion du cluster correcte a été fournie. 2. SSH au SVM ou au Cluster auquel vous souhaitez vous connecter. Une fois connecté, assurez-vous que le SVM ou le nom du cluster est correct.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Message d&#8217;erreur : « le connecteur est en état d&#8217;erreur. service.name: Vérification. Cause de la panne : le serveur fpolicy externe est terminé. »</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1. Il est fort probable qu&#8217;un pare-feu bloque les ports nécessaires dans l&#8217;ordinateur de l&#8217;agent. Vérifier que la plage de ports 35000-55000/tcp est ouverte pour que l&#8217;ordinateur agent se connecte à partir du SVM. Assurez-vous également qu&#8217;aucun pare-feu n&#8217;est activé à partir du blocage de la communication côté ONTAP vers l&#8217;agent. 2. Tapez la commande suivante dans la zone Agent et vérifiez que la plage de ports est ouverte. _Sudo iptables-save</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">grep 3500*_ la sortie d&#8217;échantillon doit ressembler à : <em>-A IN_public_allow -p tcp -m tcp --dport 35000 -m conntrack -ctstate NEW -j ACCEPT</em> 3. Connectez-vous au SVM, entrez les commandes suivantes et vérifiez qu&#8217;aucun pare-feu n&#8217;est défini pour bloquer la communication avec ONTAP. <em>service système pare-feu show</em> <em>services système firewall policy show_<a href="https://docs.netapp.com/ontap-9/index.jsp?topic=%2Fcom.netapp.doc.dot-cm-nmg%2FGUID-969851BB-4302-4645-8DAC-1B059D81C5B2.html">"Vérifiez les commandes du pare-feu"</a> Côté ONTAP. 4. SSH vers le SVM/Cluster que vous souhaitez contrôler. Ping de la boîte agent depuis la lif de données du SVM (avec prise en charge des protocoles CIFS et NFS) et vérifier le fonctionnement du ping : _Network ping -vserver &lt;nom vserver&gt; -destination &lt;agent IP&gt; -lif &lt;nom LIF&gt; -show-detail</em> si impossible d&#8217;accéder, assurez-vous que les paramètres réseau dans ONTAP sont corrects, afin que la machine agent soit pingable. 5.si un seul SVM est ajouté deux fois à un locataire via 2 collecteurs de données, cette erreur s&#8217;affiche. Supprimez l&#8217;un des collecteurs de données via l&#8217;interface utilisateur. Redémarrez ensuite l&#8217;autre collecteur de données via l&#8217;interface utilisateur. Ensuite, le collecteur de données affiche l&#8217;état « EN COURS d&#8217;EXÉCUTION » et commence à recevoir des événements du SVM. En réalité, dans un locataire, 1 SVM ne doit être ajouté qu&#8217;une seule fois, via 1 Data Collector. 1 SVM ne doit pas être ajouté deux fois via 2 collecteurs de données. 6. Dans les cas où le même SVM a été ajouté dans deux environnements Cloud Secure différents (locataires), le dernier sera toujours réussir. Le second collecteur configure fpolicy avec sa propre adresse IP et commence le lancement du premier. Ainsi, le collecteur du premier arrête de recevoir des événements et son service d&#8217;audit passe en état d&#8217;erreur. Pour éviter cela, configurer chaque SVM sur un seul environnement.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Aucun événement n&#8217;est visible sur la page activité.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1. Vérifier si le collecteur ONTAP est à l&#8217;état "EN FONCTIONNEMENT". Si oui, assurez-vous alors que certains événements cifs sont générés sur les machines virtuelles client cifs en ouvrant certains fichiers. 2. Si aucune activité n&#8217;est constatée, veuillez vous connecter au SVM et saisir la commande suivante. <em>&lt;SVM&lt;event log show -source fpolicy</em> Vérifiez qu&#8217;il n&#8217;y a aucune erreur liée à fpolicy. 3. Si aucune activité n&#8217;est constatée, veuillez vous connecter à la SVM. Entrez la commande suivante <em>&lt;SVM&gt; fpolicy show</em> Vérifiez si la politique fpolicy nommée avec le préfixe « cloudSecure_ » a été définie et que le statut est « on ». Si non défini, il est fort probable que l&#8217;agent ne puisse pas exécuter les commandes dans la SVM. Veuillez vous assurer que toutes les conditions préalables décrites au début de la page ont été respectées.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Le SVM Data Collector est en état d&#8217;erreur et le message d&#8217;erreur est "l&#8217;agent n&#8217;a pas pu se connecter au collecteur"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1. Il est fort probable que l&#8217;agent est surchargé et qu&#8217;il ne peut pas se connecter aux collecteurs de sources de données. 2. Vérifiez le nombre de collecteurs de sources de données connectés à l&#8217;agent. 3. Vérifiez également le débit de données dans la page “toutes les activités” de l’interface utilisateur. 4. Si le nombre d&#8217;activités par seconde est significativement élevé, installez un autre agent et déplacez certains des collecteurs de sources de données vers le nouvel agent.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SVM Data Collector affiche le message d&#8217;erreur comme « fpolicy.server.connectError: nœud n&#8217;a pas pu établir de connexion avec le serveur FPolicy « 12.195.15.146 » ( motif : « Select Timed out ») »</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Le pare-feu est activé au niveau du SVM/Cluster. Le moteur fpolicy ne peut donc pas se connecter au serveur fpolicy. Les interfaces de ligne de commande de ONTAP qui peuvent être utilisées pour obtenir plus d&#8217;informations sont les suivantes : journal des événements show -source fpolicy qui affiche le journal des erreurs show -source fpolicy -champs événement,action,description qui affiche plus de détails.<a href="https://docs.netapp.com/ontap-9/index.jsp?topic=%2Fcom.netapp.doc.dot-cm-nmg%2FGUID-969851BB-4302-4645-8DAC-1B059D81C5B2.html">"Vérifiez les commandes du pare-feu"</a> Côté ONTAP.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Message d&#8217;erreur : "le connecteur est en état d&#8217;erreur. Nom du service:audit. Motif de l&#8217;échec : aucune interface de données valide (rôle : données,protocoles de données : NFS ou CIFS ou les deux, état : up) trouvée sur le SVM ».</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Assurez-vous qu&#8217;il existe une interface opérationnelle (ayant le rôle de protocole de données et de données en tant que CIFS/NFS.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Le collecteur de données passe à l&#8217;état erreur, puis PASSE à l&#8217;état D&#8217;EXÉCUTION après un certain temps, puis revient à l&#8217;état erreur. Ce cycle se répète.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cela se produit généralement dans le scénario suivant : 1. Plusieurs collecteurs de données sont ajoutés. 2. Les collecteurs de données qui montrent ce type de comportement auront 1 SVM ajouté à ces collecteurs de données. Signification : 2 collecteurs de données ou plus sont connectés à 1 SVM. 3. S&#8217;assurer que 1 collecteur de données se connecte à 1 seul SVM. 4. Supprimer les autres collecteurs de données qui sont connectés au même SVM.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Le connecteur est en état d&#8217;erreur. Nom du service : audit. Motif de l&#8217;échec : échec de la configuration (politique sur la SVM svmname. Motif : valeur non valide spécifiée pour l&#8217;élément « shres-à-inclure » dans « fpolicy.policy.scope-modifier : « fédérale »</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Les noms des partages doivent être indiqués sans guillemets. Modifiez la configuration du SVM DSC de ONTAP pour corriger les noms de partage. <em>Inclure et exclure des partages</em> n&#8217;est pas destiné à une longue liste de noms de partage. Utilisez le filtrage par volume à la place si vous avez un grand nombre de partages à inclure ou exclure.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Il existe des fpolicies existantes dans le Cluster qui ne sont pas utilisées. Que faut-il faire avant l&#8217;installation de Cloud Secure ?</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Il est recommandé de supprimer tous les paramètres fpolicy existants non utilisés même s&#8217;ils sont à l&#8217;état déconnecté. Cloud Secure crée fpolicy avec le préfixe « cloudSecure_ ». Toutes les autres configurations fpolicy non utilisées peuvent être supprimées. Commande CLI pour afficher la liste fpolicy : <em>fpolicy show</em> étapes à supprimer les configurations fpolicy : <em>fpolicy disable -vserver &lt;svmname&gt; -policy-name &lt;policy_name&gt;</em> _fpolicy policy delete -vserver &lt;svmname&gt; -policy-name &lt;policy_FPolicy_name&gt; _vmname&gt; _vmnom_moteur_vserver__vmname&gt; -vserver_policy_mvmname&gt; -vserver_mvmnom_machine_machine_vmnom_vserver_vmname&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Après l&#8217;activation de Cloud Secure, les performances ONTAP sont affectées : la latence devient sporadique, l&#8217;IOPS devient faible sporadiquement.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Assurez-vous que vous utilisez une version Data ONTAP où <a href="https://mysupport.netapp.com/site/bugs-online/product/ONTAP/BURT/1415152">"cette question"</a> est fixe. La version minimale recommandée de ONTAP est 9.8P7. Si une version antérieure à ONTAP 9.8p7 et que ce problème de performance se produit, la taille de la mémoire tampon d&#8217;envoi ONTAP peut être modifiée pour améliorer les performances de ONTAP. Contactez le support NetApp si vous souhaitez explorer cette option et ne constatez pas ce paramètre lors de l&#8217;ajout d&#8217;un nouveau collecteur de données ou de la modification d&#8217;un collecteur existant.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Le collecteur de données est en erreur, affiche ce message d&#8217;erreur. “Erreur : le connecteur est en état d&#8217;erreur. Nom du service : audit. Motif de l&#8217;échec : échec de la configuration de la règle sur le SVM svm_test. Motif : valeur manquante pour le champ zapi : événements. «</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Commencez par un nouveau SVM avec uniquement le service NFS configuré. Ajoutez un collecteur de données SVM ONTAP dans Cloud Secure. CIFS est configuré comme un protocole autorisé pour la SVM lors de l&#8217;ajout du SVM Data Collector de ONTAP dans Cloud Secure. Attendez que le collecteur de données dans Cloud Secure affiche une erreur. Étant donné que le serveur CIFS n&#8217;est PAS configuré sur le SVM, cette erreur comme indiquée sur la gauche est présentée par Cloud Secure. Modifiez le collecteur de données du SVM ONTAP et décochez la case CIFS en tant que protocole autorisé. Enregistrer le collecteur de données. Il démarre alors que seul le protocole NFS est activé.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Data Collector affiche le message d&#8217;erreur : "erreur : échec de la détermination de la santé du collecteur dans 2 tentatives, essayez de redémarrer le collecteur à nouveau (Code d&#8217;erreur : AGENT008)".</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Si vous rencontrez toujours des problèmes, accédez aux liens d&#8217;assistance mentionnés dans la page <strong>aide &gt; support</strong>.</p>
+</div>
+</div>
+
+    </article>
+    <!-- Page Container -->
+  </div>
+
+  <div style="clear: both"></div><!-- Main needs to have height --></div>
+
+        </main>
+
+        <footer class="n-footer">
+  <div class="n-footer__bottom">
+    <div class="n-container">
+      <div class="n-footer__bottom-left">
+        <div class="n-footer__copyright">
+          <ul class="n-footer__copyright-list">
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/us/legal/copyright.aspx">© 2022 NetApp, Inc.</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/terms-of-use/">Conditions générales</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/privacy-policy/">Privacy Policy</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/cookie-policy/">Cookie Policy</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a class="ot-sdk-show-settings">Paramètres de cookies</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="n-footer__bottom-right">
+        <div class="n-footer__copyright">
+          <ul class="n-footer__copyright-list">
+            <li class="n-footer__copyright-link">
+              <a target="_self" href="javascript:netapp_mailto()">Envoyer un avis à propos de cette page</a>
+            </li>
+          </ul>
+        </div>
+        <div class="n-footer__social-links">
+          <ul class="n-footer__social-link-list">
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-blog" href="https://blog.netapp.com"
+                target="_blank" title="blog" alt="blog">
+                <span class="n-footer__social-link-text">blog</span>
+                <svg class="n-icon-blog n-footer__social-link-icon" aria-labelledby="title">
+                  <title>blog@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/fr-fr/test/common/svg/sprite.svg#blog"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-community" href="https://community.netapp.com/"
+                target="_blank" title="community" alt="community">
+                <span class="n-footer__social-link-text">community</span>
+                <svg class="n-icon-community n-footer__social-link-icon" aria-labelledby="title">
+                  <title>community@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/fr-fr/test/common/svg/sprite.svg#comments"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-twitter" href="https://twitter.com/netapp"
+                target="_blank" title="twitter" alt="twitter">
+                <span class="n-footer__social-link-text">twitter</span>
+                <svg class="n-icon-twitter n-footer__social-link-icon" aria-labelledby="title">
+                  <title>twitter@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/fr-fr/test/common/svg/sprite.svg#twitter"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-facebook" href="https://www.facebook.com/NetApp"
+                target="_blank" title="facebook" alt="facebook">
+                <span class="n-footer__social-link-text">facebook</span>
+                <svg class="n-icon-facebook n-footer__social-link-icon" aria-labelledby="title">
+                  <title>facebook@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/fr-fr/test/common/svg/sprite.svg#facebook"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-linkedin"
+                href="https://www.linkedin.com/company/netapp" target="_blank" title="linkedin" alt="linkedin">
+                <span class="n-footer__social-link-text">linkedin</span>
+                <svg class="n-icon-linkedin n-footer__social-link-icon" aria-labelledby="title">
+                  <title>linkedin@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/fr-fr/test/common/svg/sprite.svg#linkedin"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-youtube"
+                href="https://www.youtube.com/user/NetAppTV" target="_blank" title="youtube" alt="youtube">
+                <span class="n-footer__social-link-text">youtube</span>
+                <svg class="n-icon-youtube n-footer__social-link-icon" aria-labelledby="title">
+                  <title>youtube@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/fr-fr/test/common/svg/sprite.svg#youtube"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-slideshare"
+                href="https://www.slideshare.net/NetApp" target="_blank" title="slideshare" alt="slideshare">
+                <span class="n-footer__social-link-text">slideshare</span>
+                <svg class="n-icon-slideshare n-footer__social-link-icon" aria-labelledby="title">
+                  <title>slideshare@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/fr-fr/test/common/svg/sprite.svg#slideshare"></use>
+                </svg>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+      </div><!-- Elasticsearch JS -->
+      <script type="text/javascript" src='/fr-fr/test/js/bundle.js'></script>
+
+      <!-- Syntax Highlighting -->
+      <script type="text/javascript" src='/fr-fr/test/js/prism.js'></script>
+      <script type="text/javascript" src='/fr-fr/test/js/prism-curl.js'></script>
+    </div>
+    <script>
+      document.body.offsetWidth=1903;
+      cookieLaw = {}
+      cookieLaw.euCountry = "US";
+      cookieLaw.invoke = function(){return false;}
+    </script>
+    <script src='/fr-fr/test/js/www-ntap.js'></script>
+    <script src='/fr-fr/test/js/tabbed-blocks.js'></script>
+    <script src='/fr-fr/test/js/sidebar.js'></script>
+  </body></html>

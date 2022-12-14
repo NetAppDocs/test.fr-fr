@@ -1,0 +1,3417 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head class="at-element-marker">
+  <title>Fonctionnalités du tableau de bord</title>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge,chrome=1">
+  <meta http-equiv="language" content="en">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="og:title" content="Fonctionnalités du tableau de bord" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://docs.netapp.com/fr-fr/test/concept_dashboard_features.html" />
+	<meta property="og:description" content="Concepts et fonctionnalités du tableau de bord." />
+  <meta property="og:image" content="https://docs.netapp.com/fr-fr/test/images/logo-tophat-social.png" />
+  <meta property="og:image:alt" content="NetApp Logo" />
+  <meta name="format-detection" content="telephone=no">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="encoding" content="utf-8">
+  <meta http-equiv="nss-type" content="Product Documentation"/>
+  <meta http-equiv="nss-subtype" content="User Guide"/><meta name="description" content="Concepts et fonctionnalités du tableau de bord.">
+  <meta name="keywords" content=" dashboard, widget, custom, concepts, queries, variables, rollup, roll up, grouping, aggregate, aggregation, filter, axis, group by, expressions, timeseries, exact match, theme, visibility"><meta name="robots" content="noindex" /><!-- Icons -->
+  <link rel="icon" href="/fr-fr/test/images/favicon.ico" type="image/x-icon">
+
+  <!-- RSS Feed --><!-- CSS Definitions: NetApp CSS should be defined after generic css -->
+
+  <!-- Elastic Search -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/searchkit/0.10.0/theme.css">
+
+  <!-- Combined CSS -->
+  <link rel="stylesheet" type="text/css" href="/fr-fr/test/css/netappdocs.css">
+
+  
+  <link rel="stylesheet" href="/fr-fr/test/css/landing-page.css" type="text/css">
+  <link rel="stylesheet" href="/fr-fr/test/css/tabbed-blocks.css" type="text/css">
+  <!-- Canonical url -->
+  <!-- Top level site integrations --><script>
+    function addAdobeLaunch(adobeId) {
+      var head = document.getElementsByTagName('head')[0];
+      var adobe = document.createElement("script");
+      adobe.type = "text/plain";
+      adobe.className = "optanon-category-C0002";
+      adobe.src = "//assets.adobedtm.com/60287eadf1ee/c284da483c83/"+adobeId+".min.js";
+      head.appendChild(adobe);
+    }
+
+    function addGoogleAnalytics(gtagId) {
+      var google = document.createElement("script");
+      google.type = "text/plain";
+      google.className = "optanon-category-C0002";
+      google.src = "https://www.googletagmanager.com/gtag/js?id="+gtagId;
+      var head = document.getElementsByTagName('head')[0];
+      head.appendChild(google);
+
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', gtagId);
+    }
+
+    function addConsent(consentId) {
+      var head = document.getElementsByTagName('head')[0];
+      var onetrustConsent = document.createElement("script");
+      onetrustConsent.type = "text/javascript";
+      onetrustConsent.src = "https://cdn.cookielaw.org/consent/"+consentId+"/OtAutoBlock.js";
+      head.appendChild(onetrustConsent);
+
+      var onetrustScript = document.createElement("script");
+      onetrustScript.type = "text/javascript";
+      onetrustScript.src = "https://cdn.cookielaw.org/scripttemplates/otSDKStub.js";
+      onetrustScript.charset = "UTF-8";
+      onetrustScript.dataset.documentLanguage = "true";
+      onetrustScript.dataset.domainScript = consentId;
+      head.appendChild(onetrustScript);
+    }addConsent("72570c5c-fe30-465f-b0e0-b77f7fb4ae34");
+    addAdobeLaunch("launch-e9ff3acac59f");
+    addGoogleAnalytics("UA-81697994-3");function OptanonWrapper() { }
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+  <!-- Used for Product Family Page Sidebar Visibility --><!-- Used to import Promise for IE. Required for SearchKit -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.5/bluebird.min.js"></script><script src='/fr-fr/test/js/na-search.js'></script><script src='/fr-fr/test/js/na-pagenav.js'></script><script src='/fr-fr/test/js/na-utility.js'></script>
+  <script src='/fr-fr/test/js/clouddocs.js'></script>
+  <script src='/fr-fr/test/js/jquery.navgoco.min.js'></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src='/fr-fr/test/js/toc.js'></script>
+  <script src='/fr-fr/test/js/customscripts.js'></script><script>
+      $(document).ready(function() {
+          
+          var collapseOnInit = true;
+          
+
+          var navSettings = {
+              "caretHtml": '',
+              "accordion": collapseOnInit,
+              "openClass": 'active', // open
+              "save": false, // leave false or nav highlighting doesn't work right
+              "cookie": {
+                  "name": 'navgoco',
+                  "expires": false,
+                  "path": '/'
+              },
+              "slide": {
+                  "duration": 400,
+                  "easing": 'swing'
+              }
+          };
+
+          // Initialize navgoco with default options
+          $("#mysidebar").navgoco(navSettings);
+          
+
+          $("#collapseAll").click(function(e) {
+              e.preventDefault();
+              $("#mysidebar").navgoco('toggle', false);
+          });
+
+          $("#expandAll").click(function(e) {
+              e.preventDefault();
+              $("#mysidebar").navgoco('toggle', true);
+          });
+
+          $(".sidebar-nav-container").on("scroll", function() {
+            $.cookie("sidebarScroll", $(".sidebar-nav-container").scrollTop(), {
+              path    : "/fr-fr/test"  
+            });
+          });
+          $(function() {
+            if ($.cookie("sidebarScroll")) {
+              $(".sidebar-nav-container").scrollTop($.cookie("sidebarScroll"));
+            }
+          });
+
+      });
+
+  </script>
+  <script>
+      $(document).ready(function() {
+          $("#tg-sb-link").click(function() {
+              $("#tg-sb-sidebar").toggle();
+              $("#tg-sb-content").toggleClass('col-md-9');
+              $("#tg-sb-content").toggleClass('col-md-12');
+              $("#tg-sb-icon").toggleClass('fa-toggle-on');
+              $("#tg-sb-icon").toggleClass('fa-toggle-off');
+          });
+      });
+  </script>
+  <script src='/fr-fr/test/js/custom-dropdown.js'></script>
+  <script src='/fr-fr/test/js/FileSaver.min.js'></script>
+  <script src='/fr-fr/test/js/jszip-utils.min.js'></script>
+  <script src='/fr-fr/test/js/jszip.min.js'></script>
+  <script src='/fr-fr/test/js/pdf-ux.js'></script>
+</head>
+
+
+  <body class role="document" data-flavor="">
+    <div id="page" class="n-off-canvas-menu">
+      <div class="n-off-canvas-menu__menu"><!--TODO: Add offcanvas code --></div>
+      <div class="n-off-canvas-menu__content-wrap">
+        <header class="site-header" id="banner">
+  
+  <!-- Start Page Toolbar -->
+  
+  <div class="page-nav-toolbar"><div class="page-nav-contribute"><a target="_blank" href="https://github.com/NetAppDocs/test/issues/new?body=Page%3A%20[Fonctionnalités du tableau de bord](https://docs.netapp.com/fr-fr/test/concept_dashboard_features.html)&template=public-issue-template.md" class="page-nav-contribute-link" role="button"><img src="/fr-fr/test/images/discuss-sm.svg" alt="" class="github-icon" />Demander de modifier un document</a><a target="_blank" href="https://github.com/NetAppDocs/test/blob/main/concept_dashboard_features.adoc" class="page-nav-contribute-link" role="button"><img src="/fr-fr/test/images/edit-sm.svg" alt="" class="github-icon" />Modifier sur GitHub</a><a target="_blank" href="https://docs.netapp.com/us-en/contribute/" class="page-nav-contribute-link"  ><img src="/fr-fr/test/images/article-sm.svg" alt="" class="github-icon" />Guide des contributeurs</a></div>
+    <div class="page-nav-container">
+      <nav class="page-nav-fixed">
+        <div class="page-nav-title">SUR CETTE PAGE</div>
+        <div class="page-nav-links">
+          <ul class="page-nav-inner" id="page-menu"></ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+  
+  
+  <!-- Start top_hat -->
+  <div class="n-top-hat">
+    <div class="n-container">
+      <div class="n-top-hat__cross-property-nav">
+        <ul class="n-top-hat__list">
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/products-a-z/" class="n-top-hat__link">Produits et solutions</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/support-and-training/netapp-university/" class="n-top-hat__link">Support et formation</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://cloud.netapp.com" class="n-top-hat__link">Cloud Central</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://community.netapp.com/" class="n-top-hat__link">Communauté</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://blog.netapp.com/" class="n-top-hat__link">Blog</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://customers.netapp.com/en/" class="n-top-hat__link">Témoignages clients</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/us/contact-us/index.aspx" target="_self" class="n-top-hat__link" data-ntap-ui="contact-us">Contact</a>
+          </li>
+        </ul>
+      </div>
+      <div class="n-top-hat__utils">
+        <ul class="n-top-hat__list">
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/us/contact-us/index.aspx" target="_self" class="n-top-hat__link" data-ntap-ui="contact-us">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- End top_hat -->
+
+  <!-- Start property bar -->
+  <style>
+    .n-property-navigation-bar__menus--desktop-experience .n-menu--mega__default-content__heading span {
+    color: #34B0FF;
+    }
+  </style>
+  <div class="n-property-bar " data-ntap-ui="sticky-nav">
+    <div class="n-property-bar__inner-wrap">
+      <div class="n-property-bar__menu-toggle">
+        <a href="#" class="n-property-bar__menu-toggle-link">
+          <span class="n-property-bar__menu-toggle-text">Menu</span>
+          <svg class="n-icon-bars n-property-bar__menu-toggle-icon" aria-labelledby="title">
+            <title>bars</title>
+            <use xlink:href="/fr-fr/test/common/svg/sprite.svg#bars"></use>
+          </svg>
+        </a>
+      </div>
+      <div class="n-property-bar__property-mark ">
+        <a href="https://www.netapp.com" class="n-property-bar__property-link">
+          <div class="n-property-bar__logo">
+            <svg class="n-icon-netapp-mark n-icon-netapp-mark n-property-bar__netapp-mark-icon" aria-labelledby="title">
+              <title>netapp-mark</title>
+              <use xlink:href="/fr-fr/test/common/svg/sprite.svg#netapp-mark"></use>
+            </svg>
+            <svg class="n-icon-netapp-logo n-property-bar__logo-svg" aria-labelledby="title">
+              <title>netapp-logo</title>
+              <use xlink:href="/fr-fr/test/common/svg/sprite.svg#netapp-logo"></use>
+            </svg>
+          </div>
+        </a>
+      </div>
+
+      
+      
+      
+      <div class="search-property-bar">
+        <div id="search-demo-container" class="searchbox n-property-bar__search">
+          <div id="react-search" 
+          data-search-html="/fr-fr/test/search.html"
+          data-type="widget" 
+          data-placeholder="Rechercher une documentation"
+          data-no-results-found="Aucun résultat n'a été trouvé pour {query}"
+          data-did-you-mean="Rechercher {suggestion}."
+          data-no-results-found-did-you-mean="Aucun résultat n’a été trouvé pour {query}. Voulez-vous dire {suggestion} ?"
+          data-results-found="{hitCount} résultats trouvés"
+          data-error-message="We're sorry, an issue occurred when fetching your results. Please try again."
+          data-error-reset="Reset Search"
+          data-sk-es-pf-indexes=""
+          data-flavor=""></div>
+          <button class="n-property-bar__search-toggle-button" type="button">
+            <svg class="n-icon-search n-property-bar__search-toggle-button-icon" aria-labelledby="title">
+              <title>search</title>
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/fr-fr/test/common/svg/sprite.svg#search"></use>
+            </svg>
+          </button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <div class="n-property-bar__toolbar">
+    <!-- Start Language Selector --><div id="language-dropdown" class="custom-dropdown custom-dropdown-lang">
+      <div class="custom-dropdown-select custom-dropdown-select-lang">
+      <span class="lang-name">Français</span>
+          <svg class="n-globe__icon" aria-labelledby="title">
+            <title>globe</title>
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/fr-fr/test/common/svg/sprite.svg#globe"></use>
+          </svg>
+        </button>
+      </div>
+
+      <ul class="custom-dropdown-menu"><li>
+          <a href="https://docs.netapp.com/fr-fr/test/concept_dashboard_features.html" target="_self"><span translate="no" class="notranslate">Français</span></a>
+        </li><li>
+          <a href="https://docs.netapp.com/us-en/test/concept_dashboard_features.html" target="_self"><span translate="no" class="notranslate">English</span></a>
+        </li><li>
+          <a href="https://docs.netapp.com/ja-jp/test/concept_dashboard_features.html" target="_self"><span translate="no" class="notranslate">日本語</span></a>
+        </li><li>
+          <a href="https://docs.netapp.com/zh-cn/test/concept_dashboard_features.html" target="_self"><span translate="no" class="notranslate">简体中文</span></a>
+        </li><li>
+          <a href="https://docs.netapp.com/zh-tw/test/concept_dashboard_features.html" target="_self"><span translate="no" class="notranslate">繁體中文</span></a>
+        </li><li>
+          <a href="https://docs.netapp.com/ko-kr/test/concept_dashboard_features.html" target="_self"><span translate="no" class="notranslate">한국어</span></a>
+        </li><li>
+          <a href="https://docs.netapp.com/de-de/test/concept_dashboard_features.html" target="_self"><span translate="no" class="notranslate">Deutsch</span></a>
+        </li></ul>
+    </div><!-- End Language Selector -->
+
+    <div class="n-property-bar__cta"></div>
+  </div>
+  <script>
+    $(function(){
+        var currentLocalization = $('html').attr('lang');
+
+        var localizationsDictionary = {
+            "en-CA" : "https://www.netapp.com/search/index.aspx?for_cr=canada&",
+            "en-IN" : "https://www.netapp.com/search/index.aspx?for_cr=india&",
+            "nl-NL" : "https://www.netapp.com/search/index.aspx?for_cr=netherlands&",
+            "ru-RU" : "https://www.netapp.com/search/index.aspx?for_cr=russia&",
+            "sv-SE" : "https://www.netapp.com/search/index.aspx?for_cr=sweden&",
+            "it-IT" : "https://www.netapp.com/search/index.aspx?for_cr=italy&",
+            "he-IL" : "https://www.netapp.com/search/index.aspx?for_cr=israel&",
+            "ko-KR" : "https://www.netapp.com/search/index.aspx?for_cr=korea&",
+            "zh-TW" : "https://www.netapp.com/search/index.aspx?for_cr=taiwan&",
+            "en-GB" : "https://www.netapp.com/search/index.aspx?for_cr=unitedkingdom&",
+            "en-SG" : "https://www.netapp.com/search/index.aspx?for_cr=asean&",
+            "en-AU" : "https://www.netapp.com/search/index.aspx?for_cr=australia&",
+            "pt-BR" : "https://www.netapp.com/search/index.aspx?for_cr=brasil&",
+            "de-CH" : "https://www.netapp.com/search/index.aspx?for_cr=switzerland&",
+            "es-MX" : "https://www.netapp.com/search/index.aspx?for_cr=mexico&"
+        };
+
+        if($('html').hasClass('ntap-whitelisted') && localizationsDictionary.hasOwnProperty(currentLocalization)) {
+            $('.n-property-bar__property-link').attr('href', '/');
+        }
+    });
+  </script>
+  <!-- End property bar -->
+</header>
+
+
+        <main id="n-main-content" class="n-main-content">
+          <!-- Start Documentation Content -->
+<div class="ie-main">
+  <!-- Sidebar Column -->
+  
+  <div class="col-md-3" id="sidebar-height">
+      <button id="btn-sidebar-collapse" onclick="hideSidebar()"><img src="/fr-fr/test/images/collapse.png" alt="Réduire le panneau de navigation"></button>
+      <div class="sidebar-nav-container" id="mysidebardiv">
+  <ul id="mysidebar" class="nav"><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Documentation Cloud Insights"
+      data-li-level="1#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/index.html">
+        Documentation Cloud Insights
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Nouveautés"
+      data-li-level="1#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_whats_new.html">
+        Nouveautés
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Inscription à Cloud Insights"
+      data-li-level="1#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_cloud_insights_onboarding_1.html">
+        Inscription à Cloud Insights
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Sécurité"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Sécurité</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Pratiques de sécurité"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/security_overview.html">
+        Pratiques de sécurité
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Ce que nous Store et où"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/security_information_and_region.html">
+        Ce que nous Store et où
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Mise en route"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Mise en route</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Tutoriels de fonctionnalités"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_feature_tutorials.html">
+        Tutoriels de fonctionnalités
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Collecte des données"
+      data-li-level="2" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Collecte des données</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Présentation"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_getting_started_with_cloud_insights.html">
+        Présentation
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Exigences relatives à l'unité d'acquisition"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_acquisition_unit_requirements.html">
+        Exigences relatives à l'unité d'acquisition
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration d'une unité d'acquisition"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_configure_acquisition_unit.html">
+        Configuration d'une unité d'acquisition
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration d'un agent"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_agent.html">
+        Configuration d'un agent
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration des collecteurs de données"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_configure_data_collectors.html">
+        Configuration des collecteurs de données
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Détermination de l'état d'acquisition du Data Collector"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_determining_data_collector_acq_status.html">
+        Détermination de l'état d'acquisition du Data Collector
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Gérer les collecteurs de données configurés"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_view_configured_data_collectors.html">
+        Gérer les collecteurs de données configurés
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Erreurs de collecte de données de recherche"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_research_failed_collector.html">
+        Erreurs de collecte de données de recherche
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Importation des tableaux de bord recommandés"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_import_from_dashboard_gallery.html">
+        Importation des tableaux de bord recommandés
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Comptes utilisateur et rôles"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_user_roles.html">
+        Comptes utilisateur et rôles
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Passage à d'autres produits Cloud Central"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_other_cloud_products.html">
+        Passage à d'autres produits Cloud Central
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Liste Data Collector"
+      data-li-level="1#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/data_collector_list.html">
+        Liste Data Collector
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Abonnement à Cloud Insights"
+      data-li-level="1#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_subscribing_to_cloud_insights.html">
+        Abonnement à Cloud Insights
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Résolution automatique des périphériques"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Résolution automatique des périphériques</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Présentation de la résolution des périphériques"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_device_resolution_overview.html">
+        Présentation de la résolution des périphériques
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Règles de résolution des périphériques"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_device_resolution_rules.html">
+        Règles de résolution des périphériques
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Résolution de périphérique Fibre Channel"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_device_resolution_fibre_channel.html">
+        Résolution de périphérique Fibre Channel
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Résolution de périphérique IP"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_device_resolution_ip.html">
+        Résolution de périphérique IP
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Définition des préférences de résolution du périphérique"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_device_resolution_preferences.html">
+        Définition des préférences de résolution du périphérique
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Exemples d'expression régulière"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_device_resolution_regex_examples.html">
+        Exemples d'expression régulière
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Création de tableaux de bord"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Création de tableaux de bord</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Présentation du tableau de bord"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_dashboards_overview.html">
+        Présentation du tableau de bord
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Caractéristiques des tableaux de bord"
+      data-li-level="2#" 
+      class="  active "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_dashboard_features.html">
+        Caractéristiques des tableaux de bord
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Exemple de tableaux de bord"
+      data-li-level="2" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Exemple de tableaux de bord</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Performances des ordinateurs virtuels"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dashboard_example_VM_performance.html">
+        Performances des ordinateurs virtuels
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Meilleures pratiques de tableau de bord"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_dashboard_best_practices.html">
+        Meilleures pratiques de tableau de bord
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Kubernetes Explorer"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Kubernetes Explorer</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Page de présentation de Kubernetes"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/kubernetes_landing_page.html">
+        Page de présentation de Kubernetes
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Page du cluster Kubernetes"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/kubernetes_cluster_detail.html">
+        Page du cluster Kubernetes
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Utilisation des requêtes"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Utilisation des requêtes</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Interrogation des ressources"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_querying_assets.html">
+        Interrogation des ressources
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Création d'une requête"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_create_query.html">
+        Création d'une requête
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Affichage des requêtes disponibles"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_view_queries.html">
+        Affichage des requêtes disponibles
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Exportation des résultats de la requête au format .CSV"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_export_query_results.html">
+        Exportation des résultats de la requête au format .CSV
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Modification ou suppression d'une requête"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_modify_delete_query.html">
+        Modification ou suppression d'une requête
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Affectation de plusieurs applications/annotations à des objets"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_query_assign_multiple_applicationss.html">
+        Affectation de plusieurs applications/annotations à des objets
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Copie des valeurs de table dans le presse-papiers"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_query_copy_table_values.html">
+        Copie des valeurs de table dans le presse-papiers
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Interrogation des journaux"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_log_explorer.html">
+        Interrogation des journaux
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Utilisation des annotations"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Utilisation des annotations</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Définition d'annotations"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_defining_annotations.html">
+        Définition d'annotations
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Utilisation d'annotations"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_create_annotation.html">
+        Utilisation d'annotations
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Utilisation des règles d'annotation"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_create_annotation_rules.html">
+        Utilisation des règles d'annotation
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Importation d'annotations avec l'API"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_annotation_import.html">
+        Importation d'annotations avec l'API
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Utilisation des applications"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Utilisation des applications</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Concepts d'application"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_about_applications.html">
+        Concepts d'application
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration des applications"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_create_application.html">
+        Configuration des applications
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Surveille et alerte"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Surveille et alerte</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Création de moniteurs"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_create_monitor.html">
+        Création de moniteurs
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Affichage et gestion des alertes"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_view_and_manage_alerts.html">
+        Affichage et gestion des alertes
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration des destinataires de notification"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_notifications_email.html">
+        Configuration des destinataires de notification
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Moniteurs définis par le système"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_system_monitors.html">
+        Moniteurs définis par le système
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Utilisation d'API"
+      data-li-level="1#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/API_Overview.html">
+        Utilisation d'API
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Notification Webhook"
+      data-li-level="1#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_create_webhook.html">
+        Notification Webhook
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Contrôle de votre environnement"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Contrôle de votre environnement</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Événements d'audit"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_audit.html">
+        Événements d'audit
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="TTL et sous-échantillonnage"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_ttl_and_downsampling.html">
+        TTL et sous-échantillonnage
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Informations sur la page de ressources"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Informations sur la page de ressources</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Présentation de la page de ressources"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_asset_page_overview.html">
+        Présentation de la page de ressources
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Filtrage dans le contexte pour les objets"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_in_context_filters.html">
+        Filtrage dans le contexte pour les objets
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Récapitulatif des sections de topologie"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_asset_summary_section.html">
+        Récapitulatif des sections de topologie
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Section vue expert"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_asset_expert_view_section.html">
+        Section vue expert
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Section données utilisateur"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_asset_user_data_section.html">
+        Section données utilisateur
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Section alertes associées"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_asset_alerts_section.html">
+        Section alertes associées
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Conseils et astuces pour rechercher des ressources"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_searching_assets.html">
+        Conseils et astuces pour rechercher des ressources
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Création de rapports"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Création de rapports</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Présentation des rapports"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reporting_overview.html">
+        Présentation des rapports
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Génération de rapports des rôles utilisateur"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reporting_user_roles.html">
+        Génération de rapports des rôles utilisateur
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Utilisation de rapports prédéfinis"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reporting_predefined_reports.html">
+        Utilisation de rapports prédéfinis
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Tableau de bord de Storage Manager"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reporting_storage_manager_dashboard.html">
+        Tableau de bord de Storage Manager
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Création d'un exemple de rapport"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reporting_create_example.html">
+        Création d'un exemple de rapport
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Gestion des rapports"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reporting_managing_reports.html">
+        Gestion des rapports
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Rapports personnalisés"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reporting_creating_custom_reports.html">
+        Rapports personnalisés
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Modèles de données"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reporting_creating_custom_reports.html#reporting-data-models">
+        Modèles de données
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="API de base de données de reporting"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reporting_querying_database.html">
+        API de base de données de reporting
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Conservation des données"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reporting_data_retention.html">
+        Conservation des données
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Diagrammes de schéma"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reporting_schema_diagrams.html">
+        Diagrammes de schéma
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Tables de schéma"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reference_schemas.html">
+        Tables de schéma
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Cloud Secure"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Cloud Secure</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="À propos de Cloud Secure"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/cs_intro.html">
+        À propos de Cloud Secure
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Mise en route"
+      data-li-level="2" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Mise en route</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Mise en route de Cloud Secure"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_cs_getting_started.html">
+        Mise en route de Cloud Secure
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration requise pour l'agent Cloud Secure"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_cs_agent_requirements.html">
+        Configuration requise pour l'agent Cloud Secure
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration d'un agent Cloud Secure"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_cs_add_agent.html">
+        Configuration d'un agent Cloud Secure
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Suppression d'un agent Cloud Secure"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_cs_delete_agent.html">
+        Suppression d'un agent Cloud Secure
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration d'un collecteur AD Directory"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_user_dir_connect.html">
+        Configuration d'un collecteur AD Directory
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration d'un collecteur d'annuaire LDAP"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_user_dir_connect_ldap.html">
+        Configuration d'un collecteur d'annuaire LDAP
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration d'Amazon FSX pour NetApp ONTAP Collector"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_cs_amazon_fsx.html">
+        Configuration d'Amazon FSX pour NetApp ONTAP Collector
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration du SVM Data Collector de ONTAP"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_add_collector_svm.html">
+        Configuration du SVM Data Collector de ONTAP
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration du collecteur de données Cloud ONTAP"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_cs_incloud.html">
+        Configuration du collecteur de données Cloud ONTAP
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Gestion des utilisateurs Cloud Secure"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_cs_user_management.html">
+        Gestion des utilisateurs Cloud Secure
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Vérificateur de taux d'événement"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_cs_event_rate_checker.html">
+        Vérificateur de taux d'événement
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Alertes"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/cs_alert_data.html">
+        Alertes
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Médecine légale"
+      data-li-level="2" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Médecine légale</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Activités médico-légales - toutes les activités"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/forensic_activity_history.html">
+        Activités médico-légales - toutes les activités
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Activités médico-légales - entités"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/forensic_entity_detail.html">
+        Activités médico-légales - entités
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Utilisateurs"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/forensic_user_overview.html">
+        Utilisateurs
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Stratégies de réponse automatisées"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/cs_automated_response_policies.html">
+        Stratégies de réponse automatisées
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Restriction de l'accès des utilisateurs"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/cs_restrict_user_access.html">
+        Restriction de l'accès des utilisateurs
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Simulation d'une attaque par ransomware"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_cs_attack_simulator.html">
+        Simulation d'une attaque par ransomware
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Notifications"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/cs_notifications_email.html">
+        Notifications
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="API Cloud Secure"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_cs_api.html">
+        API Cloud Secure
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Active IQ"
+      data-li-level="1#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_activeiq.html">
+        Active IQ
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Dépannage"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Dépannage</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Dépannage général"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_troubleshooting_general_problems.html">
+        Dépannage général
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Dépannage des problèmes d'unité d'acquisition Linux"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_troubleshooting_linux_acquisition_unit_problems.html">
+        Dépannage des problèmes d'unité d'acquisition Linux
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Dépannage des problèmes d'unité d'acquisition Windows"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_troubleshooting_windows_acquisition_unit_problems.html">
+        Dépannage des problèmes d'unité d'acquisition Windows
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Recherche d'erreurs du Data Collector"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_research_failed_collector.html">
+        Recherche d'erreurs du Data Collector
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Support de référence"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Support de référence</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Demande d'aide"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_requesting_support.html">
+        Demande d'aide
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Matrice de prise en charge du Data Collector"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reference_data_collector_support_matrix.html">
+        Matrice de prise en charge du Data Collector
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Data Collector Reference - Infrastructure"
+      data-li-level="2" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Data Collector Reference - Infrastructure</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Présentation de référence des fournisseurs"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_data_collector_reference.html">
+        Présentation de référence des fournisseurs
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="AWS"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_amazon_ec2.html">
+        AWS
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Azure"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_ms_azure.html">
+        Azure
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Broadcom"
+      data-li-level="3" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Broadcom</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Brocade Network Advisor"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_brocade_bna.html">
+        Brocade Network Advisor
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Commutateur Fibre Channel"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_brocade_fc_switch.html">
+        Commutateur Fibre Channel
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Cisco"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_cisco_fc_switch.html">
+        Cisco
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Dell"
+      data-li-level="3" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Dell</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Série XC"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_dell_xc_series.html">
+        Série XC
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Dell EMC"
+      data-li-level="3" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Dell EMC</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Data Domain"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_emc_datadomain.html">
+        Data Domain
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="ECS"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_emc_ecs.html">
+        ECS
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="PowerScale"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_emc_isilon.html">
+        PowerScale
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="PowerStore"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_emc_powerstore.html">
+        PowerStore
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="RecoverPoint"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_emc_recoverpoint.html">
+        RecoverPoint
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="ScaleIO"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_emc_scaleio.html">
+        ScaleIO
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Unity (VNXe)"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_emc_unity.html">
+        Unity (VNXe)
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="VMAX/PowerMax"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_emc_vmax_powermax.html">
+        VMAX/PowerMax
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="VNX Block (CLARiiON)"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_emc_vnx_block.html">
+        VNX Block (CLARiiON)
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="VNX File (Celerra)"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_emc_vnx_file.html">
+        VNX File (Celerra)
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="VNX Unified"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_emc_vnx_unified.html">
+        VNX Unified
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="VPLEX"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_emc_vplex.html">
+        VPLEX
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="XtremIO"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_emc_xio.html">
+        XtremIO
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Fujitsu"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_fujitsu_eternus.html">
+        Fujitsu
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Google"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_google_cloud.html">
+        Google
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="HP Enterprise"
+      data-li-level="3" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> HP Enterprise</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="HP Alletra 9000 et Primera"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_hp_3par.html">
+        HP Alletra 9000 et Primera
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="AE HP Command View"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_hpe_commandview.html">
+        AE HP Command View
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="HPE Alletra 6000"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_hpe_nimble.html">
+        HPE Alletra 6000
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Hitachi Data Systems"
+      data-li-level="3" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Hitachi Data Systems</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="HDS Command Suite"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_hds_commandsuite.html">
+        HDS Command Suite
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="HDS HNAS"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_hds_nas.html">
+        HDS HNAS
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="HDS Ops Center"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_hds_ops_center.html">
+        HDS Ops Center
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Infinidat"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_infinidat_infinibox.html">
+        Infinidat
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Huawei"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_huawei_oceanstor.html">
+        Huawei
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="IBM"
+      data-li-level="3" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> IBM</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Cleversafe"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_ibm_cleversafe.html">
+        Cleversafe
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Gamme CS"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_ibm_cs.html">
+        Gamme CS
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Systèmes de stockage DS8000"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_ibm_ds.html">
+        Systèmes de stockage DS8000
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="PowerVM"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_ibm_powervm.html">
+        PowerVM
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Contrôleur de volume SAN (SVC)"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_ibm_svc.html">
+        Contrôleur de volume SAN (SVC)
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="XIV/A9000"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_ibm_xiv.html">
+        XIV/A9000
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Lenovo"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_lenovo.html">
+        Lenovo
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Microsoft"
+      data-li-level="3" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Microsoft</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Azure NetApp Files"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_ms_anf.html">
+        Azure NetApp Files
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Hyper-V"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_ms_hyperv.html">
+        Hyper-V
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="NetApp"
+      data-li-level="3" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> NetApp</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Magasin de données Astra"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_na_astra_data_store.html">
+        Magasin de données Astra
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Connexion cloud pour ONTAP 9.9+"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_na_cloud_connection.html">
+        Connexion cloud pour ONTAP 9.9+
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Cloud Volumes ONTAP"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_na_cloud_volumes_ontap.html">
+        Cloud Volumes ONTAP
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Cloud volumes Services pour AWS"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_na_cloud_volumes.html">
+        Cloud volumes Services pour AWS
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Logiciel de gestion des données ONTAP"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_na_cdot.html">
+        Logiciel de gestion des données ONTAP
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Data ONTAP 7-mode"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_na_7mode.html">
+        Data ONTAP 7-mode
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="E-Series"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_na_eseries.html">
+        E-Series
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Serveur de gestion NetApp HCI"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_na_hci.html">
+        Serveur de gestion NetApp HCI
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="SolidFire"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_na_solidfire.html">
+        SolidFire
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="StorageGRID"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_na_storagegrid.html">
+        StorageGRID
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Nutanix"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_nutanix.html">
+        Nutanix
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="OpenStack"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_openstack.html">
+        OpenStack
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Oracle"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_oracle_zfs.html">
+        Oracle
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Pure"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_pure_flasharray.html">
+        Pure
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Red Hat"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_redhat_virtualization.html">
+        Red Hat
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="VMware"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_vmware.html">
+        VMware
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Data Collector Reference - Services"
+      data-li-level="2" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Data Collector Reference - Services</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Hôte/nœud"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_node.html">
+        Hôte/nœud
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="ActiveMQ"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_activemq.html">
+        ActiveMQ
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Apache"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_apache.html">
+        Apache
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Consul"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_consul.html">
+        Consul
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Couchbase"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_couchbase.html">
+        Couchbase
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="CouchDB"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_couchdb.html">
+        CouchDB
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Docker"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_docker.html">
+        Docker
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="ElasticSearch"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_elasticsearch.html">
+        ElasticSearch
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Encre"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_flink.html">
+        Encre
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Hadoop"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_hadoop.html">
+        Hadoop
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="HABProxy"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_haproxy.html">
+        HABProxy
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Java"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_jvm.html">
+        Java
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Kafka"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_kafka.html">
+        Kafka
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Kapacitor"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_kapacitor.html">
+        Kapacitor
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Kibana"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_kibana.html">
+        Kibana
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Kubernetes"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_agent.html#kubernetes">
+        Kubernetes
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Mise en mémoire cache"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_memcached.html">
+        Mise en mémoire cache
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="MongoDB"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_mongodb.html">
+        MongoDB
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="MySQL"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_mysql.html">
+        MySQL
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Netstat"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_netstat.html">
+        Netstat
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Nginx"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_nginx.html">
+        Nginx
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="OpenZFS"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_openzfs.html">
+        OpenZFS
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="PostgreSQL"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_postgresql.html">
+        PostgreSQL
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Puppet"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_puppetagent.html">
+        Puppet
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Redis"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_redis.html">
+        Redis
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="RethinkDB"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_rethinkdb.html">
+        RethinkDB
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Zookeeper"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_zookeeper.html">
+        Zookeeper
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Référence de l'icône d'objet"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reference_object_icons.html">
+        Référence de l'icône d'objet
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Mentions légales"
+      data-li-level="1#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reference_legal_notices.html">
+        Mentions légales
+      </a></li></ul>
+</div>
+<script>
+  window.onscroll = () => {
+    const value = -40 - (document.body.scrollHeight - (window.innerHeight + document.scrollingElement.scrollTop));
+    
+    document.getElementById("sidebar-height").style.bottom = Math.max(0,value) + "px";
+};
+</script>
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+<script>$("#mysidebar li.active").parents('ul').css("display","block");</script>
+
+
+  </div>
+  
+
+  <div class="ie-content-pane n-doc__component-detail-content n-doc__component-detail-content--show-code">
+    <!-- Begin of page container --><article class="page-content" id="main">
+      <div class="ie-utility">
+  <button id="btn-sidebar-expand" onclick="showSidebar()"><img src="/fr-fr/test/images/expand.png" alt="Développer le panneau de navigation"></button>
+  <div class="ie-menu">
+    <div class="n-breadcrumb">
+      <ul class="n-breadcrumb__list">
+        <li class="n-breadcrumb__list-item">
+          <a href="https://docs.netapp.com">docs.netapp.com</a>
+        </li>
+        
+
+        
+
+        <li class="n-breadcrumb__list-item">
+          <a href="/fr-fr/test/">Cloud&nbsp;Insights</a>
+        </li>
+
+      </ul>
+    </div>
+    <div style="clear: both"></div><!-- Main needs to have height -->
+  </div>
+</div>
+
+      <div class="ie-nmt-disclaimer">
+  <span>
+    <div class="ie-nmt-disclaimer-container">
+      <div class="ie-nmt-disclaimer-icon">
+        <svg class="luci-icon" aria-hidden="true">
+          <use xlink:href="/fr-fr/test/common/svg/sprite.svg#circle-info">
+        </svg>
+      </div>
+      <div class="ie-nmt-disclaimer-content">
+        <span> La version française est une traduction automatique. La version anglaise prévaut sur la française en cas de divergence. </span>
+      </div>
+      <div style="clear:both;"></div>
+    </div>
+  </span>
+</div><div class="n-doc__component-detail-heading-wrap">
+  <h1 class="n-doc__component-detail-heading">Fonctionnalités du tableau de bord</h1>
+</div>
+
+
+<p class="page-details">
+  
+    
+    <time datetime="2022-12-14 18:25:28 +0000">12/14/2022</time>
+    
+  
+
+<span>Contributeurs
+</span>
+
+
+</p>
+
+<div id="toc" class="toc">
+<div id="toctitle">Table des matières</div>
+<ul class="sectlevel1">
+<li><a href="#dénomination-des-widgets">Dénomination des widgets</a></li>
+<li><a href="#positionnement-et-taille-des-widgets">Positionnement et taille des widgets</a></li>
+<li><a href="#duplication-dun-widget">Duplication d&#8217;un widget</a></li>
+<li><a href="#affichage-des-légendes-du-widget">Affichage des légendes du widget</a></li>
+<li><a href="#transformation-des-mesures">Transformation des mesures</a></li>
+<li><a href="#requêtes-et-filtres-du-widget-du-tableau-de-bord">Requêtes et filtres du widget du tableau de bord</a></li>
+<li><a href="#regroupement-et-agrégation">Regroupement et agrégation</a></li>
+<li><a href="#affichage-des-résultats-supérieursinférieurs">Affichage des résultats supérieurs/inférieurs</a></li>
+<li><a href="#regroupement-dans-un-widget-de-tableau">Regroupement dans un widget de tableau</a></li>
+<li><a href="#sélecteur-de-plage-horaire-du-tableau-de-bord">Sélecteur de plage horaire du tableau de bord</a></li>
+<li><a href="#remplacement-de-lheure-du-tableau-de-bord-dans-des-widgets-individuels">Remplacement de l&#8217;heure du tableau de bord dans des widgets individuels</a></li>
+<li><a href="#axes-principal-et-secondaire">Axes principal et secondaire</a></li>
+<li><a href="#expressions-dans-les-widgets">Expressions dans les widgets</a></li>
+<li><a href="#variables">Variables</a></li>
+<li><a href="#formatage-des-widgets-de-jauge">Formatage des widgets de jauge</a></li>
+<li><a href="#formatage-du-widget-à-valeur-unique">Formatage du widget à valeur unique</a></li>
+<li><a href="#choix-de-lunité-pour-laffichage-des-données">Choix de l&#8217;unité pour l&#8217;affichage des données</a></li>
+<li><a href="#mode-tv-et-actualisation-automatique">Mode TV et actualisation automatique</a></li>
+<li><a href="#groupes-de-tableaux-de-bord">Groupes de tableaux de bord</a></li>
+<li><a href="#épinglez-vos-tableaux-de-bord-favoris">Épinglez vos tableaux de bord favoris</a></li>
+<li><a href="#thème-sombre">Thème sombre</a></li>
+<li><a href="#interpolation-de-lhistogramme-linéaire">Interpolation de l&#8217;histogramme linéaire</a></li>
+</ul>
+</div>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Les tableaux de bord et les widgets offrent une grande flexibilité dans le mode d&#8217;affichage des données. Voici quelques concepts qui vous aideront à tirer le meilleur parti de vos tableaux de bord personnalisés.</p>
+</div>
+<!-- toc disabled -->
+</div>
+</div>
+<div class="sect1">
+<h2 id="dénomination-des-widgets">Dénomination des widgets</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Les widgets sont automatiquement nommés en fonction de l&#8217;objet, de la mesure ou de l&#8217;attribut sélectionné pour la première requête de widget. Si vous choisissez également un regroupement pour le widget, les attributs « Grouper par » sont inclus dans la dénomination automatique (méthode d&#8217;agrégation et métrique).</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/WidgetNameExample.png" alt="Exemple de dénomination des widgets"></span></p>
+</div>
+<div class="paragraph">
+<p>La sélection d&#8217;un nouvel objet ou d&#8217;un attribut de regroupement met à jour le nom automatique.</p>
+</div>
+<div class="paragraph">
+<p>Si vous ne souhaitez pas utiliser le nom automatique du widget, vous pouvez simplement entrer un nouveau nom.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="positionnement-et-taille-des-widgets">Positionnement et taille des widgets</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Tous les widgets de tableau de bord peuvent être positionnés et dimensionnés en fonction de vos besoins pour chaque tableau de bord spécifique.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="duplication-dun-widget">Duplication d&#8217;un widget</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>En mode Tableau de bord, cliquez sur le menu du widget et sélectionnez <strong>Dupliquer</strong>. L&#8217;éditeur de widget est lancé, rempli avec la configuration du widget original et avec un suffixe "copie" dans le nom du widget. Vous pouvez facilement apporter les modifications nécessaires et enregistrer le nouveau widget. Le widget sera placé au bas de votre tableau de bord et vous pouvez le positionner selon les besoins. N&#8217;oubliez pas d&#8217;enregistrer votre tableau de bord lorsque toutes les modifications sont terminées.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/DuplicateWidget.png" alt="Dupliquer un widget"></span></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="affichage-des-légendes-du-widget">Affichage des légendes du widget</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>La plupart des widgets des tableaux de bord peuvent être affichés avec ou sans légendes. Les légendes des widgets peuvent être activées ou désactivées sur un tableau de bord à l&#8217;aide de l&#8217;une des méthodes suivantes :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Lorsque vous affichez le tableau de bord, cliquez sur le bouton <strong>Options</strong> du widget et sélectionnez <strong>Afficher légendes</strong> dans le menu.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Au fur et à mesure que les données affichées dans le widget changent, la légende de ce widget est mise à jour dynamiquement.</p>
+</div>
+<div class="paragraph">
+<p>Lorsque des légendes sont affichées, si la page d&#8217;accueil de la ressource indiquée par la légende peut être navigué vers, la légende s&#8217;affiche sous forme de lien vers cette page de ressources. Si la légende affiche « tous », cliquer sur le lien pour afficher une page de requête correspondant à la première requête dans le widget.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="transformation-des-mesures">Transformation des mesures</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Cloud Insights propose différentes options <strong>Transform</strong> pour certaines métriques dans les widgets (en particulier, les métriques appelées « personnalisé » ou mesures d&#8217;intégration, telles que Kubernetes, les données avancées ONTAP, les plug-ins Telegraf, etc.), ce qui vous permet d&#8217;afficher les données de différentes façons. Lorsque vous ajoutez des mesures transformables à un widget, une liste déroulante vous propose les options de transformation suivantes :</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Aucune</dt>
+<dd>
+<p>Les données sont affichées en l&#8217;état, sans manipulation.</p>
+</dd>
+<dt class="hdlist1">Taux</dt>
+<dd>
+<p>Valeur actuelle divisée par la plage de temps depuis l&#8217;observation précédente.</p>
+</dd>
+<dt class="hdlist1">Cumulatifs</dt>
+<dd>
+<p>Accumulation de la somme des valeurs précédentes et de la valeur actuelle.</p>
+</dd>
+<dt class="hdlist1">Delta</dt>
+<dd>
+<p>Différence entre la valeur d&#8217;observation précédente et la valeur actuelle.</p>
+</dd>
+<dt class="hdlist1">Taux delta</dt>
+<dd>
+<p>Valeur Delta divisée par l&#8217;intervalle de temps depuis l&#8217;observation précédente.</p>
+</dd>
+<dt class="hdlist1">Taux cumulé</dt>
+<dd>
+<p>Valeur cumulée divisée par l&#8217;intervalle de temps depuis l&#8217;observation précédente.</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>Notez que la transformation des mesures ne modifie pas les données sous-jacentes, mais uniquement la façon dont elles sont affichées.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="requêtes-et-filtres-du-widget-du-tableau-de-bord">Requêtes et filtres du widget du tableau de bord</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="requêtes">Requêtes</h3>
+<div class="paragraph">
+<p>La requête dans un widget de tableau de bord est un outil puissant de gestion de l&#8217;affichage de vos données. Voici quelques points à noter sur les requêtes de widget.</p>
+</div>
+<div class="paragraph">
+<p>Certains widgets peuvent avoir jusqu&#8217;à cinq requêtes. Chaque requête trace son propre ensemble de lignes ou de graphiques dans le widget. La configuration de l&#8217;agrégation, du regroupement, des résultats supérieurs/inférieurs, etc. Sur une requête n&#8217;affecte pas les autres requêtes du widget.</p>
+</div>
+<div class="paragraph">
+<p>Vous pouvez cliquer sur l&#8217;icône œil pour masquer temporairement une requête. L&#8217;affichage du widget est automatiquement mis à jour lorsque vous masquez ou affichez une requête. Cela vous permet de vérifier les données affichées pour les requêtes individuelles au fur et à mesure de la création de votre widget.</p>
+</div>
+<div class="paragraph">
+<p>Les types de widget suivants peuvent avoir plusieurs requêtes :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Graphique de zone</p>
+</li>
+<li>
+<p>Graphique de zone empilée</p>
+</li>
+<li>
+<p>Graphique en courbes</p>
+</li>
+<li>
+<p>Graphique de spline</p>
+</li>
+<li>
+<p>Widget à valeur unique</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Les types de widget restants ne peuvent avoir qu&#8217;une seule requête :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Tableau</p>
+</li>
+<li>
+<p>Graphique à barres</p>
+</li>
+<li>
+<p>Tracé de zone</p>
+</li>
+<li>
+<p>Tracé de dispersion</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="filtrage-dans-les-requêtes-widget-du-tableau-de-bord">Filtrage dans les requêtes widget du tableau de bord</h3>
+<div class="paragraph">
+<p>Voici quelques choses que vous pouvez faire pour tirer le meilleur parti de vos filtres.</p>
+</div>
+<div class="sect3">
+<h4 id="filtrage-de-correspondance-exacte">Filtrage de correspondance exacte</h4>
+<div class="paragraph">
+<p>Si vous placez une chaîne de filtre entre deux guillemets, Insight traite tout entre le premier et le dernier devis comme une correspondance exacte. Tous les caractères spéciaux ou opérateurs situés dans les guillemets seront traités comme des littéraux. Par exemple, le filtrage pour "*" renvoie des résultats qui sont un astérisque littéral ; l&#8217;astérisque ne sera pas traité comme un caractère générique dans ce cas. Les opérateurs ET, OU, et NON SERONT également traités comme des chaînes littérales lorsqu&#8217;ils sont entourés de guillemets doubles.</p>
+</div>
+<div class="paragraph">
+<p>Vous pouvez utiliser des filtres de correspondance exacte pour trouver des ressources spécifiques, par exemple nom d&#8217;hôte. Si vous voulez trouver uniquement le nom d&#8217;hôte « marketing » mais exclure « marketing01 », « marketing-boston », etc., il suffit de placer le nom « marketing » dans des guillemets doubles.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="caractères-génériques-et-expressions">Caractères génériques et expressions</h4>
+<div class="paragraph">
+<p>Lorsque vous filtrez des valeurs de texte ou de liste dans des requêtes ou des widgets de tableau de bord, lorsque vous commencez à taper, vous avez la possibilité de créer un <strong>filtre générique</strong> basé sur le texte en cours. Si vous sélectionnez cette option, tous les résultats correspondant à l&#8217;expression de caractère générique seront résélectionnés. Vous pouvez également créer <strong>expressions</strong> à l&#8217;aide DE NOT ou OU, ou sélectionner l&#8217;option "aucun" pour filtrer les valeurs nulles dans le champ.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/Type-Ahead-Example-ingest.png" alt="Filtre générique"></span></p>
+</div>
+<div class="paragraph">
+<p>Filtres basés sur des caractères génériques ou des expressions (par exemple NON, OU « aucun », etc.) s&#8217;affiche en bleu foncé dans le champ du filtre. Les éléments que vous sélectionnez directement dans la liste s&#8217;affichent en bleu clair.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/Type-Ahead-Example-Wildcard-DirectSelect.png" alt="Résultats du filtre générique"></span></p>
+</div>
+<div class="paragraph">
+<p>Notez que le filtrage des caractères génériques et des expressions fonctionne avec du texte ou des listes, mais pas avec des valeurs numériques, des dates ou des valeurs booléennes.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="filtrage-avancé-du-texte-avec-des-suggestions-de-type-avance">Filtrage avancé du texte avec des suggestions de type avance</h4>
+<div class="paragraph">
+<p>Lorsque vous sélectionnez une ou plusieurs valeurs pour un champ, les autres filtres de cette requête affichent les valeurs pertinentes pour ce filtre. Par exemple, lors de la définition d&#8217;un filtre pour un objet spécifique <em>Name</em>, le champ à filtrer pour <em>Model</em> affiche uniquement les valeurs pertinentes pour ce nom d&#8217;objet.</p>
+</div>
+<div class="paragraph">
+<p>Notez que seuls les filtres de texte affichent des suggestions contextuelles de type à l&#8217;avance. La date, Enum (liste), etc. N&#8217;affichera pas de suggestions de type à l&#8217;avance. Cela dit, vous pouvez <em>CAN</em> définir un filtre dans un champ Enum (c.-à-d. liste) et avoir d&#8217;autres champs de texte à filtrer dans le contexte. Par exemple, la sélection d&#8217;une valeur dans un champ Enum comme Data Center, les autres filtres n&#8217;affichent que les modèles/noms dans ce centre de données), mais pas l&#8217;inverse.</p>
+</div>
+<div class="paragraph">
+<p>La plage de temps sélectionnée fournit également un contexte pour les données affichées dans les filtres.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="choix-des-unités-de-filtre">Choix des unités de filtre</h4>
+<div class="paragraph">
+<p>Lorsque vous saisissez une valeur dans un champ de filtre, vous pouvez sélectionner les unités dans lesquelles afficher les valeurs sur le graphique. Par exemple, vous pouvez filtrer la capacité brute et choisir d&#8217;afficher dans le Gio par défaut, ou sélectionner un autre format tel que Tio. Ceci est utile si vous disposez d&#8217;un certain nombre de graphiques sur votre tableau de bord affichant les valeurs en Tio et que vous souhaitez que tous vos graphiques affichent des valeurs cohérentes.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/Filter_Unit_Format.png" alt="sélection d&#8217;unités dans un filtre"></span></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="améliorations-supplémentaires-du-filtrage">Améliorations supplémentaires du filtrage</h4>
+<div class="paragraph">
+<p>Les éléments suivants peuvent être utilisés pour affiner davantage vos filtres.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Un astérisque vous permet de rechercher tout. Par exemple :</p>
+<div class="listingblock">
+<div class="content">
+<pre>vol*rhel</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>affiche toutes les ressources commençant par "vol" et se terminant par "rhel".</p>
+</div>
+</li>
+<li>
+<p>Le point d&#8217;interrogation permet de rechercher un nombre spécifique de caractères. Par exemple :</p>
+<div class="listingblock">
+<div class="content">
+<pre>BOS-PRD??-S12</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Affiche <em>BOS-PRD12-S12</em>, <em>BOS-PRD13-S12</em>, etc.</p>
+</div>
+</li>
+<li>
+<p>L&#8217;opérateur OU vous permet de spécifier plusieurs entités. Par exemple :</p>
+<div class="listingblock">
+<div class="content">
+<pre>FAS2240 OR CX600 OR FAS3270</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>identification des nombreux modèles de stockage</p>
+</div>
+</li>
+<li>
+<p>L&#8217;opérateur NOT permet d&#8217;exclure du texte des résultats de la recherche. Par exemple :</p>
+<div class="listingblock">
+<div class="content">
+<pre>NOT EMC*</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Trouve tout ce qui ne commence pas par « EMC ». Vous pouvez utiliser</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>NOT *</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>pour afficher les champs ne contenant aucune valeur.</p>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="identification-des-objets-renvoyés-par-des-requêtes-et-des-filtres">Identification des objets renvoyés par des requêtes et des filtres</h3>
+<div class="paragraph">
+<p>Les objets renvoyés par des requêtes et des filtres ressemblent à ceux affichés dans l&#8217;illustration suivante. Les objets avec des « balises » qui leur sont attribués sont des annotations, tandis que les objets sans balises sont des compteurs de performance ou des attributs d&#8217;objet.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/ObjectsReturnedByFilters.png" alt="Objets renvoyés par des filtres"></span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="regroupement-et-agrégation">Regroupement et agrégation</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="regroupement-reprise">Regroupement (reprise)</h3>
+<div class="paragraph">
+<p>Les données affichées dans un widget sont regroupées (parfois appelées « cumulées ») à partir des points de données sous-jacents collectés lors de l&#8217;acquisition. Par exemple, si vous avez un widget graphique en lignes qui affiche les IOPS de stockage au fil du temps, il est possible que vous souhaitiez afficher une ligne distincte pour chacun de vos data centers, afin d&#8217;obtenir une comparaison rapide. Vous pouvez choisir de regrouper ces données de différentes manières :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>AVG</strong> : affiche chaque ligne comme la <em>moyenne</em> des données sous-jacentes.</p>
+</li>
+<li>
+<p><strong>Max</strong> : affiche chaque ligne sous la forme <em>maximum</em> des données sous-jacentes.</p>
+</li>
+<li>
+<p><strong>Min</strong> : affiche chaque ligne comme le <em>minimum</em> des données sous-jacentes.</p>
+</li>
+<li>
+<p><strong>Somme</strong> : affiche chaque ligne sous la forme <em>sum</em> des données sous-jacentes.</p>
+</li>
+<li>
+<p><strong>Count</strong> : affiche un <em>count</em> d&#8217;objets qui ont des données déclarées dans la période spécifiée. Vous pouvez choisir la <em>fenêtre de temps entier</em> comme déterminé par la plage de temps du tableau de bord (ou la plage de temps du widget, si elle est définie pour remplacer l&#8217;heure du tableau de bord), ou une <em>fenêtre de temps personnalisée</em> que vous sélectionnez.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Étapes</div>
+<p>Pour définir la méthode de regroupement, procédez comme suit.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Dans la requête de votre widget, choisissez un type et une mesure de ressource (par exemple <em>Storage</em>) et une mesure (par exemple <em>Performance IOPS Total</em>).</p>
+</li>
+<li>
+<p>Pour <strong>Groupe</strong>, choisissez une méthode de synthèse (comme <em>AVG</em>) et sélectionnez les attributs ou les métriques à l&#8217;aide desquels vous souhaitez synthétiser les données (par exemple <em>Data Center</em>).</p>
+<div class="paragraph">
+<p>Le widget se met automatiquement à jour et affiche les données de chacun de vos data centers.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Vous pouvez également choisir de regrouper <em>tous</em> des données sous-jacentes dans le graphique ou la table. Dans ce cas, vous obtenez une ligne unique pour chaque requête dans le widget, qui affiche la moyenne, min, max, somme ou nombre de la ou des mesures choisies pour toutes les ressources sous-jacentes.</p>
+</div>
+<div class="paragraph">
+<p>Si vous cliquez sur la légende d&#8217;un widget dont les données sont regroupées par "All", une page de requête affiche les résultats de la première requête utilisée dans le widget.</p>
+</div>
+<div class="paragraph">
+<p>Si vous avez défini un filtre pour la requête, les données sont regroupées en fonction des données filtrées.</p>
+</div>
+<div class="paragraph">
+<p>Notez que lorsque vous choisissez de regrouper un widget par n&#8217;importe quel champ (par exemple, <em>Model</em>), vous devrez toujours filtrer par ce champ pour afficher correctement les données de ce champ sur le graphique ou la table.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="agrégation-des-données">Agrégation des données</h3>
+<div class="paragraph">
+<p>Vous pouvez aligner davantage vos graphiques de séries chronologiques (ligne, zone, etc.) en regroupant les points de données en compartiments minute, heure ou jour avant que ces données ne soient ensuite regroupées par attribut (si vous le souhaitez). Vous pouvez choisir d&#8217;agréger des points de données en fonction de leurs <em>AVG, Max, min ou Sum</em>, ou par le point de données <em>Last</em> collecté au cours de l&#8217;intervalle choisi. Pour choisir une méthode d&#8217;agrégation, cliquez sur <strong>plus d&#8217;options</strong> dans la section requête du widget.</p>
+</div>
+<div class="paragraph">
+<p>Un petit intervalle combiné à une longue plage de temps peut entraîner un avertissement « l&#8217;intervalle d&#8217;agrégation a entraîné un nombre trop important de points de données. » Vous pouvez le voir si vous avez un petit intervalle et augmenter la durée du tableau de bord à 7 jours. Dans ce cas, Insight augmente temporairement l&#8217;intervalle d&#8217;agrégation jusqu&#8217;à ce que vous sélectionniez une période plus petite.</p>
+</div>
+<div class="paragraph">
+<p>Vous pouvez également agréger les données dans le widget de graphique à barres et à valeur unique.</p>
+</div>
+<div class="paragraph">
+<p>La plupart des compteurs d&#8217;actifs sont regroupés par défaut à <em>AVG</em>. Certains compteurs sont agrégés par défaut à <em>Max, min</em> ou <em>sum</em>. Par exemple, les erreurs de port sont agrégées à <em>sum</em> par défaut, où Storage IOPS agrégat à <em>AVG</em>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="affichage-des-résultats-supérieursinférieurs">Affichage des résultats supérieurs/inférieurs</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Dans un widget graphique, vous pouvez afficher les résultats <strong>Haut</strong> ou <strong>Bas</strong> pour les données cumulées et choisir le nombre de résultats affiché dans la liste déroulante. Dans un widget de tableau, vous pouvez trier par colonne.</p>
+</div>
+<div class="sect2">
+<h3 id="hautbas-du-widget-graphique">Haut/bas du widget graphique</h3>
+<div class="paragraph">
+<p>Dans un widget graphique, lorsque vous choisissez de regrouper des données par un attribut spécifique, vous avez la possibilité d&#8217;afficher les résultats N du haut ou N du bas. Notez que vous ne pouvez pas choisir les résultats supérieurs ou inférieurs lorsque vous choisissez de faire un cumul par attributs <em>All</em>.</p>
+</div>
+<div class="paragraph">
+<p>Vous pouvez choisir les résultats à afficher en choisissant <strong>Haut</strong> ou <strong>Bas</strong> dans le champ <strong>Afficher</strong> de la requête et en sélectionnant une valeur dans la liste fournie.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="le-widget-de-tableau-affiche-les-entrées">Le widget de tableau affiche les entrées</h3>
+<div class="paragraph">
+<p>Dans un widget tableau, vous pouvez sélectionner le nombre de résultats affichés dans le tableau des résultats. Vous n&#8217;avez pas la possibilité de choisir les résultats supérieurs ou inférieurs car le tableau vous permet de trier les résultats par ordre croissant ou décroissant en fonction d&#8217;une colonne à la demande.</p>
+</div>
+<div class="paragraph">
+<p>Vous pouvez choisir le nombre de résultats à afficher dans la table du tableau de bord en sélectionnant une valeur dans le champ <strong>Afficher les entrées</strong> de la requête.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="regroupement-dans-un-widget-de-tableau">Regroupement dans un widget de tableau</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Les données d&#8217;un widget de tableau peuvent être regroupées par n&#8217;importe quel attribut disponible, ce qui vous permet d&#8217;afficher une vue d&#8217;ensemble de vos données et d&#8217;en explorer les données pour plus de détails. Les mesures de la table sont rassemblées pour faciliter l&#8217;affichage dans chaque ligne réduite.</p>
+</div>
+<div class="paragraph">
+<p>Les widgets de tableau vous permettent de regrouper vos données en fonction des attributs que vous avez définis. Par exemple, votre tableau peut afficher les IOPS de stockage totales regroupées en fonction des data centers dans lesquels ces stockages sont actifs. Vous pouvez également afficher un tableau des machines virtuelles regroupées en fonction de l&#8217;hyperviseur qui les héberge. Dans la liste, vous pouvez développer chaque groupe pour afficher les ressources de ce groupe.</p>
+</div>
+<div class="paragraph">
+<p>Le regroupement n&#8217;est disponible que dans le type de widget Table.</p>
+</div>
+<div class="sect2">
+<h3 id="exemple-de-regroupement-avec-cumul-expliqué">Exemple de regroupement (avec cumul expliqué)</h3>
+<div class="paragraph">
+<p>Les widgets de tableau vous permettent de regrouper les données pour faciliter leur affichage.</p>
+</div>
+<div class="paragraph">
+<p>Dans cet exemple, nous allons créer un widget de tableau répertoriant toutes les machines virtuelles regroupées par Data Center.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Étapes</div>
+<ol class="arabic">
+<li>
+<p>Créez ou ouvrez un tableau de bord et ajoutez un widget <strong>Table</strong>.</p>
+</li>
+<li>
+<p>Sélectionnez <em>Virtual machine</em> comme type d&#8217;actif pour ce widget.</p>
+</li>
+<li>
+<p>Cliquez sur le sélecteur de colonne et choisissez <em>Hypervisor name</em> et <em>IOPS - Total</em>.</p>
+<div class="paragraph">
+<p>Ces colonnes sont maintenant affichées dans le tableau.</p>
+</div>
+</li>
+<li>
+<p>Ignorez toutes les machines virtuelles sans IOPS et incluez uniquement les machines virtuelles pour lesquelles les IOPS totales sont supérieures à 1. Cliquez sur le bouton <strong>Filter by</strong> <strong>[+]</strong> et sélectionnez <em>IOPS - Total</em>. Cliquez sur <em>any</em>, et dans le champ <strong>de</strong>, saisissez <strong>1</strong>. Laissez le champ <strong>à</strong> vide. Appuyez sur entrer sans cliquer sur le champ de filtre pour appliquer le filtre.</p>
+<div class="paragraph">
+<p>Le tableau indique désormais toutes les machines virtuelles dont le nombre total d&#8217;IOPS est supérieur ou égal à 1. Notez qu&#8217;il n&#8217;y a pas de regroupement dans la table. Toutes les VM sont affichées.</p>
+</div>
+</li>
+<li>
+<p>Cliquez sur le bouton <strong>Grouper par [+]</strong>.</p>
+<div class="paragraph">
+<p>Vous pouvez grouper par n&#8217;importe quel attribut ou annotation affiché. Choisissez <em>All</em> pour afficher toutes les machines virtuelles d&#8217;un même groupe.</p>
+</div>
+<div class="paragraph">
+<p>Tout en-tête de colonne pour une mesure de performance affiche un menu "trois points" contenant une option <strong>Roll up</strong>. La méthode par défaut est <em>AVG</em>. Cela signifie que le nombre indiqué pour le groupe correspond à la moyenne de toutes les IOPS totales indiquées pour chaque machine virtuelle du groupe. Vous pouvez choisir de faire rouler cette colonne vers le haut par <em>AVG, somme, min</em> ou <em>Max</em>. Toutes les colonnes qui contiennent des mesures de performance peuvent être synthétisés individuellement.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/TableRollUp.png" alt="Enroulez"></span></p>
+</div>
+</li>
+<li>
+<p>Cliquez sur <em>All</em> et sélectionnez <em>Hypervisor name</em>.</p>
+<div class="paragraph">
+<p>La liste des machines virtuelles est désormais groupée par hyperviseur. Vous pouvez développer chaque hyperviseur pour afficher les VM hébergées par celui-ci.</p>
+</div>
+</li>
+<li>
+<p>Cliquez sur <strong>Enregistrer</strong> pour enregistrer la table dans le tableau de bord. Vous pouvez redimensionner ou déplacer le widget comme vous le souhaitez.</p>
+</li>
+<li>
+<p>Cliquez sur <strong>Enregistrer</strong> pour enregistrer le tableau de bord.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="synthèse-des-données-de-performance">Synthèse des données de performance</h3>
+<div class="paragraph">
+<p>Si vous incluez une colonne pour les données de performances (par exemple, <em>IOPS - Total</em>) dans un widget de tableau, lorsque vous choisissez de regrouper les données, vous pouvez alors choisir une méthode de synthèse pour cette colonne. La méthode de défilement par défaut consiste à afficher la moyenne (<em>avg</em>) des données sous-jacentes de la ligne du groupe. Vous pouvez également choisir d&#8217;afficher la somme, le minimum ou le maximum des données.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="sélecteur-de-plage-horaire-du-tableau-de-bord">Sélecteur de plage horaire du tableau de bord</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Vous pouvez sélectionner la plage horaire des données de votre tableau de bord. Seules les données relatives à la plage horaire sélectionnée s&#8217;affichent dans les widgets du tableau de bord. Vous pouvez sélectionner l&#8217;une des plages de temps suivantes :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Dernières 15 minutes</p>
+</li>
+<li>
+<p>Dernières 30 minutes</p>
+</li>
+<li>
+<p>Dernières 60 minutes</p>
+</li>
+<li>
+<p>Dernières 2 heures</p>
+</li>
+<li>
+<p>Les 3 dernières heures (il s&#8217;agit de la valeur par défaut)</p>
+</li>
+<li>
+<p>Dernières 6 heures</p>
+</li>
+<li>
+<p>Dernières 12 heures</p>
+</li>
+<li>
+<p>Dernières 24 heures</p>
+</li>
+<li>
+<p>2 derniers jours</p>
+</li>
+<li>
+<p>3 derniers jours</p>
+</li>
+<li>
+<p>7 derniers jours</p>
+</li>
+<li>
+<p>30 derniers jours</p>
+</li>
+<li>
+<p>Plage horaire personnalisée</p>
+<div class="paragraph">
+<p>La plage de temps personnalisée vous permet de sélectionner jusqu&#8217;à 31 jours consécutifs. Vous pouvez également définir l&#8217;heure de début et l&#8217;heure de fin de la journée pour cette plage. L&#8217;heure de début par défaut est 12:00 AM le premier jour sélectionné et l&#8217;heure de fin par défaut est 11:59 PM le dernier jour sélectionné. Cliquez sur <strong>appliquer</strong> pour appliquer la plage de temps personnalisée au tableau de bord.</p>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="remplacement-de-lheure-du-tableau-de-bord-dans-des-widgets-individuels">Remplacement de l&#8217;heure du tableau de bord dans des widgets individuels</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Vous pouvez remplacer le paramètre de plage horaire principal du tableau de bord dans des widgets individuels. Ces widgets affichent des données en fonction de leur période définie, et non pas de l&#8217;heure du tableau de bord.</p>
+</div>
+<div class="paragraph">
+<p>Pour remplacer l&#8217;heure du tableau de bord et forcer un widget à utiliser son propre intervalle de temps, dans le mode d&#8217;édition du widget, définissez <strong>Override Dashboard Time</strong> sur <strong>On</strong> (cochez la case) et sélectionnez une plage de temps pour le widget. <strong>Enregistrer</strong> le widget du tableau de bord.</p>
+</div>
+<div class="paragraph">
+<p>Le widget affichera ses données en fonction de la période définie, indépendamment du délai sélectionné sur le tableau de bord lui-même.</p>
+</div>
+<div class="paragraph">
+<p>La période que vous définissez pour un widget n&#8217;affectera pas les autres widgets du tableau de bord.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="axes-principal-et-secondaire">Axes principal et secondaire</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Les différentes mesures utilisent différentes unités de mesure pour les données qu&#8217;elles indiquent dans un graphique. Par exemple, dans le cas des IOPS, l&#8217;unité de mesure correspond au nombre d&#8217;opérations d&#8217;E/S par seconde de temps (E/S), tandis que la latence mesure uniquement le temps (millisecondes, microsecondes, secondes, etc.). Lors de la transcription des deux mesures sur un graphique à ligne unique à l&#8217;aide d&#8217;un ensemble unique de valeurs a pour l&#8217;axe y, les nombres de latence (en général quelques millisecondes) sont transcrits sur la même échelle avec les IOPS (généralement la numérotation des milliers) et la ligne de latence est perdue à cette échelle.</p>
+</div>
+<div class="paragraph">
+<p>Mais il est possible de tracer les deux ensembles de données sur un seul graphique significatif, en définissant une unité de mesure sur l&#8217;axe y principal (côté gauche) et l&#8217;autre unité de mesure sur l&#8217;axe y secondaire (côté droit). Chaque mesure est saisie à sa propre échelle.</p>
+</div>
+<div class="paragraph">
+<div class="title">Étapes</div>
+<p>Cet exemple illustre le concept des axes principal et secondaire dans un widget graphique.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Créez ou ouvrez un tableau de bord. Ajoutez un graphique linéaire, un graphique spline, un graphique de zone ou un widget de graphique à zone empilée au tableau de bord.</p>
+</li>
+<li>
+<p>Sélectionnez un type de ressource (par exemple <em>Storage</em>) et choisissez <em>IOPS - Total</em> pour votre première mesure. Définissez les filtres que vous souhaitez et choisissez une méthode de déploiement si vous le souhaitez.</p>
+<div class="paragraph">
+<p>La ligne IOPS s&#8217;affiche sur le tableau, avec son échelle affichée à gauche.</p>
+</div>
+</li>
+<li>
+<p>Cliquez sur <strong>[+Query]</strong> pour ajouter une seconde ligne au graphique. Pour cette ligne, choisissez <em>latence - Total</em> pour la mesure.</p>
+<div class="paragraph">
+<p>Notez que la ligne est affichée à plat en bas du graphique. C&#8217;est parce qu&#8217;elle est <em>à la même échelle</em> que la ligne IOPS.</p>
+</div>
+</li>
+<li>
+<p>Dans la requête latence, sélectionnez <strong>axe y : secondaire</strong>.</p>
+<div class="paragraph">
+<p>La ligne latence est maintenant tracée à sa propre échelle, qui est affichée à droite du graphique.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./media/SecondaryAxisExplained.png" alt="Exemple d&#8217;axe secondaire">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="expressions-dans-les-widgets">Expressions dans les widgets</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Dans un tableau de bord, tout widget de séries chronologiques (ligne, spline, zone, zone empilée), valeur unique, Ou widget de jauge vous permet de créer des expressions à partir des mesures que vous choisissez et d&#8217;afficher le résultat de ces expressions dans un seul graphique. Les exemples suivants utilisent des expressions pour résoudre des problèmes spécifiques. Dans le premier exemple, nous souhaitons afficher les IOPS en lecture sous forme de pourcentage du nombre total d&#8217;IOPS pour l&#8217;ensemble des ressources de stockage de notre environnement. Le deuxième exemple donne une visibilité sur les IOPS du système ou de surcharge de votre environnement&#8212;&#8203;ces IOPS qui ne sont pas directement liées à la lecture ou à l&#8217;écriture des données.</p>
+</div>
+<div class="paragraph">
+<p>Vous pouvez utiliser des variables dans des expressions (par exemple, <em>$Var1 * 100</em>)</p>
+</div>
+<div class="sect2">
+<h3 id="expressions-exemple-pourcentage-diops-en-lecture">Expressions exemple : pourcentage d&#8217;IOPS en lecture</h3>
+<div class="paragraph">
+<p>Dans cet exemple, nous allons afficher les IOPS en lecture sous forme de pourcentage du nombre total d&#8217;IOPS. Vous pouvez considérer ceci comme la formule suivante :</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre> Read Percentage = (Read IOPS / Total IOPS) x 100
+Ces données peuvent s'afficher dans un graphique en courbes sur votre tableau de bord. Pour ce faire, procédez comme suit :</pre>
+</div>
+</div>
+<div class="olist arabic">
+<div class="title">Étapes</div>
+<ol class="arabic">
+<li>
+<p>Créez un nouveau tableau de bord ou ouvrez un tableau de bord existant en mode édition.</p>
+</li>
+<li>
+<p>Ajoutez un widget au tableau de bord. Choisissez <strong>diagramme de zone</strong>.</p>
+<div class="paragraph">
+<p>Le widget s&#8217;ouvre en mode édition. Par défaut, une requête est affichée avec <em>IOPS - Total</em> pour <em>Storage</em> Assets. Si vous le souhaitez, sélectionnez un autre type d&#8217;actif.</p>
+</div>
+</li>
+<li>
+<p>Cliquez sur le lien <strong>convertir en expression</strong> à droite.</p>
+<div class="paragraph">
+<p>La requête en cours est convertie en mode expression. Vous ne pouvez pas modifier le type de ressource en mode expression. Lorsque vous êtes en mode expression, le lien devient <strong>revenir à requête</strong>. Cliquez sur ce bouton si vous souhaitez revenir au mode requête à tout moment. N&#8217;oubliez pas que le passage d&#8217;un mode à l&#8217;autre réinitialise les champs à leur valeur par défaut.</p>
+</div>
+<div class="paragraph">
+<p>Pour l&#8217;instant, restez en mode expression.</p>
+</div>
+</li>
+<li>
+<p>La mesure <strong>IOPS - Total</strong> se trouve maintenant dans le champ de variable alphabétique "<strong>a</strong>". Dans le champ variable "<strong>b</strong>", cliquez sur <strong>Select</strong> et choisissez <strong>IOPS - lecture</strong>.</p>
+<div class="paragraph">
+<p>Vous pouvez ajouter jusqu&#8217;à cinq variables alphabétiques pour votre expression en cliquant sur le bouton + en suivant les champs des variables. Pour notre exemple de pourcentage de lecture, nous n&#8217;avons besoin que des IOPS totales ("<strong>a</strong>") et des IOPS de lecture ("<strong>b</strong>").</p>
+</div>
+</li>
+<li>
+<p>Dans le champ <strong>expression</strong>, vous utilisez les lettres correspondant à chaque variable pour créer votre expression. Nous savons que Read Percentage = (Read IOPS / Total IOPS) x 100, nous écrivons cette expression comme suit :</p>
+<div class="literalblock">
+<div class="content">
+<pre> (b / a) * 100
+. Le champ *Label* identifie l’expression. Remplacez l'étiquette par « pourcentage de lecture », ou quelque chose de tout aussi significatif pour vous.
+. Définissez le champ *unités* sur " %" ou sur "pourcentage".</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Le graphique affiche le pourcentage de lecture des IOPS dans le temps pour les périphériques de stockage sélectionnés. Si vous le souhaitez, vous pouvez définir un filtre ou choisir une autre méthode d&#8217;agrégation. Sachez que si vous sélectionnez somme comme méthode de cumul, toutes les valeurs de pourcentage sont ajoutées ensemble, qui peuvent être supérieures à 100 %.</p>
+</div>
+</li>
+<li>
+<p>Cliquez sur <strong>Enregistrer</strong> pour enregistrer le graphique dans votre tableau de bord.</p>
+<div class="paragraph">
+<p>Vous pouvez également utiliser des expressions dans les widgets Line Chart, Spline Chart ou surface empilées.</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="expressions-exemple-es-système">Expressions exemple : E/S « système »</h3>
+<div class="paragraph">
+<p>Exemple 2 : parmi les mesures collectées à partir des sources de données sont la lecture, l&#8217;écriture et le nombre total d&#8217;IOPS. Toutefois, le nombre total d&#8217;IOPS indiqué par une source de données inclut parfois des IOPS « système », ce qui ne fait pas partie directement des opérations de lecture ou d&#8217;écriture des données. Ces E/S du système peuvent également être considérées comme des E/S « surcharges » qui sont nécessaires au bon fonctionnement du système, mais pas directement liées aux opérations de données.</p>
+</div>
+<div class="paragraph">
+<p>Pour afficher ces E/S système, vous pouvez limiter le nombre d&#8217;IOPS de lecture et d&#8217;écriture du total indiqué lors de l&#8217;acquisition. La formule peut ressembler à ceci :</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre> System IOPS = Total IOPS - (Read IOPS + Write IOPS)
+Ces données peuvent ensuite être affichées dans un graphique en courbes sur votre tableau de bord. Pour ce faire, procédez comme suit :</pre>
+</div>
+</div>
+<div class="olist arabic">
+<div class="title">Étapes</div>
+<ol class="arabic">
+<li>
+<p>Créez un nouveau tableau de bord ou ouvrez un tableau de bord existant en mode édition.</p>
+</li>
+<li>
+<p>Ajoutez un widget au tableau de bord. Choisissez <strong>graphique de lignes</strong>.</p>
+<div class="paragraph">
+<p>Le widget s&#8217;ouvre en mode édition. Par défaut, une requête est affichée avec <em>IOPS - Total</em> pour <em>Storage</em> Assets. Si vous le souhaitez, sélectionnez un autre type d&#8217;actif.</p>
+</div>
+</li>
+<li>
+<p>Dans le champ <strong>cumul</strong>, choisissez <em>sum</em> by <em>All</em>.</p>
+<div class="paragraph">
+<p>Le graphique affiche une ligne indiquant la somme des IOPS totales.</p>
+</div>
+</li>
+<li>
+<p>Cliquez sur l&#8217;icône <em>Dupliquer cette requête</em> <span class="image"><img src="./media/DuplicateQueryIcon.png" alt="Requête de duplicaat"></span> pour créer une copie de la requête.</p>
+<div class="paragraph">
+<p>Une copie de la requête est ajoutée sous l&#8217;original.</p>
+</div>
+</li>
+<li>
+<p>Dans la deuxième requête, cliquez sur le bouton <strong>convertir en expression</strong>.</p>
+<div class="paragraph">
+<p>La requête en cours est convertie en mode expression. Cliquez sur <strong>revenir à la requête</strong> si vous souhaitez revenir au mode requête à tout moment. N&#8217;oubliez pas que le passage d&#8217;un mode à l&#8217;autre réinitialise les champs à leur valeur par défaut.</p>
+</div>
+<div class="paragraph">
+<p>Pour l&#8217;instant, restez en mode expression.</p>
+</div>
+</li>
+<li>
+<p>La mesure <em>IOPS - Total</em> se trouve maintenant dans le champ de variable alphabétique "<strong>a</strong>". Cliquez sur <em>IOPS - Total</em> et remplacez-le par <em>IOPS - Read</em>.</p>
+</li>
+<li>
+<p>Dans le champ variable "<strong>b</strong>", cliquez sur <strong>Select</strong> et choisissez <em>IOPS - Write</em>.</p>
+</li>
+<li>
+<p>Dans le champ <strong>expression</strong>, vous utilisez les lettres correspondant à chaque variable pour créer votre expression. Nous écrivons notre expression simplement comme :</p>
+<div class="literalblock">
+<div class="content">
+<pre>a + b</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Dans la section Affichage, choisissez <strong>diagramme de zone</strong> pour cette expression.</p>
+</div>
+</li>
+<li>
+<p>Le champ <strong>Label</strong> identifie l’expression. Remplacez ce label par « IOPS système », ou quelque chose de tout aussi utile pour vous.</p>
+<div class="paragraph">
+<p>Le graphique affiche le nombre total d&#8217;IOPS sous forme de graphique linéaire et un graphique de superficie illustrant la combinaison d&#8217;opérations d&#8217;E/S par seconde en lecture et en écriture ci-dessous. La différence entre les deux montre les IOPS qui ne sont pas directement liées aux opérations de lecture ou d&#8217;écriture de données. Il s&#8217;agit de vos IOPS de système.</p>
+</div>
+</li>
+<li>
+<p>Cliquez sur <strong>Enregistrer</strong> pour enregistrer le graphique dans votre tableau de bord.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Pour utiliser une variable dans une expression, tapez simplement le nom de la variable, par exemple <em>$var1 * 100</em>. Seules les variables numériques peuvent être utilisées dans les expressions.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="variables">Variables</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Les variables vous permettent de modifier simultanément les données affichées dans certains ou tous les widgets d&#8217;un tableau de bord. En définissant un ou plusieurs widgets pour utiliser une variable commune, les modifications effectuées à un endroit provoquent la mise à jour automatique des données affichées dans chaque widget.</p>
+</div>
+<div class="paragraph">
+<p>Les variables de tableau de bord peuvent être utilisées entre différents champs et doivent respecter les règles de nommage. Ces concepts sont expliqués ici.</p>
+</div>
+<div class="sect3">
+<h4 id="types-de-variables">Types de variables</h4>
+<div class="paragraph">
+<p>Une variable peut être de l&#8217;un des types suivants :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Attribut</strong> : utilisez les attributs ou les métriques d&#8217;un objet pour filtrer</p>
+</li>
+<li>
+<p><strong>Annotation</strong> : utiliser une pré-définie <a href="task_defining_annotations.html">"Annotation"</a> pour filtrer les données du widget.</p>
+</li>
+<li>
+<p><strong>Texte</strong> : une chaîne alphanumérique.</p>
+</li>
+<li>
+<p><strong>Numérique</strong> : une valeur numérique. Utiliser par lui-même, ou comme valeur « de » ou « à », en fonction de votre champ de widget.</p>
+</li>
+<li>
+<p><strong>Boolean</strong> : utiliser pour les champs avec les valeurs vrai/Faux, Oui/non, etc. Pour la variable booléenne, les choix sont Oui, non, aucun, n&#8217;importe.</p>
+</li>
+<li>
+<p><strong>Date</strong> : une valeur de date. Utiliser comme valeur « de » ou « à », en fonction de la configuration de votre widget.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/Variables_Drop_Down_Showing_Annotations.png" alt="Types de variables"></span></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="variables-dattribut">Variables d&#8217;attribut</h4>
+<div class="paragraph">
+<p>La sélection d&#8217;une variable de type d&#8217;attribut permet de filtrer les données de widget contenant la ou les valeurs d&#8217;attribut spécifiées. L&#8217;exemple ci-dessous montre un widget de ligne affichant les tendances de mémoire libre pour les nœuds Agent. Nous avons créé une variable pour les adresses IP de nœud d&#8217;agent, actuellement définie pour afficher toutes les adresses IP :</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/Variables_Node_Example_Before_Variable_Applied.png" alt="Nœuds d&#8217;agent avant le filtre de variable"></span></p>
+</div>
+<div class="paragraph">
+<p>Mais si vous souhaitez temporairement voir uniquement les nœuds sur des sous-réseaux individuels de votre environnement, vous pouvez définir ou modifier la variable en IP ou IP de nœud d&#8217;agent spécifique. Ici, nous n&#8217;visualise que les nœuds sur le sous-réseau « 123 » :</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/Variables_Node_Example_After_Variable_Applied.png" alt="Nœuds agent après le filtre de variables"></span></p>
+</div>
+<div class="paragraph">
+<p>Vous pouvez également définir une variable pour filtrer sur <em>All</em> objects avec un attribut particulier quel que soit le type d&#8217;objet, par exemple les objets avec un attribut de "vendor", en spécifiant <em>*.vendor</em> dans le champ variable. Il n&#8217;est pas nécessaire de saisir "*." ; Cloud Insights le fournira si vous sélectionnez l&#8217;option de caractère générique.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/Variables_Attribute_Vendor_Example.png" alt="Variable d&#8217;attribut pour fournisseur"></span></p>
+</div>
+<div class="paragraph">
+<p>Lorsque vous effectuez la liste déroulante des choix de la valeur variable, les résultats sont filtrés. N&#8217;affichez donc que les fournisseurs disponibles en fonction des objets de votre tableau de bord.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/Variables_Attribute_Vendor_Filtered_List.png" alt="Variable d&#8217;attribut indiquant uniquement les fournisseurs disponibles"></span></p>
+</div>
+<div class="paragraph">
+<p>Si vous modifiez un widget sur votre tableau de bord où le filtre d&#8217;attribut est pertinent (c&#8217;est-à-dire que les objets du widget contiennent un attribut <em>*.vendor</em>), il vous indique que le filtre d&#8217;attribut est automatiquement appliqué.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/Variables_Attribute_inWidgetQuery.png" alt="Variable d&#8217;attribut automatiquement appliquée"></span></p>
+</div>
+<div class="paragraph">
+<p>L&#8217;application des variables est aussi simple que la modification des données d&#8217;attribut de votre choix.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="variables-dannotation">Variables d&#8217;annotation</h4>
+<div class="paragraph">
+<p>La sélection d&#8217;une variable d&#8217;annotation permet de filtrer les objets associés à cette annotation, par exemple ceux appartenant au même centre de données.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/Variables_Annotation_Filtering.png" alt="Filtrage d&#8217;annotations avec variable"></span></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="texte-nombre-date-ou-variable-booléenne">Texte, nombre, Date ou variable booléenne</h4>
+<div class="paragraph">
+<p>Vous pouvez créer des variables génériques qui ne sont pas associées à un attribut particulier en sélectionnant un type de variable : <em>Text</em>, <em>Number</em>, <em>Boolean</em> ou <em>Date</em>. Une fois la variable créée, vous pouvez la sélectionner dans un champ de filtre de widget. Lors de la définition d&#8217;un filtre dans un widget, en plus des valeurs spécifiques que vous pouvez sélectionner pour le filtre, toutes les variables qui ont été créées pour le tableau de bord sont affichées dans la liste&#8212;&#8203;elles sont regroupées dans la section "variables" de la liste déroulante et ont des noms commençant par "$". Le choix d&#8217;une variable dans ce filtre vous permettra de rechercher les valeurs que vous entrez dans le champ variable du tableau de bord lui-même. Tous les widgets utilisant cette variable dans un filtre seront mis à jour dynamiquement.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/Variables_in_a_Widget_Filter.png" alt="Sélection d&#8217;une variable dans un widget"></span></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="portée-du-filtre-variable">Portée du filtre variable</h4>
+<div class="paragraph">
+<p>Lorsque vous ajoutez une variable Annotation ou attribut à votre tableau de bord, la variable peut être appliquée à <em>All</em> widgets du tableau de bord, ce qui signifie que tous les widgets de votre tableau de bord afficheront les résultats filtrés en fonction de la valeur que vous avez définie dans la variable.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/Variables_Automatic_Filter_Button.png" alt="Filtre automatique"></span></p>
+</div>
+<div class="paragraph">
+<p>Notez que seules les variables attribut et Annotation peuvent être filtrées automatiquement comme ceci. Les variables non-Annotation ou -Attribute ne peuvent pas être filtrées automatiquement. Chaque widget doit être configuré pour utiliser des variables de ces types.</p>
+</div>
+<div class="paragraph">
+<p>Pour désactiver le filtrage automatique de sorte que la variable s&#8217;applique uniquement aux widgets pour lesquels vous l&#8217;avez défini spécifiquement, cliquez sur le curseur « Filtrer automatiquement » pour le désactiver.</p>
+</div>
+<div class="paragraph">
+<p>Pour définir une variable dans un widget individuel, ouvrez le widget en mode édition et sélectionnez l&#8217;annotation ou l&#8217;attribut spécifique dans le champ <em>Filter by</em>. Avec une variable d&#8217;annotation, vous pouvez sélectionner une ou plusieurs valeurs spécifiques ou sélectionner le nom de la variable (indiqué par le « $ ») pour permettre la saisie dans la variable au niveau du tableau de bord. La même chose s&#8217;applique aux variables d&#8217;attribut. Seuls les widgets pour lesquels vous définissez la variable affichent les résultats filtrés.</p>
+</div>
+<div class="paragraph">
+<p>Pour utiliser une variable dans une expression, tapez simplement le nom de la variable dans l&#8217;expression, par exemple <em>$var1 * 100</em>. Seules les variables numériques peuvent être utilisées dans les expressions. Vous ne pouvez pas utiliser de variables d&#8217;annotation numérique ou d&#8217;attribut dans les expressions.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="dénomination-des-variables">Dénomination des variables</h4>
+<div class="paragraph">
+<p>Noms des variables :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Ne doit inclure que les lettres a-z, les chiffres 0-9, point (.), trait de soulignement (_) et espace ( ).</p>
+</li>
+<li>
+<p>Ne peut pas comporter plus de 20 caractères.</p>
+</li>
+<li>
+<p>Sont sensibles à la casse : $cityname et $cityname sont des variables différentes.</p>
+</li>
+<li>
+<p>Ne peut pas être identique à un nom de variable existant.</p>
+</li>
+<li>
+<p>Ne peut pas être vide.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="formatage-des-widgets-de-jauge">Formatage des widgets de jauge</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Les widgets solide et jauge à puce vous permettent de définir des seuils pour les niveaux <em>Warning</em> et/ou <em>Critical</em>, fournissant une représentation claire des données que vous spécifiez.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/Gauge%20Widget%20Formatting.png" alt="Paramètres de format pour le widget Gauge"></span></p>
+</div>
+<div class="paragraph">
+<p>Pour définir le formatage de ces widgets, procédez comme suit :</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Choisissez si vous souhaitez mettre en surbrillance des valeurs supérieures à (&gt;) ou inférieures à (&lt;) vos seuils. Dans cet exemple, nous allons mettre en surbrillance des valeurs supérieures à (&gt;) les niveaux de seuil.</p>
+</li>
+<li>
+<p>Choisissez une valeur pour le seuil « Avertissement ». Lorsque le widget affiche des valeurs supérieures à ce niveau, il affiche la jauge en orange.</p>
+</li>
+<li>
+<p>Choisissez une valeur pour le seuil « critique ». Des valeurs supérieures à ce niveau entraînent l&#8217;affichage de la jauge en rouge.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Vous pouvez choisir une valeur minimale et maximale pour la jauge. Les valeurs inférieures au minimum n&#8217;affichent pas la jauge. Les valeurs supérieures au maximum affichent une jauge complète. Si vous ne choisissez pas les valeurs minimum ou maximum, le widget sélectionne les valeurs min et max optimales en fonction de la valeur du widget.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/Gauge-Solid.png" alt="Jauge pleine/traditionnelle, largeur=374"></span><br>
+<span class="image"><img src="./media/Gauge-Bullet.png" alt="Jauge à puce, largeur=374"></span></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="formatage-du-widget-à-valeur-unique">Formatage du widget à valeur unique</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Dans le widget valeur unique, outre le réglage des seuils d&#8217;avertissement (orange) et critique (rouge), vous pouvez choisir d&#8217;avoir des valeurs « dans la plage » (celles qui se trouvent sous le niveau d&#8217;avertissement) affichées avec un arrière-plan vert ou blanc.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/Single-Value%20Widgets.png" alt="Widget de valeur unique avec et sans formatage"></span></p>
+</div>
+<div class="paragraph">
+<p>Si vous cliquez sur le lien dans un widget à valeur unique ou un widget de jauge, une page de requête correspondant à la première requête du widget s&#8217;affiche.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="choix-de-lunité-pour-laffichage-des-données">Choix de l&#8217;unité pour l&#8217;affichage des données</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>La plupart des widgets d&#8217;un tableau de bord vous permettent de spécifier les unités dans lesquelles afficher les valeurs, par exemple <em>mégaoctets</em>, <em>milliers</em>, <em>pourcentage</em>, <em>millisecondes (ms)</em>, Etc. Dans de nombreux cas, Cloud Insights connaît le format le plus adapté aux données acquises. Lorsque le format le plus adapté n&#8217;est pas connu, vous pouvez définir le format de votre choix.</p>
+</div>
+<div class="paragraph">
+<p>Dans l&#8217;exemple de graphique en courbes ci-dessous, les données sélectionnées pour le widget sont connues sous la forme <em>octets</em> (l&#8217;unité de données CEI de base : voir le tableau ci-dessous), de sorte que l&#8217;unité de base est automatiquement sélectionnée sous la forme 'octet (B)'. Toutefois, les valeurs des données sont suffisamment grandes pour être présentées comme des gibioctets (Gio), si bien que Cloud Insights formate automatiquement les valeurs par défaut de Gio. L&#8217;axe y du graphique affiche « Gio » comme unité d&#8217;affichage, et toutes les valeurs sont affichées en termes d&#8217;unité.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/used_memory_in_bytes.png" alt="Octet d&#8217;unité de base affiché en gigaoctets,largeur=640"></span></p>
+</div>
+<div class="paragraph">
+<p>Si vous souhaitez afficher le graphique dans une autre unité, vous pouvez choisir un autre format d&#8217;affichage des valeurs. Comme l&#8217;unité de base de cet exemple est <em>byte</em>, vous pouvez choisir parmi les formats « octet » pris en charge : bit (b), octet (B), kibyte (Kio), mebibyte (MIB), gibibyte (Gio). L&#8217;étiquette et les valeurs de l&#8217;axe y changent selon le format choisi.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/used_memory_in_bytes_gb.png" alt="Choix d&#8217;une unité d&#8217;affichage, largeur=640"></span></p>
+</div>
+<div class="paragraph">
+<p>Dans les cas où l&#8217;unité de base n&#8217;est pas connue, vous pouvez affecter une unité à partir de parmi <a href="#available-units">"unités disponibles"</a>, ou tapez le vôtre. Une fois l&#8217;unité de base affectée, vous pouvez choisir d&#8217;afficher les données dans l&#8217;un des formats pris en charge appropriés.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/bits_per_second.png" alt="Choisissez votre propre unité de base, largeur=320"></span></p>
+</div>
+<div class="paragraph">
+<p>Pour effacer vos paramètres et recommencer, cliquez sur <strong>Réinitialiser les paramètres par défaut</strong>.</p>
+</div>
+<div class="sect2">
+<h3 id="un-mot-sur-le-format-automatique">Un mot sur le format automatique</h3>
+<div class="paragraph">
+<p>La plupart des mesures sont signalées par des collecteurs de données dans la plus petite unité, par exemple en nombre entier, comme 1,234,567,890 octets. Par défaut, Cloud Insights formatera automatiquement la valeur pour l&#8217;affichage le plus lisible. Par exemple, une valeur de données de 1,234,567,890 octets serait formatée automatiquement en 1.23 <em>Gibioctet</em>. Vous pouvez choisir de l&#8217;afficher dans un autre format, par exemple <em>mébioctets</em>. La valeur s&#8217;affiche en conséquence.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/test/images/note.svg" alt="Note">
+</td>
+<td class="content">
+Cloud Insights utilise les normes américaines de nommage des numéros anglais. Le "milliard" américain équivaut à "mille millions".
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="widgets-avec-plusieurs-requêtes">Widgets avec plusieurs requêtes</h3>
+<div class="paragraph">
+<p>Si vous disposez d&#8217;un widget de séries chronologiques (ligne, spline, zone, zone empilée) comportant deux requêtes dans lesquelles les deux sont tracées sur l&#8217;axe y principal, l&#8217;unité de base n&#8217;est pas affichée en haut de l&#8217;axe Y. Toutefois, si votre widget a une requête sur l&#8217;axe y principal et une requête sur l&#8217;axe y secondaire, les unités de base de chacune sont affichées.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/UnitsOnPrimaryAnd%20SecondaryYAxis.png" alt="Unités sur les deux axes Y."></span></p>
+</div>
+<div class="paragraph">
+<p>Si votre widget a au moins trois requêtes, les unités de base ne sont pas affichées sur l&#8217;axe Y.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="unités-disponibles">Unités disponibles</h3>
+<div class="paragraph">
+<p>Le tableau suivant montre toutes les unités disponibles par catégorie.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Catégorie</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Unités</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Devise</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">dollar</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Données (CEI)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">octet binaire kibbyte mebibyte gibibyte tebibyte pebibyte exbibyte</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Date(CEI)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bit/sec octet/sec kibyte/sec mebibyte/sec gibibyte/sec tebibyte/sec pebibyte/sec</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Données (métriques)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">kilo-octet octet octet octet octet octet octet octet octet octet octet octet téraoctet</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Date(métrique)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">kilo-octet/s mégaoctet par seconde et gigaoctet par seconde téraoctet/s plusieurs pétaoctets/sec</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CEI</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bami mebi gibi tebi exbi</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Décimale</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">nombre entier de milliers de milliards de bilions</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Pourcentage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pourcentage</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Temps</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">nanoseconde microseconde milliseconde seconde minute heure</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Température</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">celsius fahrenheit</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fréquence</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hertz kilohertz mégahertz gigahertz</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CPU</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">nanocores microcœurs millicores cœurs kilocolores megacores gigacores teracores petacores exacores</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Débit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Opérations d&#8217;E/S par seconde (OPS/s) demandes par seconde (lectures/s) opérations par seconde (OPS/min) en lecture/min en écriture/min (min)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="mode-tv-et-actualisation-automatique">Mode TV et actualisation automatique</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Les données des widgets des tableaux de bord et des pages de destination des actifs se réactualisent automatiquement en fonction d&#8217;un intervalle de rafraîchissement déterminé par la plage de temps du tableau de bord sélectionnée (ou la plage de temps du widget, si elle est définie pour remplacer l&#8217;heure du tableau de bord). L&#8217;intervalle d&#8217;actualisation est basé sur le fait que le widget soit des séries chronologiques (ligne, spline, zone, graphique à surface empilée) ou des séries non temporelles (tous les autres graphiques).</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Plage de temps du tableau de bord</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Intervalle d&#8217;actualisation des séries de temps</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Intervalle d&#8217;actualisation des séries non horaires</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dernières 15 minutes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10 secondes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 minute</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dernières 30 minutes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">15 secondes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 minute</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dernières 60 minutes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">15 secondes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 minute</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dernières 2 heures</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">30 secondes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5 minutes</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dernières 3 heures</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">30 secondes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5 minutes</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dernières 6 heures</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 minute</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5 minutes</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dernières 12 heures</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5 minutes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10 minutes</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dernières 24 heures</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5 minutes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10 minutes</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 derniers jours</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10 minutes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10 minutes</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3 derniers jours</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">15 minutes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">15 minutes</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">7 derniers jours</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 heure</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 heure</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">30 derniers jours</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 heures</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 heures</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Chaque widget affiche son intervalle d&#8217;actualisation automatique dans le coin supérieur droit du widget.</p>
+</div>
+<div class="paragraph">
+<p>L&#8217;actualisation automatique n&#8217;est pas disponible pour la plage de temps du tableau de bord personnalisé.</p>
+</div>
+<div class="paragraph">
+<p>Combiné au <strong>mode TV</strong>, l&#8217;actualisation automatique permet d&#8217;afficher les données en temps quasi réel sur un tableau de bord ou une page de ressources. Le mode TV offre un affichage sans encombré ; le menu de navigation est masqué, offrant davantage d&#8217;espace pour l&#8217;affichage de vos données, tout comme le bouton Modifier. Le mode TV ignore les délais Cloud Insights classiques, laissant l&#8217;écran sous tension jusqu&#8217;à ce qu&#8217;il soit déconnecté manuellement ou automatiquement par des protocoles de sécurité d&#8217;autorisation.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/test/images/note.svg" alt="Note">
+</td>
+<td class="content">
+Dans la mesure où NetApp Cloud Central dispose d&#8217;un délai d&#8217;expiration de 7 jours pour la connexion utilisateur, Cloud Insights doit également se déconnecter de cet événement. Il vous suffit de vous connecter à nouveau pour que votre tableau de bord continue à s&#8217;afficher.
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Pour activer le mode TV, cliquez sur le bouton <span class="image"><img src="./media/ActivateTVMode.png" alt="Mode TV"></span> bouton.</p>
+</li>
+<li>
+<p>Pour désactiver le mode TV, cliquez sur le bouton <strong>Quitter</strong> dans le coin supérieur gauche de l&#8217;écran. <span class="image"><img src="./media/ExitTVMode.png" alt="Bouton Quitter"></span></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Vous pouvez suspendre temporairement l&#8217;actualisation automatique en cliquant sur le bouton Pause dans le coin supérieur droit. En pause, le champ de plage de temps du tableau de bord affiche la plage de temps active des données en pause. Vos données sont toujours en cours d&#8217;acquisition et de mise à jour pendant l&#8217;actualisation automatique. Cliquez sur le bouton reprendre pour continuer l&#8217;actualisation automatique des données.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/AutoRefreshPaused.png" alt="Actualisation automatique mise en pause"></span></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="groupes-de-tableaux-de-bord">Groupes de tableaux de bord</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Le regroupement vous permet d&#8217;afficher et de gérer les tableaux de bord associés. Par exemple, vous pouvez disposer d&#8217;un groupe de tableau de bord dédié au stockage dans votre environnement. Les groupes de tableaux de bord sont gérés sur la page <strong>tableaux de bord &gt; Afficher tous les tableaux de bord</strong>.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/DashboardGroupNoPin.png" alt="Regroupement du tableau de bord"></span></p>
+</div>
+<div class="paragraph">
+<p>Deux groupes sont affichés par défaut :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Tous les tableaux de bord</strong> répertorie tous les tableaux de bord qui ont été créés, quel que soit le propriétaire.</p>
+</li>
+<li>
+<p><strong>Mes tableaux de bord</strong> répertorie uniquement les tableaux de bord créés par l&#8217;utilisateur actuel.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Le nombre de tableaux de bord contenus dans chaque groupe s&#8217;affiche en regard du nom du groupe.</p>
+</div>
+<div class="paragraph">
+<p>Pour créer un nouveau groupe, cliquez sur le bouton <strong>"+" Créer un nouveau groupe de tableau de bord</strong>. Entrez un nom pour le groupe et cliquez sur <strong>Créer un groupe</strong>. Un groupe vide est créé avec ce nom.</p>
+</div>
+<div class="paragraph">
+<p>Pour ajouter des tableaux de bord au groupe, cliquez sur le groupe <em>All Dashboards</em> pour afficher tous les tableaux de bord de votre environnement, cliquez sur <em>My Dashboards</em> si vous ne souhaitez voir que les tableaux de bord que vous possédez et effectuez l&#8217;une des opérations suivantes :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Pour ajouter un tableau de bord unique, cliquez sur le menu à droite du tableau de bord et sélectionnez <em>Ajouter au groupe</em>.</p>
+</li>
+<li>
+<p>Pour ajouter plusieurs tableaux de bord à un groupe, sélectionnez-les en cochant la case en regard de chaque tableau de bord, puis cliquez sur le bouton <strong>actions groupées</strong> et sélectionnez <em>Ajouter au groupe</em>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Supprimez les tableaux de bord du groupe actuel de la même manière en sélectionnant <em>Supprimer du groupe</em>. Vous ne pouvez pas supprimer de tableaux de bord du groupe <em>All Dashboards</em> ou <em>My Dashboards</em>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/test/images/note.svg" alt="Note">
+</td>
+<td class="content">
+La suppression d&#8217;un tableau de bord d&#8217;un groupe ne supprime pas le tableau de bord de Cloud Insights. Pour supprimer complètement un tableau de bord, sélectionnez-le et cliquez sur <em>Delete</em>. Ceci le supprime de tous les groupes auxquels il appartenait et il n&#8217;est plus disponible pour aucun utilisateur.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="épinglez-vos-tableaux-de-bord-favoris">Épinglez vos tableaux de bord favoris</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Vous pouvez gérer davantage vos tableaux de bord en les épingler en haut de votre liste de bord. Pour épingler un tableau de bord, cliquez simplement sur le bouton de la molette affiché lorsque vous placez le pointeur de la souris sur un tableau de bord dans n&#8217;importe quelle liste.</p>
+</div>
+<div class="paragraph">
+<p>Le PIN/unpin du tableau de bord est une préférence utilisateur individuelle et indépendante du groupe (ou des groupes) auquel appartient le tableau de bord.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/DashboardPin.png" alt="Tableaux de bord épinglés"></span></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="thème-sombre">Thème sombre</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Vous pouvez choisir d&#8217;afficher Cloud Insights à l&#8217;aide d&#8217;un thème lumineux (par défaut), qui affiche la plupart des écrans à l&#8217;aide d&#8217;un arrière-plan clair avec du texte foncé, ou d&#8217;un thème sombre qui affiche la plupart des écrans à l&#8217;aide d&#8217;un arrière-plan sombre avec du texte clair.</p>
+</div>
+<div class="paragraph">
+<p>Pour basculer entre les thèmes clairs et sombres, cliquez sur le bouton username dans le coin supérieur droit de l&#8217;écran et choisissez le thème souhaité.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/DarkThemeSwitch.png" alt="Basculer entre les thèmes lumineux et sombres"></span></p>
+</div>
+<div class="paragraph">
+<p>Vue du tableau de bord sur le thème sombre :<span class="image"><img src="./media/DarkThemeDashboardExample.png" alt="Exemple de tableau de bord sur le thème sombre"></span></p>
+</div>
+<div class="paragraph">
+<p>Vue du tableau de bord sur le thème clair :<span class="image"><img src="./media/LightThemeDashboardExample.png" alt="Exemple de tableau de bord sur le thème léger"></span></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/test/images/note.svg" alt="Note">
+</td>
+<td class="content">
+Certaines zones d&#8217;écran, telles que certaines graphiques de widgets, affichent toujours des arrière-plans clairs, même lorsqu&#8217;elles sont visualisées sur un thème sombre.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="interpolation-de-lhistogramme-linéaire">Interpolation de l&#8217;histogramme linéaire</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Différents collecteurs de données scruent souvent leurs données à différents intervalles. Par exemple, le collecteur de données A peut interroger toutes les 15 minutes alors que le collecteur de données B interroge toutes les cinq minutes. Lorsqu&#8217;un widget de graphique en ligne (également des graphiques de spline, de zone et de zone empilée) rassemble ces données de plusieurs collecteurs de données en une seule ligne (par exemple, lorsque le widget est regroupé par « tous »), Et actualiser la ligne toutes les cinq minutes, les données du collecteur B peuvent être affichées avec précision alors que les données du collecteur A peuvent avoir des écarts, ce qui affecte l&#8217;agrégat jusqu&#8217;à ce que le collecteur A interroge à nouveau.</p>
+</div>
+<div class="paragraph">
+<p>Pour y remédier, Cloud Insights interpole les données lors de l&#8217;agrégation, en utilisant les points de données environnants afin de prendre une « meilleure hypothèse » aux données jusqu&#8217;à ce que les collecteurs de données songent à nouveau. Vous pouvez toujours afficher les données de chaque objet du collecteur de données individuellement en ajustant le regroupement du widget.</p>
+</div>
+</div>
+</div>
+
+    </article>
+    <!-- Page Container -->
+  </div>
+
+  <div style="clear: both"></div><!-- Main needs to have height --></div>
+
+        </main>
+
+        <footer class="n-footer">
+  <div class="n-footer__bottom">
+    <div class="n-container">
+      <div class="n-footer__bottom-left">
+        <div class="n-footer__copyright">
+          <ul class="n-footer__copyright-list">
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/us/legal/copyright.aspx">© 2022 NetApp, Inc.</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/terms-of-use/">Conditions générales</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/privacy-policy/">Privacy Policy</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/cookie-policy/">Cookie Policy</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a class="ot-sdk-show-settings">Paramètres de cookies</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="n-footer__bottom-right">
+        <div class="n-footer__copyright">
+          <ul class="n-footer__copyright-list">
+            <li class="n-footer__copyright-link">
+              <a target="_self" href="javascript:netapp_mailto()">Envoyer un avis à propos de cette page</a>
+            </li>
+          </ul>
+        </div>
+        <div class="n-footer__social-links">
+          <ul class="n-footer__social-link-list">
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-blog" href="https://blog.netapp.com"
+                target="_blank" title="blog" alt="blog">
+                <span class="n-footer__social-link-text">blog</span>
+                <svg class="n-icon-blog n-footer__social-link-icon" aria-labelledby="title">
+                  <title>blog@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/fr-fr/test/common/svg/sprite.svg#blog"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-community" href="https://community.netapp.com/"
+                target="_blank" title="community" alt="community">
+                <span class="n-footer__social-link-text">community</span>
+                <svg class="n-icon-community n-footer__social-link-icon" aria-labelledby="title">
+                  <title>community@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/fr-fr/test/common/svg/sprite.svg#comments"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-twitter" href="https://twitter.com/netapp"
+                target="_blank" title="twitter" alt="twitter">
+                <span class="n-footer__social-link-text">twitter</span>
+                <svg class="n-icon-twitter n-footer__social-link-icon" aria-labelledby="title">
+                  <title>twitter@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/fr-fr/test/common/svg/sprite.svg#twitter"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-facebook" href="https://www.facebook.com/NetApp"
+                target="_blank" title="facebook" alt="facebook">
+                <span class="n-footer__social-link-text">facebook</span>
+                <svg class="n-icon-facebook n-footer__social-link-icon" aria-labelledby="title">
+                  <title>facebook@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/fr-fr/test/common/svg/sprite.svg#facebook"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-linkedin"
+                href="https://www.linkedin.com/company/netapp" target="_blank" title="linkedin" alt="linkedin">
+                <span class="n-footer__social-link-text">linkedin</span>
+                <svg class="n-icon-linkedin n-footer__social-link-icon" aria-labelledby="title">
+                  <title>linkedin@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/fr-fr/test/common/svg/sprite.svg#linkedin"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-youtube"
+                href="https://www.youtube.com/user/NetAppTV" target="_blank" title="youtube" alt="youtube">
+                <span class="n-footer__social-link-text">youtube</span>
+                <svg class="n-icon-youtube n-footer__social-link-icon" aria-labelledby="title">
+                  <title>youtube@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/fr-fr/test/common/svg/sprite.svg#youtube"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-slideshare"
+                href="https://www.slideshare.net/NetApp" target="_blank" title="slideshare" alt="slideshare">
+                <span class="n-footer__social-link-text">slideshare</span>
+                <svg class="n-icon-slideshare n-footer__social-link-icon" aria-labelledby="title">
+                  <title>slideshare@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/fr-fr/test/common/svg/sprite.svg#slideshare"></use>
+                </svg>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+      </div><!-- Elasticsearch JS -->
+      <script type="text/javascript" src='/fr-fr/test/js/bundle.js'></script>
+
+      <!-- Syntax Highlighting -->
+      <script type="text/javascript" src='/fr-fr/test/js/prism.js'></script>
+      <script type="text/javascript" src='/fr-fr/test/js/prism-curl.js'></script>
+    </div>
+    <script>
+      document.body.offsetWidth=1903;
+      cookieLaw = {}
+      cookieLaw.euCountry = "US";
+      cookieLaw.invoke = function(){return false;}
+    </script>
+    <script src='/fr-fr/test/js/www-ntap.js'></script>
+    <script src='/fr-fr/test/js/tabbed-blocks.js'></script>
+    <script src='/fr-fr/test/js/sidebar.js'></script>
+  </body></html>

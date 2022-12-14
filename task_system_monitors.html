@@ -1,0 +1,2880 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head class="at-element-marker">
+  <title>Moniteurs système</title>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge,chrome=1">
+  <meta http-equiv="language" content="en">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="og:title" content="Moniteurs système" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://docs.netapp.com/fr-fr/test/task_system_monitors.html" />
+	<meta property="og:description" content="Créez des moniteurs pour alerter les seuils de performances ou d"inventaire, ainsi que les conditions de mesure ou de journal." />
+  <meta property="og:image" content="https://docs.netapp.com/fr-fr/test/images/logo-tophat-social.png" />
+  <meta property="og:image:alt" content="NetApp Logo" />
+  <meta name="format-detection" content="telephone=no">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="encoding" content="utf-8">
+  <meta http-equiv="nss-type" content="Product Documentation"/>
+  <meta http-equiv="nss-subtype" content="User Guide"/><meta name="description" content="Créez des moniteurs pour alerter les seuils de performances ou d"inventaire, ainsi que les conditions de mesure ou de journal.">
+  <meta name="keywords" content=" monitors, alerts, log, metric"><meta name="robots" content="noindex" /><!-- Icons -->
+  <link rel="icon" href="/fr-fr/test/images/favicon.ico" type="image/x-icon">
+
+  <!-- RSS Feed --><!-- CSS Definitions: NetApp CSS should be defined after generic css -->
+
+  <!-- Elastic Search -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/searchkit/0.10.0/theme.css">
+
+  <!-- Combined CSS -->
+  <link rel="stylesheet" type="text/css" href="/fr-fr/test/css/netappdocs.css">
+
+  
+  <link rel="stylesheet" href="/fr-fr/test/css/landing-page.css" type="text/css">
+  <link rel="stylesheet" href="/fr-fr/test/css/tabbed-blocks.css" type="text/css">
+  <!-- Canonical url -->
+  <!-- Top level site integrations --><script>
+    function addAdobeLaunch(adobeId) {
+      var head = document.getElementsByTagName('head')[0];
+      var adobe = document.createElement("script");
+      adobe.type = "text/plain";
+      adobe.className = "optanon-category-C0002";
+      adobe.src = "//assets.adobedtm.com/60287eadf1ee/c284da483c83/"+adobeId+".min.js";
+      head.appendChild(adobe);
+    }
+
+    function addGoogleAnalytics(gtagId) {
+      var google = document.createElement("script");
+      google.type = "text/plain";
+      google.className = "optanon-category-C0002";
+      google.src = "https://www.googletagmanager.com/gtag/js?id="+gtagId;
+      var head = document.getElementsByTagName('head')[0];
+      head.appendChild(google);
+
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', gtagId);
+    }
+
+    function addConsent(consentId) {
+      var head = document.getElementsByTagName('head')[0];
+      var onetrustConsent = document.createElement("script");
+      onetrustConsent.type = "text/javascript";
+      onetrustConsent.src = "https://cdn.cookielaw.org/consent/"+consentId+"/OtAutoBlock.js";
+      head.appendChild(onetrustConsent);
+
+      var onetrustScript = document.createElement("script");
+      onetrustScript.type = "text/javascript";
+      onetrustScript.src = "https://cdn.cookielaw.org/scripttemplates/otSDKStub.js";
+      onetrustScript.charset = "UTF-8";
+      onetrustScript.dataset.documentLanguage = "true";
+      onetrustScript.dataset.domainScript = consentId;
+      head.appendChild(onetrustScript);
+    }addConsent("72570c5c-fe30-465f-b0e0-b77f7fb4ae34");
+    addAdobeLaunch("launch-e9ff3acac59f");
+    addGoogleAnalytics("UA-81697994-3");function OptanonWrapper() { }
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+  <!-- Used for Product Family Page Sidebar Visibility --><!-- Used to import Promise for IE. Required for SearchKit -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.5/bluebird.min.js"></script><script src='/fr-fr/test/js/na-search.js'></script><script src='/fr-fr/test/js/na-pagenav.js'></script><script src='/fr-fr/test/js/na-utility.js'></script>
+  <script src='/fr-fr/test/js/clouddocs.js'></script>
+  <script src='/fr-fr/test/js/jquery.navgoco.min.js'></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src='/fr-fr/test/js/toc.js'></script>
+  <script src='/fr-fr/test/js/customscripts.js'></script><script>
+      $(document).ready(function() {
+          
+          var collapseOnInit = true;
+          
+
+          var navSettings = {
+              "caretHtml": '',
+              "accordion": collapseOnInit,
+              "openClass": 'active', // open
+              "save": false, // leave false or nav highlighting doesn't work right
+              "cookie": {
+                  "name": 'navgoco',
+                  "expires": false,
+                  "path": '/'
+              },
+              "slide": {
+                  "duration": 400,
+                  "easing": 'swing'
+              }
+          };
+
+          // Initialize navgoco with default options
+          $("#mysidebar").navgoco(navSettings);
+          
+
+          $("#collapseAll").click(function(e) {
+              e.preventDefault();
+              $("#mysidebar").navgoco('toggle', false);
+          });
+
+          $("#expandAll").click(function(e) {
+              e.preventDefault();
+              $("#mysidebar").navgoco('toggle', true);
+          });
+
+          $(".sidebar-nav-container").on("scroll", function() {
+            $.cookie("sidebarScroll", $(".sidebar-nav-container").scrollTop(), {
+              path    : "/fr-fr/test"  
+            });
+          });
+          $(function() {
+            if ($.cookie("sidebarScroll")) {
+              $(".sidebar-nav-container").scrollTop($.cookie("sidebarScroll"));
+            }
+          });
+
+      });
+
+  </script>
+  <script>
+      $(document).ready(function() {
+          $("#tg-sb-link").click(function() {
+              $("#tg-sb-sidebar").toggle();
+              $("#tg-sb-content").toggleClass('col-md-9');
+              $("#tg-sb-content").toggleClass('col-md-12');
+              $("#tg-sb-icon").toggleClass('fa-toggle-on');
+              $("#tg-sb-icon").toggleClass('fa-toggle-off');
+          });
+      });
+  </script>
+  <script src='/fr-fr/test/js/custom-dropdown.js'></script>
+  <script src='/fr-fr/test/js/FileSaver.min.js'></script>
+  <script src='/fr-fr/test/js/jszip-utils.min.js'></script>
+  <script src='/fr-fr/test/js/jszip.min.js'></script>
+  <script src='/fr-fr/test/js/pdf-ux.js'></script>
+</head>
+
+
+  <body class role="document" data-flavor="">
+    <div id="page" class="n-off-canvas-menu">
+      <div class="n-off-canvas-menu__menu"><!--TODO: Add offcanvas code --></div>
+      <div class="n-off-canvas-menu__content-wrap">
+        <header class="site-header" id="banner">
+  
+  <!-- Start Page Toolbar -->
+  
+  <div class="page-nav-toolbar"><div class="page-nav-contribute"><a target="_blank" href="https://github.com/NetAppDocs/test/issues/new?body=Page%3A%20[Moniteurs système](https://docs.netapp.com/fr-fr/test/task_system_monitors.html)&template=public-issue-template.md" class="page-nav-contribute-link" role="button"><img src="/fr-fr/test/images/discuss-sm.svg" alt="" class="github-icon" />Demander de modifier un document</a><a target="_blank" href="https://github.com/NetAppDocs/test/blob/main/task_system_monitors.adoc" class="page-nav-contribute-link" role="button"><img src="/fr-fr/test/images/edit-sm.svg" alt="" class="github-icon" />Modifier sur GitHub</a><a target="_blank" href="https://docs.netapp.com/us-en/contribute/" class="page-nav-contribute-link"  ><img src="/fr-fr/test/images/article-sm.svg" alt="" class="github-icon" />Guide des contributeurs</a></div>
+    <div class="page-nav-container">
+      <nav class="page-nav-fixed">
+        <div class="page-nav-title">SUR CETTE PAGE</div>
+        <div class="page-nav-links">
+          <ul class="page-nav-inner" id="page-menu"></ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+  
+  
+  <!-- Start top_hat -->
+  <div class="n-top-hat">
+    <div class="n-container">
+      <div class="n-top-hat__cross-property-nav">
+        <ul class="n-top-hat__list">
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/products-a-z/" class="n-top-hat__link">Produits et solutions</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/support-and-training/netapp-university/" class="n-top-hat__link">Support et formation</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://cloud.netapp.com" class="n-top-hat__link">Cloud Central</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://community.netapp.com/" class="n-top-hat__link">Communauté</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://blog.netapp.com/" class="n-top-hat__link">Blog</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://customers.netapp.com/en/" class="n-top-hat__link">Témoignages clients</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/us/contact-us/index.aspx" target="_self" class="n-top-hat__link" data-ntap-ui="contact-us">Contact</a>
+          </li>
+        </ul>
+      </div>
+      <div class="n-top-hat__utils">
+        <ul class="n-top-hat__list">
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/us/contact-us/index.aspx" target="_self" class="n-top-hat__link" data-ntap-ui="contact-us">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- End top_hat -->
+
+  <!-- Start property bar -->
+  <style>
+    .n-property-navigation-bar__menus--desktop-experience .n-menu--mega__default-content__heading span {
+    color: #34B0FF;
+    }
+  </style>
+  <div class="n-property-bar " data-ntap-ui="sticky-nav">
+    <div class="n-property-bar__inner-wrap">
+      <div class="n-property-bar__menu-toggle">
+        <a href="#" class="n-property-bar__menu-toggle-link">
+          <span class="n-property-bar__menu-toggle-text">Menu</span>
+          <svg class="n-icon-bars n-property-bar__menu-toggle-icon" aria-labelledby="title">
+            <title>bars</title>
+            <use xlink:href="/fr-fr/test/common/svg/sprite.svg#bars"></use>
+          </svg>
+        </a>
+      </div>
+      <div class="n-property-bar__property-mark ">
+        <a href="https://www.netapp.com" class="n-property-bar__property-link">
+          <div class="n-property-bar__logo">
+            <svg class="n-icon-netapp-mark n-icon-netapp-mark n-property-bar__netapp-mark-icon" aria-labelledby="title">
+              <title>netapp-mark</title>
+              <use xlink:href="/fr-fr/test/common/svg/sprite.svg#netapp-mark"></use>
+            </svg>
+            <svg class="n-icon-netapp-logo n-property-bar__logo-svg" aria-labelledby="title">
+              <title>netapp-logo</title>
+              <use xlink:href="/fr-fr/test/common/svg/sprite.svg#netapp-logo"></use>
+            </svg>
+          </div>
+        </a>
+      </div>
+
+      
+      
+      
+      <div class="search-property-bar">
+        <div id="search-demo-container" class="searchbox n-property-bar__search">
+          <div id="react-search" 
+          data-search-html="/fr-fr/test/search.html"
+          data-type="widget" 
+          data-placeholder="Rechercher une documentation"
+          data-no-results-found="Aucun résultat n'a été trouvé pour {query}"
+          data-did-you-mean="Rechercher {suggestion}."
+          data-no-results-found-did-you-mean="Aucun résultat n’a été trouvé pour {query}. Voulez-vous dire {suggestion} ?"
+          data-results-found="{hitCount} résultats trouvés"
+          data-error-message="We're sorry, an issue occurred when fetching your results. Please try again."
+          data-error-reset="Reset Search"
+          data-sk-es-pf-indexes=""
+          data-flavor=""></div>
+          <button class="n-property-bar__search-toggle-button" type="button">
+            <svg class="n-icon-search n-property-bar__search-toggle-button-icon" aria-labelledby="title">
+              <title>search</title>
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/fr-fr/test/common/svg/sprite.svg#search"></use>
+            </svg>
+          </button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <div class="n-property-bar__toolbar">
+    <!-- Start Language Selector --><div id="language-dropdown" class="custom-dropdown custom-dropdown-lang">
+      <div class="custom-dropdown-select custom-dropdown-select-lang">
+      <span class="lang-name">Français</span>
+          <svg class="n-globe__icon" aria-labelledby="title">
+            <title>globe</title>
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/fr-fr/test/common/svg/sprite.svg#globe"></use>
+          </svg>
+        </button>
+      </div>
+
+      <ul class="custom-dropdown-menu"><li>
+          <a href="https://docs.netapp.com/fr-fr/test/task_system_monitors.html" target="_self"><span translate="no" class="notranslate">Français</span></a>
+        </li><li>
+          <a href="https://docs.netapp.com/us-en/test/task_system_monitors.html" target="_self"><span translate="no" class="notranslate">English</span></a>
+        </li><li>
+          <a href="https://docs.netapp.com/ja-jp/test/task_system_monitors.html" target="_self"><span translate="no" class="notranslate">日本語</span></a>
+        </li><li>
+          <a href="https://docs.netapp.com/zh-cn/test/task_system_monitors.html" target="_self"><span translate="no" class="notranslate">简体中文</span></a>
+        </li><li>
+          <a href="https://docs.netapp.com/zh-tw/test/task_system_monitors.html" target="_self"><span translate="no" class="notranslate">繁體中文</span></a>
+        </li><li>
+          <a href="https://docs.netapp.com/ko-kr/test/task_system_monitors.html" target="_self"><span translate="no" class="notranslate">한국어</span></a>
+        </li><li>
+          <a href="https://docs.netapp.com/de-de/test/task_system_monitors.html" target="_self"><span translate="no" class="notranslate">Deutsch</span></a>
+        </li></ul>
+    </div><!-- End Language Selector -->
+
+    <div class="n-property-bar__cta"></div>
+  </div>
+  <script>
+    $(function(){
+        var currentLocalization = $('html').attr('lang');
+
+        var localizationsDictionary = {
+            "en-CA" : "https://www.netapp.com/search/index.aspx?for_cr=canada&",
+            "en-IN" : "https://www.netapp.com/search/index.aspx?for_cr=india&",
+            "nl-NL" : "https://www.netapp.com/search/index.aspx?for_cr=netherlands&",
+            "ru-RU" : "https://www.netapp.com/search/index.aspx?for_cr=russia&",
+            "sv-SE" : "https://www.netapp.com/search/index.aspx?for_cr=sweden&",
+            "it-IT" : "https://www.netapp.com/search/index.aspx?for_cr=italy&",
+            "he-IL" : "https://www.netapp.com/search/index.aspx?for_cr=israel&",
+            "ko-KR" : "https://www.netapp.com/search/index.aspx?for_cr=korea&",
+            "zh-TW" : "https://www.netapp.com/search/index.aspx?for_cr=taiwan&",
+            "en-GB" : "https://www.netapp.com/search/index.aspx?for_cr=unitedkingdom&",
+            "en-SG" : "https://www.netapp.com/search/index.aspx?for_cr=asean&",
+            "en-AU" : "https://www.netapp.com/search/index.aspx?for_cr=australia&",
+            "pt-BR" : "https://www.netapp.com/search/index.aspx?for_cr=brasil&",
+            "de-CH" : "https://www.netapp.com/search/index.aspx?for_cr=switzerland&",
+            "es-MX" : "https://www.netapp.com/search/index.aspx?for_cr=mexico&"
+        };
+
+        if($('html').hasClass('ntap-whitelisted') && localizationsDictionary.hasOwnProperty(currentLocalization)) {
+            $('.n-property-bar__property-link').attr('href', '/');
+        }
+    });
+  </script>
+  <!-- End property bar -->
+</header>
+
+
+        <main id="n-main-content" class="n-main-content">
+          <!-- Start Documentation Content -->
+<div class="ie-main">
+  <!-- Sidebar Column -->
+  
+  <div class="col-md-3" id="sidebar-height">
+      <button id="btn-sidebar-collapse" onclick="hideSidebar()"><img src="/fr-fr/test/images/collapse.png" alt="Réduire le panneau de navigation"></button>
+      <div class="sidebar-nav-container" id="mysidebardiv">
+  <ul id="mysidebar" class="nav"><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Documentation Cloud Insights"
+      data-li-level="1#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/index.html">
+        Documentation Cloud Insights
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Nouveautés"
+      data-li-level="1#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_whats_new.html">
+        Nouveautés
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Inscription à Cloud Insights"
+      data-li-level="1#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_cloud_insights_onboarding_1.html">
+        Inscription à Cloud Insights
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Sécurité"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Sécurité</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Pratiques de sécurité"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/security_overview.html">
+        Pratiques de sécurité
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Ce que nous Store et où"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/security_information_and_region.html">
+        Ce que nous Store et où
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Mise en route"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Mise en route</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Tutoriels de fonctionnalités"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_feature_tutorials.html">
+        Tutoriels de fonctionnalités
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Collecte des données"
+      data-li-level="2" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Collecte des données</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Présentation"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_getting_started_with_cloud_insights.html">
+        Présentation
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Exigences relatives à l'unité d'acquisition"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_acquisition_unit_requirements.html">
+        Exigences relatives à l'unité d'acquisition
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration d'une unité d'acquisition"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_configure_acquisition_unit.html">
+        Configuration d'une unité d'acquisition
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration d'un agent"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_agent.html">
+        Configuration d'un agent
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration des collecteurs de données"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_configure_data_collectors.html">
+        Configuration des collecteurs de données
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Détermination de l'état d'acquisition du Data Collector"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_determining_data_collector_acq_status.html">
+        Détermination de l'état d'acquisition du Data Collector
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Gérer les collecteurs de données configurés"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_view_configured_data_collectors.html">
+        Gérer les collecteurs de données configurés
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Erreurs de collecte de données de recherche"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_research_failed_collector.html">
+        Erreurs de collecte de données de recherche
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Importation des tableaux de bord recommandés"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_import_from_dashboard_gallery.html">
+        Importation des tableaux de bord recommandés
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Comptes utilisateur et rôles"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_user_roles.html">
+        Comptes utilisateur et rôles
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Passage à d'autres produits Cloud Central"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_other_cloud_products.html">
+        Passage à d'autres produits Cloud Central
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Liste Data Collector"
+      data-li-level="1#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/data_collector_list.html">
+        Liste Data Collector
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Abonnement à Cloud Insights"
+      data-li-level="1#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_subscribing_to_cloud_insights.html">
+        Abonnement à Cloud Insights
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Résolution automatique des périphériques"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Résolution automatique des périphériques</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Présentation de la résolution des périphériques"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_device_resolution_overview.html">
+        Présentation de la résolution des périphériques
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Règles de résolution des périphériques"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_device_resolution_rules.html">
+        Règles de résolution des périphériques
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Résolution de périphérique Fibre Channel"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_device_resolution_fibre_channel.html">
+        Résolution de périphérique Fibre Channel
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Résolution de périphérique IP"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_device_resolution_ip.html">
+        Résolution de périphérique IP
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Définition des préférences de résolution du périphérique"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_device_resolution_preferences.html">
+        Définition des préférences de résolution du périphérique
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Exemples d'expression régulière"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_device_resolution_regex_examples.html">
+        Exemples d'expression régulière
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Création de tableaux de bord"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Création de tableaux de bord</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Présentation du tableau de bord"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_dashboards_overview.html">
+        Présentation du tableau de bord
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Caractéristiques des tableaux de bord"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_dashboard_features.html">
+        Caractéristiques des tableaux de bord
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Exemple de tableaux de bord"
+      data-li-level="2" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Exemple de tableaux de bord</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Performances des ordinateurs virtuels"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dashboard_example_VM_performance.html">
+        Performances des ordinateurs virtuels
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Meilleures pratiques de tableau de bord"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_dashboard_best_practices.html">
+        Meilleures pratiques de tableau de bord
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Kubernetes Explorer"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Kubernetes Explorer</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Page de présentation de Kubernetes"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/kubernetes_landing_page.html">
+        Page de présentation de Kubernetes
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Page du cluster Kubernetes"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/kubernetes_cluster_detail.html">
+        Page du cluster Kubernetes
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Utilisation des requêtes"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Utilisation des requêtes</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Interrogation des ressources"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_querying_assets.html">
+        Interrogation des ressources
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Création d'une requête"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_create_query.html">
+        Création d'une requête
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Affichage des requêtes disponibles"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_view_queries.html">
+        Affichage des requêtes disponibles
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Exportation des résultats de la requête au format .CSV"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_export_query_results.html">
+        Exportation des résultats de la requête au format .CSV
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Modification ou suppression d'une requête"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_modify_delete_query.html">
+        Modification ou suppression d'une requête
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Affectation de plusieurs applications/annotations à des objets"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_query_assign_multiple_applicationss.html">
+        Affectation de plusieurs applications/annotations à des objets
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Copie des valeurs de table dans le presse-papiers"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_query_copy_table_values.html">
+        Copie des valeurs de table dans le presse-papiers
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Interrogation des journaux"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_log_explorer.html">
+        Interrogation des journaux
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Utilisation des annotations"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Utilisation des annotations</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Définition d'annotations"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_defining_annotations.html">
+        Définition d'annotations
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Utilisation d'annotations"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_create_annotation.html">
+        Utilisation d'annotations
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Utilisation des règles d'annotation"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_create_annotation_rules.html">
+        Utilisation des règles d'annotation
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Importation d'annotations avec l'API"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_annotation_import.html">
+        Importation d'annotations avec l'API
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Utilisation des applications"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Utilisation des applications</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Concepts d'application"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_about_applications.html">
+        Concepts d'application
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration des applications"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_create_application.html">
+        Configuration des applications
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Surveille et alerte"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Surveille et alerte</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Création de moniteurs"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_create_monitor.html">
+        Création de moniteurs
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Affichage et gestion des alertes"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_view_and_manage_alerts.html">
+        Affichage et gestion des alertes
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration des destinataires de notification"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_notifications_email.html">
+        Configuration des destinataires de notification
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Moniteurs définis par le système"
+      data-li-level="2#" 
+      class="  active "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_system_monitors.html">
+        Moniteurs définis par le système
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Utilisation d'API"
+      data-li-level="1#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/API_Overview.html">
+        Utilisation d'API
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Notification Webhook"
+      data-li-level="1#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_create_webhook.html">
+        Notification Webhook
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Contrôle de votre environnement"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Contrôle de votre environnement</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Événements d'audit"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_audit.html">
+        Événements d'audit
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="TTL et sous-échantillonnage"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_ttl_and_downsampling.html">
+        TTL et sous-échantillonnage
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Informations sur la page de ressources"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Informations sur la page de ressources</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Présentation de la page de ressources"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_asset_page_overview.html">
+        Présentation de la page de ressources
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Filtrage dans le contexte pour les objets"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_in_context_filters.html">
+        Filtrage dans le contexte pour les objets
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Récapitulatif des sections de topologie"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_asset_summary_section.html">
+        Récapitulatif des sections de topologie
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Section vue expert"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_asset_expert_view_section.html">
+        Section vue expert
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Section données utilisateur"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_asset_user_data_section.html">
+        Section données utilisateur
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Section alertes associées"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_asset_alerts_section.html">
+        Section alertes associées
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Conseils et astuces pour rechercher des ressources"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_searching_assets.html">
+        Conseils et astuces pour rechercher des ressources
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Création de rapports"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Création de rapports</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Présentation des rapports"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reporting_overview.html">
+        Présentation des rapports
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Génération de rapports des rôles utilisateur"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reporting_user_roles.html">
+        Génération de rapports des rôles utilisateur
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Utilisation de rapports prédéfinis"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reporting_predefined_reports.html">
+        Utilisation de rapports prédéfinis
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Tableau de bord de Storage Manager"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reporting_storage_manager_dashboard.html">
+        Tableau de bord de Storage Manager
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Création d'un exemple de rapport"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reporting_create_example.html">
+        Création d'un exemple de rapport
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Gestion des rapports"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reporting_managing_reports.html">
+        Gestion des rapports
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Rapports personnalisés"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reporting_creating_custom_reports.html">
+        Rapports personnalisés
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Modèles de données"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reporting_creating_custom_reports.html#reporting-data-models">
+        Modèles de données
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="API de base de données de reporting"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reporting_querying_database.html">
+        API de base de données de reporting
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Conservation des données"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reporting_data_retention.html">
+        Conservation des données
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Diagrammes de schéma"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reporting_schema_diagrams.html">
+        Diagrammes de schéma
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Tables de schéma"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reference_schemas.html">
+        Tables de schéma
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Cloud Secure"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Cloud Secure</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="À propos de Cloud Secure"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/cs_intro.html">
+        À propos de Cloud Secure
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Mise en route"
+      data-li-level="2" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Mise en route</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Mise en route de Cloud Secure"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_cs_getting_started.html">
+        Mise en route de Cloud Secure
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration requise pour l'agent Cloud Secure"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_cs_agent_requirements.html">
+        Configuration requise pour l'agent Cloud Secure
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration d'un agent Cloud Secure"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_cs_add_agent.html">
+        Configuration d'un agent Cloud Secure
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Suppression d'un agent Cloud Secure"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_cs_delete_agent.html">
+        Suppression d'un agent Cloud Secure
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration d'un collecteur AD Directory"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_user_dir_connect.html">
+        Configuration d'un collecteur AD Directory
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration d'un collecteur d'annuaire LDAP"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_user_dir_connect_ldap.html">
+        Configuration d'un collecteur d'annuaire LDAP
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration d'Amazon FSX pour NetApp ONTAP Collector"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_cs_amazon_fsx.html">
+        Configuration d'Amazon FSX pour NetApp ONTAP Collector
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration du SVM Data Collector de ONTAP"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_add_collector_svm.html">
+        Configuration du SVM Data Collector de ONTAP
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration du collecteur de données Cloud ONTAP"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_cs_incloud.html">
+        Configuration du collecteur de données Cloud ONTAP
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Gestion des utilisateurs Cloud Secure"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_cs_user_management.html">
+        Gestion des utilisateurs Cloud Secure
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Vérificateur de taux d'événement"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_cs_event_rate_checker.html">
+        Vérificateur de taux d'événement
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Alertes"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/cs_alert_data.html">
+        Alertes
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Médecine légale"
+      data-li-level="2" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Médecine légale</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Activités médico-légales - toutes les activités"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/forensic_activity_history.html">
+        Activités médico-légales - toutes les activités
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Activités médico-légales - entités"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/forensic_entity_detail.html">
+        Activités médico-légales - entités
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Utilisateurs"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/forensic_user_overview.html">
+        Utilisateurs
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Stratégies de réponse automatisées"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/cs_automated_response_policies.html">
+        Stratégies de réponse automatisées
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Restriction de l'accès des utilisateurs"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/cs_restrict_user_access.html">
+        Restriction de l'accès des utilisateurs
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Simulation d'une attaque par ransomware"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_cs_attack_simulator.html">
+        Simulation d'une attaque par ransomware
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Notifications"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/cs_notifications_email.html">
+        Notifications
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="API Cloud Secure"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_cs_api.html">
+        API Cloud Secure
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Active IQ"
+      data-li-level="1#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_activeiq.html">
+        Active IQ
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Dépannage"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Dépannage</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Dépannage général"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_troubleshooting_general_problems.html">
+        Dépannage général
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Dépannage des problèmes d'unité d'acquisition Linux"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_troubleshooting_linux_acquisition_unit_problems.html">
+        Dépannage des problèmes d'unité d'acquisition Linux
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Dépannage des problèmes d'unité d'acquisition Windows"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_troubleshooting_windows_acquisition_unit_problems.html">
+        Dépannage des problèmes d'unité d'acquisition Windows
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Recherche d'erreurs du Data Collector"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_research_failed_collector.html">
+        Recherche d'erreurs du Data Collector
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Support de référence"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Support de référence</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Demande d'aide"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_requesting_support.html">
+        Demande d'aide
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Matrice de prise en charge du Data Collector"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reference_data_collector_support_matrix.html">
+        Matrice de prise en charge du Data Collector
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Data Collector Reference - Infrastructure"
+      data-li-level="2" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Data Collector Reference - Infrastructure</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Présentation de référence des fournisseurs"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_data_collector_reference.html">
+        Présentation de référence des fournisseurs
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="AWS"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_amazon_ec2.html">
+        AWS
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Azure"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_ms_azure.html">
+        Azure
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Broadcom"
+      data-li-level="3" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Broadcom</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Brocade Network Advisor"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_brocade_bna.html">
+        Brocade Network Advisor
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Commutateur Fibre Channel"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_brocade_fc_switch.html">
+        Commutateur Fibre Channel
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Cisco"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_cisco_fc_switch.html">
+        Cisco
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Dell"
+      data-li-level="3" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Dell</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Série XC"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_dell_xc_series.html">
+        Série XC
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Dell EMC"
+      data-li-level="3" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Dell EMC</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Data Domain"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_emc_datadomain.html">
+        Data Domain
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="ECS"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_emc_ecs.html">
+        ECS
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="PowerScale"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_emc_isilon.html">
+        PowerScale
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="PowerStore"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_emc_powerstore.html">
+        PowerStore
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="RecoverPoint"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_emc_recoverpoint.html">
+        RecoverPoint
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="ScaleIO"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_emc_scaleio.html">
+        ScaleIO
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Unity (VNXe)"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_emc_unity.html">
+        Unity (VNXe)
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="VMAX/PowerMax"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_emc_vmax_powermax.html">
+        VMAX/PowerMax
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="VNX Block (CLARiiON)"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_emc_vnx_block.html">
+        VNX Block (CLARiiON)
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="VNX File (Celerra)"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_emc_vnx_file.html">
+        VNX File (Celerra)
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="VNX Unified"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_emc_vnx_unified.html">
+        VNX Unified
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="VPLEX"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_emc_vplex.html">
+        VPLEX
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="XtremIO"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_emc_xio.html">
+        XtremIO
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Fujitsu"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_fujitsu_eternus.html">
+        Fujitsu
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Google"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_google_cloud.html">
+        Google
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="HP Enterprise"
+      data-li-level="3" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> HP Enterprise</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="HP Alletra 9000 et Primera"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_hp_3par.html">
+        HP Alletra 9000 et Primera
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="AE HP Command View"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_hpe_commandview.html">
+        AE HP Command View
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="HPE Alletra 6000"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_hpe_nimble.html">
+        HPE Alletra 6000
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Hitachi Data Systems"
+      data-li-level="3" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Hitachi Data Systems</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="HDS Command Suite"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_hds_commandsuite.html">
+        HDS Command Suite
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="HDS HNAS"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_hds_nas.html">
+        HDS HNAS
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="HDS Ops Center"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_hds_ops_center.html">
+        HDS Ops Center
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Infinidat"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_infinidat_infinibox.html">
+        Infinidat
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Huawei"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_huawei_oceanstor.html">
+        Huawei
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="IBM"
+      data-li-level="3" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> IBM</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Cleversafe"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_ibm_cleversafe.html">
+        Cleversafe
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Gamme CS"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_ibm_cs.html">
+        Gamme CS
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Systèmes de stockage DS8000"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_ibm_ds.html">
+        Systèmes de stockage DS8000
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="PowerVM"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_ibm_powervm.html">
+        PowerVM
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Contrôleur de volume SAN (SVC)"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_ibm_svc.html">
+        Contrôleur de volume SAN (SVC)
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="XIV/A9000"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_ibm_xiv.html">
+        XIV/A9000
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Lenovo"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_lenovo.html">
+        Lenovo
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Microsoft"
+      data-li-level="3" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Microsoft</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Azure NetApp Files"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_ms_anf.html">
+        Azure NetApp Files
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Hyper-V"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_ms_hyperv.html">
+        Hyper-V
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="NetApp"
+      data-li-level="3" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> NetApp</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Magasin de données Astra"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_na_astra_data_store.html">
+        Magasin de données Astra
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Connexion cloud pour ONTAP 9.9+"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_na_cloud_connection.html">
+        Connexion cloud pour ONTAP 9.9+
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Cloud Volumes ONTAP"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_na_cloud_volumes_ontap.html">
+        Cloud Volumes ONTAP
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Cloud volumes Services pour AWS"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_na_cloud_volumes.html">
+        Cloud volumes Services pour AWS
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Logiciel de gestion des données ONTAP"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_na_cdot.html">
+        Logiciel de gestion des données ONTAP
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Data ONTAP 7-mode"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_na_7mode.html">
+        Data ONTAP 7-mode
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="E-Series"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_na_eseries.html">
+        E-Series
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Serveur de gestion NetApp HCI"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_na_hci.html">
+        Serveur de gestion NetApp HCI
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="SolidFire"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_na_solidfire.html">
+        SolidFire
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="StorageGRID"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_na_storagegrid.html">
+        StorageGRID
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Nutanix"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_nutanix.html">
+        Nutanix
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="OpenStack"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_openstack.html">
+        OpenStack
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Oracle"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_oracle_zfs.html">
+        Oracle
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Pure"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_pure_flasharray.html">
+        Pure
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Red Hat"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_redhat_virtualization.html">
+        Red Hat
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="VMware"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_vmware.html">
+        VMware
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Data Collector Reference - Services"
+      data-li-level="2" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Data Collector Reference - Services</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Hôte/nœud"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_node.html">
+        Hôte/nœud
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="ActiveMQ"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_activemq.html">
+        ActiveMQ
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Apache"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_apache.html">
+        Apache
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Consul"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_consul.html">
+        Consul
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Couchbase"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_couchbase.html">
+        Couchbase
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="CouchDB"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_couchdb.html">
+        CouchDB
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Docker"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_docker.html">
+        Docker
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="ElasticSearch"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_elasticsearch.html">
+        ElasticSearch
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Encre"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_flink.html">
+        Encre
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Hadoop"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_hadoop.html">
+        Hadoop
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="HABProxy"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_haproxy.html">
+        HABProxy
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Java"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_jvm.html">
+        Java
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Kafka"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_kafka.html">
+        Kafka
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Kapacitor"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_kapacitor.html">
+        Kapacitor
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Kibana"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_kibana.html">
+        Kibana
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Kubernetes"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_agent.html#kubernetes">
+        Kubernetes
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Mise en mémoire cache"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_memcached.html">
+        Mise en mémoire cache
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="MongoDB"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_mongodb.html">
+        MongoDB
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="MySQL"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_mysql.html">
+        MySQL
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Netstat"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_netstat.html">
+        Netstat
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Nginx"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_nginx.html">
+        Nginx
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="OpenZFS"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_openzfs.html">
+        OpenZFS
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="PostgreSQL"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_postgresql.html">
+        PostgreSQL
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Puppet"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_puppetagent.html">
+        Puppet
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Redis"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_redis.html">
+        Redis
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="RethinkDB"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_rethinkdb.html">
+        RethinkDB
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Zookeeper"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_zookeeper.html">
+        Zookeeper
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Référence de l'icône d'objet"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reference_object_icons.html">
+        Référence de l'icône d'objet
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Mentions légales"
+      data-li-level="1#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reference_legal_notices.html">
+        Mentions légales
+      </a></li></ul>
+</div>
+<script>
+  window.onscroll = () => {
+    const value = -40 - (document.body.scrollHeight - (window.innerHeight + document.scrollingElement.scrollTop));
+    
+    document.getElementById("sidebar-height").style.bottom = Math.max(0,value) + "px";
+};
+</script>
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+<script>$("#mysidebar li.active").parents('ul').css("display","block");</script>
+
+
+  </div>
+  
+
+  <div class="ie-content-pane n-doc__component-detail-content n-doc__component-detail-content--show-code">
+    <!-- Begin of page container --><article class="page-content" id="main">
+      <div class="ie-utility">
+  <button id="btn-sidebar-expand" onclick="showSidebar()"><img src="/fr-fr/test/images/expand.png" alt="Développer le panneau de navigation"></button>
+  <div class="ie-menu">
+    <div class="n-breadcrumb">
+      <ul class="n-breadcrumb__list">
+        <li class="n-breadcrumb__list-item">
+          <a href="https://docs.netapp.com">docs.netapp.com</a>
+        </li>
+        
+
+        
+
+        <li class="n-breadcrumb__list-item">
+          <a href="/fr-fr/test/">Cloud&nbsp;Insights</a>
+        </li>
+
+      </ul>
+    </div>
+    <div style="clear: both"></div><!-- Main needs to have height -->
+  </div>
+</div>
+
+      <div class="ie-nmt-disclaimer">
+  <span>
+    <div class="ie-nmt-disclaimer-container">
+      <div class="ie-nmt-disclaimer-icon">
+        <svg class="luci-icon" aria-hidden="true">
+          <use xlink:href="/fr-fr/test/common/svg/sprite.svg#circle-info">
+        </svg>
+      </div>
+      <div class="ie-nmt-disclaimer-content">
+        <span> La version française est une traduction automatique. La version anglaise prévaut sur la française en cas de divergence. </span>
+      </div>
+      <div style="clear:both;"></div>
+    </div>
+  </span>
+</div><div class="n-doc__component-detail-heading-wrap">
+  <h1 class="n-doc__component-detail-heading">Moniteurs système</h1>
+</div>
+
+
+<p class="page-details">
+  
+    
+    <time datetime="2022-12-14 18:25:28 +0000">12/14/2022</time>
+    
+  
+
+<span>Contributeurs
+</span>
+
+
+</p>
+
+<div id="toc" class="toc">
+<div id="toctitle">Table des matières</div>
+<ul class="sectlevel1">
+<li><a href="#groupes-de-surveillance">Groupes de surveillance</a>
+<ul class="sectlevel2">
+<li><a href="#groupes-de-moniteurs-personnalisés">Groupes de moniteurs personnalisés</a></li>
+</ul>
+</li>
+<li><a href="#description-du-moniteur">Description du moniteur</a>
+<ul class="sectlevel2">
+<li><a href="#moniteurs-métriques">Moniteurs métriques</a></li>
+<li><a href="#moniteurs-journaux-non-résolus-dans-le-temps">Moniteurs journaux (non résolus dans le temps)</a></li>
+<li><a href="#moniteurs-de-journal-résolus-par-heure">Moniteurs de journal résolus par heure</a></li>
+<li><a href="#moniteurs-de-journal-anti-ransomware">Moniteurs de journal anti-ransomware</a></li>
+<li><a href="#moniteurs-ads-data-store">Moniteurs ADS (Data Store)</a></li>
+</ul>
+</li>
+<li><a href="#plus-dinformations">Plus d&#8217;informations</a></li>
+</ul>
+</div>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Cloud Insights inclut un certain nombre de contrôles définis par le système, à la fois pour les metrics et les journaux. L&#8217;interface des moniteurs inclura un certain nombre de modifications qui permettront d&#8217;accueillir ces moniteurs système. Ces informations sont décrites dans cette section.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/test/images/note.svg" alt="Note">
+</td>
+<td class="content">
+Les moniteurs système sont à l&#8217;état <em>Pause</em> par défaut. Avant de reprendre le moniteur, vous devez vous assurer que <em>Advanced Counter Data Collection</em> et <em>Enable ONTAP EMS log collection</em> sont activés dans le Data Collector. Ces options se trouvent dans le Data Collector de ONTAP sous <em>Configuration avancée</em>:<span class="image"><img src="./media/Enable_Log_Monitor_Collection.png" alt="Activation du compteur avancé et de la collecte des journaux EMS pour ONTAP"></span>
+</td>
+</tr>
+</table>
+</div>
+<!-- toc disabled -->
+</div>
+</div>
+<div class="sect1">
+<h2 id="groupes-de-surveillance">Groupes de surveillance</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Le regroupement vous permet d&#8217;afficher et de gérer les moniteurs associés. Par exemple, vous pouvez disposer d&#8217;un groupe de moniteurs dédié au stockage de votre environnement ou de moniteurs pertinents à une liste de destinataires donnée.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/Monitors_GroupList.png" alt="Regroupement du moniteur"></span></p>
+</div>
+<div class="paragraph">
+<p>Le nombre de moniteurs contenus dans un groupe s&#8217;affiche en regard du nom du groupe.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/test/images/note.svg" alt="Note">
+</td>
+<td class="content">
+Les moniteurs personnalisés peuvent être mis en pause, repris, supprimés ou déplacés vers un autre groupe. Les moniteurs définis par le système peuvent être mis en pause et repris, mais ne peuvent pas être supprimés ni déplacés.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="groupes-de-moniteurs-personnalisés">Groupes de moniteurs personnalisés</h3>
+<div class="paragraph">
+<p>Pour créer un nouveau groupe de moniteurs personnalisé, cliquez sur le bouton <strong>"+" Créer un nouveau groupe de moniteurs</strong>. Entrez un nom pour le groupe et cliquez sur <strong>Créer un groupe</strong>. Un groupe vide est créé avec ce nom.</p>
+</div>
+<div class="paragraph">
+<p>Pour ajouter des moniteurs au groupe, accédez au groupe <em>tous les moniteurs</em> (recommandé) et effectuez l&#8217;une des opérations suivantes :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Pour ajouter un seul moniteur, cliquez sur le menu à droite du moniteur et sélectionnez <em>Ajouter au groupe</em>. Choisissez le groupe auquel ajouter le moniteur.</p>
+</li>
+<li>
+<p>Cliquez sur le nom du moniteur pour ouvrir la vue d&#8217;édition du moniteur et sélectionnez un groupe dans la section <em>associer à un groupe de moniteurs</em>.</p>
+<div class="paragraph">
+<p><span class="image"><img src="./media/Monitors_AssociateToGroup.png" alt="Associer au groupe"></span></p>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Supprimer les moniteurs en cliquant sur un groupe et en sélectionnant <em>Supprimer du groupe</em> dans le menu. Vous ne pouvez pas supprimer de moniteurs du groupe <em>tous les moniteurs</em> ou <em>moniteurs personnalisés</em>. Pour supprimer un moniteur de ces groupes, vous devez le supprimer lui-même.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/test/images/note.svg" alt="Note">
+</td>
+<td class="content">
+La suppression d&#8217;un moniteur d&#8217;un groupe ne supprime pas le moniteur de Cloud Insights. Pour supprimer complètement un moniteur, sélectionnez-le et cliquez sur <em>Delete</em>. Ceci le supprime également du groupe auquel il appartenait et n&#8217;est plus disponible pour aucun utilisateur.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Vous pouvez également déplacer un moniteur vers un autre groupe de la même manière, en sélectionnant <em>Move to Group</em>.</p>
+</div>
+<div class="paragraph">
+<p>Pour mettre en pause ou reprendre tous les moniteurs d&#8217;un groupe à la fois, sélectionnez le menu du groupe et cliquez sur <em>Pause</em> ou <em>reprendre</em>.</p>
+</div>
+<div class="paragraph">
+<p>Utilisez le même menu pour renommer ou supprimer un groupe. La suppression d&#8217;un groupe ne supprime pas les moniteurs de Cloud Insights ; ils sont toujours disponibles dans <em>tous les moniteurs</em>.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/Monitors_PauseGroup.png" alt="Mettre un groupe en pause"></span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="description-du-moniteur">Description du moniteur</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Les moniteurs définis par le système comprennent des mesures et des conditions prédéfinies, ainsi que des descriptions par défaut et des actions correctives, qui ne peuvent pas être modifiées. Vous pouvez <em>CAN</em> modifier la liste des destinataires de notification pour les moniteurs définis par le système. Pour afficher les mesures, les conditions, la description et les actions correctives, ou pour modifier la liste des destinataires, ouvrez un groupe de moniteurs défini par le système et cliquez sur le nom du moniteur dans la liste.</p>
+</div>
+<div class="paragraph">
+<p>Les groupes de moniteurs définis par le système ne peuvent pas être modifiés ni supprimés.</p>
+</div>
+<div class="paragraph">
+<p>Les moniteurs définis par le système suivants sont disponibles dans les groupes indiqués.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>ONTAP Infrastructure</strong> comprend des moniteurs pour les problèmes liés à l&#8217;infrastructure dans les clusters ONTAP.</p>
+</li>
+<li>
+<p><strong>Exemples de charge de travail ONTAP</strong> comprend des moniteurs pour les problèmes liés à la charge de travail.</p>
+</li>
+<li>
+<p>Les moniteurs des deux groupes sont par défaut à l&#8217;état <em>Pause</em>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Les moniteurs système actuellement fournis avec Cloud Insights sont les suivants :</p>
+</div>
+<div class="sect2">
+<h3 id="moniteurs-métriques">Moniteurs métriques</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Nom du moniteur</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Gravité</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Action corrective</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Utilisation élevée des ports Fibre Channel</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PRIMORDIAL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Les ports Fibre Channel Protocol sont utilisés pour recevoir et transférer le trafic SAN entre le système hôte du client et les LUN ONTAP. Si l&#8217;utilisation des ports est élevée, cela entraînera un goulot d&#8217;étranglement et affectera les performances des charges de travail sensibles du protocole Fibre Channel. Une alerte d&#8217;avertissement indique que des mesures doivent être prises pour équilibrer le trafic réseau. Une alerte critique indique que l&#8217;interruption du service est imminente et que des mesures d&#8217;urgence doivent être prises pour équilibrer le trafic réseau afin d&#8217;assurer la continuité du service.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Des actions immédiates sont requises pour minimiser les interruptions de service si un seuil critique est atteint : 1. Déplacez les charges de travail vers un autre port FCP le plus utilisé. 2. Limiter le trafic de certains LUN à un travail essentiel uniquement via des stratégies de QoS dans ONTAP ou une configuration côté hôte pour alléger l&#8217;utilisation des ports FCP… Prévoyez de prendre les mesures suivantes rapidement si le seuil d&#8217;avertissement est dépassé : 1. Envisagez de configurer davantage de ports FCP pour gérer le trafic de données afin que l&#8217;utilisation des ports soit répartie entre plusieurs ports 2. Déplacez les charges de travail vers un autre port FCP 3 plus faible utilisé. Limiter le trafic de certaines LUN à un travail essentiel uniquement via des stratégies de QoS en ONTAP ou une configuration côté hôte pour optimiser l&#8217;utilisation des ports FCP</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Latence élevée de la LUN</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PRIMORDIAL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Les LUN sont des objets qui servent le trafic d&#8217;E/S souvent entraînés par des applications sensibles aux performances telles que les bases de données. Une latence LUN élevée signifie que les applications elles-mêmes risquent de subir des conséquences et d&#8217;être dans l&#8217;impossibilité d&#8217;accomplir leurs tâches. Une alerte d&#8217;avertissement indique que l&#8217;action planifiée doit être effectuée pour déplacer la LUN vers le nœud ou l&#8217;agrégat approprié. Une alerte critique indique que l&#8217;interruption de service est imminente et que des mesures d&#8217;urgence doivent être prises pour assurer la continuité du service. Les latences suivantes sont attendues pour le type de support : SSD jusqu&#8217;à 1-2 millisecondes ; SAS jusqu&#8217;à 8-10 millisecondes et disques durs SATA 17-20 millisecondes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Des actions immédiates sont requises pour minimiser les interruptions de service si un seuil critique est atteint : 1. Si une règle de qualité de service est associée à la LUN ou à son volume, évaluez ses limites de seuil et validez si la charge de travail LUN est mise au ralenti&#8230;&#8203; Prévoyez de prendre les mesures suivantes rapidement si le seuil d&#8217;avertissement est dépassé : 1. Si l&#8217;agrégat connaît également une exploitation élevée, déplacez le LUN vers un autre agrégat 2. Si l&#8217;utilisation du nœud est également élevée, déplacez-le vers un autre nœud ou réduisez la charge de travail totale du nœud 3. Si une LUN ou son volume dispose d&#8217;une règle de qualité de service associée, évaluez ses limites de seuil et validez si la charge de travail de LUN est mise au ralenti</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exploitation élevée du port réseau</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PRIMORDIAL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Les ports réseau permettent de recevoir et de transférer le trafic protocole NFS, CIFS et iSCSI entre les systèmes hôtes du client et les volumes ONTAP. Si l&#8217;utilisation des ports est élevée, cela entraînera un goulot d&#8217;étranglement et affectera les performances des charges de travail NFS, CIFS et iSCSI. Une alerte d&#8217;avertissement indique que des mesures doivent être prises pour équilibrer le trafic réseau. Une alerte critique indique que l&#8217;interruption du service est imminente et que des mesures d&#8217;urgence doivent être prises pour équilibrer le trafic réseau afin d&#8217;assurer la continuité du service.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Des actions immédiates sont requises pour minimiser les interruptions de service si un seuil critique est atteint : 1. Limiter le trafic de certains volumes à un travail essentiel uniquement via les stratégies de QoS dans ONTAP ou l&#8217;analyse côté hôte pour simplifier l&#8217;utilisation des ports réseau 2. Configurer un ou plusieurs volumes pour utiliser un autre port réseau moins utilisé… Prévoyez de prendre les mesures suivantes rapidement si le seuil d&#8217;avertissement est dépassé : 1. Envisagez de configurer davantage de ports réseau pour gérer le trafic de données afin que l&#8217;utilisation des ports soit répartie entre plusieurs ports 2. Configurez un ou plusieurs volumes pour utiliser un autre port réseau moins utilisé</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Latence élevée de l&#8217;espace de nom NVMe</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PRIMORDIAL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Les espaces de noms NVMe sont des objets qui servent le trafic d&#8217;E/S souvent pilotés par les applications sensibles aux performances telles que les bases de données. Ce qui signifie que les latences élevées pour les espaces de noms NVMe sont susceptibles de subir aux applications elles-mêmes et d&#8217;être incapables d&#8217;accomplir leurs tâches. Une alerte d&#8217;avertissement indique que l&#8217;action planifiée doit être effectuée pour déplacer la LUN vers le nœud ou l&#8217;agrégat approprié. Une alerte critique indique que l&#8217;interruption de service est imminente et que des mesures d&#8217;urgence doivent être prises pour assurer la continuité du service.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Des actions immédiates sont requises pour minimiser les interruptions de service si un seuil critique est atteint : 1. Si l&#8217;espace de noms NVMe ou son volume dispose d&#8217;une règle de QoS qui leur est attribuée, évaluez ses seuils de limite au cas où le workload d&#8217;espace de noms NVMe serait ralenti… Prévoyez de prendre les mesures suivantes rapidement si le seuil d&#8217;avertissement est dépassé : 1. Si l&#8217;agrégat connaît également une exploitation élevée, déplacez le LUN vers un autre agrégat 2. Si l&#8217;utilisation du nœud est également élevée, déplacez-le vers un autre nœud ou réduisez la charge de travail totale du nœud 3. Si l&#8217;espace de noms NVMe ou son volume dispose d&#8217;une règle de QoS qui leur est attribuée, évaluez ses seuils de limite au cas où le workload d&#8217;espace de noms NVMe serait ralenti</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Limite matérielle de capacité qtree</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PRIMORDIAL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Un qtree est un système de fichiers défini logiquement, qui peut exister en tant que sous répertoire spécial du répertoire racine dans un volume. Chaque qtree dispose d&#8217;un quota d&#8217;espace mesuré en octets qu&#8217;il peut utiliser pour stocker des données afin de contrôler la croissance des données utilisateur dans le volume et ne pas dépasser sa capacité totale. Un qtree maintient un quota de capacité de stockage soft afin de pouvoir en avertir l&#8217;utilisateur de manière proactive avant d&#8217;atteindre la limite de quota de capacité totale dans le qtree et de ne plus pouvoir stocker de données. La surveillance de la quantité de données stockées dans un qtree permet à l&#8217;utilisateur de recevoir un service de données sans interruption.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Des actions immédiates sont requises pour minimiser les interruptions de service si un seuil critique est atteint : 1. Envisagez d&#8217;augmenter le quota d&#8217;espace de l&#8217;arbre afin de s&#8217;adapter à la croissance 2. Demandez à l&#8217;utilisateur de supprimer des données indésirables dans l&#8217;arborescence qui n&#8217;est plus nécessaire pour libérer de l&#8217;espace</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">La capacité qtree est saturée</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PRIMORDIAL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Un qtree est un système de fichiers défini logiquement, qui peut exister en tant que sous répertoire spécial du répertoire racine dans un volume. Chaque qtree dispose d&#8217;un quota d&#8217;espace par défaut ou d&#8217;un quota défini par une politique de quotas pour limiter la quantité de données stockées dans l&#8217;arborescence au sein de la capacité du volume. Une alerte d&#8217;avertissement indique que l&#8217;action planifiée doit être prise pour augmenter l&#8217;espace. Une alerte critique indique que l&#8217;interruption des services est imminente et que des mesures d&#8217;urgence doivent être prises pour libérer de l&#8217;espace afin d&#8217;assurer la continuité des services.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Des actions immédiates sont requises pour minimiser les interruptions de service si un seuil critique est atteint : 1. Envisagez d&#8217;augmenter l&#8217;espace du qtree pour s&#8217;adapter à la croissance 2. Envisager de supprimer des données qui ne sont plus nécessaires pour libérer de l&#8217;espace… Prévoyez de prendre les mesures suivantes rapidement si le seuil d&#8217;avertissement est dépassé : 1. Envisagez d&#8217;augmenter l&#8217;espace du qtree pour s&#8217;adapter à la croissance 2. Envisagez de supprimer les données qui ne sont plus nécessaires pour libérer de l&#8217;espace</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Limite souple de capacité qtree</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AVERTISSEMENT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Un qtree est un système de fichiers défini logiquement, qui peut exister en tant que sous répertoire spécial du répertoire racine dans un volume. Chaque qtree dispose d&#8217;un quota d&#8217;espace mesuré en octets qu&#8217;il peut utiliser pour stocker des données afin de contrôler la croissance des données utilisateur dans le volume et ne pas dépasser sa capacité totale. Un qtree maintient un quota de capacité de stockage soft afin de pouvoir en avertir l&#8217;utilisateur de manière proactive avant d&#8217;atteindre la limite de quota de capacité totale dans le qtree et de ne plus pouvoir stocker de données. La surveillance de la quantité de données stockées dans un qtree permet à l&#8217;utilisateur de recevoir un service de données sans interruption.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Prévoyez de prendre les mesures suivantes rapidement si le seuil d&#8217;avertissement est dépassé : 1. Envisagez d&#8217;augmenter le quota d&#8217;espace de l&#8217;arbre afin de s&#8217;adapter à la croissance 2. Demandez à l&#8217;utilisateur de supprimer des données indésirables dans l&#8217;arborescence qui n&#8217;est plus nécessaire pour libérer de l&#8217;espace</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Limite stricte des fichiers qtree</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PRIMORDIAL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Un qtree est un système de fichiers défini logiquement, qui peut exister en tant que sous répertoire spécial du répertoire racine dans un volume. Chaque qtree dispose d&#8217;un quota sur le nombre de fichiers qu&#8217;il peut contenir afin de maintenir une taille de système de fichiers gérable au sein du volume. Un qtree conserve un quota de nombre de fichier au-delà duquel les nouveaux fichiers de l&#8217;arborescence sont refusés. La surveillance du nombre de fichiers dans un qtree permet à l&#8217;utilisateur de recevoir un service de données sans interruption.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Des actions immédiates sont requises pour minimiser les interruptions de service si un seuil critique est atteint : 1. Envisagez d&#8217;augmenter le quota de nombre de fichiers pour le qtree 2. Supprimez les fichiers qui ne sont plus utilisés du système de fichiers qtree.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Limite souple des fichiers qtree</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AVERTISSEMENT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Un qtree est un système de fichiers défini logiquement, qui peut exister en tant que sous répertoire spécial du répertoire racine dans un volume. Chaque qtree dispose d&#8217;un quota sur le nombre de fichiers qu&#8217;il peut contenir afin de maintenir une taille de système de fichiers gérable au sein du volume. Un qtree conserve un quota de nombre de fichiers logiciel afin de pouvoir en avertir l&#8217;utilisateur de manière proactive avant d&#8217;atteindre la limite des fichiers dans le qtree et de ne pas stocker de fichiers supplémentaires. La surveillance du nombre de fichiers dans un qtree permet à l&#8217;utilisateur de recevoir un service de données sans interruption.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Prévoyez de prendre les mesures suivantes rapidement si le seuil d&#8217;avertissement est dépassé : 1. Envisagez d&#8217;augmenter le quota de nombre de fichiers pour le qtree 2. Supprimez les fichiers qui ne sont plus utilisés du système de fichiers qtree</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L&#8217;espace de réserve Snapshot est plein</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PRIMORDIAL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">La capacité de stockage d&#8217;un volume est nécessaire pour stocker les données des applications et des clients. Une partie de cet espace, appelée espace réservé pour les instantanés, est utilisée pour stocker des instantanés qui permettent de protéger les données localement. Plus les données stockées dans le volume ONTAP sont récentes, plus la capacité Snapshot est élevée et moins la capacité de stockage Snapshot sera disponible pour les données à venir (nouvelles ou mises à jour). Si la capacité des données snapshot d&#8217;un volume atteint l&#8217;espace total de réserve snapshot, il se peut que le client ne puisse pas stocker de nouvelles données snapshot et qu&#8217;il ne puisse pas réduire le niveau de protection des données du volume. La surveillance du volume utilisé permet la continuité des services de données.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Des actions immédiates sont requises pour minimiser les interruptions de service si un seuil critique est atteint : 1. Envisagez de configurer des instantanés pour utiliser l&#8217;espace de données dans le volume lorsque la réserve d&#8217;instantanés est pleine. 2. Pensez à supprimer des snapshots plus anciens qui pourraient ne plus être nécessaires pour libérer de l&#8217;espace… Prévoyez de prendre les mesures suivantes rapidement si le seuil d&#8217;avertissement est dépassé : 1. Envisagez d&#8217;augmenter l&#8217;espace de réserve Snapshot au sein du volume pour répondre à la croissance 2. Envisagez de configurer des instantanés pour utiliser l&#8217;espace de données dans le volume lorsque la réserve Snapshot est pleine</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Limite de capacité de stockage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PRIMORDIAL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Lorsqu&#8217;un pool de stockage (agrégat) est plein, les opérations d&#8217;E/S ralentissent et cessent d&#8217;entraîner un incident lié à la panne du stockage. Une alerte d&#8217;avertissement indique que l&#8217;action planifiée doit être prise prochainement pour restaurer un espace disponible minimal. Une alerte critique indique que l&#8217;interruption des services est imminente et que des mesures d&#8217;urgence doivent être prises pour libérer de l&#8217;espace afin d&#8217;assurer la continuité des services.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Des actions immédiates sont requises pour minimiser les interruptions de service si un seuil critique est atteint : 1. Suppression des snapshots sur des volumes non stratégiques 2. Supprimer des volumes ou des LUN qui ne sont pas des charges de travail essentielles et qui peuvent être restaurés à partir de copies hors stockage… Prévoyez de prendre les mesures suivantes rapidement si le seuil d&#8217;avertissement est dépassé : 1. Déplacement d&#8217;un ou plusieurs volumes vers un autre emplacement de stockage 2. Ajouter de la capacité de stockage 3. Modifiez les paramètres d&#8217;efficacité du stockage ou procédez au Tiering des données inactives dans le stockage cloud</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Limite de performances du stockage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PRIMORDIAL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Lorsqu&#8217;un système de stockage atteint ses limites de performances, les opérations sont lentes, la latence augmente et les charges de travail et les applications peuvent tomber en panne. ONTAP évalue l&#8217;utilisation du pool de stockage en raison des charges de travail et estime le pourcentage de performance consommé. Une alerte d&#8217;avertissement indique qu&#8217;une action planifiée doit être exécutée pour réduire la charge du pool de stockage à, car il se peut que les performances du pool de stockage ne soient pas suffisantes pour traiter les pics de charge de travail. Une alerte critique indique qu&#8217;une défaillance de performances est imminente et des mesures d&#8217;urgence doivent être prises pour réduire la charge du pool de stockage afin d&#8217;assurer la continuité des services.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Des actions immédiates sont requises pour minimiser les interruptions de service si un seuil critique est atteint : 1. Suspendre les tâches planifiées telles que les snapshots ou la réplication SnapMirror 2. Charges de travail non essentielles inactives… Prévoyez de prendre les mesures suivantes rapidement si le seuil d&#8217;avertissement est dépassé : 1. Déplacer une ou plusieurs charges de travail vers un autre emplacement de stockage 2. Ajout de nœuds de stockage (AFF) ou de tiroirs disques (FAS) et redistribution des charges de travail 3. Modifier les caractéristiques des charges de travail (taille de bloc, mise en cache des applications, etc.)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Limite matérielle de capacité de quota utilisateur</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PRIMORDIAL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ONTAP reconnaît l&#8217;utilisateur des systèmes Unix ou Windows qui sont autorisés à accéder aux volumes, aux fichiers ou aux répertoires d&#8217;un volume. Par conséquent, ONTAP permet aux clients de configurer la capacité de stockage pour leurs utilisateurs ou groupes d&#8217;utilisateurs de leurs systèmes Linux ou Windows. Le quota de la politique utilisateur ou de groupe restreint la quantité d&#8217;espace que l&#8217;utilisateur peut utiliser pour ses propres données. Une limite stricte de ce quota permet de notifier l&#8217;utilisateur lorsque la capacité utilisée au sein du volume est droite avant d&#8217;atteindre le quota de capacité totale. Le contrôle de la quantité de données stockées dans un quota utilisateur ou groupe garantit que l&#8217;utilisateur reçoit un service de données ininterrompu.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Des actions immédiates sont requises pour minimiser les interruptions de service si un seuil critique est atteint : 1. Envisagez d&#8217;augmenter l&#8217;espace du quota de l&#8217;utilisateur ou du groupe afin de répondre à la croissance 2. Pensez à demander à l&#8217;utilisateur ou au groupe de supprimer des données qui ne sont plus nécessaires pour libérer de l&#8217;espace.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Quota utilisateur - limite logicielle de capacité</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AVERTISSEMENT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ONTAP reconnaît l&#8217;utilisateur des systèmes Unix ou Windows qui sont autorisés à accéder aux volumes, aux fichiers ou aux répertoires d&#8217;un volume. Par conséquent, ONTAP permet aux clients de configurer la capacité de stockage pour leurs utilisateurs ou groupes d&#8217;utilisateurs de leurs systèmes Linux ou Windows. Le quota de la politique utilisateur ou de groupe restreint la quantité d&#8217;espace que l&#8217;utilisateur peut utiliser pour ses propres données. Une limite soft de ce quota permet de prévenir de manière proactive l&#8217;utilisateur lorsque la capacité utilisée dans le volume atteint le quota de capacité totale. Le contrôle de la quantité de données stockées dans un quota utilisateur ou groupe garantit que l&#8217;utilisateur reçoit un service de données ininterrompu.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Prévoyez de prendre les mesures suivantes rapidement si le seuil d&#8217;avertissement est dépassé : 1. Envisagez d&#8217;augmenter l&#8217;espace du quota de l&#8217;utilisateur ou du groupe afin de répondre à la croissance 2. Envisagez de supprimer les données qui ne sont plus nécessaires pour libérer de l&#8217;espace.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">La capacité de volume est saturée</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PRIMORDIAL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">La capacité de stockage d&#8217;un volume est nécessaire pour stocker les données des applications et des clients. Plus le volume ONTAP est stocké, plus la disponibilité du stockage des données futures est faible. Si la capacité de stockage de données d&#8217;un volume atteint la capacité de stockage totale, cela peut conduire le client à ne pas pouvoir stocker les données en raison d&#8217;une capacité de stockage insuffisante. La surveillance du volume utilisé permet d&#8217;assurer la continuité des services de données.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Des actions immédiates sont requises pour minimiser les interruptions de service si un seuil critique est atteint : 1. Envisagez d&#8217;augmenter l&#8217;espace du volume pour répondre à la croissance 2. Envisager de supprimer des données qui ne sont plus nécessaires pour libérer de l&#8217;espace… Prévoyez de prendre les mesures suivantes rapidement si le seuil d&#8217;avertissement est dépassé : 1. Envisagez d&#8217;augmenter l&#8217;espace du volume pour faire face à la croissance</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Latence élevée du volume</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PRIMORDIAL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Les volumes sont des objets qui servent le trafic d&#8217;E/S souvent pilotées par des applications sensibles aux performances, notamment les applications DevOps, les répertoires locaux et les bases de données. Une latence élevée signifie que les applications elles-mêmes risquent de subir des conséquences et d&#8217;être dans l&#8217;impossibilité d&#8217;accomplir leurs tâches. Pour maintenir des performances prévisibles au niveau des applications, il est essentiel de contrôler les latences des volumes. Les latences suivantes sont attendues pour le type de support : SSD jusqu&#8217;à 1-2 millisecondes ; SAS jusqu&#8217;à 8-10 millisecondes et disques durs SATA 17-20 millisecondes.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Des actions immédiates sont requises pour minimiser les interruptions de service si un seuil critique est atteint : 1. Si une règle de qualité de service lui est attribuée, évaluez ses seuils limites au cas où la charge de travail du volume serait mise au ralenti&#8230;&#8203; Prévoyez de prendre les mesures suivantes rapidement si le seuil d&#8217;avertissement est dépassé : 1. Si l&#8217;agrégat connaît également un taux d&#8217;utilisation élevé, déplacez le volume vers un autre agrégat. 2. Si une règle de qualité de service lui est attribuée, évaluez ses seuils de limite au cas où il restreint la charge de travail du volume. 3. Si l&#8217;utilisation du nœud est également élevée, déplacez le volume vers un autre nœud ou réduisez la charge de travail totale du nœud</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Limite des inodes de volume</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PRIMORDIAL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Les volumes qui stockent des fichiers utilisent des nœuds d&#8217;index (inode) pour stocker les métadonnées de fichiers. Lorsqu&#8217;un volume épuise son allocation d&#8217;inode, aucun autre fichier ne peut lui être ajouté. Une alerte d&#8217;avertissement indique que l&#8217;action planifiée doit être prise pour augmenter le nombre d&#8217;inodes disponibles. Une alerte critique indique que la limite d&#8217;épuisement des fichiers est imminente et que des mesures d&#8217;urgence doivent être prises pour libérer les inodes afin d&#8217;assurer la continuité des services.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Des actions immédiates sont requises pour minimiser les interruptions de service si un seuil critique est atteint : 1. Envisagez d&#8217;augmenter la valeur des inodes pour le volume. Si la valeur des inodes est déjà au maximum, envisagez de diviser le volume en deux volumes ou plus car le système de fichiers a dépassé la taille maximale 2. Envisagez d&#8217;utiliser FlexGroup pour prendre en charge des systèmes de fichiers volumineux… Prévoyez de prendre les mesures suivantes rapidement si le seuil d&#8217;avertissement est dépassé : 1. Envisagez d&#8217;augmenter la valeur des inodes pour le volume. Si la valeur des inodes est déjà au maximum, envisagez de diviser le volume en deux volumes ou plus car le système de fichiers a dépassé la taille maximale 2. Envisagez d&#8217;utiliser FlexGroup pour prendre en charge des systèmes de fichiers volumineux</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Nom du moniteur</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Gravité de l&#8217;EC</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Description du moniteur</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Action corrective</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Latence élevée du nœud</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AVERTISSEMENT / CRITIQUE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">La latence du nœud a atteint les niveaux où elle peut affecter les performances des applications du nœud. Une latence de nœud moindre garantit la prévisibilité des performances des applications. Les latences attendues pour le type de support sont : SSD jusqu&#8217;à 1-2 millisecondes ; SAS jusqu&#8217;à 8-10 millisecondes et disques durs SATA 17-20 millisecondes.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Si un seuil critique est atteint, des mesures immédiates doivent être prises pour limiter les interruptions de service : 1. Suspension des tâches planifiées, des snapshots ou de la réplication SnapMirror 2. Réduisez les besoins des workloads à priorité faible grâce aux limites de qualité de service 3. Désactiver les charges de travail non essentielles considère les actions immédiates lorsque le seuil d&#8217;avertissement est dépassé : 1. Déplacer une ou plusieurs charges de travail vers un autre emplacement de stockage 2. Réduisez les besoins des workloads à priorité faible grâce aux limites de qualité de service 3. Ajout de nœuds de stockage (AFF) ou de tiroirs disques (FAS) et redistribution des charges de travail 4. Modifier les caractéristiques des charges de travail (taille de bloc, mise en cache des applications, etc.)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Limite de performance du nœud</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AVERTISSEMENT / CRITIQUE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L&#8217;utilisation des performances du nœud a atteint les niveaux où elle peut affecter les performances des E/S et des applications prises en charge par le nœud. Des nœuds peu performants garantissent la prévisibilité des performances des applications.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Des mesures immédiates doivent être prises pour minimiser les interruptions de service si un seuil critique est atteint : 1. Suspension des tâches planifiées, des snapshots ou de la réplication SnapMirror 2. Réduisez les besoins des workloads à priorité faible grâce aux limites de qualité de service 3. Inactiver les charges de travail non essentielles tenez compte des actions suivantes si le seuil d&#8217;avertissement est dépassé : 1. Déplacer une ou plusieurs charges de travail vers un autre emplacement de stockage 2. Réduisez les besoins des workloads à priorité faible grâce aux limites de qualité de service 3. Ajout de nœuds de stockage (AFF) ou de tiroirs disques (FAS) et redistribution des charges de travail 4. Modifier les caractéristiques des charges de travail (taille de bloc, mise en cache des applications, etc.)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Latence élevée des machines virtuelles de stockage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AVERTISSEMENT / CRITIQUE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">La latence des VM de stockage a atteint les niveaux où elle peut affecter les performances des applications sur la VM de stockage. La faible latence des machines virtuelles de stockage garantit la prévisibilité des performances des applications. Les latences attendues pour le type de support sont : SSD jusqu&#8217;à 1-2 millisecondes ; SAS jusqu&#8217;à 8-10 millisecondes et disques durs SATA 17-20 millisecondes.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Si le seuil critique est atteint, évaluez immédiatement les limites de seuil des volumes de la machine virtuelle de stockage auxquels une règle de qualité de service est attribuée, afin de vérifier s&#8217;il est en cause, les charges de travail des volumes seront immédiatement mises en œuvre en cas de dépassement du seuil d&#8217;avertissement : 1. Si l&#8217;agrégat connaît également une exploitation élevée, déplacez certains volumes de la machine virtuelle de stockage vers un autre agrégat. 2. Pour les volumes de la machine virtuelle de stockage auxquels une règle de qualité de service est attribuée, évaluez les limites de seuil si les charges de travail des volumes doivent être restreintes 3. Si l&#8217;utilisation du nœud est élevée, déplacez certains volumes de la machine virtuelle de stockage vers un autre nœud ou réduisez l&#8217;ensemble de la charge de travail du nœud</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Limite stricte des fichiers de quota utilisateur</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PRIMORDIAL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Le nombre de fichiers créés au sein du volume a atteint la limite critique et aucun fichier supplémentaire ne peut être créé. La surveillance du nombre de fichiers stockés permet à l&#8217;utilisateur de recevoir un service de données sans interruption.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Des actions immédiates sont requises pour minimiser les interruptions de service si le seuil critique est atteint.…envisager de prendre les actions suivantes: 1. Augmenter le quota de nombre de fichiers pour l&#8217;utilisateur spécifique 2. Supprimez les fichiers indésirables pour réduire la pression sur le quota de fichiers pour l&#8217;utilisateur spécifique</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Limite logicielle des fichiers de quota utilisateur</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AVERTISSEMENT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Le nombre de fichiers créés au sein du volume a atteint la limite seuil du quota et se situe à proximité de la limite critique. Vous ne pouvez pas créer de fichiers supplémentaires si le quota atteint la limite critique. La surveillance du nombre de fichiers stockés par un utilisateur garantit que l&#8217;utilisateur reçoit un service de données ininterrompu.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Prenez en compte les actions immédiates si le seuil d&#8217;avertissement est dépassé : 1. Augmenter le quota de nombre de fichiers pour le quota d&#8217;utilisateur spécifique 2. Supprimez les fichiers indésirables pour réduire la pression sur le quota de fichiers pour l&#8217;utilisateur spécifique</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Taux de Miss. Du cache du volume</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AVERTISSEMENT / CRITIQUE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Volume cache Miss ratio est le pourcentage de demandes de lecture des applications client renvoyées du disque au lieu d&#8217;être renvoyées à partir du cache. Cela signifie que le volume a atteint le seuil défini.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Si un seuil critique est atteint, des mesures immédiates doivent être prises pour limiter les interruptions de service : 1. Déplacez certaines charges de travail depuis le nœud du volume pour réduire la charge d&#8217;E/S 2. Si ce n&#8217;est pas déjà le cas sur le nœud du volume, augmentez le cache WAFL en achetant et en ajoutant un module Flash cache 3. Lorsque le seuil d&#8217;avertissement est dépassé, réduisez les besoins en charges de travail moins prioritaires sur le même nœud via les limites de QoS. Déplacez certaines charges de travail depuis le nœud du volume pour réduire la charge d&#8217;E/S 2. Si ce n&#8217;est pas déjà le cas sur le nœud du volume, augmentez le cache WAFL en achetant et en ajoutant un module Flash cache 3. Réduisez les besoins en charges de travail prioritaires sur le même nœud via la limitation de la qualité de service 4. Modifier les caractéristiques des charges de travail (taille de bloc, mise en cache des applications, etc.)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Surallocation du quota de qtree volume</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AVERTISSEMENT / CRITIQUE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Volume qtree quota overcommit spécifie le pourcentage auquel un volume est considéré comme surallouant par les quotas qtree. Le seuil défini pour le quota qtree est atteint pour le volume. La surveillance du surengagement de quota qtree du volume permet à l&#8217;utilisateur de recevoir un service de données sans interruption.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Si un seuil critique est atteint, des mesures immédiates doivent être prises pour limiter les interruptions de service : 1. Augmenter l&#8217;espace du volume 2. Supprimez les données non souhaitées lorsque le seuil d&#8217;avertissement est atteint, puis envisagez d&#8217;augmenter l&#8217;espace du volume.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="moniteurs-journaux-non-résolus-dans-le-temps">Moniteurs journaux (non résolus dans le temps)</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Nom du moniteur</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Gravité</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Action corrective</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Identifiants AWS non initialisés</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">INFO</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cet événement se produit lorsqu&#8217;un module tente d&#8217;accéder aux identifiants basés sur les rôles Amazon Web Services (AWS) et de gestion des identités et des accès à partir du thread d&#8217;informations d&#8217;identification cloud avant leur initialisation.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Attendez que le thread des informations d&#8217;identification du cloud, ainsi que le système, aient terminé l&#8217;initialisation.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cloud Tier inaccessible</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PRIMORDIAL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Un nœud de stockage ne peut pas se connecter à l&#8217;API de magasin d&#8217;objets Cloud Tier. Certaines données seront inaccessibles.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Si vous utilisez des produits sur site, effectuez les actions correctives suivantes : …Vérifiez que votre LIF intercluster est en ligne et fonctionnelle à l&#8217;aide de la commande « network interface show ».…Vérifiez la connectivité réseau au serveur de magasin d&#8217;objets à l&#8217;aide de la commande « ping » sur le nœud de destination LIF intercluster… Assurez-vous ce qui suit :…la configuration de votre magasin d&#8217;objets n&#8217;a pas changé.…les informations de connexion et de connectivité sont Toujours valide&#8230;&#8203; Contactez le support technique NetApp si le problème persiste. Si vous utilisez Cloud Volumes ONTAP, effectuez les actions correctives suivantes : …Assurez-vous que la configuration de votre magasin d’objets n’a pas changé.… Assurez-vous que les informations de connexion et de connectivité sont toujours valides.…contactez le support technique de NetApp si le problème persiste.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Disque hors service</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">INFO</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cet événement se produit lorsqu&#8217;un disque est retiré du service parce qu&#8217;il a été marqué comme défectueux, est en cours d&#8217;assainissement ou est entré dans le centre de maintenance.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Aucune.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Composant FlexGroup complet</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PRIMORDIAL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Un composant d&#8217;un volume FlexGroup est saturé, ce qui peut entraîner une interruption potentielle du service. Vous pouvez toujours créer ou développer des fichiers sur le volume FlexGroup. Cependant, aucun des fichiers stockés dans le composant ne peut être modifié. Par conséquent, des erreurs aléatoires liées au manque d&#8217;espace peuvent s&#8217;afficher lorsque vous tentez d&#8217;effectuer des opérations d&#8217;écriture sur le volume FlexGroup.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Il est recommandé d&#8217;ajouter de la capacité au volume FlexGroup à l&#8217;aide de la commande « volume modify -Files +X ».…alternativement, supprimez des fichiers du volume FlexGroup. Toutefois, il est difficile de déterminer quels fichiers ont été débarqués sur le composant.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FlexGroup Constituent presque plein</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AVERTISSEMENT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Un composant d&#8217;un volume FlexGroup est quasiment à court d&#8217;espace, ce qui peut entraîner une interruption potentielle du service. Vous pouvez créer et développer des fichiers. Cependant, si le composant est à court d&#8217;espace, il se peut que vous ne puissiez pas ajouter ou modifier les fichiers du composant.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Il est recommandé d&#8217;ajouter de la capacité au volume FlexGroup à l&#8217;aide de la commande « volume modify -Files +X ».…alternativement, supprimez des fichiers du volume FlexGroup. Toutefois, il est difficile de déterminer quels fichiers ont été débarqués sur le composant.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FlexGroup Constituent quasiment hors des inodes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AVERTISSEMENT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Un composant d&#8217;un volume FlexGroup se trouve quasiment en dehors des inodes, à l&#8217;origine d&#8217;une interruption potentielle du service. Le composant reçoit des demandes de création moins élevées que la moyenne. Cela peut avoir un impact sur les performances globales du volume FlexGroup, car les demandes sont acheminées à des composants avec davantage d&#8217;inodes.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Il est recommandé d&#8217;ajouter de la capacité au volume FlexGroup à l&#8217;aide de la commande « volume modify -Files +X ».…alternativement, supprimez des fichiers du volume FlexGroup. Toutefois, il est difficile de déterminer quels fichiers ont été débarqués sur le composant.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FlexGroup Constituent à partir d&#8217;inodes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PRIMORDIAL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Un composant d&#8217;un volume FlexGroup a des inodes, à un risque de perturbation potentielle du service. Vous ne pouvez pas créer de nouveaux fichiers sur ce composant. Cela peut conduire à une distribution du contenu globalement iméquilibrée sur l&#8217;ensemble du volume FlexGroup.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Il est recommandé d&#8217;ajouter de la capacité au volume FlexGroup à l&#8217;aide de la commande « volume modify -Files +X ».…alternativement, supprimez des fichiers du volume FlexGroup. Toutefois, il est difficile de déterminer quels fichiers ont été débarqués sur le composant.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LUN hors ligne</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">INFO</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cet événement se produit lorsqu&#8217;une LUN est mise hors ligne manuellement.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Remettre la LUN en ligne.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Echec du ventilateur de l&#8217;unité principale</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AVERTISSEMENT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Un ou plusieurs ventilateurs de l&#8217;unité principale sont défectueux. Le système reste opérationnel… cependant, si la condition persiste trop longtemps, la surchauffe peut déclencher un arrêt automatique.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Réinstallez les ventilateurs défectueux. Si l&#8217;erreur persiste, remplacez-les.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ventilateur de l&#8217;unité principale en état d&#8217;avertissement</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">INFO</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cet événement se produit lorsqu&#8217;un ou plusieurs ventilateurs de l&#8217;unité principale sont en état d&#8217;avertissement.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Remplacer les ventilateurs indiqués pour éviter toute surchauffe.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Batterie NVRAM faible</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AVERTISSEMENT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">La capacité de la batterie NVRAM est extrêmement faible. Une perte de données peut se produire si la batterie devient hors tension.…votre système génère et transmet un message AutoSupport ou d&#8217;appel en cas d&#8217;incident au support technique NetApp et aux destinations configurées si elle est configurée pour le faire. La transmission réussie d&#8217;un message AutoSupport améliore considérablement la détermination et la résolution des problèmes.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Effectuez les actions correctives suivantes :…visualisez l&#8217;état actuel de la batterie, sa capacité et son état de charge à l&#8217;aide de la commande « System node Environment Sensors ».…si la batterie a été remplacée récemment ou si le système n&#8217;était pas opérationnel pendant une période prolongée, Surveillez la batterie pour vérifier qu&#8217;elle se charge correctement.…contactez le support technique de NetApp si l&#8217;autonomie de la batterie continue de diminuer en dessous des niveaux critiques et que le système de stockage s&#8217;arrête automatiquement.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Processeur de service non configuré</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AVERTISSEMENT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cet événement se produit une fois par semaine pour vous rappeler de configurer le processeur de service. Le processeur de service est un dispositif physique intégré à votre système pour fournir des fonctions d&#8217;accès à distance et de gestion à distance. Vous devez configurer le processeur de service pour qu&#8217;il utilise toutes ses fonctionnalités.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Effectuez les actions correctives suivantes :…configurez le SP à l&#8217;aide de la commande « system service-processor network modify ».…facultativement, Obtenir l&#8217;adresse MAC du processeur de service à l&#8217;aide de la commande « system service-processor network show ».…Vérifiez la configuration du réseau du processeur de service à l&#8217;aide de la commande « system service-processor network show ».…Vérifiez que le processeur de service peut envoyer un e-mail AutoSupport à l&#8217;aide de la commande « system service-processor AutoSupport Invoke ». REMARQUE : les hôtes de messagerie et les destinataires AutoSupport doivent être configurés dans ONTAP avant d&#8217;exécuter cette commande.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Processeur de service hors ligne</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PRIMORDIAL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Le processeur de service ne reçoit plus de signaux émis par le processeur de service, même si toutes les actions de restauration du processeur de service ont été effectuées. ONTAP ONTAP ne peut pas surveiller l&#8217;état du matériel sans le SP.… le système s&#8217;arrêtera pour éviter des dommages matériels et des pertes de données. Configurez une alerte de panique pour être immédiatement avertie en cas de mise hors ligne du processeur de service.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mettez le système hors tension puis sous tension en exécutant les actions suivantes :…retirez le contrôleur du châssis.…remettez le contrôleur sous tension.…si le problème persiste, remplacez le module de contrôleur.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Défaillance des ventilateurs du tiroir</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PRIMORDIAL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Le module de ventilateur ou de ventilateur de refroidissement indiqué du shelf est défectueux. Les disques du tiroir peuvent ne pas recevoir suffisamment d&#8217;air de refroidissement, ce qui peut entraîner une panne du disque.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Effectuez les actions correctives suivantes :…Vérifiez que le module de ventilateur est bien en place et bien fixé. REMARQUE : le ventilateur est intégré au module d&#8217;alimentation dans certains tiroirs disques.… si le problème persiste, remplacez le module de ventilation.… si le problème persiste, contactez le support technique NetApp pour obtenir de l&#8217;aide.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Le système ne peut pas fonctionner en raison d&#8217;une panne du ventilateur de l&#8217;unité principale</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PRIMORDIAL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Un ou plusieurs ventilateurs de l&#8217;unité principale sont défectueux, ce qui interrompt le fonctionnement du système. Cela peut entraîner une perte potentielle de données.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Remplacez les ventilateurs défectueux.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Disques non assignés</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">INFO</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Le système contient des disques non attribués. La capacité est alors gaspillée et votre système peut disposer de erreurs de configuration ou de modifications partielles de la configuration.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Effectuez les actions correctives suivantes :…déterminez quels disques sont non affectés en utilisant la commande « disk show -n ».…affectez les disques à un système à l&#8217;aide de la commande « disk assigned ».</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="moniteurs-de-journal-résolus-par-heure">Moniteurs de journal résolus par heure</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Nom du moniteur</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Gravité</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Action corrective</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Serveur antivirus occupé</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AVERTISSEMENT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Le serveur antivirus est trop occupé pour accepter toute nouvelle demande de scan.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Si ce message se produit fréquemment, assurez-vous qu&#8217;il y a suffisamment de serveurs antivirus pour gérer la charge d&#8217;analyse antivirus générée par la SVM.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Informations d&#8217;identification AWS pour le rôle IAM expirées</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PRIMORDIAL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cloud volumes ONTAP est devenu inaccessible. Les identifiants basés sur les rôles de gestion des identités et des accès ont expiré. Les identifiants sont acquis auprès du serveur de métadonnées Amazon Web Services (AWS) via le rôle IAM et signent des demandes d&#8217;API à Amazon simple Storage Service (Amazon S3).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Procédez comme suit :…Connectez-vous à la console de gestion EC2 AWS.…accédez à la page instances.…recherchez l&#8217;instance pour le déploiement Cloud Volumes ONTAP et vérifiez son intégrité.…Vérifiez que le rôle IAM AWS associé à l&#8217;instance est valide et a reçu les privilèges appropriés à l&#8217;instance.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Informations d&#8217;identification AWS pour le rôle IAM introuvables</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PRIMORDIAL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Le thread d&#8217;identification cloud ne peut pas acquérir les identifiants basés sur les rôles Amazon Web Services (AWS) Identity and Access Management (IAM) à partir du serveur de métadonnées AWS. Ces identifiants sont utilisés pour signer des demandes d&#8217;API vers Amazon simple Storage Service (Amazon S3). Cloud volumes ONTAP est devenu inaccessible.…</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Procédez comme suit :…Connectez-vous à la console de gestion EC2 AWS.…accédez à la page instances.…recherchez l&#8217;instance pour le déploiement Cloud Volumes ONTAP et vérifiez son intégrité.…Vérifiez que le rôle IAM AWS associé à l&#8217;instance est valide et a reçu les privilèges appropriés à l&#8217;instance.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Informations d&#8217;identification AWS pour le rôle IAM non valides</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PRIMORDIAL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Les identifiants basés sur les rôles de gestion des identités et des accès ne sont pas valides. Les identifiants sont acquis auprès du serveur de métadonnées Amazon Web Services (AWS) via le rôle IAM et signent des demandes d&#8217;API à Amazon simple Storage Service (Amazon S3). Cloud volumes ONTAP est devenu inaccessible.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Procédez comme suit :…Connectez-vous à la console de gestion EC2 AWS.…accédez à la page instances.…recherchez l&#8217;instance pour le déploiement Cloud Volumes ONTAP et vérifiez son intégrité.…Vérifiez que le rôle IAM AWS associé à l&#8217;instance est valide et a reçu les privilèges appropriés à l&#8217;instance.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Rôle IAM AWS introuvable</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PRIMORDIAL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Le thread des rôles de gestion des identités et des accès ne peut pas trouver de rôle IAM Amazon Web Services (AWS) sur le serveur de métadonnées AWS. Le rôle IAM est requis pour acquérir des identifiants basés sur des rôles afin de signer les demandes d&#8217;API vers Amazon simple Storage Service (Amazon S3). Cloud volumes ONTAP est devenu inaccessible.…</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Procédez comme suit :…Connectez-vous à la console de gestion EC2 AWS.…accédez à la page instances.…recherchez l&#8217;instance pour le déploiement Cloud Volumes ONTAP et vérifiez son état.…Vérifiez que le rôle IAM AWS associé à l&#8217;instance est valide.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Rôle IAM AWS non valide</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PRIMORDIAL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Le rôle de gestion des identités et des accès Amazon Web Services (AWS) sur le serveur de métadonnées AWS n&#8217;est pas valide. Cloud Volume ONTAP est devenu inaccessible.…</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Procédez comme suit :…Connectez-vous à la console de gestion EC2 AWS.…accédez à la page instances.…recherchez l&#8217;instance pour le déploiement Cloud Volumes ONTAP et vérifiez son intégrité.…Vérifiez que le rôle IAM AWS associé à l&#8217;instance est valide et a reçu les privilèges appropriés à l&#8217;instance.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Échec de la connexion au serveur de métadonnées AWS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PRIMORDIAL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Le thread des rôles de gestion des identités et des accès (IAM) ne peut pas établir de lien de communication avec le serveur de métadonnées Amazon Web Services (AWS). Il convient de établir une communication pour acquérir les identifiants basés sur les rôles AWS IAM nécessaires à la signature des demandes d&#8217;API à Amazon simple Storage Service (Amazon S3). Cloud volumes ONTAP est devenu inaccessible.…</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Procédez comme suit :…Connectez-vous à la console de gestion EC2 AWS.…accédez à la page instances.…recherchez l&#8217;instance pour le déploiement Cloud Volumes ONTAP et vérifiez son état de santé.…</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Limite d&#8217;utilisation de l&#8217;espace FabricPool presque atteinte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AVERTISSEMENT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L&#8217;utilisation de l&#8217;espace FabricPool total dans le cluster des magasins d&#8217;objets auprès de fournisseurs sous licence en termes de capacité a presque atteint la limite autorisée.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exécutez les actions correctives suivantes :…Vérifiez le pourcentage de la capacité sous licence utilisée par chaque Tier de stockage FabricPool à l&#8217;aide de la commande « Storage Aggregate Object-store show-space ».…supprimez les copies Snapshot de volumes grâce à la règle de hiérarchisation « snapshot » ou « sauvegarde » à l&#8217;aide de la commande « volume snapshot delete » pour libérer de l&#8217;espace.…installez une nouvelle licence sur le cluster, vous pouvez augmenter la capacité sous licence.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Limite d&#8217;utilisation de l&#8217;espace FabricPool atteinte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PRIMORDIAL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L&#8217;utilisation totale de l&#8217;espace FabricPool sur l&#8217;ensemble du cluster des magasins d&#8217;objets auprès de fournisseurs sous licence en fonction de la capacité a atteint la limite de licence.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exécutez les actions correctives suivantes :…Vérifiez le pourcentage de la capacité sous licence utilisée par chaque Tier de stockage FabricPool à l&#8217;aide de la commande « Storage Aggregate Object-store show-space ».…supprimez les copies Snapshot de volumes grâce à la règle de hiérarchisation « snapshot » ou « sauvegarde » à l&#8217;aide de la commande « volume snapshot delete » pour libérer de l&#8217;espace.…installez une nouvelle licence sur le cluster, vous pouvez augmenter la capacité sous licence.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Échec du rétablissement de l&#8217;agrégat</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PRIMORDIAL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cet événement a lieu pendant la migration d&#8217;un agrégat dans le cadre d&#8217;un rétablissement de basculement du stockage (SFO), lorsque le nœud de destination ne peut pas atteindre les magasins d&#8217;objets.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Effectuer les actions correctives suivantes :…Vérifiez que votre LIF intercluster est en ligne et fonctionnelle à l&#8217;aide de la commande « network interface show ».…Vérifiez la connectivité réseau au serveur de magasin d&#8217;objets en utilisant la commande « ping » sur le nœud de destination LIF intercluster. …Vérifiez que la configuration de votre magasin d&#8217;objets n&#8217;a pas changé et que les informations de connexion et de connectivité sont toujours précises à l&#8217;aide de la commande « Aggregate Object-store config show ».…alternativement, Vous pouvez ignorer l&#8217;erreur en spécifiant false pour le paramètre « exiger-Partner-waiting » de la commande giveback.…contactez le support technique de NetApp pour plus d&#8217;informations ou d&#8217;aide.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Interconnexion HAUTE DISPONIBILITÉ en panne</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AVERTISSEMENT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L&#8217;interconnexion haute disponibilité est en panne. Le risque d&#8217;interruption de service lorsque le basculement n&#8217;est pas disponible.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Les actions correctives dépendent du nombre et du type de liaisons d&#8217;interconnexion haute disponibilité prises en charge par la plateforme, ainsi que de la raison pour laquelle l&#8217;interconnexion est en panne. …Si les liaisons sont en panne :…Vérifiez que les deux contrôleurs de la paire HA sont opérationnels.…pour les liaisons connectées en externe, assurez-vous que les câbles d&#8217;interconnexion sont correctement connectés et que les petits SFP (Form-factor plugables), le cas échéant, sont correctement installés sur les deux contrôleurs.…pour les liaisons connectées en interne, désactivez et réactivez les liaisons, l&#8217;une après l&#8217;autre, en utilisant les commandes « ic link off » et « ic link on ». …Si les liens sont désactivés, activez-les à l&#8217;aide de la commande "ic link on". …Si un poste n&#8217;est pas connecté, désactivez et réactivez les liens l&#8217;un après l&#8217;autre à l&#8217;aide des commandes « ic link off » et « ic link on ».…contactez le support technique de NetApp si le problème persiste.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Nombre maximal de sessions par utilisateur dépassé</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AVERTISSEMENT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Vous avez dépassé le nombre maximal de sessions autorisées par utilisateur sur une connexion TCP. Toute demande d&#8217;établissement d&#8217;une session sera refusée jusqu&#8217;à ce que certaines sessions soient libérées. …</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Effectuez les actions correctives suivantes : …Inspectez toutes les applications qui s&#8217;exécutent sur le client, et terminez toutes celles qui ne fonctionnent pas correctement.…redémarrez le client.…Vérifiez si le problème est causé par une nouvelle application ou une application existante :… si l&#8217;application est nouvelle, définissez un seuil plus élevé pour le client en utilisant la commande "cifs option modify -max-ouvre-même-fichier-par-arborescence". Dans certains cas, les clients fonctionnent comme prévu, mais nécessitent un seuil plus élevé. Vous devez disposer d&#8217;un privilège avancé pour définir un seuil plus élevé pour le client. …Si le problème est causé par une application existante, il peut y avoir un problème avec le client. Pour plus d&#8217;informations ou pour obtenir de l&#8217;aide, contactez le support technique NetApp.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Nombre max. D&#8217;heures d&#8217;ouverture par fichier dépassé</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AVERTISSEMENT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Vous avez dépassé le nombre maximal de fois que vous pouvez ouvrir le fichier via une connexion TCP. Toute demande d&#8217;ouverture de ce fichier sera refusée jusqu&#8217;à la fermeture de certaines instances ouvertes du fichier. Cela indique généralement un comportement anormal de l&#8217;application.…</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Effectuez les actions correctives suivantes :…inspectez les applications qui s&#8217;exécutent sur le client à l&#8217;aide de cette connexion TCP. Le client peut ne pas fonctionner correctement en raison de l&#8217;exécution de l&#8217;application.…Reboot le client.…Vérifiez si le problème est causé par une nouvelle application ou une application existante :…si l&#8217;application est nouvelle, définissez un seuil plus élevé pour le client en utilisant la commande "option cifs modify -max-iouverture-même-fichier-par-arborescence". Dans certains cas, les clients fonctionnent comme prévu, mais nécessitent un seuil plus élevé. Vous devez disposer d&#8217;un privilège avancé pour définir un seuil plus élevé pour le client. …Si le problème est causé par une application existante, il peut y avoir un problème avec le client. Pour plus d&#8217;informations ou pour obtenir de l&#8217;aide, contactez le support technique NetApp.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Conflit de nom NetBIOS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PRIMORDIAL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Le service de noms NetBIOS a reçu une réponse négative à une demande d&#8217;enregistrement de nom provenant d&#8217;un ordinateur distant. Ceci est généralement causé par un conflit dans le nom NetBIOS ou un alias. Par conséquent, les clients ne peuvent pas accéder aux données ou se connecter au nœud qui transmet les données approprié dans le cluster.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Effectuez l&#8217;une des actions correctives suivantes :…en cas de conflit dans le nom NetBIOS ou dans un alias, Effectuer l&#8217;une des opérations suivantes :…Supprimer l&#8217;alias NetBIOS en double en utilisant la commande « vserver cifs delete -alias -vserver vserver vserver ».…Renommer un alias NetBIOS en supprimant le nom dupliqué et en ajoutant un alias avec un nouveau nom en utilisant la commande « vserver cifs create -alias -vserver ». …En l&#8217;absence d&#8217;alias configurés et en présence d&#8217;un conflit dans le nom NetBIOS, renommez le serveur CIFS en utilisant les commandes « vserver cifs delete -vserver vserver vserver » et « vserver cifs create -cifs-Server netbiosname ». REMARQUE : la suppression d&#8217;un serveur CIFS peut rendre les données inaccessibles. …Supprimez le nom NetBIOS ou renommez le NetBIOS sur l&#8217;ordinateur distant.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Pool de magasins NFSv4 épuisé</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PRIMORDIAL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Un pool de magasins NFSv4 a été épuisé.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Si le serveur NFS ne répond pas pendant plus de 10 minutes après cet événement, contactez le support technique NetApp.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Aucun moteur de lecture enregistré</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PRIMORDIAL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L&#8217;antivirus Connector a notifié à ONTAP qu&#8217;il ne possède pas de moteur d&#8217;analyse enregistré. Cela peut entraîner une indisponibilité des données si l&#8217;option « Scan-mandatory » est activée.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Effectuez les actions correctives suivantes :…Assurez-vous que le logiciel du moteur de scan installé sur le serveur antivirus est compatible avec ONTAP.…Assurez-vous que le logiciel du moteur de scan est en cours d&#8217;exécution et configuré pour se connecter au connecteur antivirus sur la boucle locale.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Aucune connexion Vscan</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PRIMORDIAL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ONTAP n&#8217;a pas de connexion Vscan pour les demandes de scan antivirus. Cela peut entraîner une indisponibilité des données si l&#8217;option « Scan-mandatory » est activée.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Assurez-vous que le pool de scanner est correctement configuré et que les serveurs antivirus sont actifs et connectés à ONTAP.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Espace de volume racine du nœud faible</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PRIMORDIAL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Le système a détecté que le volume racine est dangereusement faible sur l&#8217;espace. Le nœud n&#8217;est pas entièrement opérationnel. Les LIF de données peuvent avoir basculé sur le cluster car l&#8217;accès NFS et CIFS est limité sur le nœud. La capacité administrative est limitée aux procédures de restauration locale pour que le nœud vide l&#8217;espace sur le volume racine.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Effectuez les actions correctives suivantes :…effacez de l&#8217;espace sur le volume racine en supprimant les anciennes copies Snapshot, en supprimant les fichiers dont vous n&#8217;avez plus besoin du répertoire /mroot, ou en développant la capacité du volume racine.…redémarrez le contrôleur.…contactez le support technique NetApp pour obtenir plus d&#8217;informations ou d&#8217;assistance.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Partage Admin inexistant</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PRIMORDIAL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Problème Vscan : un client a tenté de se connecter à un partage ONTAP_ADMIN$ inexistant.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">S&#8217;assurer que le Vscan est activé pour l&#8217;ID SVM mentionné. L&#8217;activation du Vscan sur un SVM entraîne la création automatique du partage ONTAP_ADMIN$ pour la SVM.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Espace de nom NVMe insuffisant</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PRIMORDIAL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Un namespace NVMe a été mis hors ligne pour cause d&#8217;une défaillance d&#8217;écriture provoquée par le manque d&#8217;espace.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ajoutez de l&#8217;espace au volume, puis mettez le namespace NVMe en ligne en utilisant la commande « vserver nvme namespace modify ».</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Délai de grâce NVMe-of actif</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AVERTISSEMENT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cet événement se produit tous les jours lorsque le protocole NVMe over Fabrics (NVMe-of) est en cours d&#8217;utilisation et que la période de grâce de la licence est active. La fonctionnalité NVMe-of requiert une licence après l&#8217;expiration de la période de grâce de la licence. La fonctionnalité NVMe-of est désactivée lorsque la période de grâce des licences est terminée.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Contactez votre ingénieur commercial pour obtenir une licence NVMe-of et l&#8217;ajouter au cluster, ou supprimer toutes les instances de la configuration NVMe-of du cluster.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Délai de grâce NVMe-of expiré</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AVERTISSEMENT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">La période de grâce de la licence NVMe-of (NVMe over Fabrics) est terminée et la fonctionnalité NVMe-of est désactivée.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Contactez votre ingénieur commercial pour obtenir une licence NVMe-of et l&#8217;ajouter au cluster.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Début du délai de grâce NVMe-of</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AVERTISSEMENT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">La configuration NVMe-of (NVMe over Fabrics) a été détectée lors de la mise à niveau du logiciel ONTAP 9.5. La fonctionnalité NVMe-of requiert une licence après l&#8217;expiration de la période de grâce de la licence.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Contactez votre ingénieur commercial pour obtenir une licence NVMe-of et l&#8217;ajouter au cluster.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L&#8217;hôte de magasin d&#8217;objets ne peut pas être résolu</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PRIMORDIAL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Le nom d&#8217;hôte du serveur de stockage d&#8217;objets ne peut pas être résolu en adresse IP. Le client de magasin d&#8217;objets ne peut pas communiquer avec le serveur de magasin d&#8217;objets sans résoudre une adresse IP. Par conséquent, les données peuvent être inaccessibles.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Vérifiez la configuration DNS pour vérifier que le nom d&#8217;hôte est correctement configuré avec une adresse IP.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LIF intercluster Object Store en panne</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PRIMORDIAL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Le client Object-Store ne peut pas trouver une LIF opérationnelle qui communique avec le serveur de magasin d&#8217;objets. Le nœud n&#8217;autorise pas le trafic client de magasin d&#8217;objets tant que le LIF intercluster n&#8217;est pas opérationnel. Par conséquent, les données peuvent être inaccessibles.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Effectuer les actions correctives suivantes :…Vérifiez le statut de LIF intercluster en utilisant la commande « network interface show -role intercluster ».…Vérifiez que le LIF intercluster est configuré correctement et opérationnel.…si une LIF intercluster n&#8217;est pas configurée, ajoutez-la en utilisant la commande « network interface create -role intercluster ».</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Incohérence de signature de magasin d&#8217;objets</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PRIMORDIAL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">La signature de demande envoyée au serveur de stockage d&#8217;objets ne correspond pas à la signature calculée par le client. Par conséquent, les données peuvent être inaccessibles.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Vérifiez que la clé d&#8217;accès secrète est configurée correctement. Si elle est correctement configurée, contactez le support technique NetApp pour obtenir de l&#8217;aide.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Délai D&#8217;attente DU RÉADR</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PRIMORDIAL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Une opération DE fichier DE REMADDIR a dépassé le délai d&#8217;exécution autorisé dans WAFL. Ceci peut être dû à des répertoires très grands ou épars. Une action corrective est recommandée.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Effectuez les actions correctives suivantes :…recherchez les informations spécifiques aux répertoires récents qui ont eu DES opérations DE fichier DE RÉADDIR expirant en utilisant la commande suivante 'diag' Privilege nodeshell CLI: WAFL readdir avis show.…Vérifiez si les répertoires sont indiqués comme sparse ou non:… si un répertoire est indiqué comme sparse, il est recommandé de copier le contenu du répertoire dans un nouveau répertoire pour supprimer l&#8217;sparseness du fichier de répertoire. …Si un répertoire n’est pas indiqué comme étant sparse et que le répertoire est volumineux, il est recommandé de réduire la taille du fichier de répertoire en réduisant le nombre d’entrées de fichier dans le répertoire.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Le transfert de l&#8217;agrégat a échoué</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PRIMORDIAL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cet événement a lieu pendant le transfert d&#8217;un agrégat, si le nœud de destination ne peut pas atteindre les magasins d&#8217;objets.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Effectuer les actions correctives suivantes :…Vérifiez que votre LIF intercluster est en ligne et fonctionnelle à l&#8217;aide de la commande « network interface show ».…Vérifiez la connectivité réseau au serveur de magasin d&#8217;objets en utilisant la commande « ping » sur le nœud de destination LIF intercluster. …Vérifiez que la configuration de votre magasin d&#8217;objets n&#8217;a pas changé et que les informations de connexion et de connectivité sont toujours précises à l&#8217;aide de la commande « Aggregate Object-store config show ».…vous pouvez également ignorer l&#8217;erreur en utilisant le paramètre « override-destination-chvérifié » de la commande de transfert.…Contactez le support technique de NetApp pour plus d&#8217;informations ou d&#8217;assistance.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Échec de la copie en double</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PRIMORDIAL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Une opération VSS (Volume Shadow Copy Service), un service de sauvegarde et de restauration Microsoft Server, a échoué.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Vérifiez ce qui suit à l&#8217;aide des informations fournies dans le message d&#8217;événement :…la configuration de copie en double est-elle activée?…les licences appropriées sont-elles installées? …Sur quels partages l&#8217;opération de copie en double est-elle effectuée?…le nom du partage est-il correct?…le chemin du partage existe-t-il?…Quels sont les États du jeu de copies en double et de ses copies en double ?</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Échec des blocs d&#8217;alimentation du commutateur de stockage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AVERTISSEMENT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Il manque une alimentation dans le commutateur du cluster. La redondance est réduite, le risque de panne lié à d&#8217;autres pannes de courant.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Effectuez les actions correctives suivantes :…Assurez-vous que l&#8217;alimentation secteur, qui alimente le commutateur du cluster, est sous tension.…assurez-vous que le cordon d&#8217;alimentation est connecté à l&#8217;alimentation.…contactez le support technique NetApp si le problème persiste.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Authentification CIFS trop nombreuses</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AVERTISSEMENT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">De nombreuses négociations d&#8217;authentification ont eu lieu simultanément. Il y a 256 nouvelles demandes de session incomplètes de ce client.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Étudier les raisons pour lesquelles le client a créé au moins 256 nouvelles demandes de connexion. Vous devrez peut-être contacter le fournisseur du client ou de l&#8217;application pour déterminer la raison de l&#8217;erreur.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Accès utilisateur non autorisé au partage Admin</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AVERTISSEMENT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Un client a tenté de se connecter au partage Privileged ONTAP_ADMIN$, même si l&#8217;utilisateur connecté n&#8217;est pas un utilisateur autorisé.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Effectuer les actions correctives suivantes :…Assurez-vous que le nom d&#8217;utilisateur et l&#8217;adresse IP mentionnés sont configurés dans l&#8217;un des pools de scanner Vscan actifs.…Vérifiez la configuration du pool de scanner actuellement active à l&#8217;aide de la commande « vserver vscan scanner pool show-active ».</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Virus détecté</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AVERTISSEMENT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Un serveur Vscan a signalé une erreur au système de stockage. Cela indique généralement qu&#8217;un virus a été détecté. Cependant, d&#8217;autres erreurs sur le serveur Vscan peuvent causer cet événement.…l&#8217;accès du client au fichier est refusé. Le serveur Vscan peut, selon ses paramètres et sa configuration, nettoyer le fichier, le mettre en quarantaine ou le supprimer.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Vérifier le journal du serveur Vscan signalé dans l&#8217;événement « syslog » pour voir s&#8217;il peut nettoyer, mettre en quarantaine ou supprimer le fichier infecté. S&#8217;il n&#8217;a pas pu le faire, un administrateur système peut avoir à supprimer manuellement le fichier.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="moniteurs-de-journal-anti-ransomware">Moniteurs de journal anti-ransomware</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Nom du moniteur</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Gravité</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Action corrective</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Surveillance anti-ransomware des VM de stockage désactivée</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AVERTISSEMENT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">La surveillance anti-ransomware pour la machine virtuelle de stockage est désactivée. Activation d&#8217;une protection contre les ransomwares pour protéger la VM de stockage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Aucune</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Surveillance anti-ransomware des machines virtuelles de stockage activée (mode de formation)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">INFO</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">La surveillance anti-ransomware de la machine virtuelle de stockage est activée en mode d&#8217;apprentissage.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Aucune</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Surveillance anti-ransomwares du volume activée</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">INFO</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">La surveillance anti-ransomwares du volume est activée.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Aucune</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Surveillance anti-ransomware du volume désactivée</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AVERTISSEMENT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">La surveillance anti-ransomware du volume est désactivée. Activation d&#8217;anti-ransomwares pour protéger le volume</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Aucune</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Surveillance anti-ransomware des volumes activée (mode apprentissage)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">INFO</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">La surveillance anti-ransomwares du volume est activée en mode d&#8217;apprentissage.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Aucune</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mise en pause de la surveillance anti-ransomware des volumes (mode apprentissage)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AVERTISSEMENT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">La surveillance anti-ransomware du volume est suspendue en mode d&#8217;apprentissage.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Aucune</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mise en pause de la surveillance anti-ransomware du volume</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AVERTISSEMENT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">La surveillance anti-ransomware du volume est suspendue.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Aucune</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Surveillance anti-ransomwares du volume désactivation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AVERTISSEMENT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">La surveillance anti-ransomwares du volume est désactivée.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Aucune</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Activité de ransomware détectée</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PRIMORDIAL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Pour protéger les données contre le ransomware détecté, une copie Snapshot peut être utilisée pour restaurer les données d&#8217;origine. Votre système génère et transmet un message AutoSupport ou d&#8217;appel en cas d&#8217;incident au support technique NetApp, ainsi qu&#8217;à toute destination configurée. Le message AutoSupport améliore l&#8217;identification et la résolution des problèmes.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reportez-vous au « NOM DU DOCUMENT FINAL » pour prendre des mesures correctives concernant l&#8217;activité de ransomware.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="moniteurs-ads-data-store">Moniteurs ADS (Data Store)</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Nom du moniteur</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Gravité de l&#8217;EC</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Description du moniteur</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Action corrective</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Capacité totale du cluster</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Avertissement @ &gt; 85 % critique @ &gt; 95 %</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">La capacité de stockage d&#8217;un cluster ADS est utilisée pour stocker des données sur les applications et les clients. Plus le volume de données stockées dans le cluster est élevé, plus la disponibilité du stockage des données futures est faible.… lorsque la capacité de stockage au sein d&#8217;un cluster atteint la capacité totale du cluster, le cluster ne pourra pas stocker plus de données. La surveillance de la capacité physique du cluster garantit la continuité des services de données.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Des actions immédiates sont requises pour minimiser les interruptions de service si le seuil critique est atteint :…1. Envisagez d&#8217;augmenter l&#8217;espace alloué au cluster afin de répondre à la croissance…2. Pensez à supprimer les données qui ne sont plus nécessaires pour libérer de l&#8217;espace… planifier pour prendre les actions suivantes bientôt si le seuil d&#8217;avertissement est dépassé:…1. Envisagez d&#8217;augmenter l&#8217;espace alloué au cluster pour répondre à la croissance.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Capacité du volume saturée</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Avertissement à &lt; 15 % critique à &lt; 5 %</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">La capacité de stockage d&#8217;un volume est utilisée pour stocker les données des applications et des clients. Plus le volume du cluster stocke de données, plus la disponibilité de stockage des données futures est faible&#8230;&#8203; lorsque la capacité de stockage des données utilisée dans un volume atteint la capacité de stockage totale, Le volume ne pourra pas stocker plus de données en raison d&#8217;un manque de capacité de stockage disponible.…surveiller le volume utilisé garantit la continuité des services de données.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Des actions immédiates sont requises pour minimiser les interruptions de service si le seuil critique est atteint :…1. Pensez à augmenter l&#8217;espace du volume afin de s&#8217;adapter à la croissance…2. Pensez à supprimer les données qui ne sont plus nécessaires pour libérer de l&#8217;espace… planifier pour prendre les actions suivantes bientôt si le seuil d&#8217;avertissement est dépassé:…1. Envisagez d&#8217;augmenter l&#8217;espace du volume pour faire face à la croissance.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="plus-dinformations">Plus d&#8217;informations</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="task_view_and_manage_alerts.html">"Affichage et rejet des alertes"</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+    </article>
+    <!-- Page Container -->
+  </div>
+
+  <div style="clear: both"></div><!-- Main needs to have height --></div>
+
+        </main>
+
+        <footer class="n-footer">
+  <div class="n-footer__bottom">
+    <div class="n-container">
+      <div class="n-footer__bottom-left">
+        <div class="n-footer__copyright">
+          <ul class="n-footer__copyright-list">
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/us/legal/copyright.aspx">© 2022 NetApp, Inc.</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/terms-of-use/">Conditions générales</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/privacy-policy/">Privacy Policy</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/cookie-policy/">Cookie Policy</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a class="ot-sdk-show-settings">Paramètres de cookies</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="n-footer__bottom-right">
+        <div class="n-footer__copyright">
+          <ul class="n-footer__copyright-list">
+            <li class="n-footer__copyright-link">
+              <a target="_self" href="javascript:netapp_mailto()">Envoyer un avis à propos de cette page</a>
+            </li>
+          </ul>
+        </div>
+        <div class="n-footer__social-links">
+          <ul class="n-footer__social-link-list">
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-blog" href="https://blog.netapp.com"
+                target="_blank" title="blog" alt="blog">
+                <span class="n-footer__social-link-text">blog</span>
+                <svg class="n-icon-blog n-footer__social-link-icon" aria-labelledby="title">
+                  <title>blog@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/fr-fr/test/common/svg/sprite.svg#blog"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-community" href="https://community.netapp.com/"
+                target="_blank" title="community" alt="community">
+                <span class="n-footer__social-link-text">community</span>
+                <svg class="n-icon-community n-footer__social-link-icon" aria-labelledby="title">
+                  <title>community@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/fr-fr/test/common/svg/sprite.svg#comments"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-twitter" href="https://twitter.com/netapp"
+                target="_blank" title="twitter" alt="twitter">
+                <span class="n-footer__social-link-text">twitter</span>
+                <svg class="n-icon-twitter n-footer__social-link-icon" aria-labelledby="title">
+                  <title>twitter@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/fr-fr/test/common/svg/sprite.svg#twitter"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-facebook" href="https://www.facebook.com/NetApp"
+                target="_blank" title="facebook" alt="facebook">
+                <span class="n-footer__social-link-text">facebook</span>
+                <svg class="n-icon-facebook n-footer__social-link-icon" aria-labelledby="title">
+                  <title>facebook@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/fr-fr/test/common/svg/sprite.svg#facebook"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-linkedin"
+                href="https://www.linkedin.com/company/netapp" target="_blank" title="linkedin" alt="linkedin">
+                <span class="n-footer__social-link-text">linkedin</span>
+                <svg class="n-icon-linkedin n-footer__social-link-icon" aria-labelledby="title">
+                  <title>linkedin@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/fr-fr/test/common/svg/sprite.svg#linkedin"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-youtube"
+                href="https://www.youtube.com/user/NetAppTV" target="_blank" title="youtube" alt="youtube">
+                <span class="n-footer__social-link-text">youtube</span>
+                <svg class="n-icon-youtube n-footer__social-link-icon" aria-labelledby="title">
+                  <title>youtube@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/fr-fr/test/common/svg/sprite.svg#youtube"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-slideshare"
+                href="https://www.slideshare.net/NetApp" target="_blank" title="slideshare" alt="slideshare">
+                <span class="n-footer__social-link-text">slideshare</span>
+                <svg class="n-icon-slideshare n-footer__social-link-icon" aria-labelledby="title">
+                  <title>slideshare@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/fr-fr/test/common/svg/sprite.svg#slideshare"></use>
+                </svg>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+      </div><!-- Elasticsearch JS -->
+      <script type="text/javascript" src='/fr-fr/test/js/bundle.js'></script>
+
+      <!-- Syntax Highlighting -->
+      <script type="text/javascript" src='/fr-fr/test/js/prism.js'></script>
+      <script type="text/javascript" src='/fr-fr/test/js/prism-curl.js'></script>
+    </div>
+    <script>
+      document.body.offsetWidth=1903;
+      cookieLaw = {}
+      cookieLaw.euCountry = "US";
+      cookieLaw.invoke = function(){return false;}
+    </script>
+    <script src='/fr-fr/test/js/www-ntap.js'></script>
+    <script src='/fr-fr/test/js/tabbed-blocks.js'></script>
+    <script src='/fr-fr/test/js/sidebar.js'></script>
+  </body></html>

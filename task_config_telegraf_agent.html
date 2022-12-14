@@ -1,0 +1,3730 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head class="at-element-marker">
+  <title>Configuration d&#8217;un agent pour collecter des données</title>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge,chrome=1">
+  <meta http-equiv="language" content="en">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="og:title" content="Configuration d&#8217;un agent pour collecter des données" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://docs.netapp.com/fr-fr/test/task_config_telegraf_agent.html" />
+	<meta property="og:description" content="Cloud Insights prend en charge Telegraf en tant qu"agent pour collecter des données d"intégration. Il peut être configuré sur Windows, Linux, MacOS et Kubern..." />
+  <meta property="og:image" content="https://docs.netapp.com/fr-fr/test/images/logo-tophat-social.png" />
+  <meta property="og:image:alt" content="NetApp Logo" />
+  <meta name="format-detection" content="telephone=no">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="encoding" content="utf-8">
+  <meta http-equiv="nss-type" content="Product Documentation"/>
+  <meta http-equiv="nss-subtype" content="User Guide"/><meta name="description" content="Cloud Insights prend en charge Telegraf en tant qu"agent pour collecter des données d"intégration. Il peut être configuré sur Windows, Linux, MacOS et Kubern...">
+  <meta name="keywords" content=" telegraf, installation, install, agent, telegraf agent"><meta name="robots" content="noindex" /><!-- Icons -->
+  <link rel="icon" href="/fr-fr/test/images/favicon.ico" type="image/x-icon">
+
+  <!-- RSS Feed --><!-- CSS Definitions: NetApp CSS should be defined after generic css -->
+
+  <!-- Elastic Search -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/searchkit/0.10.0/theme.css">
+
+  <!-- Combined CSS -->
+  <link rel="stylesheet" type="text/css" href="/fr-fr/test/css/netappdocs.css">
+
+  
+  <link rel="stylesheet" href="/fr-fr/test/css/landing-page.css" type="text/css">
+  <link rel="stylesheet" href="/fr-fr/test/css/tabbed-blocks.css" type="text/css">
+  <!-- Canonical url -->
+  <!-- Top level site integrations --><script>
+    function addAdobeLaunch(adobeId) {
+      var head = document.getElementsByTagName('head')[0];
+      var adobe = document.createElement("script");
+      adobe.type = "text/plain";
+      adobe.className = "optanon-category-C0002";
+      adobe.src = "//assets.adobedtm.com/60287eadf1ee/c284da483c83/"+adobeId+".min.js";
+      head.appendChild(adobe);
+    }
+
+    function addGoogleAnalytics(gtagId) {
+      var google = document.createElement("script");
+      google.type = "text/plain";
+      google.className = "optanon-category-C0002";
+      google.src = "https://www.googletagmanager.com/gtag/js?id="+gtagId;
+      var head = document.getElementsByTagName('head')[0];
+      head.appendChild(google);
+
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', gtagId);
+    }
+
+    function addConsent(consentId) {
+      var head = document.getElementsByTagName('head')[0];
+      var onetrustConsent = document.createElement("script");
+      onetrustConsent.type = "text/javascript";
+      onetrustConsent.src = "https://cdn.cookielaw.org/consent/"+consentId+"/OtAutoBlock.js";
+      head.appendChild(onetrustConsent);
+
+      var onetrustScript = document.createElement("script");
+      onetrustScript.type = "text/javascript";
+      onetrustScript.src = "https://cdn.cookielaw.org/scripttemplates/otSDKStub.js";
+      onetrustScript.charset = "UTF-8";
+      onetrustScript.dataset.documentLanguage = "true";
+      onetrustScript.dataset.domainScript = consentId;
+      head.appendChild(onetrustScript);
+    }addConsent("72570c5c-fe30-465f-b0e0-b77f7fb4ae34");
+    addAdobeLaunch("launch-e9ff3acac59f");
+    addGoogleAnalytics("UA-81697994-3");function OptanonWrapper() { }
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+  <!-- Used for Product Family Page Sidebar Visibility --><!-- Used to import Promise for IE. Required for SearchKit -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.5/bluebird.min.js"></script><script src='/fr-fr/test/js/na-search.js'></script><script src='/fr-fr/test/js/na-pagenav.js'></script><script src='/fr-fr/test/js/na-utility.js'></script>
+  <script src='/fr-fr/test/js/clouddocs.js'></script>
+  <script src='/fr-fr/test/js/jquery.navgoco.min.js'></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src='/fr-fr/test/js/toc.js'></script>
+  <script src='/fr-fr/test/js/customscripts.js'></script><script>
+      $(document).ready(function() {
+          
+          var collapseOnInit = true;
+          
+
+          var navSettings = {
+              "caretHtml": '',
+              "accordion": collapseOnInit,
+              "openClass": 'active', // open
+              "save": false, // leave false or nav highlighting doesn't work right
+              "cookie": {
+                  "name": 'navgoco',
+                  "expires": false,
+                  "path": '/'
+              },
+              "slide": {
+                  "duration": 400,
+                  "easing": 'swing'
+              }
+          };
+
+          // Initialize navgoco with default options
+          $("#mysidebar").navgoco(navSettings);
+          
+
+          $("#collapseAll").click(function(e) {
+              e.preventDefault();
+              $("#mysidebar").navgoco('toggle', false);
+          });
+
+          $("#expandAll").click(function(e) {
+              e.preventDefault();
+              $("#mysidebar").navgoco('toggle', true);
+          });
+
+          $(".sidebar-nav-container").on("scroll", function() {
+            $.cookie("sidebarScroll", $(".sidebar-nav-container").scrollTop(), {
+              path    : "/fr-fr/test"  
+            });
+          });
+          $(function() {
+            if ($.cookie("sidebarScroll")) {
+              $(".sidebar-nav-container").scrollTop($.cookie("sidebarScroll"));
+            }
+          });
+
+      });
+
+  </script>
+  <script>
+      $(document).ready(function() {
+          $("#tg-sb-link").click(function() {
+              $("#tg-sb-sidebar").toggle();
+              $("#tg-sb-content").toggleClass('col-md-9');
+              $("#tg-sb-content").toggleClass('col-md-12');
+              $("#tg-sb-icon").toggleClass('fa-toggle-on');
+              $("#tg-sb-icon").toggleClass('fa-toggle-off');
+          });
+      });
+  </script>
+  <script src='/fr-fr/test/js/custom-dropdown.js'></script>
+  <script src='/fr-fr/test/js/FileSaver.min.js'></script>
+  <script src='/fr-fr/test/js/jszip-utils.min.js'></script>
+  <script src='/fr-fr/test/js/jszip.min.js'></script>
+  <script src='/fr-fr/test/js/pdf-ux.js'></script>
+</head>
+
+
+  <body class role="document" data-flavor="">
+    <div id="page" class="n-off-canvas-menu">
+      <div class="n-off-canvas-menu__menu"><!--TODO: Add offcanvas code --></div>
+      <div class="n-off-canvas-menu__content-wrap">
+        <header class="site-header" id="banner">
+  
+  <!-- Start Page Toolbar -->
+  
+  <div class="page-nav-toolbar"><div class="page-nav-contribute"><a target="_blank" href="https://github.com/NetAppDocs/test/issues/new?body=Page%3A%20[Configuration d&#8217;un agent pour collecter des données](https://docs.netapp.com/fr-fr/test/task_config_telegraf_agent.html)&template=public-issue-template.md" class="page-nav-contribute-link" role="button"><img src="/fr-fr/test/images/discuss-sm.svg" alt="" class="github-icon" />Demander de modifier un document</a><a target="_blank" href="https://github.com/NetAppDocs/test/blob/main/task_config_telegraf_agent.adoc" class="page-nav-contribute-link" role="button"><img src="/fr-fr/test/images/edit-sm.svg" alt="" class="github-icon" />Modifier sur GitHub</a><a target="_blank" href="https://docs.netapp.com/us-en/contribute/" class="page-nav-contribute-link"  ><img src="/fr-fr/test/images/article-sm.svg" alt="" class="github-icon" />Guide des contributeurs</a></div>
+    <div class="page-nav-container">
+      <nav class="page-nav-fixed">
+        <div class="page-nav-title">SUR CETTE PAGE</div>
+        <div class="page-nav-links">
+          <ul class="page-nav-inner" id="page-menu"></ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+  
+  
+  <!-- Start top_hat -->
+  <div class="n-top-hat">
+    <div class="n-container">
+      <div class="n-top-hat__cross-property-nav">
+        <ul class="n-top-hat__list">
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/products-a-z/" class="n-top-hat__link">Produits et solutions</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/support-and-training/netapp-university/" class="n-top-hat__link">Support et formation</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://cloud.netapp.com" class="n-top-hat__link">Cloud Central</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://community.netapp.com/" class="n-top-hat__link">Communauté</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://blog.netapp.com/" class="n-top-hat__link">Blog</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://customers.netapp.com/en/" class="n-top-hat__link">Témoignages clients</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/us/contact-us/index.aspx" target="_self" class="n-top-hat__link" data-ntap-ui="contact-us">Contact</a>
+          </li>
+        </ul>
+      </div>
+      <div class="n-top-hat__utils">
+        <ul class="n-top-hat__list">
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/us/contact-us/index.aspx" target="_self" class="n-top-hat__link" data-ntap-ui="contact-us">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- End top_hat -->
+
+  <!-- Start property bar -->
+  <style>
+    .n-property-navigation-bar__menus--desktop-experience .n-menu--mega__default-content__heading span {
+    color: #34B0FF;
+    }
+  </style>
+  <div class="n-property-bar " data-ntap-ui="sticky-nav">
+    <div class="n-property-bar__inner-wrap">
+      <div class="n-property-bar__menu-toggle">
+        <a href="#" class="n-property-bar__menu-toggle-link">
+          <span class="n-property-bar__menu-toggle-text">Menu</span>
+          <svg class="n-icon-bars n-property-bar__menu-toggle-icon" aria-labelledby="title">
+            <title>bars</title>
+            <use xlink:href="/fr-fr/test/common/svg/sprite.svg#bars"></use>
+          </svg>
+        </a>
+      </div>
+      <div class="n-property-bar__property-mark ">
+        <a href="https://www.netapp.com" class="n-property-bar__property-link">
+          <div class="n-property-bar__logo">
+            <svg class="n-icon-netapp-mark n-icon-netapp-mark n-property-bar__netapp-mark-icon" aria-labelledby="title">
+              <title>netapp-mark</title>
+              <use xlink:href="/fr-fr/test/common/svg/sprite.svg#netapp-mark"></use>
+            </svg>
+            <svg class="n-icon-netapp-logo n-property-bar__logo-svg" aria-labelledby="title">
+              <title>netapp-logo</title>
+              <use xlink:href="/fr-fr/test/common/svg/sprite.svg#netapp-logo"></use>
+            </svg>
+          </div>
+        </a>
+      </div>
+
+      
+      
+      
+      <div class="search-property-bar">
+        <div id="search-demo-container" class="searchbox n-property-bar__search">
+          <div id="react-search" 
+          data-search-html="/fr-fr/test/search.html"
+          data-type="widget" 
+          data-placeholder="Rechercher une documentation"
+          data-no-results-found="Aucun résultat n'a été trouvé pour {query}"
+          data-did-you-mean="Rechercher {suggestion}."
+          data-no-results-found-did-you-mean="Aucun résultat n’a été trouvé pour {query}. Voulez-vous dire {suggestion} ?"
+          data-results-found="{hitCount} résultats trouvés"
+          data-error-message="We're sorry, an issue occurred when fetching your results. Please try again."
+          data-error-reset="Reset Search"
+          data-sk-es-pf-indexes=""
+          data-flavor=""></div>
+          <button class="n-property-bar__search-toggle-button" type="button">
+            <svg class="n-icon-search n-property-bar__search-toggle-button-icon" aria-labelledby="title">
+              <title>search</title>
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/fr-fr/test/common/svg/sprite.svg#search"></use>
+            </svg>
+          </button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <div class="n-property-bar__toolbar">
+    <!-- Start Language Selector --><div id="language-dropdown" class="custom-dropdown custom-dropdown-lang">
+      <div class="custom-dropdown-select custom-dropdown-select-lang">
+      <span class="lang-name">Français</span>
+          <svg class="n-globe__icon" aria-labelledby="title">
+            <title>globe</title>
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/fr-fr/test/common/svg/sprite.svg#globe"></use>
+          </svg>
+        </button>
+      </div>
+
+      <ul class="custom-dropdown-menu"><li>
+          <a href="https://docs.netapp.com/fr-fr/test/task_config_telegraf_agent.html" target="_self"><span translate="no" class="notranslate">Français</span></a>
+        </li><li>
+          <a href="https://docs.netapp.com/us-en/test/task_config_telegraf_agent.html" target="_self"><span translate="no" class="notranslate">English</span></a>
+        </li><li>
+          <a href="https://docs.netapp.com/ja-jp/test/task_config_telegraf_agent.html" target="_self"><span translate="no" class="notranslate">日本語</span></a>
+        </li><li>
+          <a href="https://docs.netapp.com/zh-cn/test/task_config_telegraf_agent.html" target="_self"><span translate="no" class="notranslate">简体中文</span></a>
+        </li><li>
+          <a href="https://docs.netapp.com/zh-tw/test/task_config_telegraf_agent.html" target="_self"><span translate="no" class="notranslate">繁體中文</span></a>
+        </li><li>
+          <a href="https://docs.netapp.com/ko-kr/test/task_config_telegraf_agent.html" target="_self"><span translate="no" class="notranslate">한국어</span></a>
+        </li><li>
+          <a href="https://docs.netapp.com/de-de/test/task_config_telegraf_agent.html" target="_self"><span translate="no" class="notranslate">Deutsch</span></a>
+        </li></ul>
+    </div><!-- End Language Selector -->
+
+    <div class="n-property-bar__cta"></div>
+  </div>
+  <script>
+    $(function(){
+        var currentLocalization = $('html').attr('lang');
+
+        var localizationsDictionary = {
+            "en-CA" : "https://www.netapp.com/search/index.aspx?for_cr=canada&",
+            "en-IN" : "https://www.netapp.com/search/index.aspx?for_cr=india&",
+            "nl-NL" : "https://www.netapp.com/search/index.aspx?for_cr=netherlands&",
+            "ru-RU" : "https://www.netapp.com/search/index.aspx?for_cr=russia&",
+            "sv-SE" : "https://www.netapp.com/search/index.aspx?for_cr=sweden&",
+            "it-IT" : "https://www.netapp.com/search/index.aspx?for_cr=italy&",
+            "he-IL" : "https://www.netapp.com/search/index.aspx?for_cr=israel&",
+            "ko-KR" : "https://www.netapp.com/search/index.aspx?for_cr=korea&",
+            "zh-TW" : "https://www.netapp.com/search/index.aspx?for_cr=taiwan&",
+            "en-GB" : "https://www.netapp.com/search/index.aspx?for_cr=unitedkingdom&",
+            "en-SG" : "https://www.netapp.com/search/index.aspx?for_cr=asean&",
+            "en-AU" : "https://www.netapp.com/search/index.aspx?for_cr=australia&",
+            "pt-BR" : "https://www.netapp.com/search/index.aspx?for_cr=brasil&",
+            "de-CH" : "https://www.netapp.com/search/index.aspx?for_cr=switzerland&",
+            "es-MX" : "https://www.netapp.com/search/index.aspx?for_cr=mexico&"
+        };
+
+        if($('html').hasClass('ntap-whitelisted') && localizationsDictionary.hasOwnProperty(currentLocalization)) {
+            $('.n-property-bar__property-link').attr('href', '/');
+        }
+    });
+  </script>
+  <!-- End property bar -->
+</header>
+
+
+        <main id="n-main-content" class="n-main-content">
+          <!-- Start Documentation Content -->
+<div class="ie-main">
+  <!-- Sidebar Column -->
+  
+  <div class="col-md-3" id="sidebar-height">
+      <button id="btn-sidebar-collapse" onclick="hideSidebar()"><img src="/fr-fr/test/images/collapse.png" alt="Réduire le panneau de navigation"></button>
+      <div class="sidebar-nav-container" id="mysidebardiv">
+  <ul id="mysidebar" class="nav"><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Documentation Cloud Insights"
+      data-li-level="1#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/index.html">
+        Documentation Cloud Insights
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Nouveautés"
+      data-li-level="1#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_whats_new.html">
+        Nouveautés
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Inscription à Cloud Insights"
+      data-li-level="1#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_cloud_insights_onboarding_1.html">
+        Inscription à Cloud Insights
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Sécurité"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Sécurité</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Pratiques de sécurité"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/security_overview.html">
+        Pratiques de sécurité
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Ce que nous Store et où"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/security_information_and_region.html">
+        Ce que nous Store et où
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Mise en route"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Mise en route</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Tutoriels de fonctionnalités"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_feature_tutorials.html">
+        Tutoriels de fonctionnalités
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Collecte des données"
+      data-li-level="2" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Collecte des données</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Présentation"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_getting_started_with_cloud_insights.html">
+        Présentation
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Exigences relatives à l'unité d'acquisition"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_acquisition_unit_requirements.html">
+        Exigences relatives à l'unité d'acquisition
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration d'une unité d'acquisition"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_configure_acquisition_unit.html">
+        Configuration d'une unité d'acquisition
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration d'un agent"
+      data-li-level="3#" 
+      class="  active "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_agent.html">
+        Configuration d'un agent
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration des collecteurs de données"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_configure_data_collectors.html">
+        Configuration des collecteurs de données
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Détermination de l'état d'acquisition du Data Collector"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_determining_data_collector_acq_status.html">
+        Détermination de l'état d'acquisition du Data Collector
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Gérer les collecteurs de données configurés"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_view_configured_data_collectors.html">
+        Gérer les collecteurs de données configurés
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Erreurs de collecte de données de recherche"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_research_failed_collector.html">
+        Erreurs de collecte de données de recherche
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Importation des tableaux de bord recommandés"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_import_from_dashboard_gallery.html">
+        Importation des tableaux de bord recommandés
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Comptes utilisateur et rôles"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_user_roles.html">
+        Comptes utilisateur et rôles
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Passage à d'autres produits Cloud Central"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_other_cloud_products.html">
+        Passage à d'autres produits Cloud Central
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Liste Data Collector"
+      data-li-level="1#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/data_collector_list.html">
+        Liste Data Collector
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Abonnement à Cloud Insights"
+      data-li-level="1#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_subscribing_to_cloud_insights.html">
+        Abonnement à Cloud Insights
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Résolution automatique des périphériques"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Résolution automatique des périphériques</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Présentation de la résolution des périphériques"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_device_resolution_overview.html">
+        Présentation de la résolution des périphériques
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Règles de résolution des périphériques"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_device_resolution_rules.html">
+        Règles de résolution des périphériques
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Résolution de périphérique Fibre Channel"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_device_resolution_fibre_channel.html">
+        Résolution de périphérique Fibre Channel
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Résolution de périphérique IP"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_device_resolution_ip.html">
+        Résolution de périphérique IP
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Définition des préférences de résolution du périphérique"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_device_resolution_preferences.html">
+        Définition des préférences de résolution du périphérique
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Exemples d'expression régulière"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_device_resolution_regex_examples.html">
+        Exemples d'expression régulière
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Création de tableaux de bord"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Création de tableaux de bord</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Présentation du tableau de bord"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_dashboards_overview.html">
+        Présentation du tableau de bord
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Caractéristiques des tableaux de bord"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_dashboard_features.html">
+        Caractéristiques des tableaux de bord
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Exemple de tableaux de bord"
+      data-li-level="2" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Exemple de tableaux de bord</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Performances des ordinateurs virtuels"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dashboard_example_VM_performance.html">
+        Performances des ordinateurs virtuels
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Meilleures pratiques de tableau de bord"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_dashboard_best_practices.html">
+        Meilleures pratiques de tableau de bord
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Kubernetes Explorer"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Kubernetes Explorer</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Page de présentation de Kubernetes"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/kubernetes_landing_page.html">
+        Page de présentation de Kubernetes
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Page du cluster Kubernetes"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/kubernetes_cluster_detail.html">
+        Page du cluster Kubernetes
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Utilisation des requêtes"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Utilisation des requêtes</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Interrogation des ressources"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_querying_assets.html">
+        Interrogation des ressources
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Création d'une requête"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_create_query.html">
+        Création d'une requête
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Affichage des requêtes disponibles"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_view_queries.html">
+        Affichage des requêtes disponibles
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Exportation des résultats de la requête au format .CSV"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_export_query_results.html">
+        Exportation des résultats de la requête au format .CSV
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Modification ou suppression d'une requête"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_modify_delete_query.html">
+        Modification ou suppression d'une requête
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Affectation de plusieurs applications/annotations à des objets"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_query_assign_multiple_applicationss.html">
+        Affectation de plusieurs applications/annotations à des objets
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Copie des valeurs de table dans le presse-papiers"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_query_copy_table_values.html">
+        Copie des valeurs de table dans le presse-papiers
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Interrogation des journaux"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_log_explorer.html">
+        Interrogation des journaux
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Utilisation des annotations"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Utilisation des annotations</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Définition d'annotations"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_defining_annotations.html">
+        Définition d'annotations
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Utilisation d'annotations"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_create_annotation.html">
+        Utilisation d'annotations
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Utilisation des règles d'annotation"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_create_annotation_rules.html">
+        Utilisation des règles d'annotation
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Importation d'annotations avec l'API"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_annotation_import.html">
+        Importation d'annotations avec l'API
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Utilisation des applications"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Utilisation des applications</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Concepts d'application"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_about_applications.html">
+        Concepts d'application
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration des applications"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_create_application.html">
+        Configuration des applications
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Surveille et alerte"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Surveille et alerte</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Création de moniteurs"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_create_monitor.html">
+        Création de moniteurs
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Affichage et gestion des alertes"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_view_and_manage_alerts.html">
+        Affichage et gestion des alertes
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration des destinataires de notification"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_notifications_email.html">
+        Configuration des destinataires de notification
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Moniteurs définis par le système"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_system_monitors.html">
+        Moniteurs définis par le système
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Utilisation d'API"
+      data-li-level="1#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/API_Overview.html">
+        Utilisation d'API
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Notification Webhook"
+      data-li-level="1#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_create_webhook.html">
+        Notification Webhook
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Contrôle de votre environnement"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Contrôle de votre environnement</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Événements d'audit"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_audit.html">
+        Événements d'audit
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="TTL et sous-échantillonnage"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_ttl_and_downsampling.html">
+        TTL et sous-échantillonnage
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Informations sur la page de ressources"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Informations sur la page de ressources</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Présentation de la page de ressources"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_asset_page_overview.html">
+        Présentation de la page de ressources
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Filtrage dans le contexte pour les objets"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_in_context_filters.html">
+        Filtrage dans le contexte pour les objets
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Récapitulatif des sections de topologie"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_asset_summary_section.html">
+        Récapitulatif des sections de topologie
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Section vue expert"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_asset_expert_view_section.html">
+        Section vue expert
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Section données utilisateur"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_asset_user_data_section.html">
+        Section données utilisateur
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Section alertes associées"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_asset_alerts_section.html">
+        Section alertes associées
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Conseils et astuces pour rechercher des ressources"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_searching_assets.html">
+        Conseils et astuces pour rechercher des ressources
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Création de rapports"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Création de rapports</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Présentation des rapports"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reporting_overview.html">
+        Présentation des rapports
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Génération de rapports des rôles utilisateur"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reporting_user_roles.html">
+        Génération de rapports des rôles utilisateur
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Utilisation de rapports prédéfinis"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reporting_predefined_reports.html">
+        Utilisation de rapports prédéfinis
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Tableau de bord de Storage Manager"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reporting_storage_manager_dashboard.html">
+        Tableau de bord de Storage Manager
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Création d'un exemple de rapport"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reporting_create_example.html">
+        Création d'un exemple de rapport
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Gestion des rapports"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reporting_managing_reports.html">
+        Gestion des rapports
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Rapports personnalisés"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reporting_creating_custom_reports.html">
+        Rapports personnalisés
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Modèles de données"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reporting_creating_custom_reports.html#reporting-data-models">
+        Modèles de données
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="API de base de données de reporting"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reporting_querying_database.html">
+        API de base de données de reporting
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Conservation des données"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reporting_data_retention.html">
+        Conservation des données
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Diagrammes de schéma"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reporting_schema_diagrams.html">
+        Diagrammes de schéma
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Tables de schéma"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reference_schemas.html">
+        Tables de schéma
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Cloud Secure"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Cloud Secure</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="À propos de Cloud Secure"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/cs_intro.html">
+        À propos de Cloud Secure
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Mise en route"
+      data-li-level="2" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Mise en route</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Mise en route de Cloud Secure"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_cs_getting_started.html">
+        Mise en route de Cloud Secure
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration requise pour l'agent Cloud Secure"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_cs_agent_requirements.html">
+        Configuration requise pour l'agent Cloud Secure
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration d'un agent Cloud Secure"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_cs_add_agent.html">
+        Configuration d'un agent Cloud Secure
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Suppression d'un agent Cloud Secure"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_cs_delete_agent.html">
+        Suppression d'un agent Cloud Secure
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration d'un collecteur AD Directory"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_user_dir_connect.html">
+        Configuration d'un collecteur AD Directory
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration d'un collecteur d'annuaire LDAP"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_user_dir_connect_ldap.html">
+        Configuration d'un collecteur d'annuaire LDAP
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration d'Amazon FSX pour NetApp ONTAP Collector"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_cs_amazon_fsx.html">
+        Configuration d'Amazon FSX pour NetApp ONTAP Collector
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration du SVM Data Collector de ONTAP"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_add_collector_svm.html">
+        Configuration du SVM Data Collector de ONTAP
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration du collecteur de données Cloud ONTAP"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_cs_incloud.html">
+        Configuration du collecteur de données Cloud ONTAP
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Gestion des utilisateurs Cloud Secure"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_cs_user_management.html">
+        Gestion des utilisateurs Cloud Secure
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Vérificateur de taux d'événement"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_cs_event_rate_checker.html">
+        Vérificateur de taux d'événement
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Alertes"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/cs_alert_data.html">
+        Alertes
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Médecine légale"
+      data-li-level="2" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Médecine légale</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Activités médico-légales - toutes les activités"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/forensic_activity_history.html">
+        Activités médico-légales - toutes les activités
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Activités médico-légales - entités"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/forensic_entity_detail.html">
+        Activités médico-légales - entités
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Utilisateurs"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/forensic_user_overview.html">
+        Utilisateurs
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Stratégies de réponse automatisées"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/cs_automated_response_policies.html">
+        Stratégies de réponse automatisées
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Restriction de l'accès des utilisateurs"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/cs_restrict_user_access.html">
+        Restriction de l'accès des utilisateurs
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Simulation d'une attaque par ransomware"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_cs_attack_simulator.html">
+        Simulation d'une attaque par ransomware
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Notifications"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/cs_notifications_email.html">
+        Notifications
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="API Cloud Secure"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_cs_api.html">
+        API Cloud Secure
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Active IQ"
+      data-li-level="1#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_activeiq.html">
+        Active IQ
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Dépannage"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Dépannage</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Dépannage général"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_troubleshooting_general_problems.html">
+        Dépannage général
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Dépannage des problèmes d'unité d'acquisition Linux"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_troubleshooting_linux_acquisition_unit_problems.html">
+        Dépannage des problèmes d'unité d'acquisition Linux
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Dépannage des problèmes d'unité d'acquisition Windows"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_troubleshooting_windows_acquisition_unit_problems.html">
+        Dépannage des problèmes d'unité d'acquisition Windows
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Recherche d'erreurs du Data Collector"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_research_failed_collector.html">
+        Recherche d'erreurs du Data Collector
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Support de référence"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Support de référence</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Demande d'aide"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_requesting_support.html">
+        Demande d'aide
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Matrice de prise en charge du Data Collector"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reference_data_collector_support_matrix.html">
+        Matrice de prise en charge du Data Collector
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Data Collector Reference - Infrastructure"
+      data-li-level="2" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Data Collector Reference - Infrastructure</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Présentation de référence des fournisseurs"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/concept_data_collector_reference.html">
+        Présentation de référence des fournisseurs
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="AWS"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_amazon_ec2.html">
+        AWS
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Azure"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_ms_azure.html">
+        Azure
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Broadcom"
+      data-li-level="3" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Broadcom</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Brocade Network Advisor"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_brocade_bna.html">
+        Brocade Network Advisor
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Commutateur Fibre Channel"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_brocade_fc_switch.html">
+        Commutateur Fibre Channel
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Cisco"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_cisco_fc_switch.html">
+        Cisco
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Dell"
+      data-li-level="3" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Dell</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Série XC"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_dell_xc_series.html">
+        Série XC
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Dell EMC"
+      data-li-level="3" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Dell EMC</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Data Domain"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_emc_datadomain.html">
+        Data Domain
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="ECS"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_emc_ecs.html">
+        ECS
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="PowerScale"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_emc_isilon.html">
+        PowerScale
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="PowerStore"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_emc_powerstore.html">
+        PowerStore
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="RecoverPoint"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_emc_recoverpoint.html">
+        RecoverPoint
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="ScaleIO"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_emc_scaleio.html">
+        ScaleIO
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Unity (VNXe)"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_emc_unity.html">
+        Unity (VNXe)
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="VMAX/PowerMax"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_emc_vmax_powermax.html">
+        VMAX/PowerMax
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="VNX Block (CLARiiON)"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_emc_vnx_block.html">
+        VNX Block (CLARiiON)
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="VNX File (Celerra)"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_emc_vnx_file.html">
+        VNX File (Celerra)
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="VNX Unified"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_emc_vnx_unified.html">
+        VNX Unified
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="VPLEX"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_emc_vplex.html">
+        VPLEX
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="XtremIO"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_emc_xio.html">
+        XtremIO
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Fujitsu"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_fujitsu_eternus.html">
+        Fujitsu
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Google"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_google_cloud.html">
+        Google
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="HP Enterprise"
+      data-li-level="3" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> HP Enterprise</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="HP Alletra 9000 et Primera"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_hp_3par.html">
+        HP Alletra 9000 et Primera
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="AE HP Command View"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_hpe_commandview.html">
+        AE HP Command View
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="HPE Alletra 6000"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_hpe_nimble.html">
+        HPE Alletra 6000
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Hitachi Data Systems"
+      data-li-level="3" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Hitachi Data Systems</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="HDS Command Suite"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_hds_commandsuite.html">
+        HDS Command Suite
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="HDS HNAS"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_hds_nas.html">
+        HDS HNAS
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="HDS Ops Center"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_hds_ops_center.html">
+        HDS Ops Center
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Infinidat"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_infinidat_infinibox.html">
+        Infinidat
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Huawei"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_huawei_oceanstor.html">
+        Huawei
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="IBM"
+      data-li-level="3" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> IBM</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Cleversafe"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_ibm_cleversafe.html">
+        Cleversafe
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Gamme CS"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_ibm_cs.html">
+        Gamme CS
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Systèmes de stockage DS8000"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_ibm_ds.html">
+        Systèmes de stockage DS8000
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="PowerVM"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_ibm_powervm.html">
+        PowerVM
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Contrôleur de volume SAN (SVC)"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_ibm_svc.html">
+        Contrôleur de volume SAN (SVC)
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="XIV/A9000"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_ibm_xiv.html">
+        XIV/A9000
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Lenovo"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_lenovo.html">
+        Lenovo
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Microsoft"
+      data-li-level="3" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Microsoft</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Azure NetApp Files"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_ms_anf.html">
+        Azure NetApp Files
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Hyper-V"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_ms_hyperv.html">
+        Hyper-V
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="NetApp"
+      data-li-level="3" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> NetApp</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Magasin de données Astra"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_na_astra_data_store.html">
+        Magasin de données Astra
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Connexion cloud pour ONTAP 9.9+"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_na_cloud_connection.html">
+        Connexion cloud pour ONTAP 9.9+
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Cloud Volumes ONTAP"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_na_cloud_volumes_ontap.html">
+        Cloud Volumes ONTAP
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Cloud volumes Services pour AWS"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_na_cloud_volumes.html">
+        Cloud volumes Services pour AWS
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Logiciel de gestion des données ONTAP"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_na_cdot.html">
+        Logiciel de gestion des données ONTAP
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Data ONTAP 7-mode"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_na_7mode.html">
+        Data ONTAP 7-mode
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="E-Series"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_na_eseries.html">
+        E-Series
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Serveur de gestion NetApp HCI"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_na_hci.html">
+        Serveur de gestion NetApp HCI
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="SolidFire"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_na_solidfire.html">
+        SolidFire
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="StorageGRID"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_na_storagegrid.html">
+        StorageGRID
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Nutanix"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_nutanix.html">
+        Nutanix
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="OpenStack"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_openstack.html">
+        OpenStack
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Oracle"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_oracle_zfs.html">
+        Oracle
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Pure"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_pure_flasharray.html">
+        Pure
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Red Hat"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_redhat_virtualization.html">
+        Red Hat
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="VMware"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_dc_vmware.html">
+        VMware
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Data Collector Reference - Services"
+      data-li-level="2" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Data Collector Reference - Services</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Hôte/nœud"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_node.html">
+        Hôte/nœud
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="ActiveMQ"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_activemq.html">
+        ActiveMQ
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Apache"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_apache.html">
+        Apache
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Consul"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_consul.html">
+        Consul
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Couchbase"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_couchbase.html">
+        Couchbase
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="CouchDB"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_couchdb.html">
+        CouchDB
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Docker"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_docker.html">
+        Docker
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="ElasticSearch"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_elasticsearch.html">
+        ElasticSearch
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Encre"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_flink.html">
+        Encre
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Hadoop"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_hadoop.html">
+        Hadoop
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="HABProxy"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_haproxy.html">
+        HABProxy
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Java"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_jvm.html">
+        Java
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Kafka"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_kafka.html">
+        Kafka
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Kapacitor"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_kapacitor.html">
+        Kapacitor
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Kibana"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_kibana.html">
+        Kibana
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Kubernetes"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_agent.html#kubernetes">
+        Kubernetes
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Mise en mémoire cache"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_memcached.html">
+        Mise en mémoire cache
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="MongoDB"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_mongodb.html">
+        MongoDB
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="MySQL"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_mysql.html">
+        MySQL
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Netstat"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_netstat.html">
+        Netstat
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Nginx"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_nginx.html">
+        Nginx
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="OpenZFS"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_openzfs.html">
+        OpenZFS
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="PostgreSQL"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_postgresql.html">
+        PostgreSQL
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Puppet"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_puppetagent.html">
+        Puppet
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Redis"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_redis.html">
+        Redis
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="RethinkDB"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_rethinkdb.html">
+        RethinkDB
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Zookeeper"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/task_config_telegraf_zookeeper.html">
+        Zookeeper
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Référence de l'icône d'objet"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reference_object_icons.html">
+        Référence de l'icône d'objet
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Mentions légales"
+      data-li-level="1#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/fr-fr/test/reference_legal_notices.html">
+        Mentions légales
+      </a></li></ul>
+</div>
+<script>
+  window.onscroll = () => {
+    const value = -40 - (document.body.scrollHeight - (window.innerHeight + document.scrollingElement.scrollTop));
+    
+    document.getElementById("sidebar-height").style.bottom = Math.max(0,value) + "px";
+};
+</script>
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+<script>$("#mysidebar li.active").parents('ul').css("display","block");</script>
+
+
+  </div>
+  
+
+  <div class="ie-content-pane n-doc__component-detail-content n-doc__component-detail-content--show-code">
+    <!-- Begin of page container --><article class="page-content" id="main">
+      <div class="ie-utility">
+  <button id="btn-sidebar-expand" onclick="showSidebar()"><img src="/fr-fr/test/images/expand.png" alt="Développer le panneau de navigation"></button>
+  <div class="ie-menu">
+    <div class="n-breadcrumb">
+      <ul class="n-breadcrumb__list">
+        <li class="n-breadcrumb__list-item">
+          <a href="https://docs.netapp.com">docs.netapp.com</a>
+        </li>
+        
+
+        
+
+        <li class="n-breadcrumb__list-item">
+          <a href="/fr-fr/test/">Cloud&nbsp;Insights</a>
+        </li>
+
+      </ul>
+    </div>
+    <div style="clear: both"></div><!-- Main needs to have height -->
+  </div>
+</div>
+
+      <div class="ie-nmt-disclaimer">
+  <span>
+    <div class="ie-nmt-disclaimer-container">
+      <div class="ie-nmt-disclaimer-icon">
+        <svg class="luci-icon" aria-hidden="true">
+          <use xlink:href="/fr-fr/test/common/svg/sprite.svg#circle-info">
+        </svg>
+      </div>
+      <div class="ie-nmt-disclaimer-content">
+        <span> La version française est une traduction automatique. La version anglaise prévaut sur la française en cas de divergence. </span>
+      </div>
+      <div style="clear:both;"></div>
+    </div>
+  </span>
+</div><div class="n-doc__component-detail-heading-wrap">
+  <h1 class="n-doc__component-detail-heading">Configuration d&#8217;un agent pour collecter des données</h1>
+</div>
+
+
+<p class="page-details">
+  
+    
+    <time datetime="2022-12-14 18:25:28 +0000">12/14/2022</time>
+    
+  
+
+<span>Contributeurs
+</span>
+
+
+</p>
+
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Utilisations de Cloud Insights <a href="https://docs.influxdata.com/telegraf/v1.19/">"Télégraf"</a> en tant qu&#8217;agent pour la collecte de données d&#8217;intégration. Telegraf est un agent serveur piloté par plug-in qui peut être utilisé pour collecter et signaler des mesures, des événements et des journaux. Les plug-ins d&#8217;entrée sont utilisés pour recueillir les informations souhaitées dans l&#8217;agent en accédant directement au système/système d&#8217;exploitation, en appelant des API tierces ou en écoutant des flux configurés (c.-à-d. Kafka, statsD, etc.). Les plug-ins de sortie sont utilisés pour envoyer les mesures, les événements et les journaux collectés depuis l&#8217;agent vers Cloud Insights.</p>
+</div>
+<div class="paragraph">
+<p>La version actuelle de Telegraf pour Cloud Insights est <strong>1.19.3</strong>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/test/images/note.svg" alt="Note">
+</td>
+<td class="content">
+Pour un audit et un reporting précis des données, il est fortement recommandé de synchroniser l&#8217;heure sur l&#8217;ordinateur Agent à l&#8217;aide de <strong>NTP (Network Time Protocol)</strong> ou <strong>SNTP (simple Network Time Protocol)</strong>.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/test/images/note.svg" alt="Note">
+</td>
+<td class="content">
+Si vous souhaitez vérifier les fichiers d&#8217;installation avant d&#8217;installer l&#8217;agent, reportez-vous à la section ci-dessous <a href="#vérification-des-sommes-de-contrôle">Vérification des sommes de contrôle</a>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="installation-dun-agent">Installation d&#8217;un agent</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Si vous installez un collecteur de données de service et que vous n&#8217;avez pas encore configuré un agent, vous êtes invité à installer un agent pour le système d&#8217;exploitation approprié. Cette rubrique fournit des instructions pour l&#8217;installation de l&#8217;agent Telegraf sur les systèmes d&#8217;exploitation suivants :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#répertoires-de-base">Répertoires de base</a></p>
+</li>
+<li>
+<p><a href="#rhel-et-centos">RHEL et CentOS</a></p>
+</li>
+<li>
+<p><a href="#ubuntu-et-debian">Ubuntu et Debian</a></p>
+</li>
+<li>
+<p><a href="#mac-os">Mac OS</a></p>
+</li>
+<li>
+<p><a href="#kubernetes">Kubernetes</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Pour installer un agent, quelle que soit la plate-forme que vous utilisez, vous devez d&#8217;abord effectuer les opérations suivantes :</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Connectez-vous à l&#8217;hôte que vous utiliserez pour votre agent.</p>
+</li>
+<li>
+<p>Connectez-vous à votre site Cloud Insights et accédez à <strong>Admin &gt; Data Collectors</strong>.</p>
+</li>
+<li>
+<p>Cliquez sur <strong>+Data Collector</strong> et choisissez un collecteur de données à installer.</p>
+</li>
+<li>
+<p>Choisir la plate-forme la mieux adaptée à votre hôte (Windows, Linux, MacOS, etc.)</p>
+</li>
+<li>
+<p>Suivez les étapes restantes pour chaque plate-forme.</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/test/images/note.svg" alt="Note">
+</td>
+<td class="content">
+Une fois que vous avez installé un agent sur un hôte, vous n&#8217;avez pas besoin d&#8217;installer de nouveau un agent sur cet hôte.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/test/images/tip.svg" alt="Astuce">
+</td>
+<td class="content">
+Une fois que vous avez installé un agent sur un serveur/VM, Cloud Insights collecte les metrics de ce système en plus de la collecte à partir de tous les collecteurs de données que vous configurez. Ces metrics sont rassemblés sous la forme <a href="task_config_telegraf_node.html">"Metrics de nœud"</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/test/images/note.svg" alt="Note">
+</td>
+<td class="content">
+Si vous utilisez un proxy, lisez les instructions du proxy de votre plate-forme avant d&#8217;installer l&#8217;agent Telegraf.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="répertoires-de-base">Répertoires de base</h3>
+<div class="paragraph">
+<p><span class="image"><img src="AgentInstallWindows.png" alt="Installation de Windows Agent"></span></p>
+</div>
+<div class="ulist">
+<div class="title">Conditions préalables :</div>
+<ul>
+<li>
+<p>PowerShell doit être installé</p>
+</li>
+<li>
+<p>Si vous êtes derrière un proxy, suivez les instructions de la section <strong>Configuration du support proxy pour Windows</strong>.</p>
+</li>
+</ul>
+</div>
+<div class="olist arabic">
+<div class="title">Procédure d&#8217;installation de l&#8217;agent sous Windows :</div>
+<ol class="arabic">
+<li>
+<p>Choisissez une clé d&#8217;accès d&#8217;agent.</p>
+</li>
+<li>
+<p>Copiez le bloc de commande à partir de la boîte de dialogue d&#8217;installation de l&#8217;agent. Vous pouvez cliquer sur l&#8217;icône du presse-papiers pour copier rapidement la commande dans le presse-papiers.</p>
+</li>
+<li>
+<p>Ouvrez une fenêtre PowerShell</p>
+</li>
+<li>
+<p>Collez la commande dans la fenêtre PowerShell, puis appuyez sur entrée.</p>
+</li>
+<li>
+<p>La commande télécharge le programme d&#8217;installation de l&#8217;agent approprié, l&#8217;installe et définit une configuration par défaut. Une fois l&#8217;opération terminée, le service agent redémarre. La commande a une clé unique et est valide pendant 24 heures.</p>
+</li>
+<li>
+<p>Cliquez sur <strong>Terminer</strong> ou <strong>Continuer</strong></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Une fois l&#8217;agent installé, vous pouvez utiliser les commandes suivantes pour démarrer/arrêter le service :</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Start-Service telegraf
+Stop-Service telegraf</pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="configuration-du-support-de-proxy-pour-windows">Configuration du support de proxy pour Windows</h4>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/test/images/note.svg" alt="Note">
+</td>
+<td class="content">
+Les étapes ci-dessous présentent les actions nécessaires pour définir les variables d&#8217;environnement <em>http_proxy/https_proxy</em>. Pour certains environnements proxy, les utilisateurs peuvent également avoir besoin de définir la variable <em>no_proxy Environment</em>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Pour les systèmes résidant derrière un proxy, procédez comme suit pour définir la ou les variables d&#8217;environnement <em>https_proxy</em> et/ou <em>http_proxy</em> <strong>ANTÉRIEURES</strong> à l&#8217;installation de l&#8217;agent Telegraf :</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>[System.Environment]::SetEnvironmentVariable(“https_proxy”, “&lt;proxy_server&gt;:&lt;proxy_port&gt;”, [System.EnvironmentVariableTarget]::Machine)</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="désinstallation-de-lagent">Désinstallation de l&#8217;agent</h4>
+<div class="paragraph">
+<p>Pour désinstaller l&#8217;agent sous Windows, procédez comme suit dans une fenêtre PowerShell :</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Arrêtez et supprimez le service Telegraf :</p>
+<div class="literalblock">
+<div class="content">
+<pre>Stop-Service telegraf
+sc.exe delete telegraf</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Retirez le certificat du magasin de la vérité :</p>
+<div class="literalblock">
+<div class="content">
+<pre>cd Cert:\CurrentUser\Root
+rm E5FB7B68C08B1CA902708584C274F8EFC7BE8ABC</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Supprimez le dossier <em>C:\Program Files\telegraf</em> pour supprimer le fichier binaire, les journaux et les fichiers de configuration</p>
+</li>
+<li>
+<p>Supprimez la clé <em>SYSTÈME\CurrentControlSet\Services\EventLog\application\telegraf</em> du Registre</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="mise-à-niveau-de-lagent">Mise à niveau de l&#8217;agent</h4>
+<div class="paragraph">
+<p>Pour mettre à niveau l&#8217;agent telegraf, procédez comme suit :</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Arrêtez et supprimez le service telegraf :</p>
+<div class="literalblock">
+<div class="content">
+<pre>Stop-Service telegraf
+sc.exe delete telegraf</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Supprimez la clé <em>SYSTÈME\CurrentControlSet\Services\EventLog\application\telegraf</em> du Registre</p>
+</li>
+<li>
+<p>Supprimer <em>C:\Program Files\telegraf\telegraf.conf</em></p>
+</li>
+<li>
+<p>Supprimer <em>C:\Program Files\telegraf\telegraf.exe</em></p>
+</li>
+<li>
+<p><a href="#windows">"Installez le nouvel agent"</a>.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="rhel-et-centos">RHEL et CentOS</h3>
+<div class="paragraph">
+<p><span class="image"><img src="Agent_Requirements_Rhel.png" alt="Installation de l&#8217;agent RHEL/CentOS"></span></p>
+</div>
+<div class="ulist">
+<div class="title">Conditions préalables :</div>
+<ul>
+<li>
+<p>Les commandes suivantes doivent être disponibles : curl, sudo, ping, sha256sum, openssl, et dmidecode</p>
+</li>
+<li>
+<p>Si vous êtes derrière un proxy, suivez les instructions de la section <strong>Configuration du support proxy pour RHEL/CentOS</strong>.</p>
+</li>
+</ul>
+</div>
+<div class="olist arabic">
+<div class="title">Étapes d&#8217;installation de l&#8217;agent sur RHEL/CentOS :</div>
+<ol class="arabic">
+<li>
+<p>Choisissez une clé d&#8217;accès d&#8217;agent.</p>
+</li>
+<li>
+<p>Copiez le bloc de commande à partir de la boîte de dialogue d&#8217;installation de l&#8217;agent. Vous pouvez cliquer sur l&#8217;icône du presse-papiers pour copier rapidement la commande dans le presse-papiers.</p>
+</li>
+<li>
+<p>Ouvrez une fenêtre de jeu</p>
+</li>
+<li>
+<p>Collez la commande dans la fenêtre Bash et appuyez sur entrée.</p>
+</li>
+<li>
+<p>La commande télécharge le programme d&#8217;installation de l&#8217;agent approprié, l&#8217;installe et définit une configuration par défaut. Une fois l&#8217;opération terminée, le service agent redémarre. La commande a une clé unique et est valide pendant 24 heures.</p>
+</li>
+<li>
+<p>Cliquez sur <strong>Terminer</strong> ou <strong>Continuer</strong></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Une fois l&#8217;agent installé, vous pouvez utiliser les commandes suivantes pour démarrer/arrêter le service :</p>
+</div>
+<div class="paragraph">
+<p>Si votre système d&#8217;exploitation utilise le système (CentOS 7+ et RHEL 7+) :</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>sudo systemctl start telegraf
+sudo systemctl stop telegraf</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Si votre système d&#8217;exploitation n&#8217;utilise pas le système (CentOS 7+ et RHEL 7+) :</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>sudo service telegraf start
+sudo service telegraf stop</pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="configuration-de-la-prise-en-charge-de-proxy-pour-rhelcentos">Configuration de la prise en charge de Proxy pour RHEL/CentOS</h4>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/test/images/note.svg" alt="Note">
+</td>
+<td class="content">
+Les étapes ci-dessous présentent les actions nécessaires pour définir les variables d&#8217;environnement <em>http_proxy/https_proxy</em>. Pour certains environnements proxy, les utilisateurs peuvent également avoir besoin de définir la variable <em>no_proxy Environment</em>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Pour les systèmes résidant derrière un proxy, effectuez les opérations suivantes <strong>ANTÉRIEUR</strong> à l&#8217;installation de l&#8217;agent Telegraf :</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Définissez les variables d&#8217;environnement <em>https_proxy</em> et/ou <em>http_proxy</em> pour l&#8217;utilisateur actuel :</p>
+<div class="literalblock">
+<div class="content">
+<pre> export https_proxy=&lt;proxy_server&gt;:&lt;proxy_port&gt;
+. Créez _/etc/default/telegraf_ et insérez des définitions pour les variables _https_proxy_ et/ou _http_proxy_ :</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>https_proxy=&lt;proxy_server&gt;:&lt;proxy_port&gt;</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="désinstallation-de-lagent-2">Désinstallation de l&#8217;agent</h4>
+<div class="paragraph">
+<p>Pour désinstaller l&#8217;agent sur RHEL/CentOS, dans un terminal Bash, procédez comme suit :</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Arrêtez le service Telegraf :</p>
+<div class="literalblock">
+<div class="content">
+<pre>systemctl stop telegraf (If your operating system is using systemd (CentOS 7+ and RHEL 7+)
+/etc/init.d/telegraf stop (for systems without systemd support)</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Supprimez l&#8217;agent Telegraf :</p>
+<div class="literalblock">
+<div class="content">
+<pre> yum remove telegraf
+. Supprimez tous les fichiers de configuration ou de journal qui peuvent être laissés derrière :</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>rm -rf /etc/telegraf*
+rm -rf /var/log/telegraf*</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="mise-à-niveau-de-lagent-2">Mise à niveau de l&#8217;agent</h4>
+<div class="paragraph">
+<p>Pour mettre à niveau l&#8217;agent telegraf, procédez comme suit :</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Arrêtez le service telegraf :</p>
+<div class="literalblock">
+<div class="content">
+<pre>systemctl stop telegraf (If your operating system is using systemd (CentOS 7+ and RHEL 7+)
+/etc/init.d/telegraf stop (for systems without systemd support)</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Supprimez l&#8217;agent telegraf précédent :</p>
+<div class="literalblock">
+<div class="content">
+<pre> yum remove telegraf
+. link:#rhel-and-centos["Installez le nouvel agent"].</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="ubuntu-et-debian">Ubuntu et Debian</h3>
+<div class="paragraph">
+<p><span class="image"><img src="Agent_Requirements_Ubuntu.png" alt="Installation de l&#8217;agent Ubuntu/Debian"></span></p>
+</div>
+<div class="ulist">
+<div class="title">Conditions préalables :</div>
+<ul>
+<li>
+<p>Les commandes suivantes doivent être disponibles : curl, sudo, ping, sha256sum, openssl, et dmidecode</p>
+</li>
+<li>
+<p>Si vous êtes derrière un proxy, suivez les instructions de la section <strong>Configuration de la prise en charge du proxy pour Ubuntu/Debian</strong>.</p>
+</li>
+</ul>
+</div>
+<div class="olist arabic">
+<div class="title">Étapes pour installer un agent sur Debian ou Ubuntu :</div>
+<ol class="arabic">
+<li>
+<p>Choisissez une clé d&#8217;accès d&#8217;agent.</p>
+</li>
+<li>
+<p>Copiez le bloc de commande à partir de la boîte de dialogue d&#8217;installation de l&#8217;agent. Vous pouvez cliquer sur l&#8217;icône du presse-papiers pour copier rapidement la commande dans le presse-papiers.</p>
+</li>
+<li>
+<p>Ouvrez une fenêtre de jeu</p>
+</li>
+<li>
+<p>Collez la commande dans la fenêtre Bash et appuyez sur entrée.</p>
+</li>
+<li>
+<p>La commande télécharge le programme d&#8217;installation de l&#8217;agent approprié, l&#8217;installe et définit une configuration par défaut. Une fois l&#8217;opération terminée, le service agent redémarre. La commande a une clé unique et est valide pendant 24 heures.</p>
+</li>
+<li>
+<p>Cliquez sur <strong>Terminer</strong> ou <strong>Continuer</strong></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Une fois l&#8217;agent installé, vous pouvez utiliser les commandes suivantes pour démarrer/arrêter le service :</p>
+</div>
+<div class="paragraph">
+<p>Si votre système d&#8217;exploitation utilise systemd :</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>sudo systemctl start telegraf
+sudo systemctl stop telegraf</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Si votre système d&#8217;exploitation n&#8217;utilise pas le système :</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>sudo service telegraf start
+sudo service telegraf stop</pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="configuration-de-la-prise-en-charge-de-proxy-pour-ubuntudebian">Configuration de la prise en charge de proxy pour Ubuntu/Debian</h4>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/test/images/note.svg" alt="Note">
+</td>
+<td class="content">
+Les étapes ci-dessous présentent les actions nécessaires pour définir les variables d&#8217;environnement <em>http_proxy/https_proxy</em>. Pour certains environnements proxy, les utilisateurs peuvent également avoir besoin de définir la variable <em>no_proxy Environment</em>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Pour les systèmes résidant derrière un proxy, effectuez les opérations suivantes <strong>ANTÉRIEUR</strong> à l&#8217;installation de l&#8217;agent Telegraf :</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Définissez les variables d&#8217;environnement <em>https_proxy</em> et/ou <em>http_proxy</em> pour l&#8217;utilisateur actuel :</p>
+<div class="literalblock">
+<div class="content">
+<pre> export https_proxy=&lt;proxy_server&gt;:&lt;proxy_port&gt;
+. Créez /etc/default/telegraf et insérez des définitions pour les variables _https_proxy_ et/ou _http_proxy_ :</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>https_proxy=&lt;proxy_server&gt;:&lt;proxy_port&gt;</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="désinstallation-de-lagent-3">Désinstallation de l&#8217;agent</h4>
+<div class="paragraph">
+<p>Pour désinstaller l&#8217;agent sur Ubuntu/Debian, dans un terminal Bash, exécutez les opérations suivantes :</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Arrêtez le service Telegraf :</p>
+<div class="literalblock">
+<div class="content">
+<pre>systemctl stop telegraf (If your operating system is using systemd)
+/etc/init.d/telegraf stop (for systems without systemd support)</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Supprimez l&#8217;agent Telegraf :</p>
+<div class="literalblock">
+<div class="content">
+<pre> dpkg -r telegraf
+. Supprimez tous les fichiers de configuration ou de journal qui peuvent être laissés derrière :</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>rm -rf /etc/telegraf*
+rm -rf /var/log/telegraf*</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="mise-à-niveau-de-lagent-3">Mise à niveau de l&#8217;agent</h4>
+<div class="paragraph">
+<p>Pour mettre à niveau l&#8217;agent telegraf, procédez comme suit :</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Arrêtez le service telegraf :</p>
+<div class="literalblock">
+<div class="content">
+<pre>systemctl stop telegraf (If your operating system is using systemd)
+/etc/init.d/telegraf stop (for systems without systemd support)</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Supprimez l&#8217;agent telegraf précédent :</p>
+<div class="literalblock">
+<div class="content">
+<pre> dpkg -r telegraf
+. link:#ubuntu-and-debian["Installez le nouvel agent"].</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="mac-os">Mac OS</h3>
+<div class="paragraph">
+<p><span class="image"><img src="Agent_Requirements_Macos.png" alt="Installation de l&#8217;agent MacOS"></span></p>
+</div>
+<div class="ulist">
+<div class="title">Conditions préalables :</div>
+<ul>
+<li>
+<p>Les commandes suivantes doivent être disponibles : curl, sudo, openssl et shasum</p>
+</li>
+<li>
+<p>Si vous êtes derrière un proxy, suivez les instructions de la section <strong>Configuration du support proxy pour MacOS</strong>.</p>
+</li>
+</ul>
+</div>
+<div class="olist arabic">
+<div class="title">Étapes d&#8217;installation de l&#8217;agent sous MacOS :</div>
+<ol class="arabic">
+<li>
+<p>Choisissez une clé d&#8217;accès d&#8217;agent.</p>
+</li>
+<li>
+<p>Copiez le bloc de commande à partir de la boîte de dialogue d&#8217;installation de l&#8217;agent. Vous pouvez cliquer sur l&#8217;icône du presse-papiers pour copier rapidement la commande dans le presse-papiers.</p>
+</li>
+<li>
+<p>Ouvrez une fenêtre de jeu</p>
+</li>
+<li>
+<p>Collez la commande dans la fenêtre Bash et appuyez sur entrée.</p>
+</li>
+<li>
+<p>La commande télécharge le programme d&#8217;installation de l&#8217;agent approprié, l&#8217;installe et définit une configuration par défaut. Une fois l&#8217;opération terminée, le service agent redémarre. La commande a une clé unique et est valide pendant 24 heures.</p>
+</li>
+<li>
+<p>Si vous avez déjà installé un agent Telegraf à l&#8217;aide d&#8217;Homebrew, vous êtes invité à le désinstaller. Une fois que l&#8217;agent Telegraf installé précédemment est désinstallé, exécutez de nouveau la commande à l&#8217;étape 5 ci-dessus.</p>
+</li>
+<li>
+<p>Cliquez sur <strong>Terminer</strong> ou <strong>Continuer</strong></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Une fois l&#8217;agent installé, vous pouvez utiliser les commandes suivantes pour démarrer/arrêter le service :</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>sudo launchctl start telegraf
+sudo launchctl stop telegraf</pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="configuration-de-la-prise-en-charge-de-proxy-pour-macos">Configuration de la prise en charge de proxy pour MacOS</h4>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/test/images/note.svg" alt="Note">
+</td>
+<td class="content">
+Les étapes ci-dessous présentent les actions nécessaires pour définir les variables d&#8217;environnement <em>http_proxy/https_proxy</em>. Pour certains environnements proxy, les utilisateurs peuvent également avoir besoin de définir la variable <em>no_proxy Environment</em>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Pour les systèmes résidant derrière un proxy, procédez comme suit pour définir les variables d&#8217;environnement <em>https_proxy</em> et/ou <em>http_proxy</em> pour l&#8217;utilisateur actuel <strong>ANTÉRIEUR</strong> à l&#8217;installation de l&#8217;agent Telegraf :</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre> export https_proxy=&lt;proxy_server&gt;:&lt;proxy_port&gt;
+*APRÈS* installation de l'agent Telegraf, ajoutez et définissez les variables _https_proxy_ et/ou _http_proxy_ appropriées dans _/applications/telegraf.app/Contents/telegraf.plist_:</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>…
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;
+&lt;plist version="1.0"&gt;
+&lt;dict&gt;
+   &lt;key&gt;EnvironmentVariables&lt;/key&gt;
+   &lt;dict&gt;
+          &lt;key&gt;https_proxy&lt;/key&gt;
+          &lt;string&gt;&lt;proxy_server&gt;:&lt;proxy_port&gt;&lt;/string&gt;
+   &lt;/dict&gt;
+   &lt;key&gt;Program&lt;/key&gt;
+   &lt;string&gt;/Applications/telegraf.app/Contents/MacOS/telegraf&lt;/string&gt;
+   &lt;key&gt;Label&lt;/key&gt;
+   &lt;string&gt;telegraf&lt;/string&gt;
+   &lt;key&gt;ProgramArguments&lt;/key&gt;
+   &lt;array&gt;
+     &lt;string&gt;/Applications/telegraf.app/Contents/MacOS/telegraf&lt;/string&gt;
+     &lt;string&gt;--config&lt;/string&gt;
+     &lt;string&gt;/usr/local/etc/telegraf.conf&lt;/string&gt;
+     &lt;string&gt;--config-directory&lt;/string&gt;
+     &lt;string&gt;/usr/local/etc/telegraf.d&lt;/string&gt;
+   &lt;/array&gt;
+   &lt;key&gt;RunAtLoad&lt;/key&gt;
+   &lt;true/&gt;
+&lt;/dict&gt;
+&lt;/plist&gt;
+…</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Puis, redémarrez Telegraf après avoir chargé les modifications ci-dessus :</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>sudo launchctl stop telegraf
+sudo launchctl unload -w /Library/LaunchDaemons/telegraf.plist
+sudo launchctl load -w /Library/LaunchDaemons/telegraf.plist
+sudo launchctl start telegraf</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="désinstallation-de-lagent-4">Désinstallation de l&#8217;agent</h4>
+<div class="paragraph">
+<p>Pour désinstaller l&#8217;agent sous MacOS, dans un terminal Bash, exécutez les opérations suivantes :</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Arrêtez le service Telegraf :</p>
+<div class="literalblock">
+<div class="content">
+<pre> sudo launchctl stop telegraf
+. Désinstallez l'agent telegraf :</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>cp /Applications/telegraf.app/scripts/uninstall /tmp
+sudo /tmp/uninstall</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Supprimez tous les fichiers de configuration ou de journal qui peuvent être laissés derrière :</p>
+<div class="literalblock">
+<div class="content">
+<pre>rm -rf /usr/local/etc/telegraf*
+rm -rf /usr/local/var/log/telegraf.*</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="mise-à-niveau-de-lagent-4">Mise à niveau de l&#8217;agent</h4>
+<div class="paragraph">
+<p>Pour mettre à niveau l&#8217;agent telegraf, procédez comme suit :</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Arrêtez le service telegraf :</p>
+<div class="literalblock">
+<div class="content">
+<pre> sudo launchctl stop telegraf
+. Désinstallez l'ancien agent telegraf :</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>cp /Applications/telegraf.app/scripts/uninstall /tmp
+sudo /tmp/uninstall</pre>
+</div>
+</div>
+</li>
+<li>
+<p><a href="#macos">"Installez le nouvel agent"</a>.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="kubernetes">Kubernetes</h3>
+<div class="paragraph">
+<p>Kubernetes propose deux méthodes de collecte de données :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Configuration de l&#8217;opérateur de surveillance NetApp Kubernetes. Il s&#8217;agit de la méthode d&#8217;installation recommandée pour Kubernetes.</p>
+</li>
+<li>
+<p>Installation traditionnelle d&#8217;agent basée sur des scripts</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Les instructions d&#8217;installation varient en fonction de votre choix.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="Kubernetes_Operator_Tile_Choices.png" alt="Choix d&#8217;installation de Kubernetes"></span></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/test/images/note.svg" alt="Note">
+</td>
+<td class="content">
+L&#8217;installation de NetApp Kubernetes Monitoring Operator est considérée comme une fonctionnalité de <em>Preview</em> et est donc sujette à modification.
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<div class="title">Conditions préalables :</div>
+<ul>
+<li>
+<p>Les commandes suivantes doivent être disponibles : curl, sudo, openssl, sha256sum et kubectl</p>
+<div class="paragraph">
+<p>Pour obtenir de meilleurs résultats, ajoutez ces commandes au CHEMIN D&#8217;ACCÈS.</p>
+</div>
+</li>
+<li>
+<p>les indicateurs d&#8217;état kube doivent être installés. Voir ci-dessous pour plus d&#8217;informations. Les indicateurs d&#8217;état kube sont automatiquement installés avec l&#8217;installation basée sur l&#8217;opérateur.</p>
+</li>
+<li>
+<p>Si vous êtes derrière un proxy, suivez les instructions de la section <strong>Configuration du support proxy pour Kubernetes</strong>.</p>
+</li>
+<li>
+<p>Si vous exécutez une variante Kubernetes qui nécessite des contraintes de contexte de sécurité, suivez les instructions de la section <strong>Configuration de l&#8217;agent pour collecter des données à partir de Kubernetes</strong>. L&#8217;installation basée sur l&#8217;opérateur l&#8217;installe pour vous.</p>
+</li>
+<li>
+<p>Vous devez disposer d&#8217;autorisations pour créer des rôles de cluster Kubernetes et des liaisons de rôles.</p>
+</li>
+<li>
+<p>L&#8217;installation de NetApp Kubernetes Monitoring Operator a été testée et devrait fonctionner avec AWS EKS 1.18, OpenShift 3.11 et Rancher 2.6.</p>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="la-surveillance-nest-installée-que-sur-les-nœuds-linux">La surveillance n&#8217;est installée que sur les nœuds Linux</h4>
+<div class="paragraph">
+<p>Cloud Insights prend en charge le contrôle des nœuds Kubernetes qui exécutent Linux, en spécifiant un sélecteur de nœud Kubernetes qui recherche les étiquettes Kubernetes suivantes sur les plateformes :</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Plateforme</th>
+<th class="tableblock halign-left valign-top">Étiquette</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kubernetes v1.17 et versions supérieures</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kubernetes.io/os = linux</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Rancher + bétail.io comme plateforme d&#8217;orchestration/Kubernetes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bétail.io/os = linux</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="installation-de-lopérateur-de-contrôle-netapp-kubernetes">Installation de l&#8217;opérateur de contrôle NetApp Kubernetes</h4>
+<div class="paragraph">
+<p><span class="image"><img src="Kubernetes_Operator_Agent_Instructions.png" alt="Installation basée sur l&#8217;opérateur"></span></p>
+</div>
+<div class="olist arabic">
+<div class="title">Étapes d&#8217;installation de l&#8217;agent de l&#8217;opérateur de surveillance NetApp Kubernetes sur Kubernetes :</div>
+<ol class="arabic">
+<li>
+<p>Entrez le nom du cluster et l&#8217;espace de noms.</p>
+</li>
+<li>
+<p>Une fois ces données saisies, vous pouvez copier l&#8217;extrait de code du programme d&#8217;installation de l&#8217;agent</p>
+</li>
+<li>
+<p>Cliquez sur le bouton pour copier ce fragment dans le presse-papiers.</p>
+</li>
+<li>
+<p>Collez le fragment dans une fenêtre <em>bash</em> et exécutez-le.</p>
+</li>
+<li>
+<p>L&#8217;installation se poursuit automatiquement. Une fois la configuration terminée, cliquez sur le bouton <em>Complete Setup</em>.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="configuration-de-la-prise-en-charge-du-proxy-pour-lopérateur-netapp-kubernetes-monitoring">Configuration de la prise en charge du proxy pour l&#8217;opérateur NetApp Kubernetes Monitoring</h4>
+<div class="paragraph">
+<p>Pour configurer un proxy pour l&#8217;opérateur de surveillance, procédez comme suit.</p>
+</div>
+<div class="paragraph">
+<p>Tout d&#8217;abord, ouvrez le fichier <em>agent-monitoring-netapp</em> pour le modifier :</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre> kubectl -n netapp-monitoring edit agent agent-monitoring-netapp
+Dans la section _spec:_ de ce fichier, ajoutez le bloc de code suivant :</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>spec:
+  proxy:
+    isAuProxyEnabled: &lt;true or false&gt;
+    isTelegrafProxyEnabled: &lt;true or false&gt;
+    isFluentbitProxyEnabled: &lt;true or false&gt;
+    password: &lt;password for proxy, optional&gt;
+    port: &lt;port for proxy&gt;
+    server: &lt;server for proxy&gt;
+    username: &lt;username for proxy, optional&gt;
+    noProxy: &lt;comma separated list of IPs or resolvable hostnames that should bypass a proxy&gt;</pre>
+</div>
+</div>
+<div class="sect4">
+<h5 id="à-laide-dun-référentiel-docker-personnaliséprivé">À l&#8217;aide d&#8217;un référentiel docker personnalisé/privé</h5>
+<div class="paragraph">
+<p>Si vous utilisez un référentiel docker personnalisé, procédez comme suit :</p>
+</div>
+<div class="paragraph">
+<p>Découvrez le secret docker :</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre> kubectl -n netapp-monitoring get secret docker -o yaml
+Copiez/collez la valeur de _.dockerconfigjson:_ à partir de la sortie de la commande ci-dessus.</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Décodage du secret docker :</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre> echo &lt;paste from _.dockerconfigjson:_  output above&gt; | base64 -d
+Le résultat sera au format json suivant :</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>{ "auths":
+  {"docker.&lt;cluster&gt;.cloudinsights.netapp.com" :
+    {"username":"&lt;tenant id&gt;",
+     "password":"&lt;password which is the CI API key&gt;",
+     "auth"    :"&lt;encoded username:password basic auth key. This is internal to docker&gt;"}
+  }
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Connectez-vous au référentiel docker :</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>docker login docker.&lt;cluster&gt;.cloudinsights.netapp.com (from step #2) -u &lt;username from step #2&gt;
+password: &lt;password from docker secret step above&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Tirez l&#8217;image de l&#8217;opérateur docker depuis Cloud Insights :</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre> docker pull docker.&lt;cluster&gt;.cloudinsights.netapp.com/netapp-monitoring:&lt;version&gt;
+Recherchez le champ &lt;version&gt; à l'aide de la commande suivante :</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre> kubectl -n netapp-monitoring get deployment monitoring-operator | grep "image:"
+Envoyez l'image de docker de l'opérateur à votre référentiel docker privé, local ou d'entreprise, conformément aux règles de votre entreprise.</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Téléchargez toutes les dépendances open source dans votre registre Docker privé. Les images Open Source suivantes doivent être téléchargées :</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>docker.io/telegraf:1.19.3
+gcr.io/kubebuilder/kube-rbac-proxy:v0.5.0
+k8s.gcr.io/kube-state-metrics/kube-state-metrics:v2.1.0</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Si Fluent-bit est activé, téléchargez également :</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>docker.io/fluent-bit:1.7.8
+docker.io/kubernetes-event-exporter:0.10</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Modifiez la demande de modification de l&#8217;agent pour qu&#8217;elle reflète le nouvel emplacement de docker Repo, désactivez la mise à niveau automatique (si elle est activée).</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>kubectl -n netapp-monitoring edit agent agent-monitoring-netapp
+enableAutoUpgrade: false</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>docker-repo: &lt;docker repo of the enterprise/corp docker repo&gt;
+dockerRepoSecret: &lt;optional: name of the docker secret of enterprise/corp docker repo, this secret should be already created on the k8s cluster in the same namespace&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Dans la section <em>spec:</em>, effectuez les modifications suivantes :</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>spec:
+  telegraf:
+    - name: ksm
+      substitutions:
+        - key: k8s.gcr.io
+          value: &lt;same as "docker-repo" field above&gt;</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="installation-par-script">Installation par script</h4>
+<div class="paragraph">
+<p><span class="image"><img src="Kubernetes_Install_Agent_screen.png" alt="Installation basée sur des scripts"></span></p>
+</div>
+<div class="olist arabic">
+<div class="title">Étapes d&#8217;installation de l&#8217;agent basé sur des scripts sur Kubernetes :</div>
+<ol class="arabic">
+<li>
+<p>Choisissez une clé d&#8217;accès d&#8217;agent.</p>
+</li>
+<li>
+<p>Cliquez sur le bouton <strong>Copy Agent installer Snippet</strong> dans la boîte de dialogue d&#8217;installation. Vous pouvez également cliquer sur le bouton <em>+Reveal Agent installer Snippet</em> si vous souhaitez afficher le bloc de commandes.</p>
+</li>
+<li>
+<p>Collez la commande dans une fenêtre <em>bash</em>.</p>
+</li>
+<li>
+<p>Si vous le souhaitez, vous pouvez remplacer l&#8217;espace de noms ou fournir le nom du cluster dans le cadre de la commande install en modifiant le bloc de commande afin d&#8217;ajouter un ou les deux éléments suivants avant le _ final./$installerName_ final</p>
+<div class="ulist">
+<ul>
+<li>
+<p>CLUSTER_NAME=&lt;Cluster Name&gt;</p>
+</li>
+<li>
+<p>NAMESPACE=&lt;Namespace&gt;</p>
+<div class="paragraph">
+<p>Elle est ici en place dans le bloc de commande :</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>installerName=cloudinsights-kubernetes.sh ... &amp;&amp; CLUSTER_NAME=&lt;cluster_name&gt; NAMESPACE=&lt;new_namespace&gt; sudo -E -H ./$installerName --download --install</pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/test/images/tip.svg" alt="Astuce">
+</td>
+<td class="content">
+<em>CLUSTER_NAME</em> est le nom du cluster Kubernetes à partir de Cloud Insights collecte des metrics, tandis que <em>NAMESPACE</em> est l&#8217;espace de nom vers lequel l&#8217;agent Telegraf sera déployé. L&#8217;espace de nom spécifié sera créé s&#8217;il n&#8217;existe pas déjà.
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Une fois prêt, exécutez le bloc de commande.</p>
+</li>
+<li>
+<p>La commande télécharge le programme d&#8217;installation de l&#8217;agent approprié, l&#8217;installe et définit une configuration par défaut. Si vous n&#8217;avez pas explicitement défini le <em>namespace</em>, vous serez invité à le saisir. Lorsque vous avez terminé, le script redémarre le service agent. La commande a une clé unique et est valide pendant 24 heures.</p>
+</li>
+<li>
+<p>Lorsque vous avez terminé, cliquez sur <strong>Terminer la configuration</strong>.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="configuration-de-la-prise-en-charge-du-proxy-pour-kubernetes-basée-sur-des-scripts">Configuration de la prise en charge du proxy pour Kubernetes - basée sur des scripts</h4>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/test/images/note.svg" alt="Note">
+</td>
+<td class="content">
+Les étapes ci-dessous présentent les actions nécessaires pour définir les variables d&#8217;environnement <em>http_proxy/https_proxy</em>. Pour certains environnements proxy, les utilisateurs peuvent également avoir besoin de définir la variable <em>no_proxy Environment</em>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Pour les systèmes résidant derrière un proxy, procédez comme suit pour définir les variables d&#8217;environnement <em>https_proxy</em> et/ou <em>http_proxy</em> pour l&#8217;utilisateur actuel <strong>ANTÉRIEUR</strong> à l&#8217;installation de l&#8217;agent Telegraf :</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre> export https_proxy=&lt;proxy_server&gt;:&lt;proxy_port&gt;
+*APRÈS* installation de l’agent Telegraf, ajoutez et définissez la ou les variables d’environnement _https_proxy_ et/ou _http_proxy_ appropriées sur la ou les variables d’environnement _telegraf-ds_ demonset et _telegraf-RS_ Replicaet.</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>kubectl edit ds telegraf-ds</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>…
+       env:
+       - name: https_proxy
+         value: &lt;proxy_server&gt;:&lt;proxy_port&gt;
+       - name: HOSTIP
+         valueFrom:
+           fieldRef:
+             apiVersion: v1
+             fieldPath: status.hostIP
+…</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>kubectl edit rs telegraf-rs</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>…
+       env:
+       - name: https_proxy
+         value: &lt;proxy_server&gt;:&lt;proxy_port&gt;
+       - name: HOSTIP
+         valueFrom:
+           fieldRef:
+             apiVersion: v1
+             fieldPath: status.hostIP
+…</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Redémarrez ensuite Telegraf :</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>kubectl delete pod telegraf-ds-*
+kubectl delete pod telegraf-rs-*</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="demonset-replicaset-et-arrêtdémarrage-de-lagent">DemonSet, ReplicaSet et arrêt/démarrage de l&#8217;agent</h4>
+<div class="paragraph">
+<p>Un ensemble de démonstrations et de réplications sera créé sur le cluster Kubernetes afin d&#8217;exécuter les agents/pods Telegraf requis. Par défaut, ces agents/modules Telegraf seront planifiés à la fois sur les nœuds maître et non maître.</p>
+</div>
+<div class="paragraph">
+<p>Pour faciliter l&#8217;arrêt et le redémarrage de l&#8217;agent, générez le YAML Telegraf DemonSet et ReplicaSet YAML à l&#8217;aide des commandes suivantes. Notez que ces commandes utilisent l&#8217;espace de noms par défaut « ci-monitoring ». Si vous avez défini votre propre espace de noms, remplacez-le dans ces commandes et fichiers suivants :</p>
+</div>
+<div class="paragraph">
+<p>Si vous avez défini votre propre espace de noms, remplacez-le dans ces commandes et fichiers suivants :</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>kubectl --namespace ci-monitoring get ds telegraf-ds -o yaml &gt; /tmp/telegraf-ds.yaml
+kubectl --namespace ci-monitoring get rs telegraf-rs -o yaml &gt; /tmp/telegraf-rs.yaml</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Vous pouvez ensuite utiliser les commandes suivantes pour arrêter et démarrer le service Telegraf :</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>kubectl --namespace ci-monitoring delete ds telegraf-ds
+kubectl --namespace ci-monitoring delete rs telegraf-rs</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>kubectl --namespace ci-monitoring apply -f /tmp/telegraf-ds.yaml
+kubectl --namespace ci-monitoring apply -f /tmp/telegraf-rs.yaml</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="configuration-de-lagent-pour-collecter-des-données-à-partir-de-kubernetes">Configuration de l&#8217;agent pour collecter des données à partir de Kubernetes</h4>
+<div class="paragraph">
+<p>Remarque : l&#8217;espace de noms par défaut pour l&#8217;installation basée sur script est <em>ci-monitoring</em>. Pour une installation basée sur l&#8217;opérateur, l&#8217;espace de noms par défaut est <em>NetApp-monitoring</em>. Dans les commandes impliquant l&#8217;espace de noms, assurez-vous de spécifier l&#8217;espace de nom correct pour votre installation.</p>
+</div>
+<div class="paragraph">
+<p>Les modules dans lesquels les agents exécutent doivent avoir accès aux éléments suivants :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Chemin d&#8217;hôte</p>
+</li>
+<li>
+<p>Carte de configuration</p>
+</li>
+<li>
+<p>secrets</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Ces objets Kubernetes sont automatiquement créés dans le cadre de la commande d&#8217;installation de l&#8217;agent Kubernetes fournie dans l&#8217;interface utilisateur d&#8217;Cloud Insights. Certaines versions de Kubernetes, telles qu&#8217;OpenShift, proposent un niveau de sécurité supplémentaire qui peut bloquer l&#8217;accès à ces composants. La <em>SecurityContextConstraint</em> n&#8217;est pas créée dans le cadre de la commande d&#8217;installation de l&#8217;agent Kubernetes fournie dans l&#8217;interface utilisateur Cloud Insights et doit être créée manuellement. Une fois créé, redémarrez le ou les pod(s) Telegraf.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    apiVersion: v1
+    kind: SecurityContextConstraints
+    metadata:
+      name: telegraf-hostaccess
+      creationTimestamp:
+      annotations:
+        kubernetes.io/description: telegraf-hostaccess allows hostpath volume mounts for restricted SAs.
+      labels:
+        app: ci-telegraf
+    priority: 10
+    allowPrivilegedContainer: true
+    defaultAddCapabilities: []
+    requiredDropCapabilities: []
+    allowedCapabilities: []
+    allowedFlexVolumes: []
+    allowHostDirVolumePlugin: true
+    volumes:
+    - hostPath
+    - configMap
+    - secret
+    allowHostNetwork: false
+    allowHostPorts: false
+    allowHostPID: false
+    allowHostIPC: false
+    seLinuxContext:
+      type: MustRunAs
+    runAsUser:
+      type: RunAsAny
+    supplementalGroups:
+      type: RunAsAny
+    fsGroup:
+      type: RunAsAny
+    readOnlyRootFilesystem: false
+    users:
+    - system:serviceaccount:ci-monitoring:monitoring-operator
+    groups: []</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="installation-du-serveur-de-metrics-détat-kube">Installation du serveur de metrics d&#8217;état kube</h4>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/test/images/note.svg" alt="Note">
+</td>
+<td class="content">
+Installation basée sur l&#8217;opérateur pour l&#8217;installation de metrics kube-State. Ignorez cette section si vous effectuez une installation basée sur l&#8217;opérateur.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/test/images/note.svg" alt="Note">
+</td>
+<td class="content">
+Il est fortement recommandé d&#8217;utiliser les metrics kube-state version 2.0 ou ultérieure pour profiter de l&#8217;ensemble complet des fonctionnalités, y compris la capacité de lier des volumes persistants Kubernetes (PVS) aux périphériques de stockage back-end. Notez également que avec les metrics d&#8217;état kube version 2.0 et supérieure, les étiquettes d&#8217;objets Kubernetes ne sont pas exportées par défaut. Pour configurer les metrics kube-State-metrics pour exporter des étiquettes d&#8217;objets Kubernetes, vous devez spécifier une liste d&#8217;étiquettes de mesure « Autoriser ». Reportez-vous à l&#8217;option <em>--métrique-labels-allowlist</em> du <a href="https://github.com/kubernetes/kube-state-metrics/blob/master/docs/cli-arguments.md">"documentation sur les indicateurs d&#8217;état kube"</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Procédez comme suit pour installer le serveur de metrics d&#8217;état kube (requis si vous effectuez une installation par script) :</p>
+</div>
+<div class="olist arabic">
+<div class="title">Étapes</div>
+<ol class="arabic">
+<li>
+<p>Créez un dossier temporaire (par exemple, <em>/tmp/kube-State-yaml-files/</em>) et copiez les fichiers .yaml à partir de <a href="https://github.com/kubernetes/kube-state-metrics/tree/master/examples/standard" class="bare">https://github.com/kubernetes/kube-state-metrics/tree/master/examples/standard</a> dans ce dossier.</p>
+</li>
+<li>
+<p>Exécutez la commande suivante pour appliquer les fichiers .yaml nécessaires à l&#8217;installation des metrics d&#8217;état kube :</p>
+<div class="literalblock">
+<div class="content">
+<pre>kubectl apply -f /tmp/kube-state-yaml-files/</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="compteurs-indicateurs-détat-kube">Compteurs indicateurs d&#8217;état kube</h4>
+<div class="paragraph">
+<p>Utilisez les liens suivants pour accéder aux informations des compteurs de metrics d&#8217;état kube :</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="https://github.com/kubernetes/kube-state-metrics/blob/master/docs/configmap-metrics.md">"Metrics de ConfigMap"</a></p>
+</li>
+<li>
+<p><a href="https://github.com/kubernetes/kube-state-metrics/blob/master/docs/daemonset-metrics.md">"Indicateurs de démonstration"</a></p>
+</li>
+<li>
+<p><a href="https://github.com/kubernetes/kube-state-metrics/blob/master/docs/deployment-metrics.md">"Indicateurs de déploiement"</a></p>
+</li>
+<li>
+<p><a href="https://github.com/kubernetes/kube-state-metrics/blob/master/docs/ingress-metrics.md">"Mesures d&#8217;entrée"</a></p>
+</li>
+<li>
+<p><a href="https://github.com/kubernetes/kube-state-metrics/blob/master/docs/namespace-metrics.md">"Mesures de l&#8217;espace de noms"</a></p>
+</li>
+<li>
+<p><a href="https://github.com/kubernetes/kube-state-metrics/blob/master/docs/node-metrics.md">"Metrics de nœud"</a></p>
+</li>
+<li>
+<p><a href="https://github.com/kubernetes/kube-state-metrics/blob/master/docs/persistentvolume-metrics.md">"Métriques de volume persistant"</a></p>
+</li>
+<li>
+<p><a href="https://github.com/kubernetes/kube-state-metrics/blob/master/docs/persistentvolumeclaim-metrics.md">"Mesures de demande de volume persistant"</a></p>
+</li>
+<li>
+<p><a href="https://github.com/kubernetes/kube-state-metrics/blob/master/docs/pod-metrics.md">"Metrics de pod"</a></p>
+</li>
+<li>
+<p><a href="https://github.com/kubernetes/kube-state-metrics/blob/master/docs/replicaset-metrics.md">"Metrics de réplicaet"</a></p>
+</li>
+<li>
+<p><a href="https://github.com/kubernetes/kube-state-metrics/blob/master/docs/secret-metrics.md">"Mesures secrètes"</a></p>
+</li>
+<li>
+<p><a href="https://github.com/kubernetes/kube-state-metrics/blob/master/docs/service-metrics.md">"Metrics de services"</a></p>
+</li>
+<li>
+<p><a href="https://github.com/kubernetes/kube-state-metrics/blob/master/docs/statefulset-metrics.md">"Metrics StatefulSet"</a></p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="désinstallation-de-lagent-5">Désinstallation de l&#8217;agent</h4>
+<div class="paragraph">
+<p>Notez que ces commandes utilisent l&#8217;espace de noms par défaut « ci-monitoring ». Si vous avez défini votre propre espace de noms, remplacez-le dans ces commandes et tous les fichiers suivants.</p>
+</div>
+<div class="paragraph">
+<p>Pour désinstaller l&#8217;agent basé sur des scripts sur Kubernetes, procédez comme suit :</p>
+</div>
+<div class="paragraph">
+<p>Si l&#8217;espace de noms de surveillance est utilisé uniquement pour Telegraf :</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre> kubectl --namespace ci-monitoring delete ds,rs,cm,sa,clusterrole,clusterrolebinding -l app=ci-telegraf
+ kubectl delete ns ci-monitoring
+Si l'espace de noms de surveillance est utilisé à d'autres fins en plus de Telegraf :</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre> kubectl --namespace ci-monitoring delete ds,rs,cm,sa,clusterrole,clusterrolebinding -l app=ci-telegraf
+Pour une installation basée sur l'opérateur, exécutez les commandes suivantes :</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>kubectl delete ns netapp-monitoring
+kubectl delete agent agent-monitoring-netapp
+kubectl delete crd agents.monitoring.netapp.com
+kubectl delete role agent-leader-election-role
+kubectl delete clusterrole agent-manager-role agent-proxy-role agent-metrics-reader
+kubectl delete clusterrolebinding agent-manager-rolebinding agent-proxy-rolebinding agent-cluster-admin-rolebinding</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Si une contrainte de contexte de sécurité a été créée manuellement pour une installation Telegraf basée sur un script :</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>kubectl delete scc telegraf-hostaccess</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="mise-à-niveau-de-lagent-5">Mise à niveau de l&#8217;agent</h4>
+<div class="paragraph">
+<p>Notez que ces commandes utilisent l&#8217;espace de noms par défaut « ci-monitoring ». Si vous avez défini votre propre espace de noms, remplacez-le dans ces commandes et tous les fichiers suivants.</p>
+</div>
+<div class="paragraph">
+<p>Pour mettre à niveau l&#8217;agent telegraf, procédez comme suit :</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Sauvegarder les configurations existantes :</p>
+<div class="literalblock">
+<div class="content">
+<pre>kubectl --namespace ci-monitoring get cm -o yaml &gt; /tmp/telegraf-configs.yaml</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Désinstallez l&#8217;agent (voir ci-dessus pour obtenir des instructions).</p>
+</li>
+<li>
+<p><a href="#kubernetes">"Installez le nouvel agent"</a>.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="vérification-des-sommes-de-contrôle">Vérification des sommes de contrôle</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Le programme d&#8217;installation de l&#8217;agent Cloud Insights effectue des contrôles d&#8217;intégrité, mais certains utilisateurs peuvent effectuer leurs propres vérifications avant d&#8217;installer ou d&#8217;appliquer des artefacts téléchargés. Pour effectuer une opération de téléchargement uniquement (par opposition au téléchargement et à l&#8217;installation par défaut), ces utilisateurs peuvent modifier la commande d&#8217;installation de l&#8217;agent obtenue à partir de l&#8217;interface utilisateur et supprimer l&#8217;option "installation" de fin.</p>
+</div>
+<div class="paragraph">
+<p>Voici la procédure à suivre :</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Copiez l&#8217;extrait de code Agent installer comme indiqué.</p>
+</li>
+<li>
+<p>Au lieu de coller le fragment dans une fenêtre de commande, collez-le dans un éditeur de texte.</p>
+</li>
+<li>
+<p>Supprimez le "--install" (Linux/Mac) ou "-install" (Windows) de la commande.</p>
+</li>
+<li>
+<p>Copiez la commande entière à partir de l&#8217;éditeur de texte.</p>
+</li>
+<li>
+<p>Ensuite, collez-la dans votre fenêtre de commande (dans un répertoire de travail) et exécutez-la.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Non Windows (ces exemples sont pour Kubernetes ; les noms réels de scripts peuvent varier) :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Téléchargement et installation (par défaut) :</p>
+<div class="literalblock">
+<div class="content">
+<pre> installerName=cloudinsights-kubernetes.sh … &amp;&amp; sudo -E -H ./$installerName --download –-install
+* Téléchargement uniquement :</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>installerName=cloudinsights-kubernetes.sh … &amp;&amp; sudo -E -H ./$installerName --download</pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Windows :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Téléchargement et installation (par défaut) :</p>
+<div class="literalblock">
+<div class="content">
+<pre> !$($installerName=".\cloudinsights-windows.ps1") … -and $(&amp;$installerName -download -install)
+* Téléchargement uniquement :</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>!$($installerName=".\cloudinsights-windows.ps1") … -and $(&amp;$installerName -download)</pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>La commande de téléchargement uniquement télécharge tous les artefacts requis de Cloud Insights vers le répertoire de travail. Les artefacts incluent, mais ne se limitent pas aux éléments suivants :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>un script d&#8217;installation</p>
+</li>
+<li>
+<p>un fichier d&#8217;environnement</p>
+</li>
+<li>
+<p>Fichiers YAML</p>
+</li>
+<li>
+<p>un fichier de somme de contrôle signé (sha256.signé)</p>
+</li>
+<li>
+<p>Un fichier PEM (netapp_cert.pem) pour la vérification de la signature</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Le script d&#8217;installation, le fichier d&#8217;environnement et les fichiers YAML peuvent être vérifiés à l&#8217;aide d&#8217;une inspection visuelle.</p>
+</div>
+<div class="paragraph">
+<p>Le fichier PEM peut être vérifié en confirmant son empreinte digitale comme suit :</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre> E5:FB:7B:68:C0:8B:1C:A9:02:70:85:84:C2:74:F8:EF:C7:BE:8A:BC
+Plus spécifiquement,</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Non Windows :</p>
+<div class="literalblock">
+<div class="content">
+<pre> openssl x509 -fingerprint -sha1 -noout -inform pem -in netapp_cert.pem
+* Windows :</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Import-Certificate -Filepath .\netapp_cert.pem -CertStoreLocation Cert:\CurrentUser\Root</pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Le fichier de somme de contrôle signé peut être vérifié à l&#8217;aide du fichier PEM :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Non Windows :</p>
+<div class="literalblock">
+<div class="content">
+<pre> openssl smime -verify -in sha256.signed -CAfile netapp_cert.pem -purpose any
+* Windows (après avoir installé le certificat via Import-Certificate ci-dessus) :</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Get-AuthenticodeSignature -FilePath .\sha256.ps1 $result = Get-AuthenticodeSignature -FilePath .\sha256.ps1 $signer = $result.SignerCertificate Add-Type -Assembly System.Security [Security.Cryptography.x509Certificates.X509Certificate2UI]::DisplayCertificate($signer)</pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Une fois tous les artefacts vérifiés de manière satisfaisante, l&#8217;installation de l&#8217;agent peut être lancée en exécutant :</p>
+</div>
+<div class="paragraph">
+<p>Non Windows :</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre> sudo -E -H ./&lt;installation_script_name&gt; --install
+Windows :</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>.\cloudinsights-windows.ps1 -install</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="dépannage-de-linstallation-de-lagent">Dépannage de l&#8217;installation de l&#8217;agent</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Certaines choses à essayer si vous rencontrez des problèmes lors de la configuration d&#8217;un agent :</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Problème :</th>
+<th class="tableblock halign-left valign-top">Essayer :</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">J&#8217;ai déjà installé un agent à l&#8217;aide de Cloud Insights</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Si vous avez déjà installé un agent sur votre hôte/machine virtuelle, il n&#8217;est pas nécessaire d&#8217;installer l&#8217;agent à nouveau. Dans ce cas, il vous suffit de choisir la plate-forme et la clé appropriées dans l&#8217;écran installation de l&#8217;agent, puis de cliquer sur <strong>Continuer</strong> ou <strong>Terminer</strong>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">J&#8217;ai déjà un agent installé, mais pas à l&#8217;aide du programme d&#8217;installation de Cloud Insights</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Supprimez l&#8217;agent précédent et exécutez l&#8217;installation de l&#8217;agent Cloud Insights pour vous assurer que les paramètres par défaut du fichier de configuration sont corrects. Lorsque vous avez terminé, cliquez sur <strong>Continuer</strong> ou <strong>Terminer</strong>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Je ne vois pas de lien hypertexte/connexion entre mon volume persistant Kubernetes et le périphérique de stockage back-end correspondant. Mon volume persistant Kubernetes est configuré en utilisant le nom d&#8217;hôte du serveur de stockage.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Procédez comme suit pour désinstaller l&#8217;agent Telegraf existant, puis réinstaller l&#8217;agent Telegraf le plus récent. Vous devez utiliser Telegraf version 2.0 ou ultérieure.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Je vois des messages dans les journaux qui ressemblent aux messages suivants : E0901 15:21:39.962145 1 réflecteur.Go:178] k8s.io/kube-State-metrics/interne/magasin/constructeur.Go:352 : échec de la liste *v1.MutatingWebhookConfiguration : le serveur n&#8217;a pas pu trouver la ressource demandée E0901 15 178:21.43.168161.0.352.0.0.0.0.1.0.0.0.1.0.0.0.0.0.0.1.0.0.1.0.0.1.0.1.0.0.1.1.0.0.0.1.0.0.1.0.0.0.0.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ces messages peuvent se produire si vous exécutez des metrics d&#8217;état kube version 2.0.0 ou ultérieure avec Kubernetes version 1.17 ou ultérieure. Pour obtenir la version Kubernetes : <em>kubectl version</em> pour obtenir la version kube-state-metrics : <em>kubectl get deployment/kube-state-metrics -o jsonpath='{..image}'</em> pour éviter que ces messages se produisent, les utilisateurs peuvent modifier leur déploiement de metrics kube-state-metrics pour désactiver les baux suivants : <em>hookingwebconfigurations</em>. Ressources=certificats,demandes persistantes,configmaps,cronjobs,demonets, déploiements,noeuds finaux,horizontalepodpodscalers,ingresources,details,resuts,undats,depositionsstatees,depositigmats,defiees,resottes,depositionssecuts,defiees,dees,depositionunedats,delimantees,delimantees,deficedats,dees,delimantees,delimantees,delimantees,deficedats,delimantees,deficedats,delimantees,deficedats,deficedats,dees,delimantees,delimantees,dees,delimantees,deficedats,dees,delimantees,delimantees,delimantees,delimantees,de vaillewebconfiguration,v'</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">J&#8217;ai installé ou mis à niveau Telegraf sur Kubernetes, mais les modules Telegraf ne démarrent pas. Telegraf ReplicaSet ou DemonSet signale un échec semblable à ce qui suit : erreur de création : pods « telegraf-RS- » interdits » : Impossible de valider une contrainte de contexte de sécurité : [spec.volumes[2] : valeur non valide : « hostPath » : les volumes hostPath ne sont pas autorisés à être utilisés]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Créer une contrainte de contexte de sécurité (reportez-vous à la section Configuration de l&#8217;agent pour collecter des données à partir de Kubernetes ci-dessus) si elle n&#8217;existe pas déjà. Assurez-vous que l&#8217;espace de noms et le compte de service spécifiés pour la contrainte de contexte de sécurité correspondent à l&#8217;espace de noms et au compte de service de Telegraf ReplicaSet et DemonSet. Kubectl décrire scc telegraf-hostaccess</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">grep serviceaccount kubectl -n ci-monitoring --décrire RS telegraf-RS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">grep -i "namespace:" kubectl -n surveillance ci décrire RS telegraf-RS</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">grep -i "compte de service:" kubectl -n ci-monitoring -i-i-s</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">telegraf-i -i -i</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Je vois des messages d&#8217;erreur de Telegraf ressemblant aux messages suivants, mais Telegraf démarre et s&#8217;exécute : oct 11 14:23:41 ip-172-31-39-47 systemd[1] : lancé l&#8217;agent serveur piloté par des plug-ins pour signaler des mesures dans InfluxDB. Oct 11 14:23:41 ip-172-31-39-47 telegraf[1827] : heure="2021-10-11T14:23:41Z" level=erreur msg="Impossible de créer le répertoire de cache. /etc/telegraf/.cache/flocon de neige, err: mkdir /etc/telegraf/.ca che: permission refusée. Ignoré\n » func="powflocon.(*defaultLogger).Errorf" file="log.Go:120" oct 11 14:23:41 ip-172-31-39-47 telegraf[1827]: Time="2021-10-11T14:23:41Z" level=error msg="failed to open. Ignoré. Ouvrez /etc/telegraf/.cache/flocon de neige/ocsp_Response_cache.json : aucun fichier ou répertoire\n » func=« gosflocon.(*defaultLogger).Errorf » fichier=« log.Go:120 » oct 11 14:23:41 ip-172-31-39-47 telegraf[1827 23] : 2021-10 T1141114:! Démarrage de Telegraf 1.19.3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Il s&#8217;agit d&#8217;un problème connu. Reportez-vous à la section <a href="https://github.com/influxdata/telegraf/issues/9407">"Article GitHub"</a> pour en savoir plus. Tant que Telegraf est opérationnel, les utilisateurs peuvent ignorer ces messages d&#8217;erreur.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Sur Kubernetes, mes coffee pad(s) Telegraf ont signalé l&#8217;erreur suivante : "erreur lors du traitement des informations de mountstats : échec de l&#8217;ouverture du fichier mountstats: /Hostfs/proc/1/mountstats, erreur: Ouvrir /hostfs/proc/1/mountstats: Permission refusée"</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Si SELinux est activé et applique, il est probable que le ou les pod(s) Telegraf n&#8217;accèdent pas au fichier /proc/1/mountstats sur les nœuds Kubernetes. Pour détendre cette restriction, effectuez l&#8217;UNE des opérations suivantes : • pour les installations basées sur des scripts, modifiez le telegraf DS (<code>kubectl edit ds telegraf-ds</code>), et remplacer "Privileged: FALSE" par "Privileged: True" • pour une installation basée sur l&#8217;opérateur, modifier l&#8217;agent (<code>kubectl edit agent agent-monitoring-netapp</code>), et remplacer "privileged-mode: false" par "privileged-mode: true"</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Pour plus d&#8217;informations, consultez le <a href="concept_requesting_support.html">"Assistance"</a> ou dans le <a href="https://docs.netapp.com/us-en/cloudinsights/CloudInsightsDataCollectorSupportMatrix.pdf">"Matrice de prise en charge du Data Collector"</a>.</p>
+</div>
+</div>
+</div>
+
+    </article>
+    <!-- Page Container -->
+  </div>
+
+  <div style="clear: both"></div><!-- Main needs to have height --></div>
+
+        </main>
+
+        <footer class="n-footer">
+  <div class="n-footer__bottom">
+    <div class="n-container">
+      <div class="n-footer__bottom-left">
+        <div class="n-footer__copyright">
+          <ul class="n-footer__copyright-list">
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/us/legal/copyright.aspx">© 2022 NetApp, Inc.</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/terms-of-use/">Conditions générales</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/privacy-policy/">Privacy Policy</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/cookie-policy/">Cookie Policy</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a class="ot-sdk-show-settings">Paramètres de cookies</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="n-footer__bottom-right">
+        <div class="n-footer__copyright">
+          <ul class="n-footer__copyright-list">
+            <li class="n-footer__copyright-link">
+              <a target="_self" href="javascript:netapp_mailto()">Envoyer un avis à propos de cette page</a>
+            </li>
+          </ul>
+        </div>
+        <div class="n-footer__social-links">
+          <ul class="n-footer__social-link-list">
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-blog" href="https://blog.netapp.com"
+                target="_blank" title="blog" alt="blog">
+                <span class="n-footer__social-link-text">blog</span>
+                <svg class="n-icon-blog n-footer__social-link-icon" aria-labelledby="title">
+                  <title>blog@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/fr-fr/test/common/svg/sprite.svg#blog"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-community" href="https://community.netapp.com/"
+                target="_blank" title="community" alt="community">
+                <span class="n-footer__social-link-text">community</span>
+                <svg class="n-icon-community n-footer__social-link-icon" aria-labelledby="title">
+                  <title>community@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/fr-fr/test/common/svg/sprite.svg#comments"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-twitter" href="https://twitter.com/netapp"
+                target="_blank" title="twitter" alt="twitter">
+                <span class="n-footer__social-link-text">twitter</span>
+                <svg class="n-icon-twitter n-footer__social-link-icon" aria-labelledby="title">
+                  <title>twitter@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/fr-fr/test/common/svg/sprite.svg#twitter"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-facebook" href="https://www.facebook.com/NetApp"
+                target="_blank" title="facebook" alt="facebook">
+                <span class="n-footer__social-link-text">facebook</span>
+                <svg class="n-icon-facebook n-footer__social-link-icon" aria-labelledby="title">
+                  <title>facebook@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/fr-fr/test/common/svg/sprite.svg#facebook"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-linkedin"
+                href="https://www.linkedin.com/company/netapp" target="_blank" title="linkedin" alt="linkedin">
+                <span class="n-footer__social-link-text">linkedin</span>
+                <svg class="n-icon-linkedin n-footer__social-link-icon" aria-labelledby="title">
+                  <title>linkedin@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/fr-fr/test/common/svg/sprite.svg#linkedin"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-youtube"
+                href="https://www.youtube.com/user/NetAppTV" target="_blank" title="youtube" alt="youtube">
+                <span class="n-footer__social-link-text">youtube</span>
+                <svg class="n-icon-youtube n-footer__social-link-icon" aria-labelledby="title">
+                  <title>youtube@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/fr-fr/test/common/svg/sprite.svg#youtube"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-slideshare"
+                href="https://www.slideshare.net/NetApp" target="_blank" title="slideshare" alt="slideshare">
+                <span class="n-footer__social-link-text">slideshare</span>
+                <svg class="n-icon-slideshare n-footer__social-link-icon" aria-labelledby="title">
+                  <title>slideshare@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/fr-fr/test/common/svg/sprite.svg#slideshare"></use>
+                </svg>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+      </div><!-- Elasticsearch JS -->
+      <script type="text/javascript" src='/fr-fr/test/js/bundle.js'></script>
+
+      <!-- Syntax Highlighting -->
+      <script type="text/javascript" src='/fr-fr/test/js/prism.js'></script>
+      <script type="text/javascript" src='/fr-fr/test/js/prism-curl.js'></script>
+    </div>
+    <script>
+      document.body.offsetWidth=1903;
+      cookieLaw = {}
+      cookieLaw.euCountry = "US";
+      cookieLaw.invoke = function(){return false;}
+    </script>
+    <script src='/fr-fr/test/js/www-ntap.js'></script>
+    <script src='/fr-fr/test/js/tabbed-blocks.js'></script>
+    <script src='/fr-fr/test/js/sidebar.js'></script>
+  </body></html>
