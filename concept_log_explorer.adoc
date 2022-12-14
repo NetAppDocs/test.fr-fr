@@ -1,0 +1,112 @@
+---
+sidebar: sidebar 
+permalink: concept_log_explorer.html 
+keywords: logs, monitors, alerts, 
+summary: 'L"explorateur de journaux est un outil puissant pour l"étude des problèmes.' 
+---
+= Explorateur de journaux
+:allow-uri-read: 
+
+
+[role="lead"]
+L'explorateur de journaux Cloud Insights est un puissant outil pour interroger les journaux EMS et Kubernetes. En plus de vous aider dans les enquêtes, vous pouvez également enregistrer une requête de journal dans un moniteur afin de fournir des alertes lorsque des déclencheurs de journal sont activés.
+
+Pour commencer l'exploration des journaux, cliquez sur *requêtes > +New Log Query*.
+
+image:LogExplorerMenu.png["Menu requêtes de journal"]
+
+Sélectionnez un journal disponible dans la liste. Cette liste peut varier en fonction de la configuration de votre environnement Cloud Insights.
+
+image:LogExplorer_ChooseLog.png["Choisissez votre journal"]
+
+
+NOTE: Un ensemble de journaux sélectionnés est accessible pour l'aperçu ; des journaux supplémentaires seront disponibles au fil du temps.
+
+Vous pouvez définir des filtres pour affiner davantage les résultats de la requête. Par exemple, pour rechercher tous les messages de journal affichant une défaillance, définissez un filtre pour _messages_ contenant le mot "échec".
+
+
+TIP: Vous pouvez commencer à saisir le texte souhaité dans le champ de filtre. Cloud Insights vous invite à créer une recherche avec caractère générique contenant la chaîne à mesure que vous saisissez.
+
+Les résultats s'affichent dans un graphique indiquant le nombre d'instances de journal pour chaque période affichée. Sous le graphique se trouvent les entrées du journal temindividus. Le graphique et les entrées se réactualisent automatiquement en fonction de la plage horaire sélectionnée.
+
+image:LogExplorer_QueryForFailed.png["Exemple de requête montrant le filtre"]
+
+
+
+==== Le graphe du journal
+
+Le graphique indique le nombre d'entrées de journal, regroupées en _seaux_, qui sont basées sur la plage de temps du tableau de bord sélectionnée. Les godets pour chaque plage horaire sont les suivants :
+
+|===
+
+
+| Plage de temps du tableau de bord | Taille du godet 
+
+
+| Dernières 15 minutes | 10 secondes 
+
+
+| Dernières 30 minutes | 15 secondes 
+
+
+| Dernières 60 minutes | 30 secondes 
+
+
+| Dernières 2 heures | 1 minute 
+
+
+| Dernières 3 heures | 5 minutes 
+
+
+| Dernières 6 heures | 5 minutes 
+
+
+| Dernières 12 heures | 10 minutes 
+
+
+| Dernières 24 heures | 15 minutes 
+
+
+| 2 derniers jours | 30 minutes 
+
+
+| 3 derniers jours | 45 minutes 
+
+
+| 7 derniers jours | 2 heures 
+
+
+| 30 derniers jours | 1 jour 
+|===
+Pour effectuer un zoom sur le graphique, faites simplement glisser les curseurs de chaque côté. Pour faire un panoramique sur la zone agrandie, cliquez sur la zone blanche et déplacez-la vers la gauche ou vers la droite. Cliquez sur _Reset Zoom_ pour réinitialiser le niveau de zoom.
+
+image:LogExplorer_Zoom_2.png["Effectuez un zoom avant en faisant glisser les côtés du graphique"]
+
+Notez que lors d'un zoom sur le graphique ou du défilement de la table, l'actualisation automatique du tableau de bord s'interrompt et la plage horaire affiche le temps figé. Pour reprendre l'actualisation, cliquez sur le bouton _reprendre_ image:ResumeButton.png[""]. Le niveau de zoom sera également réinitialisé.
+
+A tout moment, vous pouvez cliquer sur _Créer un moniteur de journal_ pour créer un nouveau moniteur basé sur le filtre actuel.
+
+
+
+==== Détails du journal
+
+Si vous cliquez n'importe où dans une entrée de journal de la liste, un volet de détails s'ouvre pour cette entrée. Ici, vous pouvez explorer d'autres informations sur cet événement.
+
+Cliquez sur « Ajouter un filtre » pour ajouter le champ sélectionné au filtre actuel. La liste des entrées de journal sera mise à jour en fonction du nouveau filtre.
+
+image:LogExplorer_DetailPane.png["Volet détail de l'entrée de journal"]
+
+
+
+== Dépannage
+
+Vous trouverez ici des suggestions de dépannage des problèmes liés aux requêtes de journal.
+
+|===
+
+
+| *Problème:* | *Essayez ceci:* 
+
+
+| Je ne vois pas les messages "debug" dans ma requête de journal | La messagerie du journal de débogage n'est pas collectée. Pour capturer les messages que vous souhaitez, définissez la gravité du message en question sur _informationnel, erreur, alerte, urgence,_ ou _avis_. 
+|===

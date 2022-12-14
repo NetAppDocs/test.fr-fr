@@ -1,0 +1,52 @@
+---
+sidebar: sidebar 
+permalink: task_config_telegraf_mysql.html 
+keywords: telegraf, installation, install, mysql 
+summary: Configuration du collecteur de données MySQL 
+---
+= Collecteur de données MySQL
+:allow-uri-read: 
+
+
+[role="lead"]
+Cloud Insights utilise ce collecteur de données pour collecter des données provenant de MySQL.
+
+
+
+== Installation
+
+. Dans *Admin > Data Collectors*, cliquez sur *+Data Collector*. Sous *Services*, choisissez MySQL.
++
+Sélectionnez le système d'exploitation ou la plate-forme sur laquelle l'agent Telegraf est installé.
+
+. Si vous n'avez pas déjà installé un agent pour la collecte ou si vous souhaitez installer un agent pour un autre système d'exploitation ou plate-forme, cliquez sur _Afficher les instructions_ pour développer le link:task_config_telegraf_agent.html["Installation de l'agent"] instructions.
+. Sélectionnez la clé d'accès de l'agent à utiliser avec ce collecteur de données. Vous pouvez ajouter une nouvelle clé d'accès à l'agent en cliquant sur le bouton * + clé d'accès à l'agent*. Meilleure pratique : utilisez une clé d'accès d'agent différente uniquement lorsque vous souhaitez regrouper des collecteurs de données, par exemple, par OS/plate-forme.
+. Suivez les étapes de configuration pour configurer le collecteur de données. Les instructions varient en fonction du type de système d'exploitation ou de plate-forme utilisé pour collecter des données.
+
+
+image:MySQLDCConfigWindows.png["Configuration MySQL"]
+
+
+
+== Configuration
+
+Vous trouverez des informations dans le link:https://dev.mysql.com/doc/["Documentation MySQL"].
+
+
+
+== Objets et compteurs
+
+Les objets suivants et leurs compteurs sont collectés :
+
+[cols="<.<,<.<,<.<,<.<"]
+|===
+| Objet : | Identifiants : | Attributs : | Points de données : 
+
+
+| MySQL | Espace de noms serveur MySQL | Nom du nœud IP du nœud | Clients abandonnés (par seconde) connexions abandonnées (par seconde) RX Bytes (par seconde) TX Bytes (par seconde) commandes Admin (par seconde) Commandes ALTER Event commandes ALTER fonction commandes ALTER instance commandes ALTER procédure commandes ALTER Server commandes ALTER Table commandes ALTER Tablespace commandes ALTER User commandes Analyze commandes Assign to Keycache commandes Begin log procédure commandes change DB commandes change DB commandes change Master change Repl Filter commandes Check commandes Commandes de la somme de contrôle commandes d'archivage commandes de création de bases de données commandes de création d'événements commandes de création d'index commandes de procédure création de commandes de création de tableaux commandes de déclenchement création de commandes UDF création de commandes d'affichage commandes de DEALLOC erreurs de connexion SQL acceptent les tables de disques tmp erreurs retardées commandes de rinçage Gestionnaire de validation InnoDB tampon octets de pool de données blocs de clés non vidés clés demandes de lecture clés demandes d'écriture clé durée d'exécution max. Dépassée connexions ouvertes fichiers exécution comptes de schéma de performance perdu préparé stmt nombre Qcache requêtes de blocs libres Sélectionner une plage complète Vérification de la plage de sélection Sélectionnez verrouillage immédiat de la table d'examen 
+|===
+
+
+== Dépannage
+
+Pour plus d'informations, consultez le link:concept_requesting_support.html["Assistance"] page.

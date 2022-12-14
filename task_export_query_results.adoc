@@ -1,0 +1,50 @@
+---
+sidebar: sidebar 
+permalink: task_export_query_results.html 
+summary: 'Comment exporter les résultats d"une requête dans un fichier .csv' 
+keywords: query, queries, export, csv 
+---
+= Exportation des résultats de la requête dans un fichier .CSV
+:allow-uri-read: 
+
+
+[role="lead"]
+Vous pouvez exporter les résultats de n'importe quelle requête dans un fichier .CSV, qui vous permettra d'analyser les données ou de les importer dans une autre application.
+
+.Étapes
+. Connectez-vous à votre locataire Cloud Insights.
+. Cliquez sur *requêtes* et sélectionnez *Afficher toutes les requêtes*.
++
+La page requêtes s'affiche.
+
+. Cliquez sur une requête.
+. Cliquez sur image:ExportButton.png["Bouton Exporter"] Pour exporter les résultats de la requête dans un fichier .CSV.
+. Lorsque vous y êtes invité, effectuez l'une des opérations suivantes :
++
+.. Cliquez sur *Ouvrir avec*, puis sur *OK* pour ouvrir le fichier avec Microsoft Excel et enregistrer le fichier à un emplacement spécifique.
+.. Cliquez sur *Enregistrer le fichier*, puis sur *OK* pour enregistrer le fichier dans votre dossier Téléchargements.
+
+
+
+
+Tous les attributs des objets dans les colonnes sélectionnées pour l'affichage sont exportés vers le fichier, que ces attributs soient affichés ou non.
+
+Lors de l'exportation des résultats de la requête, sachez que toutes les lignes du tableau des résultats seront exportées, pas seulement celles sélectionnées ou affichées à l'écran, jusqu'à un maximum de 10,000 lignes.
+
+Remarque : lorsqu'une virgule apparaît dans le nom d'un bien, l'exportation enferme le nom dans les guillemets, en préservant le nom du bien et le format .csv approprié.
+
+Lors de l'ouverture d'un fichier .CSV exporté avec Excel, si vous avez un nom d'objet ou un autre champ au format NN:NN (deux chiffres suivis d'un deux-points suivi de deux autres chiffres), Excel interprète parfois ce nom comme un format d'heure, au lieu du format texte. Cela peut entraîner l'affichage dans Excel de valeurs incorrectes dans ces colonnes. Par exemple, un objet nommé "81:45" s'affichera dans Excel comme "81:45:00".
+
+Pour contourner ce problème, importez le fichier .CSV dans Excel en procédant comme suit :
+
+. Ouvrez une nouvelle feuille dans Excel.
+. Dans l'onglet « données », choisissez « à partir du texte ».
+. Localisez le fichier .CSV souhaité et cliquez sur Importer.
+. Dans l'assistant d'importation, choisissez "délimité" et cliquez sur Suivant.
+. Choisissez « virgule » pour le délimiteur et cliquez sur Suivant.
+. Sélectionnez les colonnes souhaitées et choisissez "texte" pour le format de données de la colonne.
+. Cliquez sur Terminer.
++
+Vos objets doivent s'afficher dans Excel au format approprié.
+
+

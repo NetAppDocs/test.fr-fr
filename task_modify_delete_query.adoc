@@ -1,0 +1,43 @@
+---
+sidebar: sidebar 
+permalink: task_modify_delete_query.html 
+summary: 'Modification ou suppression d"une requête' 
+keywords: query, queries, modify, edit, delete, remove 
+---
+= Modification ou suppression d'une requête
+:allow-uri-read: 
+
+
+
+
+== Modification d'une requête
+
+Vous pouvez modifier les critères qui sont associés à une requête lorsque vous voulez modifier les critères de recherche des ressources que vous interrogez.
+
+.Étapes
+. Cliquez sur *requêtes* et sélectionnez *Afficher toutes les requêtes*.
++
+La page requêtes s'affiche.
+
+. Cliquez sur le nom de la requête
+. Pour ajouter un critère à la requête, cliquez sur image:GearIcon.png["Colonnes"] et sélectionnez un critère dans la liste.
+. Pour supprimer un filtre de la requête, cliquez sur *X* en regard du filtre à supprimer.
+
+
+Lorsque vous avez effectué toutes les modifications nécessaires, effectuez l'une des opérations suivantes :
+
+* Cliquez sur le bouton *Enregistrer* pour enregistrer la requête avec le nom utilisé initialement.
+* Cliquez sur la liste déroulante en regard du bouton *Enregistrer* et sélectionnez *Enregistrer sous* pour enregistrer la requête sous un autre nom. Cette opération n'écrase pas la requête d'origine.
+* Cliquez sur la liste déroulante en regard du bouton *Enregistrer* et sélectionnez *Renommer* pour modifier le nom de la requête que vous avez utilisée initialement. Ceci écrase la requête d'origine.
+* Cliquez sur la liste déroulante en regard du bouton *Enregistrer* et sélectionnez *Ignorer les modifications* pour rétablir la requête aux dernières modifications enregistrées.
+
+
+
+
+== Suppression d'une requête
+
+Pour supprimer une requête, cliquez sur *requêtes* et sélectionnez *Afficher toutes les requêtes*, puis effectuez l'une des opérations suivantes :
+
+. Cliquez sur le menu "trois points" à droite de la requête et cliquez sur *Supprimer*.
+. Cliquez sur le nom de la requête et sélectionnez *Supprimer* dans le menu déroulant *Enregistrer*.
+

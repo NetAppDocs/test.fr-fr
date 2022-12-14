@@ -1,0 +1,150 @@
+---
+sidebar: sidebar 
+permalink: forensic_activity_history.html 
+keywords: Forensic, activity history, activity data, history 
+summary: 'données d"historique des activités médico-légales' 
+---
+= Analyse - toute l'activité
+:allow-uri-read: 
+
+
+[role="lead"]
+La page toutes les activités vous aide à comprendre les actions effectuées sur les entités de l'environnement Cloud Secure.
+
+
+
+== Examen de toutes les données d'activité
+
+Cliquez sur *Forensics > activité Forensics* et cliquez sur l'onglet *toutes les activités* pour accéder à la page toutes les activités. Cette page présente les activités de votre environnement et présente les informations suivantes :
+
+* Graphique indiquant _Historique des activités_ (accessible par minute/par 5 minutes/10 minutes en fonction de la plage horaire globale sélectionnée)
++
+Vous pouvez zoomer sur le graphique en faisant glisser un rectangle dans le graphique. La page entière sera chargée pour afficher la plage de temps agrandie. Lorsque vous effectuez un zoom avant, un bouton s'affiche pour permettre à l'utilisateur d'effectuer un zoom arrière.
+
+* Un graphique de _types d'activités_. Pour obtenir les données de l'historique d'activité par type d'activité, cliquez sur le lien du libellé de l'axe X correspondant.
+* Un graphique d'activité sur _types d'entité_. Pour obtenir les données de l'historique d'activité par type d'entité, cliquez sur le lien du libellé de l'axe X correspondant.
+* Une liste des données _All Activity_
+
+
+Le tableau _*toutes les activités*_ indique les informations suivantes. Notez que toutes ces colonnes ne sont pas affichées par défaut. Vous pouvez sélectionner les colonnes à afficher en cliquant sur l'icône « vitesse » image:GearIcon.png["icône de vitesse"].
+
+* Le *temps* où une entité a été consultée, y compris l'année, le mois, le jour et l'heure du dernier accès.
+* Le *utilisateur* qui a accédé à l'entité avec un lien vers le link:forensic_user_overview.html["Informations utilisateur"].
+
+
+* L'activité * réalisée par l'utilisateur. Les types pris en charge sont les suivants :
++
+** *Changer la propriété du groupe* - la propriété du groupe est de fichier ou de dossier est modifiée. Pour plus de détails sur la propriété du groupe, reportez-vous à la section link:https://docs.microsoft.com/en-us/previous-versions/orphan-topics/ws.11/dn789205(v=ws.11)?redirectedfrom=MSDN["ce lien."]
+** *Changer propriétaire* - la propriété du fichier ou du dossier est remplacée par un autre utilisateur.
+** *Modifier l'autorisation* - l'autorisation de fichier ou de dossier est modifiée.
+** *Créer* - Créer un fichier ou un dossier.
+** *Supprimer* - Supprimer le fichier ou le dossier. Si un dossier est supprimé, _delete_ events sont obtenus pour tous les fichiers de ce dossier et de ces sous-dossiers.
+** *Lire* - le fichier est lu.
+** *Read Metadata* - uniquement sur l'activation de l'option de surveillance de dossier. Sera généré lors de l'ouverture d'un dossier sous Windows ou de l'exécution de "ls" dans un dossier sous Linux.
+** *Renommer* - Renommer le fichier ou le dossier.
+** *Ecrire* - les données sont écrites dans un fichier.
+** *Write Metadata* - les métadonnées de fichier sont écrites, par exemple, les autorisations modifiées.
+** *Autre changement* - tout autre événement qui n'est pas décrit ci-dessus. Tous les événements non mappés sont mappés au type d'activité “autre changement”. Applicable aux fichiers et dossiers.
+
+
+* Le *chemin* vers l'entité avec un lien vers le link:forensic_entity_detail.html["Données de détail d'entité"]
+* Le *Type d'entité*, y compris l'extension d'entité (c.-à-d. fichier) (.doc, .docx, .tmp, etc.)
+* Le *périphérique* où résident les entités
+* Le *Protocole* utilisé pour récupérer des événements.
+* Le *chemin d'origine* utilisé pour renommer les événements lorsque le fichier d'origine a été renommé. Par défaut, cette colonne n'est pas visible dans le tableau. Utilisez le sélecteur de colonne pour ajouter cette colonne à la table.
+* Le *Volume* où résident les entités. Par défaut, cette colonne n'est pas visible dans le tableau. Utilisez le sélecteur de colonne pour ajouter cette colonne à la table.
+
+
+
+
+== Filtrage des données d'historique d'activité Forensic
+
+Vous pouvez utiliser deux méthodes pour filtrer les données.
+
+. Placez le pointeur de la souris sur le champ du tableau et cliquez sur l'icône de filtre qui s'affiche. La valeur est ajoutée aux filtres appropriés dans la liste _Filter by_ supérieure.
+. Filtrez les données en entrant dans le champ _Filter by_ :
++
+Sélectionnez le filtre approprié dans le widget filtre par en haut en cliquant sur le bouton *[+]* :
+
++
+image:Forensic_Activity_Filter.png["Filer entité, largeur=500"]
+
++
+Entrez le texte de recherche
+
++
+Appuyez sur entrée ou cliquez en dehors de la zone de filtre pour appliquer le filtre.
+
+
+
+Vous pouvez filtrer les données d'activité Forensic en utilisant les champs suivants :
+
+* Le type *activité*.
+
+
+* *Source IP* à partir de laquelle l'entité a été accédée. Vous devez fournir une adresse IP source valide en guillemets doubles, par exemple “10.1.1.1.” Les adresses IP incomplètes telles que “10.1.1.*”, “10.1.*.*”, etc. Ne fonctionneront pas.
+* *Protocole* pour extraire des activités spécifiques au protocole.
+
+
+* *Nom d'utilisateur* de l'utilisateur effectuant l'activité. Vous devez fournir le nom d'utilisateur exact pour filtrer. La recherche avec un nom d'utilisateur partiel ou un nom d'utilisateur partiel préfixé ou suffixé par '*' ne fonctionnera pas.
+* *Réduction du bruit* pour filtrer les fichiers nouvellement créés par l'utilisateur (c.-à-d. au cours des 2 dernières heures). Il est également utilisé pour filtrer les fichiers temporaires (par exemple, les fichiers .tmp) auxquels l'utilisateur a accès.
+
+
+Les champs suivants sont soumis à des règles de filtrage spéciales :
+
+* *Type d'entité*, utilisant l'extension d'entité (fichier)
+* *Chemin* de l'entité
+* *Utilisateur* exécutant l'activité
+* *Périphérique* (SVM) où résident les entités
+* *Volume* où résident les entités
+* Le *chemin d'origine* utilisé pour renommer les événements lorsque le fichier d'origine a été renommé.
+
+
+Les champs précédents sont soumis aux éléments suivants lors du filtrage :
+
+* La valeur exacte doit se trouver dans les guillemets : exemple : « searchtext »
+* Les chaînes de caractères génériques ne doivent pas contenir de guillemets : par exemple : searchtext, \*searchtext*, filtrera les chaînes contenant ‘contour d’oreille’.
+* Chaîne avec un préfixe, par exemple : searchtext* , recherchera toutes les chaînes commençant par ‘contour d’oreille’.
+
+
+
+
+== Tri des données d'historique d'activité Forensic
+
+Vous pouvez trier les données de l'historique d'activité par _Time, User, Source IP, Activity, Path_ et _Entity Type_. Par défaut, la table est triée par ordre décroissant _time_, ce qui signifie que les dernières données seront affichées en premier. Le tri est désactivé pour les champs _Device_ et _Protocol_.
+
+
+
+== Exportation de toute l'activité
+
+Vous pouvez exporter l'historique des activités dans un fichier .CSV en cliquant sur le bouton _Export_ au-dessus de la table Historique des activités. Notez que seuls les 10,000 principaux enregistrements sont exportés.
+
+
+
+== Sélection de colonne pour toutes les activités
+
+Le tableau _all Activity_ affiche les colonnes sélectionnées par défaut. Pour ajouter, supprimer ou modifier les colonnes, cliquez sur l'icône engrenage située à droite du tableau et sélectionnez-la dans la liste des colonnes disponibles.
+
+image:CloudSecure_ActivitySelection.png["Sélecteur d'activité, largeur=30 %"]
+
+
+
+== Conservation de l'historique des activités
+
+L'historique des activités est conservé pendant 13 mois pour les environnements Cloud Secure actifs.
+
+
+
+== Dépannage
+
+|===
+
+
+| Problème | Essayez 
+
+
+| Dans la table “toutes les activités”, sous la colonne ‘utilisateur’, le nom d’utilisateur est indiqué comme suit : “ldap:HQ.COMPANYNAME.COM:S-1-5-21-3577637-1906459482-1437260136-1831817” ou “ldap:Default:80038003” | Raisons possibles : 1. Aucun collectionneur de répertoires d'utilisateurs n'a encore été configuré. Pour en ajouter un, accédez à *Admin > Data Collectors > collecteurs de répertoires d'utilisateurs* et cliquez sur *+collecteur de répertoires d'utilisateurs*. Choisissez _Active Directory_ ou _LDAP Directory Server_. 2. Un collecteur d'annuaire d'utilisateurs a été configuré, mais il s'est arrêté ou est à l'état d'erreur. Accédez à *Admin > Data Collectors > User Directory Collectors* et vérifiez l'état. Reportez-vous à la link:http://docs.netapp.com/us-en/cloudinsights/task_config_user_dir_connect.html#troubleshooting-user-directory-collector-configuration-errors["Dépannage de l'utilisateur Directory Collector"] section de la documentation pour des conseils de dépannage. Après la configuration correcte, le nom sera automatiquement résolu dans les 24 heures. Si elle n'est toujours pas résolue, vérifiez si vous avez ajouté le collecteur de données utilisateur approprié. Assurez-vous que l'utilisateur fait bien partie du serveur Active Directory/LDAP d'annuaire ajouté. 
+
+
+| Certains événements NFS n'apparaissent pas dans l'interface utilisateur. | Vérifier ce qui suit : 1. Un collecteur d'annuaire utilisateur pour serveur AD avec un jeu d'attributs POSIX doit être exécuté avec l'attribut unixid activé à partir de l'interface utilisateur. 2. Tout utilisateur effectuant un accès NFS doit s'afficher lorsqu'il recherche dans la page utilisateur à partir de l'interface utilisateur 3. Les événements bruts (événements pour lesquels l'utilisateur n'est pas encore découvert) ne sont pas pris en charge par NFS 4. L'accès anonyme à l'exportation NFS ne sera pas surveillé. 5. S'assurer que la version NFS est utilisée dans un niveau inférieur à NFS4.1. 
+|===

@@ -1,0 +1,69 @@
+---
+sidebar: sidebar 
+permalink: concept_feature_tutorials.html 
+summary: Cloud Insights dispose de didacticiels pour vous montrer comment effectuer de nombreuses tâches. 
+keywords: onboarding, getting started, video, tutorial, resolution, dashboard, query, troubleshooting 
+---
+= Tutoriels de fonctionnalités
+:allow-uri-read: 
+
+
+[role="lead"]
+Cloud Insights est doté de fonctionnalités utiles qui vous permettent de trouver rapidement et facilement des données, de résoudre des problèmes et d'obtenir des informations sur l'environnement de votre entreprise. Trouvez facilement des données grâce à des requêtes puissantes, visualisez des données dans des tableaux de bord et envoyez des alertes par e-mail pour les seuils de données que vous définissez.
+
+Cloud Insights comprend un certain nombre de didacticiels vidéo qui vous aideront à comprendre ces fonctionnalités et à mieux mettre en œuvre vos stratégies d'analyse de l'entreprise. Tous les utilisateurs qui accèdent à votre environnement Cloud Insights peuvent bénéficier de ces didacticiels.
+
+
+
+== Introduction
+
+Regardez un bref tutoriel expliquant comment fonctionne Cloud Insights.
+
+video::howTo.mp4[]
+
+
+== Liste de contrôle et didacticiels vidéo
+
+La *liste de contrôle de démarrage* affichée sur votre site Cloud Insights contient une liste de plusieurs tâches et concepts utiles. Sélectionnez un élément dans la liste de contrôle pour accéder à la page Cloud Insights appropriée pour ce concept. Par exemple, cliquer sur l'élément _Créer un tableau de bord_ ouvre la page Cloud Insights *tableaux de bord*.
+
+image:OnboardingChecklist.png["Progression de la liste de contrôle du tutoriel"]
+
+En haut de la page se trouve un lien vers un tutoriel vidéo montrant comment créer un tableau de bord. Vous pouvez afficher la vidéo autant de fois que vous le souhaitez jusqu'à ce que vous cliquiez sur le bouton _Got! Ne plus afficher ce lien_ pour cette vidéo. La vidéo est disponible chaque fois que vous accédez à la page tableaux de bord, jusqu'à ce que vous la rejetez.
+
+image:Startup-DashboardWatchVideo.png["Voir le lien vers la vidéo"]
+
+Après avoir regardé la vidéo au moins une fois, l'élément _Créer un tableau de bord_ dans la liste de contrôle est désactivé, indiquant que vous avez terminé le tutoriel. Vous pouvez ensuite passer au tutoriel suivant.
+
+
+NOTE: Vous pouvez afficher les didacticiels dans l'ordre de votre choix, autant de fois que vous le souhaitez jusqu'à ce que vous soyez congédié.
+
+
+
+=== Rejet de la liste de contrôle
+
+La liste de contrôle de démarrage s'affiche sur votre site jusqu'à ce que vous cliquiez sur le lien _ne plus afficher ce lien_ au bas de la liste de contrôle. Même après le rejet de la liste de contrôle, les didacticiels sont toujours disponibles sur chaque page Cloud Insights appropriée jusqu'à ce que vous écarquiez chacun d'eux de la barre d'en-tête du message.
+
+
+
+== Voir les tutoriels
+
+
+
+=== Interrogation des données
+
+video::Queries.mp4[]
+
+
+=== Création d'un tableau de bord
+
+video::Dashboards.mp4[]
+
+
+=== Dépannage
+
+video::Troubleshooting.mp4[]
+
+
+=== Résoudre les périphériques
+
+video::AHR_small.mp4[]

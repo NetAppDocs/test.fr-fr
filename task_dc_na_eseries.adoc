@@ -1,0 +1,137 @@
+---
+sidebar: sidebar 
+permalink: task_dc_na_eseries.html 
+keywords: data collector, ontap, clustered ontap 
+summary: Configuration du collecteur de données NetApp E-Series 
+---
+= Collecteur de données NetApp E-Series
+:allow-uri-read: 
+
+
+[role="lead"]
+Le collecteur de données NetApp E-Series collecte les données d'inventaire et de performance. Le collecteur prend en charge le micrologiciel 7.x+ en utilisant les mêmes configurations et en signalant les mêmes données.
+
+
+
+== Terminologie
+
+Cloud Insight acquiert les informations d'inventaire suivantes auprès du collecteur de données NetApp E-Series. Pour chaque type d'actif acquis, la terminologie la plus utilisée pour ce bien est indiquée. Lors de l'affichage ou du dépannage de ce collecteur de données, gardez la terminologie suivante à l'esprit :
+
+[cols="2*"]
+|===
+| Terme du fournisseur/modèle | Terme Cloud Insights 
+
+
+| Disque | Disque 
+
+
+| Groupe de volumes | Groupe de disques 
+
+
+| Baie de stockage | Stockage 
+
+
+| Contrôleur | Nœud de stockage 
+
+
+| Groupe de volumes | Pool de stockage 
+
+
+| Volumétrie | Volumétrie 
+|===
+Remarque : il s'agit uniquement de mappages terminologiques communs et peuvent ne pas représenter tous les cas pour ce collecteur de données.
+
+
+
+== Terminologie E-Series (page d'accueil)
+
+Les termes suivants s'appliquent aux objets ou aux références que vous trouverez sur les pages d'accueil des ressources NetApp E-Series. Un grand nombre de ces termes s'appliquent également à d'autres collecteurs de données.
+
+
+
+=== Stockage
+
+* Modèle : nom de modèle du périphérique.
+* Fournisseur : même nom de fournisseur que vous pouvez voir si vous configurez une nouvelle source de données
+* Numéro de série – le numéro de série de la baie. Sur les systèmes de stockage en cluster comme NetApp clustered Data ONTAP, ce numéro de série peut être moins utile que les numéros de série individuels de nœuds de stockage
+* IP : il s'agit généralement des adresses IP ou des noms d'hôte configurés dans la source de données
+* Version du microcode : micrologiciel
+* Capacité brute : somme de base 2 de tous les disques physiques du système, quel que soit leur rôle
+* Latence : représentation des charges de travail côté hôte, à la fois en lecture et en écriture. Idéalement, Cloud Insights s'approvisionna directement cette valeur, mais ce n'est souvent pas le cas. Au lieu de l'offre baie, Cloud Insights effectue généralement un calcul pondéré par IOPS, à partir des statistiques de chaque volume.
+* Débit : débit de la baie hôte total. Idéalement, les données proviennent directement de la baie, si elles ne sont pas disponibles, Cloud Insights additionne le débit des volumes pour tirer parti de cette valeur
+* Gestion – il peut contenir un lien hypertexte pour l'interface de gestion du périphérique. Créé par programmation par la source de données Cloud Insights dans le cadre du reporting d'inventaire
+
+
+
+
+=== Pool de stockage
+
+* Stockage : sur quelle baie de stockage ce pool vit. Obligatoire
+* Type – valeur descriptive d'une liste de possibilités énumérées. Le plus souvent, il s'agit de « provisionnement fin » ou de « groupe RAID ».
+* Node – si l'architecture de cette matrice de stockage est telle que les pools appartiennent à un nœud de stockage spécifique, son nom sera vu ici comme un lien hypertexte vers sa propre page d'accueil
+* Utilise Flash Pool – valeur Oui/non
+* Redondance : niveau RAID ou schéma de protection. E-Series signale « RAID 7 » pour les pools DDP
+* Capacité : les valeurs indiquées ici sont les valeurs logiques utilisées, la capacité utilisable et la capacité totale logique, ainsi que le pourcentage utilisé sur ces valeurs. Cette valeur inclut la capacité de « conservation » des baies E-Series, ce qui se traduit par des chiffres et par un pourcentage supérieur à ce que peut afficher la propre interface utilisateur de la gamme E-Series
+* Capacité surdédiée : si grâce aux technologies d'efficacité, vous avez alloué une somme totale de capacités de volume ou de volume interne supérieure à la capacité logique du pool de stockage, le pourcentage est supérieur à 0 % dans ce cas.
+* Snapshot : les capacités des copies Snapshot utilisées et totales, si l'architecture des pools de stockage consacre une partie de sa capacité à la segmentation uniquement des snapshots
+* Utilisation : pourcentage indiquant le pourcentage le plus élevé d'occupation du disque de tout disque contribuant à la capacité de ce pool de stockage. L'utilisation du disque n'est pas forcément synonyme de performances de la baie. L'utilisation peut être élevée en raison des reconstructions des disques et des activités de déduplication, etc. En l'absence de charges de travail pilotées par l'hôte. De plus, les implémentations de réplication de nombreuses baies peuvent conduire à l'utilisation du disque sans s'afficher en tant que charge de travail du volume.
+* IOPS : somme des IOPS de tous les disques qui fournissent la capacité à ce pool de stockage. Si les IOPS du disque ne sont pas disponibles sur une plateforme donnée, cette valeur provient de la somme des IOPS du volume pour tous les volumes présents sur ce pool de stockage
+* Débit : somme du débit de tous les disques qui fournissent la capacité à ce pool de stockage. Si le débit des disques n'est pas disponible sur une plateforme donnée, cette valeur provient de la somme des volumes au sein de tous les volumes situés sur ce pool de stockage
+
+
+
+
+=== Nœud de stockage
+
+* Stockage : de quelle baie de stockage ce nœud fait partie. Obligatoire
+* Partenaire HAUTE DISPONIBILITÉ : sur les plateformes où un nœud bascule vers un seul et même nœud, cela se voit généralement ici
+* State : santé du nœud. Uniquement disponible lorsque la matrice est suffisamment saine pour être inventoriée par une source de données
+* Model : nom de modèle du nœud
+* Version : nom de version du périphérique.
+* Numéro de série – numéro de série du nœud
+* Mémoire – mémoire de base 2 si disponible
+* Utilisation : généralement un nombre d'utilisation du CPU ou, dans le cas de NetApp ONTAP, un indice de stress du contrôleur. L'utilisation n'est pas disponible pour le moment pour NetApp E-Series
+* IOPS – chiffre représentant les IOPS pilotées par l'hôte sur ce contrôleur. Idéalement, les données proviennent directement de la baie, s'ils ne sont pas disponibles, elles sont calculées en additionnant tous les IOPS pour les volumes appartenant exclusivement à ce nœud.
+* Latence : chiffre représentant le temps de réponse ou de latence de l'hôte type sur ce contrôleur. Idéalement, il sera calculé en effectuant un calcul pondéré par IOPS à partir des volumes qui appartiennent exclusivement à ce nœud.
+* Débit : chiffre représentant le débit piloté par l'hôte sur ce contrôleur. Idéalement, les données proviennent directement de la baie, s'ils ne sont pas disponibles, elles sont calculées en additionnant tout le débit pour les volumes appartenant exclusivement à ce nœud.
+* Processeurs – nombre de processeurs
+
+
+
+
+== De formation
+
+* L'adresse IP de chaque contrôleur de la baie
+* Port requis 2463
+
+
+
+
+== Configuration
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| Liste des adresses IP de contrôleur de matrice SANtricity séparées par une virgule | Adresses IP et/ou noms de domaine complets pour les contrôleurs de matrice 
+|===
+
+
+== Configuration avancée
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| Intervalle d'interrogation des stocks (min) | La valeur par défaut est 30 minutes 
+
+
+| Intervalle d'interrogation des performances jusqu'à 3600 secondes | La valeur par défaut est de 300 secondes 
+|===
+
+
+== Dépannage
+
+Des informations supplémentaires sur ce collecteur de données sont disponibles sur le link:concept_requesting_support.html["Assistance"] ou dans le link:https://docs.netapp.com/us-en/cloudinsights/CloudInsightsDataCollectorSupportMatrix.pdf["Matrice de prise en charge du Data Collector"].

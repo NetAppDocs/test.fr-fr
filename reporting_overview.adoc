@@ -1,0 +1,57 @@
+---
+sidebar: sidebar 
+permalink: reporting_overview.html 
+summary: Création de rapports personnalisés et prédéfinis pour vos données avec Cloud Insights. 
+keywords: reporting, cognos, data warehouse, dwh 
+---
+= Présentation des rapports Cloud Insights
+:allow-uri-read: 
+
+
+[role="lead"]
+Les rapports Cloud Insights sont un outil de veille stratégique qui vous permet de consulter les rapports prédéfinis ou de créer des rapports personnalisés.
+
+
+NOTE: La fonction de création de rapports est disponible dans Cloud Insights link:concept_subscribing_to_cloud_insights.html["Édition Premium"].
+
+Les rapports Cloud Insights vous permettent d'effectuer les tâches suivantes :
+
+* Exécuter un rapport prédéfini
+* Créer un rapport personnalisé
+* Personnalisez le format et la méthode de livraison d'un rapport
+* Planifiez l'exécution automatique des rapports
+* Rapports par e-mail
+* Utilisez des couleurs pour représenter des seuils sur les données
+
+
+Les rapports Cloud Insights peuvent générer des rapports personnalisés dans des domaines tels que la refacturation, l'analyse de consommation et la prévision. Ils peuvent également répondre à des questions comme :
+
+* Quel inventaire ai-je à faire ?
+* Où est mon inventaire?
+* Qui utilise nos ressources ?
+* Quelle est la refacturation du stockage alloué à une unité commerciale ?
+* Combien de temps me faut-il pour acquérir de la capacité de stockage supplémentaire ?
+* Les unités commerciales sont-elles alignées sur les niveaux de stockage appropriés ?
+* Dans quelle mesure les allocations de stockage sont-elles changeantes en un mois, un trimestre ou une année ?
+
+
+
+
+== Accès aux rapports Cloud Insights
+
+Vous pouvez accéder aux rapports Cloud Insights en cliquant sur le lien *Rapports* dans le menu.
+
+Vous serez redirigé vers l'interface de génération de rapports. Cloud Insights utilise IBM Cognos Analytics pour son moteur de reporting. Connectez-vous à l'aide de vos informations d'identification Reporting.
+
+
+
+== Qu'est-ce que le CÉC?
+
+Lorsque vous travaillez avec les rapports, vous entendrez les termes « entrepôt de données » et « ETL ». ETL signifie « extraire, transformer et charger ». Le processus ETL récupère les données collectées dans Cloud Insights et les transforme en un format à utiliser dans la génération de rapports. « Entrepôt de données » fait référence aux données collectées disponibles pour la génération de rapports.
+
+Le processus ETL comprend les processus individuels suivants :
+
+* *Extrait*: Prend les données de Cloud Insights.
+* *Transform* : applique les règles ou fonctions de logique métier aux données extraites de Cloud Insights.
+* *Load*: Enregistre les données transformées dans l'entrepôt de données pour utilisation dans Reporting.
+

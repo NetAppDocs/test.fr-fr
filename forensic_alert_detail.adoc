@@ -1,0 +1,84 @@
+---
+sidebar: sidebar 
+permalink: forensic_alert_detail.html 
+keywords: alert, Critical, Warning, Low, alert detail Synopsis, Time range, Start time, End time, user 
+summary: 'détails de l"alerte' 
+---
+= Détails de l'alerte
+:allow-uri-read: 
+
+
+[role="lead"]
+Cliquez sur le synopsis d'une alerte pour ouvrir la page contenant des informations détaillées pour l'utilisateur et l'alerte qu'il a émise.
+
+
+
+== La page Détails de l'alerte affiche l'utilisateur
+
+La section Détails de l'alerte fournit des informations sur l'alerte sélectionnée dans la page alertes.
+
+* Gravité de l'alerte
+* L'utilisateur qui a déclenché l'alerte et le type d'alerte :
++
+** Accès anormal par l'utilisateur
+** Accès anormal par communauté
+** Accès anormal par l'utilisateur dans la communauté
+** Utilisateur a rejoint de nombreuses communautés
+
+
+* Date et heure de détection de l'alerte
+* L'action entreprise
++
+** Mis en quarantaine
+** Autre
+** Autre
+
+
+* État de l'alerte
++
+** Nouveau
+** En cours
+** Rejeté
+** Résolu
+
+
+* Changement de taux d'activité de l'utilisateur
++
+** Activités typiques par heure
+** Activités par heure lorsque l'alerte a été émise.
+** Pourcentage de modification de taux ayant provoqué l'alerte.
+
+
+* Graphique présentant l'historique du taux d'activité moyen et le taux d'activité ayant abouti à l'alerte.
+
+
+
+
+=== Utilisateur associé
+
+* Nom d'utilisateur et titre
+* Service
+* E-mail avec un lien vers l'adresse e-mail
+* Gestionnaire
+* Téléphone
+* Emplacement
+
+
+
+
+=== Activité
+
+Affiche l'activité de l'utilisateur pendant les 7 derniers jours et le dernier emplacement auquel l'utilisateur a accédé.
+
+* Activités :
++
+** Lecture
+** Autre
+** Création
+
+
+* Nombre total d'alertes au cours des sept derniers jours.
+* Nombre total d'activités au cours des 7 derniers jours.
+
+
+Cliquez sur *Afficher les détails de l'activité* pour accéder à l' link:forensic_activity_history["Historique des activités"] de l'utilisateur examiné.

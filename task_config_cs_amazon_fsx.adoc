@@ -1,0 +1,55 @@
+---
+sidebar: sidebar 
+permalink: task_config_cs_amazon_fsx.html 
+keywords: Cloud, Storage, AWS, Fsx 
+summary: 'Cloud Secure utilise des collecteurs de données pour collecter les données d"accès des fichiers et des utilisateurs à partir de terminaux.' 
+---
+= Amazon FSX pour la configuration NetApp ONTAP
+:allow-uri-read: 
+
+
+[role="lead"]
+Ce collecteur de données collecte les données d'accès utilisateur et fichier depuis Amazon FSX pour NetApp ONTAP. Ce collecteur de données sera disponible progressivement dans toutes les régions de service Cloud Insights. Contactez votre vendeur si vous ne voyez pas l'icône de ce collecteur dans votre environnement Cloud Insights.
+
+
+
+=== Configuration de l'ordinateur agent
+
+Procédez comme suit pour configurer la machine à utiliser en tant qu'agent Cloud Secure :
+
+. Connectez-vous à la console AWS, accédez à la page EC2-instances et sélectionnez lancer l'instance.
+. Sélectionnez une ami RHEL ou CentOS avec la version appropriée, comme indiqué dans le link:concept_cs_agent_requirements.html["De formation"].
+. Créez la zone Agent dans le même VPC et le même sous-réseau que celui de l'instance Amazon FSX pour NetApp ONTAP.
++
+Ou bien le boîtier de l'agent doit se trouver dans un VPC qui reste connecté à Amazon FSX pour NetApp ONTAP VPC.
+
++
+Assurez-vous que l'agent dispose d'une communication bidirectionnelle entre l'agent et Amazon FSX pour NetApp ONTAP.
+
+. Sélectionnez t2.XLarge (4 cpu virtuels et 16 Go de RAM) comme ressources allouées.
++
+.. Créez l'instance EC2.
+
+
+. Installez les packages Linux requis à l'aide du gestionnaire de package YUM :
++
+.. Installez les packages Linux natifs wget et unzip.
+
+
+
+
+
+
+=== Installez l'agent Cloud Secure
+
+. Connectez-vous en tant qu'administrateur ou responsable de compte à votre environnement Cloud Insights.
+. Accédez à Admin Cloud Secure > collecteurs de données, puis cliquez sur l'onglet agents.
+. Cliquez sur +Agent et spécifiez RHEL comme plate-forme cible.
+. Copiez la commande installation de l'agent.
+. Collez la commande installation de l'agent dans l'instance RHEL EC2 à laquelle vous êtes connecté.
++
+Cette opération permet d'installer l'agent Cloud Secure, à condition que toutes les conditions préalables requises par l'agent soient remplies.
+
+
+
+Pour connaître les étapes détaillées, reportez-vous au Cloud Secure link:task_cs_add_agent.html["Installation de l'agent"] page,

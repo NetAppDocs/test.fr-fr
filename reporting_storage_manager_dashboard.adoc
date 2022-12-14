@@ -1,0 +1,75 @@
+---
+sidebar: sidebar 
+permalink: reporting_storage_manager_dashboard.html 
+summary: Vous pouvez utiliser le tableau de bord Storage Manager pour la gestion quotidienne de vos services de stockage. 
+keywords: reporting, cognos, data warehouse, dwh, smd, storage manager dashboard 
+---
+= Tableau de bord de Storage Manager
+:allow-uri-read: 
+
+
+[role="lead"]
+Le tableau de bord de Storage Manager vous offre une visualisation centralisée qui vous permet de comparer et de comparer l'utilisation des ressources dans le temps par rapport aux plages acceptables et aux jours précédents d'activité. En ne présentant que les indicateurs de performance clés pour vos services de stockage, vous pouvez prendre des décisions sur la maintenance de vos data centers.
+
+
+NOTE: La fonction de création de rapports est disponible dans Cloud Insights link:concept_subscribing_to_cloud_insights.html["Édition Premium"].
+
+Le tableau de bord comprend sept composants contenant des informations contextuelles sur certains aspects de votre environnement de stockage. Vous pouvez approfondir vos différents aspects de vos services de stockage afin d'effectuer une analyse approfondie d'une section qui vous intéresse le plus.
+
+
+
+== Récapitulatif
+
+image:Reporting-SMD.png["Tableau de bord de Storage Manager"]
+
+Ce composant montre l'utilisation par rapport à la capacité de stockage utilisable, le nombre total de ports de switch par rapport au nombre total de ports de switch connectés, et l'utilisation totale des ports de switch connectés par rapport à la bande passante totale, et la façon dont chacune de ces tendances est dans le temps. Vous pouvez afficher l'utilisation réelle par rapport aux gammes basse, moyenne et élevée, ce qui vous permet de comparer et de comparer l'utilisation entre les projections et les valeurs réelles souhaitées, en fonction d'une cible. Pour les ports de capacité et de commutation, vous pouvez configurer cette cible. La prévision est basée sur une extrapolation du taux de croissance actuel et de la date que vous avez définie. Lorsque la capacité utilisée prévue, basée sur la date de prévision de l'utilisation future, dépasse la cible, une alerte (cercle rouge Uni) apparaît à côté de la capacité.
+
+
+
+=== Capacité des niveaux de stockage
+
+Ce composant indique la capacité du niveau utilisée par rapport à la capacité allouée au niveau, ce qui indique comment la capacité utilisée augmente ou diminue sur une période de 12 mois et combien de mois restent à sa capacité maximale. L'utilisation de la capacité s'affiche avec les valeurs fournies pour l'utilisation réelle, la prévision d'utilisation et un objectif de capacité que vous pouvez configurer. Lorsque la capacité utilisée prévue, basée sur la date de prévision de l'utilisation future, dépasse la capacité cible, une alerte (cercle rouge Uni) apparaît à côté d'un niveau.
+
+Vous pouvez cliquer sur n'importe quel niveau pour afficher le rapport Storage pools Capacity and Performance Details (informations disponibles par rapport aux capacités utilisées, nombre de jours avant saturation et performance (IOPS et temps de réponse) pour tous les pools du niveau sélectionné. Vous pouvez également cliquer sur n'importe quel nom de pool de stockage ou de stockage dans ce rapport pour afficher la page des ressources résumant l'état actuel de cette ressource.
+
+
+
+=== Trafic quotidien de stockage
+
+Ce composant indique les performances de l'environnement, s'il existe une forte croissance, des changements ou des problèmes potentiels par rapport aux six mois précédents. Il indique également le trafic moyen par rapport au trafic des sept jours précédents et pour la veille. Vous pouvez visualiser les anomalies de l'infrastructure sur son fonctionnement, car elles fournissent des informations qui mettent en évidence à la fois les variations cycliques (sept jours précédents) et saisonnières (six mois précédents).
+
+Vous pouvez cliquer sur le titre (Daily Storage Traffic) pour afficher le rapport Storage Traffic Details (informations sur le trafic de stockage quotidien), qui affiche la carte des points chauds du trafic de stockage horaire pour la veille de chaque système de stockage. Cliquez sur un nom de stockage dans ce rapport pour afficher la page des ressources résumant l'état actuel de cette ressource.
+
+
+
+=== Temps plein pour les data centers
+
+Cette partie montre l'ensemble des data centers par rapport à tous les niveaux, ainsi que la quantité de capacité restante dans chaque data Center, sur la base des taux de croissance prévus. Le niveau de capacité de niveau est affiché en bleu ; plus la couleur est foncée, moins le niveau restant à l'emplacement avant qu'il soit plein.
+
+Vous pouvez cliquer sur une section d'un niveau pour afficher le rapport « jours des pools de stockage complets », qui indique la capacité totale, la capacité disponible et le nombre de jours à pleins pour tous les pools du niveau sélectionné et du centre de données. Cliquez sur un nom de pool de stockage ou de stockage dans ce rapport pour afficher la page des ressources résumant l'état actuel de cette ressource.
+
+
+
+=== 10 applications principales
+
+Ce composant représente les 10 applications principales en fonction de la capacité utilisée. Quelle que soit la manière dont le niveau organise les données, cette zone affiche la capacité actuellement utilisée et le partage de l'infrastructure. Vous pouvez visualiser l'éventail de l'expérience utilisateur au cours des sept derniers jours afin de voir si les temps de réponse des clients sont acceptables (ou plus important, inacceptables).
+
+Cette zone montre également les tendances, qui indiquent si les applications répondent à leurs objectifs de niveau de service (SLO) de performance. Vous pouvez afficher le temps de réponse minimum de la semaine précédente, le premier quartile, le troisième quartile et le temps de réponse maximal, avec une médiane indiquée par rapport à un objectif SLO acceptable que vous pouvez configurer. Lorsque le temps de réponse médian d'une application est en dehors de la plage d'objectifs SLO acceptable, une alerte (cercle rouge Uni) s'affiche à côté de l'application. Vous pouvez cliquer sur une application pour afficher la page de ressources résumant l'état actuel de cette ressource.
+
+
+
+=== Tiers de stockage performances quotidiennes
+
+Ce composant récapitule les performances du niveau en matière de temps de réponse et d'IOPS pour les sept jours précédents. Ces performances sont comparées à celles d'un objectif SLO que vous pouvez configurer. Vous pouvez donc voir s'il est possible de consolider les niveaux, d'réaligner les charges de travail exécutées à partir de ces tiers ou d'identifier les problèmes liés à des tiers spécifiques. Lorsque le temps de réponse médian ou les IOPS médianes ne se situe pas dans la plage d'objectifs SLO acceptable, une alerte (cercle rouge Uni) s'affiche en regard d'un niveau.
+
+Vous pouvez cliquer sur le nom d'un niveau pour afficher le rapport Storage pools Capacity and Performance Details (informations disponibles par rapport aux capacités utilisées, nombre de jours avant saturation et performance (IOPS et temps de réponse) pour tous les pools du niveau sélectionné. Cliquez sur un pool de stockage ou un pool de stockage dans ce rapport pour afficher la page des ressources résumant l'état actuel de cette ressource.
+
+
+
+=== Capacité orpheline
+
+Ce composant affiche la capacité totale orpheline et la capacité orpheline par niveau, par rapport aux plages acceptables pour la capacité totale utilisable et par rapport à la capacité réelle orpheline. La capacité orpheline est définie par configuration et par performance. Le stockage orphelin par configuration décrit une situation dans laquelle le stockage est alloué à un hôte. Toutefois, la configuration n'a pas été correctement effectuée et l'hôte ne peut pas accéder au système de stockage. La fonction orpheline par performance se trouve lorsque le stockage est correctement configuré pour être accessible par un hôte. Cependant, il n'y a eu aucun trafic de stockage.
+
+La barre empilée horizontale indique les plages acceptables. Plus le gris est foncé, plus la situation est inacceptable. La situation réelle est indiquée par une barre de bronze étroite indiquant la capacité réelle orpheline.
+
+Vous pouvez cliquer sur un niveau pour afficher le rapport des détails du stockage orphelin, qui affiche tous les volumes identifiés comme orphelins par la configuration et les performances du niveau sélectionné. Cliquez sur n'importe quel stockage, pool de stockage ou volume de ce rapport pour afficher la page des ressources résumant l'état actuel de la ressource en question.

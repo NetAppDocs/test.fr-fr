@@ -1,0 +1,16 @@
+---
+sidebar: sidebar 
+permalink: concept_determining_data_collector_acq_status.html 
+summary: 'État d"acquisition du Data Collector' 
+keywords: collector, acquisition, status 
+---
+= Détermination de l'état d'acquisition du collecteur de données
+:allow-uri-read: 
+
+
+[role="lead"]
+Comme les collecteurs de données sont la principale source d'information pour Cloud Insights, il est impératif de vous assurer qu'ils restent à l'état en cours d'exécution.
+
+L'état du collecteur de données s'affiche dans le coin supérieur droit de n'importe quelle page de ressources sous forme de message « acquis il y a N minutes », où N indique la durée d'acquisition la plus récente du ou des collecteurs de données du bien. L'heure/la date d'acquisition s'affiche également.
+
+Un clic sur le message affiche un tableau avec le nom, l'état et la dernière heure d'acquisition réussie. Si vous êtes connecté en tant qu'administrateur, cliquez sur le lien du nom du collecteur de données dans le tableau pour accéder à la page détaillée de ce collecteur de données.

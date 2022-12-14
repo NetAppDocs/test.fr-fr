@@ -1,0 +1,233 @@
+---
+sidebar: sidebar 
+permalink: task_configure_acquisition_unit.html 
+keywords: Acquisition Unit, AU, install, configure, Linux, add, remove, uninstall, delete, deleting, move, moving 
+summary:  
+---
+= Configuration des unités d'acquisition
+:allow-uri-read: 
+
+
+[role="lead"]
+Cloud Insights collecte les données du terminal à l'aide d'une ou plusieurs unités d'acquisition installées sur les serveurs locaux. Chaque unité d'acquisition peut héberger plusieurs collecteurs de données, qui envoient des métriques de périphérique à Cloud Insights pour analyse.
+
+Cette rubrique décrit comment ajouter des unités d'acquisition et décrit les étapes supplémentaires requises lorsque votre environnement utilise un proxy.
+
+
+NOTE: Pour un audit et un reporting précis des données, il est fortement recommandé de synchroniser l'heure sur la machine de l'unité d'acquisition à l'aide de *Network Time Protocol (NTP)* ou *simple Network Time Protocol (SNTP)*.
+
+
+
+== Ajout d'une unité d'acquisition Linux
+
+.Avant de commencer
+* Si votre système utilise un proxy, vous devez définir les variables d'environnement proxy avant l'installation de l'unité d'acquisition. Pour plus d'informations, voir <<Définition des variables d'environnement proxy>>.
+
+
+.Étapes pour l'installation de l'unité d'acquisition Linux
+. Connectez-vous en tant qu'administrateur ou responsable de compte à votre environnement Cloud Insights.
+. Cliquez sur *Admin > Data Collectors > unités d'acquisition > +unité d'acquisition*
++
+Le système affiche la boîte de dialogue _Install acquisition Unit_. Choisissez Linux.
+
+
+
+[role="thumb"]
+image:NewLinuxAUInstall.png["Instructions Linux au"]
+
+. Vérifiez que le serveur ou le VM hébergeant l'unité d'acquisition répond à la configuration système recommandée.
+. Vérifiez que le serveur exécute une version prise en charge de Linux. Cliquez sur _OS versions supportées (i)_ pour obtenir la liste des versions prises en charge.
+. Copiez l'extrait de code de la commande installation dans la boîte de dialogue dans une fenêtre de terminal sur le serveur ou la machine virtuelle qui hébergera l'unité d'acquisition.
+. Collez et exécutez la commande dans le shell Bash.
+
+
+.Une fois que vous avez terminé
+* Cliquez sur *Admin > Data Collectors > unités d'acquisition* pour vérifier l'état des unités d'acquisition.
+* Les journaux des unités d'acquisition sont accessibles à l'adresse /var/log/netapp/cloudInsights/acq/acq.log
+* Utilisez le script suivant pour contrôler l'unité d'acquisition :
++
+** cloudinsights-service.sh (arrêter, démarrer, redémarrer, vérifier l'état)
+
+
+* Utilisez le script suivant pour désinstaller l'unité d'acquisition :
++
+** cloudinsights-uninstall.sh
+
+
+
+
+
+
+=== Définition des variables d'environnement proxy
+
+Pour les environnements utilisant un proxy, vous devez définir les variables d'environnement proxy avant d'ajouter l'unité d'acquisition. Les instructions de configuration du proxy sont fournies dans la boîte de dialogue _Ajouter une unité d'acquisition_.
+
+. Cliquez sur + dans _avoir un serveur proxy?_
+. Copiez les commandes dans un éditeur de texte et définissez vos variables proxy si nécessaire.
++
+Remarque : tenez compte des restrictions relatives aux caractères spéciaux dans les champs nom d'utilisateur et mot de passe du proxy : '%' et '!' sont autorisées dans le champ nom d'utilisateur. ':', '%' et '!' sont autorisées dans le champ mot de passe.
+
+. Exécutez la commande modifiée dans un terminal à l'aide du shell Bash.
+. Installez le logiciel de l'unité d'acquisition.
+
+
+
+
+=== Configuration du proxy
+
+L'unité d'acquisition utilise une authentification bidirectionnelle/mutuelle pour se connecter au serveur Cloud Insights. Le certificat client doit être transmis au serveur Cloud Insights pour être authentifié. Pour ce faire, le proxy doit être configuré pour transmettre la demande https au serveur Cloud Insights sans décrypter les données.
+
+Pour ce faire, la méthode la plus simple consiste à spécifier une configuration générique dans votre proxy/pare-feu pour communiquer avec Cloud Insights, par exemple :
+
+ *.cloudinsights.netapp.com
+
+NOTE: L'utilisation d'un astérisque (*) pour le caractère générique est courante, mais votre configuration proxy/pare-feu peut utiliser un format différent. Consultez la documentation de votre proxy pour vous assurer que les spécifications des caractères génériques sont correctes dans votre environnement.
+
+
+
+==== Affichage des URL du proxy
+
+Vous pouvez afficher les URL de votre point final proxy en cliquant sur le lien *Paramètres proxy* lorsque vous choisissez un collecteur de données pendant l'intégration, ou sur le lien sous _Paramètres proxy_ de la page *aide > support*. Un tableau comme celui ci-dessous s'affiche.
+
+image:ProxyEndpoints_NewTable.png["Table des noeuds finaux du proxy"]
+
+Si vous avez Cloud Secure dans votre environnement, les URL de point final configurées s'affichent également dans cette liste.
+
+
+
+== Ajout d'une unité d'acquisition Windows
+
+.Étapes pour l'installation de l'unité d'acquisition Windows
+. Connectez-vous au serveur/VM de l'unité d'acquisition en tant qu'utilisateur disposant des autorisations d'administrateur.
+. Sur ce serveur, ouvrez une fenêtre de navigateur et connectez-vous à votre environnement Cloud Insights en tant qu'administrateur ou responsable de compte.
+. Cliquez sur *Admin > Data Collectors > unités d'acquisition > +unité d'acquisition* .
++
+Le système affiche la boîte de dialogue _Install acquisition Unit_. Choisissez Windows.
+
+
+
+image::NewWindowsAUInstall.png[Installation de Windows au]
+
+. Vérifiez que le serveur ou le VM hébergeant l'unité d'acquisition répond à la configuration système recommandée.
+. Vérifiez que le serveur exécute une version prise en charge de Windows. Cliquez sur _OS versions supportées (i)_ pour obtenir la liste des versions prises en charge.
+. Cliquez sur le bouton *Download installer (Windows 64 bits)*.
+. Copiez la clé d'accès. Vous en aurez besoin pendant l'installation.
+. Sur le serveur/VM de l'unité d'acquisition, exécutez le programme d'installation téléchargé.
+. Collez la clé d'accès dans l'assistant d'installation lorsque vous y êtes invité.
+. Au cours de l'installation, vous aurez la possibilité de fournir les paramètres de votre serveur proxy.
+
+
+.Une fois que vous avez terminé
+* Cliquez sur *Admin > Data Collectors > unités d'acquisition* pour vérifier l'état des unités d'acquisition.
+* Vous pouvez accéder au journal de l'unité d'acquisition dans <dossier d'installation>\Cloud Insights\acquisition Unit\log\acq.log
+* Utilisez le script suivant pour arrêter, démarrer, redémarrer ou vérifier l'état de l'unité d'acquisition :
++
+ cloudinsights-service.sh
+
+
+
+
+=== Configuration du proxy
+
+L'unité d'acquisition utilise une authentification bidirectionnelle/mutuelle pour se connecter au serveur Cloud Insights. Le certificat client doit être transmis au serveur Cloud Insights pour être authentifié. Pour ce faire, le proxy doit être configuré pour transmettre la demande https au serveur Cloud Insights sans décrypter les données.
+
+Pour ce faire, la méthode la plus simple consiste à spécifier une configuration générique dans votre proxy/pare-feu pour communiquer avec Cloud Insights, par exemple :
+
+ *.cloudinsights.netapp.com
+
+NOTE: L'utilisation d'un astérisque (*) pour le caractère générique est courante, mais votre configuration proxy/pare-feu peut utiliser un format différent. Consultez la documentation de votre proxy pour vous assurer que les spécifications des caractères génériques sont correctes dans votre environnement.
+
+
+
+==== Affichage des URL du proxy
+
+Vous pouvez afficher les URL de votre point final proxy en cliquant sur le lien *Paramètres proxy* lorsque vous choisissez un collecteur de données pendant l'intégration, ou sur le lien sous _Paramètres proxy_ de la page *aide > support*. Un tableau comme celui ci-dessous s'affiche.
+
+image:ProxyEndpoints_NewTable.png["Table des noeuds finaux du proxy"]
+
+Si vous avez Cloud Secure dans votre environnement, les URL de point final configurées s'affichent également dans cette liste.
+
+
+
+== Désinstallation d'une unité d'acquisition
+
+Pour désinstaller le logiciel de l'unité d'acquisition, procédez comme suit :
+
+*Windows:*
+
+. Sur le serveur/VM de l'unité d'acquisition, ouvrez le panneau de configuration et choisissez *Désinstaller un programme*. Sélectionnez le programme d'unité d'acquisition Cloud Insights à supprimer.
+. Cliquez sur Désinstaller et suivez les invites.
+
+
+*Linux:*
+
+. Sur le serveur/VM de l'unité d'acquisition, exécutez la commande suivante :
++
+ sudo cloudinsights-uninstall.sh -p
+. Pour obtenir de l'aide sur la désinstallation, exécutez :
++
+ sudo cloudinsights-uninstall.sh --help
+
+
+*Les deux:*
+
+. Après avoir désinstallé le logiciel au, accédez à *Admin > Data Collectors* et sélectionnez l'onglet *unités d'acquisition*.
+. Cliquez sur le bouton Options à droite de l'unité d'acquisition que vous souhaitez désinstaller, puis sélectionnez _Delete_. Vous pouvez supprimer une unité d'acquisition uniquement si aucun collecteur de données n'y est affecté.
+
+
+REMARQUE : vous ne pouvez pas supprimer l'unité d'acquisition par défaut. Sélectionnez une autre UA comme valeur par défaut avant de supprimer l'ancienne.
+
+
+
+== Réinstallation d'une unité d'acquisition
+
+Pour réinstaller une unité d'acquisition sur le même serveur/VM, vous devez procéder comme suit :
+
+.Avant de commencer
+Une unité d'acquisition temporaire doit être configurée sur un serveur/VM distinct avant de réinstaller une unité d'acquisition.
+
+.Étapes
+. Connectez-vous au serveur/VM de l'unité d'acquisition et désinstallez le logiciel au.
+. Connectez-vous à votre environnement Cloud Insights et accédez à *Admin > Data Collectors*.
+. Pour chaque collecteur de données, cliquez sur le menu Options à droite et sélectionnez _Edit_. Affectez le collecteur de données à l'unité d'acquisition temporaire et cliquez sur *Enregistrer*.
++
+Vous pouvez également sélectionner plusieurs collecteurs de données du même type et cliquer sur le bouton *actions groupées*. Choisissez _Edit_ et affectez les collecteurs de données à l'unité d'acquisition temporaire.
+
+. Une fois tous les collecteurs de données déplacés vers l'unité d'acquisition temporaire, accédez à *Admin > collecteurs de données* et sélectionnez l'onglet *unités d'acquisition*.
+. Cliquez sur le bouton Options à droite de l'unité d'acquisition que vous souhaitez réinstaller, puis sélectionnez _Delete_. Vous pouvez supprimer une unité d'acquisition uniquement si aucun collecteur de données n'y est affecté.
+. Vous pouvez maintenant réinstaller le logiciel acquisition Unit sur le serveur/VM d'origine. Cliquez sur *+unité d'acquisition* et suivez les instructions ci-dessus pour installer l'unité d'acquisition.
+. Une fois que l'unité d'acquisition a été réinstallée, affectez vos collecteurs de données à l'unité d'acquisition.
+
+
+
+
+== Affichage des détails au
+
+La page de détails de l'unité d'acquisition (au) fournit des informations utiles pour un au, ainsi que des informations d'aide pour le dépannage. La page de détails au contient les sections suivantes :
+
+* Une section *résumé* montrant les éléments suivants :
++
+** *Nom* et *IP* de l'unité d'acquisition
+** Connexion actuelle *État* de l'au
+** *Dernier rapporté* temps d'interrogation réussi du collecteur de données
+** Le *système d'exploitation* de la machine au
+** Toute * Note* actuelle pour l'UA. Utilisez ce champ pour saisir un commentaire pour l'UA. Le champ affiche la note ajoutée la plus récente.
+
+
+* Un tableau des *collecteurs de données* de l'UA, pour chaque collecteur de données :
++
+** *Nom* - cliquez sur ce lien pour accéder à la page détaillée du collecteur de données avec des informations supplémentaires
+** *Statut* - informations de réussite ou d'erreur
+** *Type* - fournisseur/modèle
+** *Adresse IP* du collecteur de données
+** Niveau actuel *impact*
+** *Dernière acquisition* heure - quand le collecteur de données a été interrogé avec succès pour la dernière fois
+
+
+
+
+image:AU_Detail_Example.png["Exemple de page de détails au"]
+
+Pour chaque collecteur de données, vous pouvez cliquer sur le menu « trois points » pour cloner, modifier, Sondage ou Supprimer le collecteur de données. Vous pouvez également sélectionner plusieurs collecteurs de données dans cette liste pour effectuer des actions en bloc sur eux.
+
+Pour redémarrer l'unité d'acquisition, cliquez sur le bouton *redémarrer* en haut de la page. Faites descendre ce bouton pour tenter de *rétablir la connexion* à l'UA en cas de problème de connexion.

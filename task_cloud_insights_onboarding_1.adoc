@@ -1,0 +1,73 @@
+---
+sidebar: sidebar 
+permalink: task_cloud_insights_onboarding_1.html 
+summary: Inscription au Cloud Insights et création de votre environnement. 
+---
+= Intégration de Cloud Insights
+:allow-uri-read: 
+
+
+[role="lead"]
+Avant de travailler avec Cloud Insights, vous devez vous inscrire sur le portail *NetApp Cloud Central*. Si vous disposez déjà d'un identifiant NetApp Cloud Central, vous pouvez essayer gratuitement Cloud Insights en quelques étapes rapides.
+
+
+toc::[]
+
+
+== Création de votre compte NetApp Cloud Central
+
+Pour vous inscrire afin d'accéder aux services clouds de NetApp, rendez-vous sur https://cloud.netapp.com["*NetApp Cloud Central*"^] Et cliquez sur *s'inscrire*.
+
+* Saisissez une adresse e-mail professionnelle valide et choisissez un mot de passe.
+* Entrez le nom de votre entreprise, ainsi que votre nom complet.
+* Acceptez les termes et conditions et cliquez sur *s'inscrire*.
+
+
+Vous serez ensuite redirigé vers la page d'offres clouds de NetApp.
+
+Sélectionnez Cloud Insights.
+
+
+
+=== Que se passe-t-il si je dispose déjà d'un identifiant NetApp Cloud ?
+
+Si vous disposez déjà d'un compte NetApp Cloud Central, choisissez simplement *connexion* sur le https://cloud.netapp.com["*NetApp Cloud Central*"^] page de portail.
+
+Entrez votre adresse e-mail et votre mot de passe. Vous serez ensuite redirigé vers la page d'offres clouds de NetApp.
+
+Sélectionnez Cloud Insights.
+
+
+
+== Commencez votre essai gratuit de Cloud Insights
+
+Si c'est la première fois que vous vous connectez à Cloud Insights, sous l'offre Cloud Insights, cliquez sur *commencer l'essai gratuit*. Cloud Insights créera ensuite l'environnement de votre entreprise.
+
+Une fois la création de votre environnement terminée, vous pouvez utiliser vos identifiants Cloud Central pour vous connecter et lancer l'essai gratuit de 30 jours d'Cloud Insights. Au cours de cet essai, vous pouvez explorer toutes les fonctionnalités offertes par l'édition Standard de Cloud Insights.
+
+Pendant l'essai gratuit, vous pouvez link:concept_subscribing_to_cloud_insights.html["commencez votre abonnement"] Vers Cloud Insights à tout moment. Lorsque vous êtes abonné, vous pouvez utiliser les fonctions Cloud Insights en fonction de votre abonnement actuel.
+
+
+
+== Connectez-vous et allez
+
+Une fois votre locataire créé, il vous suffit de vous connecter au portail cloud NetApp et de cliquer sur *accéder à Cloud Insights*. Vous serez directement redirigé vers votre environnement Cloud Insights.
+
+Vous pouvez également ouvrir un navigateur directement sur l'URL de votre environnement Cloud Insights, par exemple :
+
+ https://<environment-name>.c01.cloudinsights.netapp.com/
+L'URL sera également incluse dans l'e-mail d'invitation de chaque utilisateur pour faciliter l'accès et le signet. Si l'utilisateur n'est pas encore connecté à Cloud Central, il est invité à se connecter.
+
+
+NOTE: Les nouveaux utilisateurs doivent toujours s'inscrire pour accéder à Cloud Central avant d'accéder à l'URL de leur environnement.
+
+La première fois que vous vous connectez à un nouvel environnement, vous serez guidé par la configuration de link:task_getting_started_with_cloud_insights.html["*commencer la collecte de données*"].
+
+
+
+== Déconnexion
+
+Pour vous déconnecter de Cloud Insights, cliquez sur votre *Nom d'utilisateur* et sélectionnez *Déconnexion*. Vous revenez à l'écran de connexion à Cloud Central.
+
+
+NOTE: La déconnexion de Cloud Insights vous déconnecte de Cloud Central. Vous serez également déconnecté d'autres services NetApp Cloud qui utilisent la connexion à Cloud Central.

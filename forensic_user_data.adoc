@@ -1,0 +1,92 @@
+---
+sidebar: sidebar 
+permalink: forensic_user_data.html 
+keywords: Forensic, user, user detail 
+summary: 'données utilisateur d"analyse' 
+---
+= Données d'utilisateur judiciaire
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media
+
+
+[role="lead"]
+La page utilisateur identifie les utilisateurs surveillés par Cloud Secure.
+
+Les données disponibles dans cette page, incluent les éléments suivants :
+
+* Chaque utilisateur surveillé par Cloud Secure avec un lien vers le link:user_profile.html["Profil utilisateur"].
+* Alertes émises par les activités de l'utilisateur effectuées. La gravité des alertes est identifiée comme suit : image::Critical.png[Critical] + \ image::warning.png[Warning] + \ image::low.png[Low] + \
+* Dernière activité effectuée par l'utilisateur.
+* Emplacement de l'utilisateur - pays et Etat.
+* Le nombre de communautés dont l'utilisateur est membre.
+
+
+
+
+== Filtrage des données utilisateur approfondies
+
+Vous pouvez filtrer les données de l'historique des activités en profondeur en procédant comme suit :
+
+* Alertes
++
+** Aucune
+** Faible
+** Avertissement
+** Primordial
+
+
+* Communauté associée
++
+** À DÉFINIR
+
+
+* Nombre de communautés
++
+** Valeur numérique ou plage
+
+
+* Dernière activité
++
+** Une durée ou une plage horaire
+
+
+* Emplacement
++
+** Adresse IP à partir de laquelle l'activité a été réalisée
+
+
+* Alertes
++
+** Aucune
+** Faible
+** Avertissement
+** Primordial
+** Communauté associée
+
+
+* Nombre de communautés
++
+** Valeur numérique ou plage
+
+
+* Dernière activité
++
+** Une durée ou une plage horaire
+
+
+* Emplacement
++
+** Adresse IP à partir de laquelle l'activité a été réalisée *
+** Utilisateur
+** ID d'utilisateur
+
+
+* Emplacement d'accès à l'entité
+* Chemin de l'entité
+* Heure à laquelle l'activité a eu lieu
+* Utilisateur exécutant l'activité
+

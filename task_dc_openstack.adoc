@@ -1,0 +1,119 @@
+---
+sidebar: sidebar 
+permalink: task_dc_openstack.html 
+keywords: data collector, openstack, OpenStack 
+summary: Collecteur de données OpenStack. 
+---
+= Collecteur de données OpenStack
+:allow-uri-read: 
+
+
+[role="lead"]
+Le collecteur de données OpenStack (API REST/KVM) acquiert les données d'inventaire pour toutes les instances OpenStack et, éventuellement, les données de performance des VM.
+
+
+
+== De formation
+
+* Adresse IP du contrôleur OpenStack
+* Informations d'identification du rôle d'administrateur OpenStack et accès à l'hyperviseur Linux KVM. Si vous n'utilisez pas le compte admin ou les privilèges équivalents admin, vous devez utiliser le test et l'erreur pour identifier les stratégies par défaut pour vous détendre pour votre ID utilisateur de collecteur de données.
+* Le module Ceilometer OpenStack doit être installé et configuré pour la collecte de performances. La configuration du Ceilometer s'effectue en éditant le fichier nova.conf pour chaque hyperviseur, puis en redémarrant le service Nova Compute sur chaque hyperviseur. Modifications du nom de l'option dans les différentes versions d'OpenStack :
++
+** Icehouse
+** Juno
+** Kilo
+** La liberté
+** Mitaka
+** Newton
+** Ocata
+
+
+* Pour les statistiques CPU, “Compute_Moniks=ComputeDriverCPUMonitor” doit être activé dans /etc/nova/nova.conf sur les nœuds de calcul.
+* Configuration requise pour les ports :
++
+** 5000 pour http et 13000 pour https, pour le service Keystone
+** 22 pour KVM SSH
+** 8774 pour le service de calcul Nova
+** 8776 pour le service de blocs Cinder
+** 8777 pour le service de performance du Ceilometer
+** 9292 pour le service d'image Glance *Remarque* le port se lie au service spécifique et le service peut s'exécuter sur le contrôleur ou un autre hôte dans des environnements plus grands.
+
+
+
+
+
+
+== Configuration
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| Adresse IP du contrôleur OpenStack | Adresse IP ou nom de domaine complet du contrôleur OpenStack 
+
+
+| Administrateur OpenStack | Nom d'utilisateur d'un administrateur OpenStack 
+
+
+| Mot de passe OpenStack | Mot de passe utilisé pour l'administrateur OpenStack 
+
+
+| Locataire Administrateur OpenStack | Nom du locataire de l'administrateur OpenStack 
+
+
+| Utilisateur KVM sudo | Nom d'utilisateur de sudo KVM 
+
+
+| Choisissez « Mot de passe » ou « fichier de clé OpenSSH » pour spécifier le type d'informations d'identification | Type d'informations d'identification utilisé pour la connexion au périphérique via SSH 
+
+
+| Chemin complet vers la clé privée d'inventaire | Chemin complet vers la clé privée d'inventaire 
+
+
+| Mot de passe KVM sudo | Mot de passe KVM sudo 
+|===
+
+
+== Configuration avancée
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| Activer la découverte d'inventaire des hyperviseurs via SSH | Cochez cette case pour activer la détection d'inventaire des hyperviseurs via SSH 
+
+
+| Port d'URL d'administration OpenStack | Port d'URL d'administration OpenStack 
+
+
+| Utiliser HTTPS | Vérifiez que vous utilisez le protocole HTTP sécurisé 
+
+
+| Port SSH | Port utilisé pour SSH 
+
+
+| Nouvelles tentatives de traitement SSH | Nombre de tentatives d'inventaire 
+
+
+| Intervalle d'interrogation des stocks (min) | Intervalle entre les sondages d'inventaire. La valeur par défaut est 20 minutes. 
+|===
+
+
+== Dépannage
+
+Certaines choses à essayer si vous rencontrez des problèmes avec ce collecteur de données :
+
+
+
+==== Inventaire
+
+[cols="2*"]
+|===
+| Problème : | Essayer : 
+
+
+| « Erreur de configuration » avec les messages d'erreur commençant par « la stratégie n'autorise pas » ou « vous n'êtes pas autorisé » | * Vérifiez l'adresse ip * Vérifiez le nom d'utilisateur et le mot de passe 
+|===
+Pour plus d'informations, consultez le link:concept_requesting_support.html["Assistance"] ou dans le link:https://docs.netapp.com/us-en/cloudinsights/CloudInsightsDataCollectorSupportMatrix.pdf["Matrice de prise en charge du Data Collector"].

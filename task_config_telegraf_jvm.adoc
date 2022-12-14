@@ -1,0 +1,52 @@
+---
+sidebar: sidebar 
+permalink: task_config_telegraf_jvm.html 
+keywords: telegraf, installation, install, jvm 
+summary: Configuration du collecteur de données JVM 
+---
+= Collecteur de données JVM
+:allow-uri-read: 
+
+
+[role="lead"]
+Cloud Insights utilise ce collecteur de données pour collecter des mesures à partir de JVM.
+
+
+
+== Installation
+
+. Dans *Admin > Data Collectors*, cliquez sur *+Data Collector*. Sous *Services*, choisissez JVM.
++
+Sélectionnez le système d'exploitation ou la plate-forme sur laquelle l'agent Telegraf est installé.
+
+. Si vous n'avez pas déjà installé un agent pour la collecte ou si vous souhaitez installer un agent pour un autre système d'exploitation ou plate-forme, cliquez sur _Afficher les instructions_ pour développer le link:task_config_telegraf_agent.html["Installation de l'agent"] instructions.
+. Sélectionnez la clé d'accès de l'agent à utiliser avec ce collecteur de données. Vous pouvez ajouter une nouvelle clé d'accès à l'agent en cliquant sur le bouton * + clé d'accès à l'agent*. Meilleure pratique : utilisez une clé d'accès d'agent différente uniquement lorsque vous souhaitez regrouper des collecteurs de données, par exemple, par OS/plate-forme.
+. Suivez les étapes de configuration pour configurer le collecteur de données. Les instructions varient en fonction du type de système d'exploitation ou de plate-forme utilisé pour collecter des données.
+
+
+image:JVMDCConfigLinux.png["Configuration JVM"]
+
+
+
+== Configuration
+
+Vous trouverez des informations dans le link:https://docs.oracle.com/javase/specs/jvms/se12/html/index.html["Documentation JVM"].
+
+
+
+== Objets et compteurs
+
+Les objets suivants et leurs compteurs sont collectés :
+
+[cols="<.<,<.<,<.<,<.<"]
+|===
+| Objet : | Identifiants : | Attributs : | Points de données : 
+
+
+| JVM | Espace de noms JVM | Architecture OS Nom OS version OS spécification d'exécution spécification d'exécution version spécification d'exécution Vendor version Uptime Runtime Nom VM Runtime VM Runtime version vendeur Nom du nœud IP | Classe chargée Total de la mémoire non chargée de la classe chargée mémoire vive mémoire vive mémoire vive mémoire vive mémoire vive utilisée mémoire maximale mémoire vive mémoire vive mémoire non mémoire non résolue mémoire non Heap mémoire non mémoire non mémoire vive objets de mémoire non utilisée en attente Finalisation processeurs OS disponibles taille de mémoire virtuelle OS non résolue Taille de la mémoire physique espace libre du système d'exploitation taille de l'espace libre du système d'exploitation nombre de descripteurs de fichier ouverts du système d'exploitation nombre de descripteurs de fichier du processeur du système d'exploitation charge du système d'exploitation CPU du système d'exploitation charge système d'exploitation taille moyenne de la mémoire physique totale du système d'exploitation nombre total de threads nombre de pics de threads Thread Count Thread Total Started Count Garbage Collector Copy Count Garbage Collector Copy collecte Time Garbage Collector Mark-balayage Collection Count Garbage Collector Mark-balayage collecte temps collecteur d'ordures G1 Old Generation Collection temps collecteur d'ordures ancien génération G1 Young Generation Collection Count Garbage Collector G1 Collecte de données de jeunes générations collecte de données de collecte de collecte de récupération de récupération de récupération de récupération de récupération de récupération de récupération de récupération parallèle collecte de collecte de déchets collecte de collecte de collecte parallèle récupération de récupération de récupération de récupération de récupération de récupération de récupération de récupération de récupération de récupération parallèle collecteur de récupération de récupération de récupération de récupération parallèle collecte de récupération de récupération de récupération de récupération parallèle Heure de collecte 
+|===
+
+
+== Dépannage
+
+Pour plus d'informations, consultez le link:concept_requesting_support.html["Assistance"] page.

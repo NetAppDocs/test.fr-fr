@@ -1,0 +1,114 @@
+---
+sidebar: sidebar 
+permalink: task_config_cs_data_collectors.html 
+keywords: acquisition, AU, data collector, collector 
+summary: Configurer des collecteurs de données 
+---
+= Configuration des collecteurs de données
+:allow-uri-read: 
+
+
+[role="lead"]
+Vous configurez des collecteurs de données dans votre environnement Cloud Insights pour collecter des données provenant d'hôtes, de services ou de périphériques du data Center.
+
+.Avant de commencer
+* Vous devez disposer de privilèges de propriétaire de compte ou d'administrateur pour configurer des collecteurs de données.
+* Vous devez avoir configuré une unité d'acquisition (pour l'infrastructure) ou un agent (pour les services ou les hôtes) avant de pouvoir commencer à collecter des données.
+* Vous avez besoin d'informations d'identification pour les périphériques d'infrastructure à partir desquels vous recueillez des données.
++
+Les adresses réseau du périphérique, les informations de compte et les mots de passe sont requis pour tous les périphériques dont vous souhaitez collecter des données.
+
+
+
+
+
+=== Sécurité des informations d'identification
+
+Les informations d'identification du collecteur de données sont chiffrées lorsqu'elles sont saisies dans Cloud Insights et envoyées à l'unité d'acquisition (au), chiffrée d'abord par la clé publique de l'au, puis chiffrées sur HTTPS. Les valeurs cryptées sont déchiffrées lorsque l'UA les utilise pour communiquer avec les périphériques et les logiciels.
+
+
+
+=== Configuration du Data Collector
+
+* Dans le menu Cloud Insights, cliquez sur *Admin > Data Collectors* et cliquez sur le bouton *+ Data Collector*. Vous pouvez choisir d'afficher tous les collecteurs de données, ou de filtrer pour afficher uniquement les collecteurs de données disponibles pour vous en fonction de votre abonnement.
+
+
+* Selon le type de collecteur de données choisi, les étapes d'installation varient.
+
+
+
+
+==== Systèmes d'exploitation :
+
+Vous devez installer au moins un agent Cloud Insights pour commencer à collecter des données de système d'exploitation ou de service à partir de votre environnement. Vous pouvez installer autant d'agents que vous le souhaitez. Chaque agent peut collecter des données à partir de plusieurs services.
+
+En plus de collecter les données auprès des services, chaque agent agit également comme collecteur de données pour la machine virtuelle/l'hôte sur lequel il est installé. Les données collectées sont présentées sous la forme de données « nœud » dans des widgets ou des requêtes du tableau de bord.
+
+. Cliquez sur le type de plate-forme ou le système d'exploitation de la machine virtuelle ou de l'hôte (le nœud) à partir duquel vous accédez à Cloud Insights.
+. Choisissez une clé d'accès d'agent.
+. Copier la commande affichée dans le presse-papiers. Vous pouvez cliquer sur l'icône du presse-papiers pour copier rapidement la commande.
+. Ouvrez une fenêtre terminal/commande sur la VM/hôte de l'agent et collez la commande. Appuyez sur entrée pour exécuter la commande.
+. Une fois l'agent installé, cliquez sur *Terminer*. L'agent commence à collecter des données.
++
+Il peut prendre jusqu'à deux périodes d'interrogation avant que les données du nœud s'affichent dans les tableaux de bord ou qu'elles soient disponibles pour les requêtes.
+
+
+
+
+
+==== Services :
+
+Les collecteurs de données de services sont ceux basés sur l’agent telegraf, comme Docker ou Kibana.
+
+.Avant de commencer
+* Vous devez disposer d'au moins un agent Cloud Insights pour collecter les données de service de votre environnement. Si aucun agent n'est installé, vous êtes invité à en installer un lors de la configuration d'un collecteur de données de service.
+* Le service à partir duquel vous souhaitez collecter des données doit être installé et exécuté dans votre environnement.
++
+.. Cliquez sur un collecteur de données Services.
+.. Choisissez un système d'exploitation ou une plate-forme d'agent. Si vous n'avez pas installé d'agent pour la plate-forme, suivez les instructions pour le faire.
+.. Choisissez une clé d'accès d'agent.
+.. Cliquez sur *Continuer*.
+.. Suivez les instructions de configuration du collecteur de données. Vous pouvez cliquer sur l'icône du presse-papiers pour copier rapidement les commandes ou les extraits de code affichés.
+.. Une fois le collecteur de données configuré correctement, cliquez sur *Finish*.
++
+Il peut prendre jusqu'à deux périodes d'interrogation avant que les données du service soient affichées dans les tableaux de bord ou disponibles pour les requêtes.
+
+
+
+
+
+
+
+==== Infrastructure :
+
+Les collecteurs de données d'infrastructure incluent des choses comme le stockage ou les commutateurs.
+
+.Avant de commencer
+* Vous devez avoir au moins une unité d'acquisition configurée pour commencer la collecte des données d'infrastructure.
++
+.. Cliquez sur un collecteur de données d'infrastructure.
+.. Entrez un nom pour le collecteur de données. Les noms peuvent contenir les caractères suivants :
+
+
+* lettre (a-z)
+* nombre (0-9)
+* tiret (-)
+* trait de soulignement (_)
+* période (.)
+* espace ( )
++
+Les noms ne peuvent pas commencer ou se terminer par un espace, un point ou un tiret.
+
++
+.. Entrez l'unité d'acquisition à associer à ce collecteur de données.
+.. Entrez les champs requis dans l'écran Configuration.
+.. Cliquez sur *Configuration avancée* pour saisir des champs de configuration supplémentaires. Tous les collecteurs de données ne nécessitent pas une configuration avancée.
+.. Cliquez sur *Tester la configuration* pour vérifier que le collecteur de données est correctement configuré.
+.. Lorsque vous avez terminé, cliquez sur *Ajouter un collecteur*.
+
+
+
+
+Pour obtenir de l'aide sur l'ajout d'une nouvelle unité d'acquisition, reportez-vous à la section link:task_configure_acquisition_unit.html["Configuration des unités d'acquisition"]
+
++ il peut prendre jusqu'à deux périodes d'interrogation avant que les données de l'environnement soient affichées dans les tableaux de bord ou disponibles pour les requêtes.

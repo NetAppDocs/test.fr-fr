@@ -1,0 +1,85 @@
+---
+sidebar: sidebar 
+permalink: task_dc_infinidat_infinibox.html 
+keywords: data collector, infinidat, InfiniBox 
+summary: 'Configuration du collecteur de données Infinidat Box d"Infinidat' 
+---
+= Collecteur de données Infinidat Box d'Infinidat
+:allow-uri-read: 
+
+
+[role="lead"]
+Le collecteur de données Infinidat Box (HTTP) est utilisé pour recueillir des informations d'inventaire à partir du système de stockage Infinidat Box d'Infinidat.
+
+
+
+== Terminologie
+
+Cloud Insights acquiert les informations d'inventaire suivantes auprès du collecteur d'Infinidat Box d'Infinidat. Pour chaque type de bien acquis par Cloud Insights, la terminologie la plus utilisée pour ce bien est présentée. Lors de l'affichage ou du dépannage de ce collecteur de données, gardez la terminologie suivante à l'esprit :
+
+[cols="2*"]
+|===
+| Terme du fournisseur/modèle | Terme Cloud Insights 
+
+
+| Pool de stockage | Pool de stockage 
+
+
+| Nœud | Contrôleur 
+
+
+| Système de fichiers | Volume interne 
+
+
+| Système de fichiers | Partage de fichiers 
+
+
+| Exportations des systèmes de fichiers | Partagez 
+|===
+
+
+== De formation
+
+Les conditions suivantes sont requises lors de la configuration de ce collecteur de données.
+
+* Adresse IP ou FQDN du noeud de gestion InfiniBox
+* ID utilisateur et mot de passe administrateur
+* Le port 443 via l'API REST
+
+
+
+
+== Configuration
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| Hôte InfiniBox | Adresse IP ou nom de domaine complet du nœud de gestion InfiniBox 
+
+
+| Nom d'utilisateur | Nom d'utilisateur du nœud de gestion InfiniBox 
+
+
+| Mot de passe | Mot de passe du noeud de gestion de l'InfiniBox 
+|===
+
+
+== Configuration avancée
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| Port TCP | Port TCP utilisé pour se connecter au serveur InfiniBox. La valeur par défaut est 443. 
+
+
+| Intervalle de sondage des stocks | Intervalle entre les sondages d'inventaire. La valeur par défaut est 60 minutes. 
+|===
+
+
+== Dépannage
+
+Pour plus d'informations sur ce Data Collector, consultez le link:concept_requesting_support.html["Assistance"] ou dans le link:https://docs.netapp.com/us-en/cloudinsights/CloudInsightsDataCollectorSupportMatrix.pdf["Matrice de prise en charge du Data Collector"].

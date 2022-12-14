@@ -1,0 +1,157 @@
+---
+sidebar: sidebar 
+permalink: task_dc_brocade_fc_switch.html 
+keywords: data collector, Brocade, FC switch, 
+summary: Configuration du collecteur de données des commutateurs FC Brocade 
+---
+= Collecteur de données du commutateur FC Brocade
+:allow-uri-read: 
+
+
+[role="lead"]
+Cloud Insights utilise la source de données du commutateur FC Brocade (SSH) pour détecter l'inventaire des périphériques Brocade ou du commutateur renommé exécutant le firmware 4.2 et version ultérieure du système d'exploitation pris en charge (FOS). Les périphériques en mode commutateur FC et passerelle d'accès sont pris en charge.
+
+
+
+== Terminologie
+
+Cloud Insights acquiert les informations d'inventaire suivantes auprès du collecteur de données du commutateur FC Brocade. Pour chaque type de bien acquis par Cloud Insights, la terminologie la plus utilisée pour ce bien est présentée. Lors de l'affichage ou du dépannage de ce collecteur de données, gardez la terminologie suivante à l'esprit :
+
+[cols="2*"]
+|===
+| Terme du fournisseur/modèle | Terme Cloud Insights 
+
+
+| Commutateur | Commutateur 
+
+
+| Port | Port 
+
+
+| Structure virtuelle, structure physique | Structure 
+
+
+| Zone | Zone 
+
+
+| Commutateur logique | Commutateur logique 
+
+
+| Volume virtuel | Volumétrie 
+
+
+| Zone LSAN | Zone IVR 
+|===
+Remarque : il s'agit uniquement de mappages terminologiques communs et peuvent ne pas représenter tous les cas pour ce collecteur de données.
+
+
+
+== De formation
+
+* L'unité d'acquisition Cloud Insights (au) initiera des connexions au port TCP 22 sur les commutateurs Brocade pour collecter des données d'inventaire. L'UA initiera également les connexions au port UDP 161 pour la collecte des données de performances.
+* Il doit y avoir une connectivité IP à tous les commutateurs de la structure. Si vous cochez la case Discover All switches dans la structure, Cloud Insights identifie tous les commutateurs de la structure. Cependant, il faut une connectivité IP à ces commutateurs supplémentaires pour les découvrir.
+* Le même compte est nécessaire au niveau global pour tous les commutateurs du maillage. Vous pouvez utiliser PuTTY (émulateur de terminal open source) pour confirmer l'accès.
+* Les ports 161 et 162 doivent être ouverts à tous les commutateurs de la structure pour l'interrogation des performances SNMP.
+* Chaîne de communauté en lecture seule SNMP
+
+
+
+
+== Configuration
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| IP du commutateur | Adresse IP ou nom de domaine complet du serveur EFC 
+
+
+| Nom d'utilisateur | Nom d'utilisateur du commutateur 
+
+
+| Mot de passe | Mot de passe du commutateur 
+
+
+| SNMP | Version SNMP 
+
+
+| Chaîne de communauté SNMP | Chaîne de communauté en lecture seule SNMP utilisée pour accéder au commutateur 
+
+
+| Nom d'utilisateur SNMP | Nom d'utilisateur SNMP 
+
+
+| Mot de passe SNMP | Mot de passe SNMP 
+|===
+
+
+== Configuration avancée
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| Nom de la structure | Nom de la structure à indiquer par le collecteur de données. Laissez vide pour signaler le nom de la structure comme WWN. 
+
+
+| Intervalle d'interrogation des stocks (min) | Intervalle entre les sondages d'inventaire. La valeur par défaut est 15. 
+
+
+| Périphériques exclus | Liste des ID de périphériques séparés par des virgules à exclure de l'interrogation 
+
+
+| Domaines d'administration actifs | Sélectionnez si vous utilisez des domaines Admin 
+
+
+| Récupérer les données MPR | Sélectionnez cette option pour acquérir des données de routage à partir de votre routeur multiprotocole. 
+
+
+| Activer le recouvrement | Sélectionnez cette option pour activer l'acquisition lors de la réception d'une interruption SNMP à partir du périphérique. Si vous sélectionnez Activer le recouvrement, vous devez également activer SNMP. 
+
+
+| Temps minimum entre les recouvrements (s) | Temps minimum entre les tentatives d'acquisition déclenchées par les interruptions. La valeur par défaut est 10. 
+
+
+| Découvrir tous les commutateurs du tissu | Sélectionnez pour découvrir tous les commutateurs de la structure 
+
+
+| Sélectionnez favoriser l'HBA vs Alias de zone | Choisissez de favoriser les alias de HBA ou de zone 
+
+
+| Intervalle d'interrogation des performances (s) | Intervalle entre les sondages de performances. La valeur par défaut est 300. 
+
+
+| Protocole d'autorisation SNMP | Protocole d'authentification SNMP (SNMP v3 uniquement) 
+
+
+| Mot de passe de confidentialité SNMP | Mot de passe de confidentialité SNMP (SNMP v3 uniquement) 
+
+
+| Nouvelles tentatives SNMP | Nombre de tentatives de tentative SNMP 
+|===
+
+
+== Dépannage
+
+Certaines choses à essayer si vous rencontrez des problèmes avec ce collecteur de données :
+
+
+
+==== Inventaire
+
+[cols="2*"]
+|===
+| Problème : | Essayer : 
+
+
+| Erreur : “Cloud Insights a reçu un rôle de châssis non valide” | Vérifiez que l'utilisateur configuré dans cette source de données a reçu l'autorisation de rôle de châssis. 
+
+
+| Erreur : « adresse IP du châssis non concordante » | Modifiez la configuration de la source de données pour utiliser l'adresse IP du châssis. 
+
+
+| Recevez un message indiquant que plus d'un nœud est connecté au port Access Gateway | Vérifiez que le périphérique NPV fonctionne correctement et que tous les WWN connectés sont attendus. N'obtenez pas directement le périphérique NPV. L'acquisition du commutateur principal de la structure collecte plutôt les données du dispositif NPV. 
+|===
+Pour plus d'informations, consultez le link:concept_requesting_support.html["Assistance"] ou dans le link:https://docs.netapp.com/us-en/cloudinsights/CloudInsightsDataCollectorSupportMatrix.pdf["Matrice de prise en charge du Data Collector"].

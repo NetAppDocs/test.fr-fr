@@ -1,0 +1,41 @@
+---
+sidebar: sidebar 
+permalink: task_cs_user_management.html 
+keywords: Cloud Secure, User, Login, account 
+summary: Les comptes utilisateur Cloud Secure sont gérés par le biais de la gestion des utilisateurs Cloud Insights 
+---
+= Gestion des utilisateurs
+:allow-uri-read: 
+
+
+[role="lead"]
+Les comptes utilisateurs Cloud Secure sont gérés via Cloud Insights.
+
+Cloud Insights fournit quatre niveaux de compte utilisateur : propriétaire, administrateur, utilisateur et invité du compte. Chaque compte se voit attribuer des niveaux d'autorisation spécifiques. Un compte utilisateur disposant des privilèges d'administrateur peut créer ou modifier des utilisateurs et attribuer à chaque utilisateur l'un des rôles Cloud Secure suivants :
+
+|===
+
+
+| Rôle | Accès à Cloud Secure 
+
+
+| Administrateur | Peut exécuter toutes les fonctions Cloud Secure, y compris celles pour les alertes, les médico-événements, les collecteurs de données, les règles de réponse automatisées et les API pour Cloud Secure. Un administrateur peut également inviter d'autres utilisateurs, mais peut uniquement attribuer des rôles Cloud Secure. 
+
+
+| Utilisateur | Peut afficher et gérer des alertes et afficher des informations judiciaires. Le rôle de l'utilisateur peut modifier l'état des alertes, ajouter une note, effectuer des instantanés manuellement et limiter l'accès des utilisateurs. 
+
+
+| Invité | Peut afficher les alertes et les analyses approfondies. Le rôle invité ne peut pas modifier le statut des alertes, ajouter une note, effectuer des instantanés manuellement ou restreindre l'accès des utilisateurs. 
+|===
+.Étapes
+. Connectez-vous à Cloud Secure
+. Dans le menu, cliquez sur *Admin > gestion des utilisateurs*
++
+Vous serez redirigé vers la page gestion des utilisateurs de Cloud Insights.
+
+. Sélectionnez le rôle souhaité pour chaque utilisateur.
+
+
+Lors de l'ajout d'un nouvel utilisateur, il suffit de sélectionner le rôle souhaité (généralement utilisateur ou invité).
+
+Vous trouverez plus d'informations sur les comptes utilisateur et les rôles dans le Cloud Insights link:https://docs.netapp.com/us-en/cloudinsights/concept_user_roles.html["Rôle utilisateur"] documentation :

@@ -1,0 +1,75 @@
+---
+sidebar: sidebar 
+permalink: reporting_data_retention.html 
+summary: Conservation des données Cloud Insights à des fins de création de rapports 
+keywords: reporting, cognos, data warehouse, dwh, managing, customizing, copying, retention 
+---
+= Conservation des données historiques pour les rapports
+:allow-uri-read: 
+
+
+[role="lead"]
+Cloud Insights conserve les données historiques à utiliser dans le cadre du reporting en fonction des magasins de données et de la granularité des données, comme le montre le tableau suivant.
+
+|===
+
+
+| Un data Mart | Objet mesuré | Granularité | Durée de conservation 
+
+
+| Marts de performance | Volumes et volumes internes | Horaire | 14 jours 
+
+
+| Marts de performance | Volumes et volumes internes | Tous les jours | 13 mois 
+
+
+| Marts de performance | Client supplémentaire | Horaire | 13 mois 
+
+
+| Marts de performance | Hôte | Horaire | 13 mois 
+
+
+| Marts de performance | Performances du commutateur pour le port | Horaire | 35 jours 
+
+
+| Marts de performance | Performances de commutateur pour l'hôte, le stockage et les bandes | Horaire | 13 mois 
+
+
+| Marts de performance | Nœud de stockage | Horaire | 14 jours 
+
+
+| Marts de performance | Nœud de stockage | Tous les jours | 13 mois 
+
+
+| Marts de performance | Performances des VM | Horaire | 35 jours 
+
+
+| Marts de performance | Performances des VM | Tous les jours | 13 mois 
+
+
+| Marts de performance | Performances de l'hyperviseur | Horaire | 35 jours 
+
+
+| Marts de performance | Performances de l'hyperviseur | Tous les jours | 13 mois 
+
+
+| Marts de performance | Performances de VMDK | Horaire | 35 jours 
+
+
+| Marts de performance | Performances de VMDK | Tous les jours | 13 mois 
+
+
+| Marts de performance | Performances des disques | Horaire | 14 jours 
+
+
+| Marts de performance | Performances des disques | Tous les jours | 13 mois 
+
+
+| Marts de capacité | Tous (sauf volumes individuels) | Tous les jours | 13 mois 
+
+
+| Marts de capacité | Tous (sauf volumes individuels) | Représentant mensuel | 14 mois et plus 
+
+
+| Marts d'inventaire | Volumes individuels | État actuel | 1 jour (ou jusqu'au prochain CÉC) 
+|===

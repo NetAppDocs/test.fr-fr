@@ -1,0 +1,87 @@
+---
+sidebar: sidebar 
+permalink: kubernetes_cluster_detail.html 
+keywords: kubernetes, pods, clusters, nodes. troubleshooting, planning 
+summary: La page de détails de Kubernetes fournit des informations et des informations pour vous aider dans la résolution de problèmes et la planification. 
+---
+= Page des détails du cluster Kubernetes
+:allow-uri-read: 
+
+
+[role="lead"]
+La page des détails du cluster Kubernetes affiche des informations détaillées sur le cluster Kubernetes.
+
+La page détaillée se compose de trois pages distinctes mais liées montrant les informations sur le cluster, le nœud et le pod. La section « utilisation des ressources » change pour afficher les détails de l'élément sélectionné (cluster, nœud ou pod). Le type et le nom de page en cours s'affichent en haut de l'écran. La page actuelle s'affiche dans l'héirarchie suivante : _Nom du site / Kubernetes / Cluster / Node / Pod_. Vous pouvez cliquer sur n'importe quelle partie de ce chemin de navigation pour accéder directement à cette page spécifique.
+
+image:Kubernetes_Breadcrumb.png["Fil de page"]
+
+
+
+== Présentation du cluster
+
+La page de présentation du cluster fournit des informations utiles en un coup d'œil :
+
+image:Kubernetes_Cluster_View_Annotated.png["Vue annotée du cluster"]
+
+
+
+=== Le nombre de nœuds et de pods
+
+Le nombre de nœuds/pods en haut de la page indique le nombre total de nœuds et de pods dans le cluster, ainsi qu'une répartition du nombre de pods en cours d'alerte ou en attente.
+
+image:Kubernetes_Pod_Counts.png["Le nombre de nœuds et de pods"]
+
+
+NOTE: Il est possible que les trois sous-comptes de pod (sain, alerte, en attente) puissent dépasser le nombre total affiché de pods. Cela peut se produire car le _pending_ count inclut _All_ Pending pods, non planifiés et planifiés (en d'autres termes, non connectés et attachés aux nœuds).
+
+
+
+=== Le groupe d'instruments « roue »
+
+image:Kubernetes_Wheel_Section.png["Roue du groupe d'instruments"]
+
+La section roue du cluster fournit un aperçu de l'état des nœuds et des pods pour en savoir plus. Si votre cluster contient plus de nœuds que ce qui peut être affiché dans cette zone de la page, vous pourrez tourner la roue à l'aide des boutons disponibles.
+
+Les pods ou les nœuds d'alerte s'affichent en rouge. Les zones « Avertissement » s'affichent en orange. Les modules qui ne sont pas programmés (c'est-à-dire non connectés) s'affichent dans le coin inférieur du bloc d'instruments.
+
+Le fait de passer la souris sur un pod (cercle) ou un nœud (barre) permet d'étendre la vue du nœud.
+
+image:Kubernetes_Node_Expand.png["Nœud étendu"]
+
+Cliquez sur le pod ou le nœud dans cette vue pour effectuer un zoom avant sur la vue développée du nœud.
+
+image:Kubernetes_Critical_Pod_Zoom.png["Vue de nœud développée"]
+
+À partir de là, vous pouvez passer le curseur sur un élément pour afficher des détails sur cet élément. Par exemple, passez la souris sur le pod critique dans cet exemple pour afficher des détails sur ce pod.
+
+image:Kubernetes_Pod_Red.png["Informations sur le pod critique"]
+
+Vous pouvez afficher les informations relatives au système de fichiers, à la mémoire et à la CPU en passant le pointeur de la souris sur les éléments du nœud.
+
+image:Kubernetes_Capacity_Info.png["Capacité et allocation des nœuds"]
+
+
+
+=== Section de détail
+
+Chaque page de l'explorateur Kubernetes affiche un ensemble de graphiques d'utilisation qui peuvent inclure le processeur, la mémoire et le stockage. Sous ces graphiques, vous trouverez des résumés et des listes des principaux objets de chaque catégorie, avec des liens vers les détails sous-jacents. Par exemple, _Node_ affiche les pods et les conteneurs, _Pod_ affiche les demandes de volume persistant ainsi que les objets et conteneurs associés, etc L'illustration suivante montre un exemple d'informations détaillées sur une page _Node_ :
+
+image:Kubernetes_Node_Resource_Usage.png["Exemple d'utilisation des ressources"]
+
+Les ressources qui subissent des alertes s'affichent en haut de la liste. Cliquez sur la ressource affectée pour en savoir plus.
+
+
+
+==== Une note sur les jauges
+
+Les jauges mémoire et CPU affichent trois couleurs, puisqu'elles indiquent _used_ par rapport à _allocatable Capacity_ et _total Capacity_. Les jauges de stockage n'affichent que deux couleurs car elles n'affichent qu'une seule paire de valeurs : _Used_ par rapport à _total_.
+
+Tenez compte des points suivants lors de la lecture des jauges.
+
+La bande bleu foncé indique la quantité utilisée.
+
+* Lorsqu'elle est vue contre la bande _bleu clair_, le bleu foncé est utilisé comme % de la quantité allouable. Ceci correspond à la valeur « % de la valeur allouable » indiquée (81 dans l'exemple ci-dessous).
+* Lorsqu'elle est affichée sur le fond _blanc_, le bleu foncé est utilisé comme % de la capacité totale. Ceci correspond à la valeur « % de capacité » indiquée (63 dans cet exemple).
+
+
+image:Kubernetes_Gauge_Explained.png["Chiffres des jauges expliqués"]

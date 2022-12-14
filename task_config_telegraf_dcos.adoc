@@ -1,0 +1,51 @@
+---
+sidebar: sidebar 
+permalink: task_config_telegraf_dcos.html 
+keywords: telegraf, installation, install, dcos 
+summary: configuration dco 
+---
+= Data Collector DC/OS
+:allow-uri-read: 
+
+
+[role="lead"]
+Cloud Insights utilise ce collecteur de données pour recueillir des mesures à partir du DC/OS.
+
+
+
+== Installation
+
+. Dans *Admin > Data Collectors*, cliquez sur *+Data Collector*. Sous *Services*, choisissez *DC/OS*.
++
+Si vous n'avez pas configuré un agent pour la collecte, vous êtes invité à le faire link:task_config_telegraf_agent.html["installez un agent"] dans votre environnement.
+
++
+Si un agent est déjà configuré, sélectionnez le système d'exploitation ou la plate-forme approprié et cliquez sur *Continuer*.
+
+. Suivez les instructions de l'écran Configuration du DC/OS pour configurer le collecteur de données. Les instructions varient en fonction du type de système d'exploitation ou de plate-forme utilisé pour collecter des données.
+
+
+
+
+== Configuration
+
+Les informations de configuration sont disponibles dans le https://docs.mesosphere.com["Documentation DC/OS"].
+
+
+
+== Objets et compteurs
+
+Les objets suivants et leurs compteurs sont collectés :
+
+[cols="<.<,<.<,<.<,<.<"]
+|===
+| Objet | Identifiants | Attributs | Points de données 
+
+
+| dco_node | dco_conteneur dco_app | chemin du nom d'hôte du cluster (champs de système de fichiers uniquement) interface (champs réseau uniquement) nom_tâche_conteneur | system_uptime (float) cpu_infrastructure (float) cpu_total (float) cpu_user (float) cpu_inactive (float) cpu_wait (float) load_1min (float) load_5min (float) load_15min (fload_capacity_total_bytes (int_file_free_inting) (inode_innetapp_netoctets_read_read_total_ind_ind_ind_ind_ind_ind_ind_innetapp (int_ind_ind_ind_ind_ind_ind_ind_innetapp_ind_innetapp) (int_ind_ind_innetapp_ind_ind_ind_ind_octets_ind_ind_ind_ind_ind_ind_ind_ind_ind_ network_in_packets (float) network_out_packets (float) network_in_funed (float) network_in_errors (float) network_out_errors (float) process_count (float) 
+|===
+
+
+== Dépannage
+
+Vous trouverez des informations supplémentaires dans le link:concept_requesting_support.html["Assistance"] page.

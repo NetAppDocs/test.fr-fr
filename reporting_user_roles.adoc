@@ -1,0 +1,97 @@
+---
+sidebar: sidebar 
+permalink: reporting_user_roles.html 
+summary: 'Ce que vous pouvez faire avec Cloud Insights Reporting dépend de votre rôle d"utilisateur.' 
+keywords: reporting, cognos, data warehouse, dwh, users, roles, user roles 
+---
+= Rôles d'utilisateur Cloud Insights Reporting
+:allow-uri-read: 
+
+
+[role="lead"]
+Si vous disposez de Cloud Insights Premium Edition avec reporting, chaque utilisateur Cloud Insights de votre environnement dispose également d'une connexion SSO (Single Sign-on) à l'application de reporting (c.-à-d. Cognos). Il vous suffit de cliquer sur le lien *Rapports* dans le menu pour vous connecter automatiquement à Reporting.
+
+Votre rôle d'utilisateur dans Cloud Insights détermine votre rôle d'utilisateur hiérarchique :
+
+|===
+
+
+| Rôle Cloud Insights | Rôle de génération de rapports | Autorisations liées aux rapports 
+
+
+| Invité | Grand public | Permet d'afficher, de planifier et d'exécuter des rapports et de définir des préférences personnelles telles que celles pour les langues et les fuseaux horaires. Les clients ne peuvent pas créer de rapports ni effectuer des tâches administratives. 
+
+
+| Utilisateur | Auteur | Peut exécuter toutes les fonctions de l'utilisateur ainsi que créer et gérer des rapports et des tableaux de bord. 
+
+
+| Administrateur | Administrateur | Peut exécuter toutes les fonctions auteur ainsi que toutes les tâches administratives telles que la configuration des rapports et l'arrêt et le redémarrage des tâches de rapport. 
+|===
+Le tableau suivant présente les fonctions disponibles pour chaque rôle de rapport.
+
+|===
+
+
+| Fonction | Grand public | Auteur | Administrateur 
+
+
+| Afficher les rapports dans l'onglet contenu de l'équipe | Oui. | Oui. | Oui. 
+
+
+| Exécuter des rapports | Oui. | Oui. | Oui. 
+
+
+| Planifier des rapports | Oui. | Oui. | Oui. 
+
+
+| Téléchargez des fichiers externes | Non | Oui. | Oui. 
+
+
+| Créer des travaux | Non | Oui. | Oui. 
+
+
+| Créez des histoires | Non | Oui. | Oui. 
+
+
+| Créer des rapports | Non | Oui. | Oui. 
+
+
+| Créer des modules de données et des modules de données | Non | Oui. | Oui. 
+
+
+| Effectuer des tâches administratives | Non | Non | Oui. 
+|===
+
+
+== Définition des préférences de notification (Cognos)
+
+
+NOTE: Si vous modifiez vos préférences de messagerie utilisateur dans Cloud Insights Reporting (c'est-à-dire l'application Cognos), ces préférences sont actives _uniquement pour la session en cours_. La déconnexion de Cognos et de nouveau vous permettront de réinitialiser vos préférences de courriel.
+
+
+
+== Remarque importante pour les clients existants
+
+Si vous découvrez Cloud Insights avec reporting, bienvenue ! Vous n'avez rien de plus à faire pour commencer à profiter de l'établissement de rapports.
+
+Si vous êtes un client Premium Edition actuel, SSO n'est pas automatiquement activé pour votre environnement. Lorsque vous activez SSO, l'utilisateur administrateur du portail de génération de rapports (Cognos) n'existe plus. Cela signifie que tous les rapports contenus dans le dossier _My Content_ sont supprimés et doivent être réinstallés ou recréés dans _Team Content_. Par ailleurs, une fois l'authentification SSO activée, les rapports planifiés doivent être configurés.
+
+
+
+=== Quelles mesures dois-je prendre pour préparer mon environnement existant à l'activation de la fonctionnalité SSO ?
+
+Pour vous assurer que vos rapports sont conservés, migrez tous les rapports de _mon contenu_ à _contenu_ de l'équipe en suivant les étapes ci-dessous. Vous devez effectuer cette opération avant d'activer SSO dans votre environnement :
+
+. Créez un nouveau dossier dans _Team Content_
++
+.. Si plusieurs utilisateurs ont été créés, créez un dossier distinct pour chaque utilisateur afin d'éviter d'écraser des rapports avec des noms en double
+
+
+. Accédez à _mon contenu_
+. Sélectionnez tous les rapports que vous souhaitez conserver.
+. Dans le coin supérieur droit du menu, sélectionnez « Copier ou déplacer ».
+. Accédez au nouveau dossier créé dans _Team Content_
+. Collez les rapports dans le nouveau dossier créé à l'aide des boutons Copier vers ou déplacer vers
+. Une fois SSO activé pour Cognos, connectez-vous à Cloud Insights avec l'adresse électronique utilisée pour créer votre compte.
+. Accédez au dossier _Team Content_ dans Cognos et copiez ou déplacez les rapports précédemment enregistrés vers _My Content_.
+

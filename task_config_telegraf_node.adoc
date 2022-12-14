@@ -1,0 +1,72 @@
+---
+sidebar: sidebar 
+permalink: task_config_telegraf_node.html 
+keywords: telegraf, installation, install, node, host 
+summary: Configuration du collecteur de données Flink 
+---
+= Collecte des données de nœud
+:allow-uri-read: 
+
+
+[role="lead"]
+Cloud Insights collecte des metrics à partir du nœud sur lequel vous installez un agent.
+
+
+
+== Installation
+
+. Dans *Admin > Data Collectors*, choisissez un système d'exploitation/une plate-forme. Notez que l'installation d'un collecteur de données d'intégration (Kubernetes, Docker, Apache, etc.) configure également la collecte des données du nœud.
+. Suivez les instructions pour configurer l'agent. Les instructions varient en fonction du type de système d'exploitation ou de plate-forme utilisé pour collecter des données.
+
+
+
+
+== Objets et compteurs
+
+Les objets suivants et leurs compteurs sont collectés sous forme de metrics de nœud :
+
+[cols="<.<,<.<,<.<,<.<"]
+|===
+| Objet : | Identifiants : | Attributs : | Points de données : 
+
+
+| Système de fichiers de nœuds | Type de chemin d'accès de périphérique UUID de nœud | Nœud IP nœud Nom nœud mode OS | Inodes libres inodes libres nombre total d'inodes utilisé Total utilisé 
+
+
+| Disque de nœud | Disque UUID de nœud | Nom de nœud IP de nœud OS | Temps d'E/S nombre total d'IOPS en cours lecture octets (par seconde) temps de lecture durée totale des lectures (par seconde) temps d'E/S pondéré durée totale des écritures (par seconde) temps d'écriture total des écritures (par seconde) durée actuelle de la file d'attente des disques temps d'écriture temps d'E/S de lecture 
+
+
+| Processeur des nœuds | CPU UUID de nœud | Nom de nœud IP de nœud OS | Utilisation du CPU système utilisation du CPU utilisateur utilisation du CPU inactif utilisation du processeur interruption utilisation du CPU DPC utilisation du CPU 
+
+
+| Nœud | UUID de nœud | Nom de nœud IP de nœud OS | Temps d'amorçage du noyau commutateurs de contexte du noyau (par seconde) interruption du noyau interruptions du noyau disponibles (par seconde) processus du noyau forgés (par seconde) Mémoire mémoire active mémoire active disponible mémoire totale mémoire disponible mémoire tampon mémoire cache limite mémoire cache mémoire vive comme mémoire non volatile mémoire libre mémoire haute mémoire libre mémoire haute capacité mémoire énorme taille de page mémoire énorme pages mémoire libre pages nombreuses pages mémoire libre mémoire totale mémoire faible mémoire disponible Table de pages mémoire mappée totale Mémoire partagée mémoire Bloc mémoire Bloc mémoire vive mémoire cache échange mémoire libre échange mémoire totale mémoire totale utilisée mémoire totale mémoire utilisée mémoire totale mémoire utilisée Vmalloc Bloc mémoire Vmalloc mémoire totale Vmalloc mémoire utilisée mémoire saturée mémoire filaire Retour mémoire totale mémoire mémoire Writeback mémoire mémoire tmp mémoire cache mémoire demande zéro pannes mémoire page mémoire pages mémoire Mémoire non paginée mémoire à l'origine mémoire à l'état principal mémoire à l'état de repos mémoire à la réserve mémoire à l'état normal processus à l'état de repos processus à l'arrêt processus à l'état de repos processus à l'état de repos Total threads processus à l'état de repos processus à l'état de repos durée de la file d'attente à l'état de remplacement totale à l'état d'échange utilisé Total Swap utilisé Swap in Swap System Num CPU System Num utilisateurs système appels système 
+
+
+| Réseau de nœuds | UUID de nœud d'interface réseau | Nœud Nom nœud nœud IP nœud OS | Octets reçus octets envoyés paquets envoyés Outboud paquets rejetés erreurs Outboud paquets reçus paquets rejetés erreurs reçues paquets reçus erreurs paquets reçus paquets envoyés 
+|===
+
+
+== Configuration
+
+Les informations de configuration et de dépannage se trouvent sur le link:task_config_telegraf_agent.html["Configuration d'un agent"] page.
+
+
+
+== Utilisation de la mémoire MacOS
+
+Cloud Insights (via Telegraf) et MacOS signalent des numéros différents pour l'utilisation de la mémoire. Telegraf et le moniteur d'activité Mac utilisent des mesures recueillies à partir de _vm_stat_, cependant l'utilisation totale de la mémoire est calculée différemment pour chaque.
+
+*Telegraf* calcule _mémoire utilisée Total_ comme suit :
+
+ Memory Used Total = Memory Total - Memory Available Total
+Où _Memory Available Total_ est dérivé de la somme de "pages libres" et de "pages inactives" dans _vm_stat_.
+
+*Le moniteur d'activité Mac*, en revanche, calcule la mémoire utilisée comme suit :
+
+ Memory Used = App Memory + Wired Memory + Compressed
+Où ?
+
+* _App Memory_ est dérivé de la différence entre “pages anonymes” et “pages purgeable” dans _vm_stat_,
+* _Wired Memory_ est dérivé de “pages câblées en bas” dans _vm_stat_, et
+* _Compressed_ est dérivé de “pages occupées par compresseur” dans _vm_stat_.
+

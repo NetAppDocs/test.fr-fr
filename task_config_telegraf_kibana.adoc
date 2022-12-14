@@ -1,0 +1,52 @@
+---
+sidebar: sidebar 
+permalink: task_config_telegraf_kibana.html 
+keywords: telegraf, installation, install, kibana 
+summary: Configuration du collecteur de données Kibana 
+---
+= Collecteur de données Kibana
+:allow-uri-read: 
+
+
+[role="lead"]
+Cloud Insights utilise ce collecteur de données pour collecter des metrics à partir de Kibana.
+
+
+
+== Installation
+
+. Dans *Admin > Data Collectors*, cliquez sur *+Data Collector*. Sous *Services*, choisissez Kibana.
++
+Sélectionnez le système d'exploitation ou la plate-forme sur laquelle l'agent Telegraf est installé.
+
+. Si vous n'avez pas déjà installé un agent pour la collecte ou si vous souhaitez installer un agent pour un autre système d'exploitation ou plate-forme, cliquez sur _Afficher les instructions_ pour développer le link:task_config_telegraf_agent.html["Installation de l'agent"] instructions.
+. Sélectionnez la clé d'accès de l'agent à utiliser avec ce collecteur de données. Vous pouvez ajouter une nouvelle clé d'accès à l'agent en cliquant sur le bouton * + clé d'accès à l'agent*. Meilleure pratique : utilisez une clé d'accès d'agent différente uniquement lorsque vous souhaitez regrouper des collecteurs de données, par exemple, par OS/plate-forme.
+. Suivez les étapes de configuration pour configurer le collecteur de données. Les instructions varient en fonction du type de système d'exploitation ou de plate-forme utilisé pour collecter des données.
+
+
+image:KibanaDCConfigLinux.png["Configuration Kibana"]
+
+
+
+== Configuration
+
+Vous trouverez des informations dans le link:https://www.elastic.co/guide/index.html["Documentation Kibana"].
+
+
+
+== Objets et compteurs
+
+Les objets suivants et leurs compteurs sont collectés :
+
+[cols="<.<,<.<,<.<,<.<"]
+|===
+| Objet : | Identifiants : | Attributs : | Points de données : 
+
+
+| Kibana | Adresse de l'espace de noms | État de la version du nom de nœud IP du nœud | Connexions simultanées Heap Max Heap utilisait des requêtes par seconde temps de réponse moyen temps de réponse maximum disponibilité 
+|===
+
+
+== Dépannage
+
+Pour plus d'informations, consultez le link:concept_requesting_support.html["Assistance"] page.

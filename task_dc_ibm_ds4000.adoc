@@ -1,0 +1,82 @@
+---
+sidebar: sidebar 
+permalink: task_dc_ibm_ds4000.html 
+keywords: data collector, IBM, DS4000 
+summary: Collecteur de données IBM TotalStorage DS4000 
+---
+= Collecteur de données IBM TotalStorage DS4000
+:allow-uri-read: 
+
+
+[role="lead"]
+Ce collecteur de données acquiert les informations d'inventaire et de performances du système de stockage IBM DS4000. Il existe deux configurations possibles (firmware 6.x et firmware 7.x+), et elles ont toutes les deux les mêmes valeurs.
+
+
+
+== Terminologie
+
+Cloud Insight st fait l'acquisition des informations d'inventaire suivantes auprès du collecteur de données IBM DS4000. Pour chaque type d'actif acquis, la terminologie la plus utilisée pour ce bien est indiquée. Lors de l'affichage ou du dépannage de ce collecteur de données, gardez la terminologie suivante à l'esprit :
+
+[cols="2*"]
+|===
+| Terme du fournisseur/modèle | Terme Cloud Insights 
+
+
+| Disque | Disque 
+
+
+| Groupe de volumes | Groupe de disques 
+
+
+| Baie de stockage | Stockage 
+
+
+| Contrôleur | Nœud de stockage 
+
+
+| Groupe de volumes | Pool de stockage 
+
+
+| Volumétrie | Volumétrie 
+|===
+Remarque : il s'agit uniquement de mappages terminologiques communs et peuvent ne pas représenter tous les cas pour ce collecteur de données.
+
+
+
+== De formation
+
+* Adresse IP de chaque baie DS5 ou FAStT
+* Validation des accès en envoyant une commande ping à l'adresse IP des deux contrôleurs de la baie
+* Configuration requise pour les ports : 2463
+
+
+
+
+== Configuration
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| Liste des adresses IP de contrôleur de matrice SANtricity séparées par une virgule | Adresses IP et/ou noms de domaine complets pour les contrôleurs de matrice 
+|===
+
+
+== Configuration avancée
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| Intervalle d'interrogation des stocks (min) | La valeur par défaut est 30 minutes 
+
+
+| Intervalle d'interrogation des performances jusqu'à 3600 secondes | La valeur par défaut est de 300 secondes 
+|===
+
+
+== Dépannage
+
+Pour plus d'informations sur ce Data Collector, consultez le link:concept_requesting_support.html["Assistance"] ou dans le link:https://docs.netapp.com/us-en/cloudinsights/CloudInsightsDataCollectorSupportMatrix.pdf["Matrice de prise en charge du Data Collector"].

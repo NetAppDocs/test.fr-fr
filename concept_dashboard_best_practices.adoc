@@ -1,0 +1,129 @@
+---
+sidebar: sidebar 
+permalink: concept_dashboard_best_practices.html 
+summary: Meilleures pratiques pour exploiter au mieux vos tableaux de bord 
+keywords: dashboard, hints, tips, best practice, widgets, metrics, 
+---
+= Meilleures pratiques pour les tableaux de bord et les widgets
+:allow-uri-read: 
+
+
+[role="lead"]
+Conseils et astuces pour vous aider à tirer le meilleur parti des fonctionnalités puissantes des tableaux de bord et des widgets.
+
+
+
+== Trouver la mesure appropriée
+
+Cloud Insights acquiert des compteurs et des mesures à l'aide de noms qui diffèrent parfois du collecteur de données au collecteur de données.
+
+Lorsque vous recherchez la mesure ou le compteur adéquat pour votre widget tableau de bord, gardez à l'esprit que la mesure souhaitée peut être sous un nom différent de celui que vous pensez. Bien que les listes déroulantes de Cloud Insights soient généralement alphabétiques, un terme peut parfois ne pas apparaître dans la liste où vous le pensez. Par exemple, les termes « capacité brute » et « capacité utilisée » n'apparaissent pas dans la plupart des listes.
+
+*Meilleure pratique* : utilisez la fonction de recherche dans des champs tels que Filtrer par ou des emplacements comme le sélecteur de colonne pour trouver ce que vous recherchez. Par exemple, une recherche portant sur « Cap » indique tous les metrics dont le nom contient « capacité », quel que soit l'endroit où ils se trouvent dans la liste. Vous pouvez ensuite facilement sélectionner les mesures souhaitées dans cette liste plus courte.
+
+Voici quelques phrases alternatives que vous pouvez essayer lors de la recherche de mesures :
+
+|===
+
+
+| Quand vous voulez trouver : | Essayez également de rechercher : 
+
+
+| CPU | Processeur 
+
+
+| Puissance | Capacité utilisée capacité brute provisionnée capacité provisionnée pools de stockage capacité <autre type d'actif> capacité écrite 
+
+
+| Vitesse du disque | Vitesse de disque la plus faible du type de disque le moins performant 
+
+
+| Hôte | Hôtes hyperviseurs 
+
+
+| Hyperviseur | L'hôte est un hyperviseur 
+
+
+| Microcode | Micrologiciel 
+
+
+| Nom | Alias Nom de l'hyperviseur Nom de stockage <autre type de ressource> Nom simple Nom de ressource alias de structure 
+
+
+| Lecture / écriture | IOPS en attente de lecture partielle - latence de la capacité d'écriture - utilisation du cache de lecture - lecture 
+
+
+| Ordinateur virtuel | La machine virtuelle est virtuel 
+|===
+Cette liste n'est pas exhaustive. Voici quelques exemples de termes de recherche possibles uniquement.
+
+
+
+== Trouver les bonnes ressources
+
+Les ressources que vous pouvez référencer dans les filtres de widget et les recherches varient d'un type d'actif à l'autre.
+
+Dans les tableaux de bord et les pages de ressources, le type de ressource autour duquel vous créez votre widget détermine les autres compteurs de types de ressources pour lesquels vous pouvez filtrer ou ajouter une colonne. Tenez compte des éléments suivants lors de la création de votre widget :
+
+|===
+
+
+| Ce type/compteur d'actifs : | Peut être filtré pour sous ces actifs : 
+
+
+| Ordinateur virtuel | VMDK 
+
+
+| Datastore(s) | Volume interne VMDK Virtual machine Volume 
+
+
+| Hyperviseur | La machine virtuelle est l'hôte de l'hyperviseur 
+
+
+| Hôte(s) | Ordinateur virtuel hôte de volume Volume Cluster interne 
+
+
+| Structure | Port 
+|===
+Cette liste n'est pas exhaustive.
+
+*Meilleure pratique*: Si vous filtrez pour un type d'actif particulier qui n'apparaît pas dans la liste, essayez de créer votre requête autour d'un autre type d'actif.
+
+
+
+== Exemple de tracé de diffusion : connaissance de l'axe
+
+La modification de l'ordre des compteurs dans un widget de tracé de dispersion modifie les axes sur lesquels les données sont affichées.
+
+.Description de la tâche
+Cet exemple va créer un tracé de dispersion qui vous permettra de voir des VM sous-performants présentant une latence élevée par rapport à un nombre d'opérations d'entrée/sortie par seconde faible.
+
+.Étapes
+. Créez ou ouvrez un tableau de bord en mode édition et ajoutez un widget graphique graphique graphique * Scatter.
+. Sélectionnez un type d'actif, par exemple _Virtual machine_.
+. Sélectionnez le premier compteur à tracer. Dans cet exemple, sélectionnez _latence - Total_.
++
+_Latence - Total_ est transcrit le long de l'axe X du graphique.
+
+. Sélectionnez le second compteur à tracer. Dans cet exemple, sélectionnez _IOPS - Total_.
++
+_IOPS - Total_ est transcrit le long de l'axe y dans le graphique. Les machines virtuelles avec latence plus élevée s'affichent à droite du graphique. Seules les 100 machines virtuelles à latence la plus élevée sont affichées, car le paramètre *Top by X-AXIS* est actuel.
+
++
+image:ScatterplotExample1.png["Exemple de diagramme de dispersion 1"]
+
+. Inversez maintenant l'ordre des compteurs en réglant le premier compteur sur _IOPS - Total_ et le second sur _latence - Total_.
++
+_Latence- Total_ est maintenant transcrit le long de l'axe y dans le graphique, et _IOPS - Total_ le long de l'axe X. Les machines virtuelles dont les IOPS sont plus élevées s'affichent à droite du tableau.
+
++
+Notez que, étant donné que nous n'avons pas modifié le paramètre *Top by X-Axis*, le widget affiche désormais les 100 meilleures machines virtuelles IOPS, car c'est ce qui est actuellement tracé le long de l'axe X.
+
++
+image:ScatterplotExample2.png["Exemple de diagramme de dispersion 2"]
+
+
+
+Vous pouvez choisir d'afficher le N supérieur par axe X, le N supérieur par axe y, le N inférieur par axe X ou le N inférieur par axe Y. Dans notre dernier exemple, le graphique affiche les 100 meilleures machines virtuelles qui présentent le nombre total d'IOPS le plus élevé. Si nous le changerons *Top by y-AXIS*, le graphique affichera à nouveau les 100 meilleures machines virtuelles ayant la latence totale la plus élevée.
+
+Notez que dans un graphique de diagramme de dispersion, vous pouvez cliquer sur un point pour accéder à la page de ressource de cette ressource.

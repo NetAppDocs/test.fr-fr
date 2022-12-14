@@ -1,0 +1,79 @@
+---
+sidebar: sidebar 
+permalink: task_dc_na_cloud_volumes_ontap.html 
+summary: Configuration du collecteur de données NetApp Cloud Volumes ONTAP 
+keywords: data collector, NetApp, Cloud, ONTAP 
+---
+= Collecteur de données NetApp Cloud Volumes ONTAP
+:allow-uri-read: 
+
+
+[role="lead"]
+Ce collecteur de données prend en charge la collecte d'inventaire à partir des configurations Cloud Volumes ONTAP.
+
+
+
+== Configuration
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| Adresse IP de gestion NetApp | Adresse IP pour Cloud Volusens ONTAP 
+
+
+| Nom d'utilisateur | Nom d'utilisateur de Cloud Volumes ONTAP 
+
+
+| Mot de passe | Mot de passe pour l'utilisateur ci-dessus 
+|===
+
+
+== Configuration avancée
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| Type de connexion | HTTPS recommandé. Affiche également le port par défaut. 
+
+
+| Remplacer le port de communication | Port à utiliser si ce n'est pas le cas par défaut. 
+
+
+| Intervalle d'interrogation des stocks (min) | La valeur par défaut est 60 minutes. 
+
+
+| Inventaire nombre de threads simultanés | Nombre de threads simultanés. 
+
+
+| Forcer TLS pour HTTPS | Forcer TLS sur HTTPS 
+
+
+| Recherche automatique des groupes réseau | Recherche automatique des groupes réseau 
+
+
+| Extension de groupe réseau | Sélectionnez coque ou fichier 
+
+
+| Délai de lecture HTTP en secondes | La valeur par défaut est de 30 secondes 
+
+
+| Forcer les réponses au format UTF-8 | Forcer les réponses au format UTF-8 
+
+
+| Intervalle d'interrogation des performances (min) | La valeur par défaut est de 900 secondes. 
+
+
+| Nombre de threads simultanés de performance | Nombre de threads simultanés. 
+
+
+| Collecte avancée des données du compteur | Vérifiez que Cloud Insights collecte les mesures avancées à partir de la liste ci-dessous. 
+|===
+
+
+== Dépannage
+
+Pour plus d'informations sur ce Data Collector, consultez le link:concept_requesting_support.html["Assistance"] ou dans le link:https://docs.netapp.com/us-en/cloudinsights/CloudInsightsDataCollectorSupportMatrix.pdf["Matrice de prise en charge du Data Collector"].

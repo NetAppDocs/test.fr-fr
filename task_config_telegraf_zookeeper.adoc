@@ -1,0 +1,52 @@
+---
+sidebar: sidebar 
+permalink: task_config_telegraf_zookeeper.html 
+keywords: telegraf, installation, install, apache, zookeeper 
+summary: Configuration du collecteur de données Apache Zookeeper 
+---
+= Data Collector Zookeeper
+:allow-uri-read: 
+
+
+[role="lead"]
+Cloud Insights utilise ce collecteur de données pour collecter des metrics à partir d'Apache Zookeeper.
+
+
+
+== Installation
+
+. Dans *Admin > Data Collectors*, cliquez sur *+Data Collector*. Sous *Services*, choisissez Apache Zookeeper.
++
+Sélectionnez le système d'exploitation ou la plate-forme sur laquelle l'agent Telegraf est installé.
+
+. Si vous n'avez pas déjà installé un agent pour la collecte ou si vous souhaitez installer un agent pour un autre système d'exploitation ou plate-forme, cliquez sur _Afficher les instructions_ pour développer le link:task_config_telegraf_agent.html["Installation de l'agent"] instructions.
+. Sélectionnez la clé d'accès de l'agent à utiliser avec ce collecteur de données. Vous pouvez ajouter une nouvelle clé d'accès à l'agent en cliquant sur le bouton * + clé d'accès à l'agent*. Meilleure pratique : utilisez une clé d'accès d'agent différente uniquement lorsque vous souhaitez regrouper des collecteurs de données, par exemple, par OS/plate-forme.
+. Suivez les étapes de configuration pour configurer le collecteur de données. Les instructions varient en fonction du type de système d'exploitation ou de plate-forme utilisé pour collecter des données.
+
+
+image:ZookeeperDCConfigLinux.png["Configuration du Zookeeper"]
+
+
+
+== Configuration
+
+Au minimum, vous devez autoriser les quatre commandes du serveur de lettres Zookeeper _mntr_, _srvr_ et _stat_. Vous pouvez activer ces commandes au format suivant : _4lw.commands.whitelist=mntr, srvr, stat_ dans le fichier _zoo.cfg_. Il peut y avoir d'autres commandes à quatre lettres qui sont requises dans votre configuration. Voir la link:https://zookeeper.apache.org/["Zookeeper"] pour plus d'informations.
+
+
+
+== Objets et compteurs
+
+Les objets suivants et leurs compteurs sont collectés :
+
+[cols="<.<,<.<,<.<,<.<"]
+|===
+| Objet : | Identifiants : | Attributs : | Points de données : 
+
+
+| Zookeeper | Serveur d'espace de noms | Spécifier le port du nom du nœud IP du nœud | Taille approximative de données latence moyenne Ephemerals nombre max File Descriptor nombre max latence min nombre de connexions actives nombre de descripteurs de fichiers ouverts demandes en attente Watch Count Znode 
+|===
+
+
+== Dépannage
+
+Pour plus d'informations, consultez le link:concept_requesting_support.html["Assistance"] page.

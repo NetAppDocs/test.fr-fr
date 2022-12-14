@@ -1,0 +1,102 @@
+---
+sidebar: sidebar 
+permalink: task_create_query.html 
+summary: 'Les requêtes vous permettent d"identifier rapidement et facilement les ressources et les indicateurs d"intérêt.' 
+keywords: query, queries 
+---
+= Création de requêtes
+:allow-uri-read: 
+
+
+[role="lead"]
+Les requêtes vous permettent de rechercher les ressources de votre environnement à un niveau granulaire, ce qui vous permet de filtrer les données dont vous avez besoin et de trier les résultats selon vos besoins.
+
+Par exemple, vous pouvez créer une requête pour _volumes_, ajouter un filtre pour trouver des _stockages_ particuliers associés aux volumes sélectionnés, ajouter un autre filtre pour trouver une _annotation_ particulière, par exemple "Tier 1" dans les stockages sélectionnés, Et enfin, ajoutez un autre filtre pour trouver tous les stockages avec _IOPS - Read (IO/s)_ supérieur à 25. Lorsque les résultats sont affichés, vous pouvez trier les colonnes d'informations associées à la requête dans l'ordre croissant ou décroissant.
+
+Remarque : lorsqu'un nouveau collecteur de données est ajouté qui acquiert des ressources ou que des annotations ou des affectations d'application sont effectuées, vous pouvez interroger ces nouveaux actifs, annotations ou applications uniquement après l'indexation des requêtes. L'indexation a lieu à un intervalle planifié régulièrement ou pendant certains événements tels que l'exécution de règles d'annotation.
+
+.La création d'une requête est très simple :
+. Accédez à *requêtes > *+Nouvelle requête*.
+. Dans la liste 'Sélectionner...', sélectionnez le type d'objet à rechercher. Vous pouvez faire défiler la liste ou commencer à taper pour trouver plus rapidement ce que vous recherchez.
+
+
+.Liste de défilement :
+image:QueryDrop-DownList.png["Liste déroulante requête"]
+
+.Type à rechercher :
+image:QueryPageFilter.png["Saisir pour trouver"]
+
+Vous pouvez ajouter des filtres pour affiner davantage votre requête en cliquant sur le bouton *+* dans le champ *Filtrer par*. Grouper les lignes par objet ou attribut. Lorsque vous utilisez des données d'intégration (Kubernetes, ONTAP Advanced Metrics, etc.), vous pouvez regrouper par plusieurs attributs, si vous le souhaitez.
+
+image:QueryFilterExample.png["Filtrage et regroupement de requêtes"]
+
+La liste des résultats de la requête affiche un certain nombre de colonnes par défaut, en fonction du type d'objet recherché. Pour ajouter, supprimer ou modifier les colonnes, cliquez sur l'icône engrenage à droite du tableau. Les colonnes disponibles varient en fonction du type de ressource/mesure.
+
+image:QuerySelectColumns.png["Sélectionnez colonnes"]
+
+Une fois que vous avez configuré votre requête pour afficher les résultats souhaités, vous pouvez cliquer sur le bouton *Enregistrer* pour enregistrer la requête en vue d'une utilisation ultérieure. Donnez-lui un nom unique et significatif.
+
+
+
+=== Plus d'informations sur le filtrage
+
+
+
+==== Caractères génériques et expressions
+
+Lorsque vous filtrez des valeurs de texte ou de liste dans des requêtes ou des widgets de tableau de bord, lorsque vous commencez à taper, vous avez la possibilité de créer un *filtre générique* basé sur le texte en cours. Si vous sélectionnez cette option, tous les résultats correspondant à l'expression de caractère générique seront résélectionnés. Vous pouvez également créer *expressions* à l'aide DE NOT ou OU, ou sélectionner l'option "aucun" pour filtrer les valeurs nulles dans le champ.
+
+image:Type-Ahead-Example-ingest.png["Filtre générique"]
+
+Filtres basés sur des caractères génériques ou des expressions (par exemple NON, OU « aucun », etc.) s'affiche en bleu foncé dans le champ du filtre. Les éléments que vous sélectionnez directement dans la liste s'affichent en bleu clair.
+
+image:Type-Ahead-Example-Wildcard-DirectSelect.png["Résultats du filtre générique"]
+
+Notez que le filtrage des caractères génériques et des expressions fonctionne avec du texte ou des listes, mais pas avec des valeurs numériques, des dates ou des valeurs booléennes.
+
+
+
+==== Raffinage des filtres
+
+Vous pouvez utiliser les éléments suivants pour affiner votre filtre :
+
+|===
+
+
+| Filtre | Ce qu'il fait | Exemple | Résultat 
+
+
+| * (Astérisque) | permet de rechercher tout | vol*rhel | renvoie toutes les ressources commençant par « vol » et se terminant par « rhel ». 
+
+
+| ? (point d'interrogation) | permet de rechercher un nombre spécifique de caractères | BOS-PRD ??-S12 | Renvoie BOS-PRD**__12__**-S12, BOS-PRD**__23__**-S12, etc 
+
+
+| OU | vous permet de spécifier plusieurs entités | FAS2240 OU CX600 OU FAS3270 | Renvoie l'un des modèles FAS2440, CX600 ou FAS3270 
+
+
+| PAS | permet d'exclure du texte des résultats de la recherche | PAS EMC* | Elle renvoie tous les éléments qui ne sont pas à l'avant par « EMC ». 
+
+
+| _Aucun_ | Recherche les valeurs NULL dans tous les champs | _Aucun_ | renvoie les résultats où le champ cible est vide 
+
+
+| Pas * | Recherche les valeurs NULL dans les champs _text-only_ | Pas * | renvoie les résultats où le champ cible est vide 
+|===
+Si vous placez une chaîne de filtre entre deux guillemets, Insight traite tout entre le premier et le dernier devis comme une correspondance exacte. Tous les caractères spéciaux ou opérateurs situés dans les guillemets seront traités comme des littéraux. Par exemple, le filtrage pour "*" renvoie des résultats qui sont un astérisque littéral ; l'astérisque ne sera pas traité comme un caractère générique dans ce cas. Les opérateurs OU ET NON sont également traités comme des chaînes littérales lorsqu'ils sont entourés de guillemets doubles.
+
+
+
+=== Que dois-je faire maintenant que j'ai des résultats de requête ?
+
+L'interrogation permet d'ajouter des annotations ou d'affecter des applications aux ressources en toute simplicité. Notez que vous pouvez uniquement attribuer des applications ou des annotations à vos ressources d'inventaire (disque, stockage, etc.). Les metrics d'intégration ne peuvent pas prendre en charge les affectations d'annotations ou d'applications.
+
+Pour affecter une annotation ou une application aux ressources résultant de votre requête, sélectionnez la ou les ressources à l'aide de la case à cocher située à gauche du tableau des résultats, puis cliquez sur le bouton *actions groupées* à droite. Choisissez l'action à appliquer aux actifs sélectionnés.
+
+image:QueryVolumeBulkActions.png["Exemple d'actions groupées de requête"]
+
+
+
+=== Les règles d'annotation nécessitent une requête
+
+Si vous configurez link:task_create_annotation_rules.html["Règles d'annotation"], chaque règle doit avoir une requête sous-jacente à utiliser. Mais comme vous l'avez vu ci-dessus, les requêtes peuvent être aussi larges ou aussi étroites que vous le souhaitez.

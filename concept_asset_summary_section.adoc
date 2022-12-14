@@ -1,0 +1,47 @@
+---
+sidebar: sidebar 
+permalink: concept_asset_summary_section.html 
+summary: Présentation de la section Résumé de la page de ressource dans Cloud Insights. 
+keywords: asset, summary, landing page, topology 
+---
+= Section Résumé de la page de ressources
+:allow-uri-read: 
+
+
+[role="lead"]
+La section Résumé d'une page de ressources affiche des informations générales sur un bien, y compris si des mesures ou des règles de performance sont source de préoccupation. Les zones à problèmes potentiels sont indiquées par un cercle rouge.
+
+image:Summary_Section_Example.png[""]
+
+Remarque : les informations affichées dans la section Résumé varient en fonction du type de ressource que vous consultez.
+
+Vous pouvez cliquer sur n'importe quel lien des ressources pour afficher leurs pages de ressources. Par exemple, si vous affichez un nœud de stockage, vous pouvez cliquer sur un lien pour afficher la page de ressources de stockage associée.
+
+Vous pouvez afficher les mesures associées à la ressource. Un cercle rouge à côté d'une mesure indique que vous devrez peut-être diagnostiquer et résoudre les problèmes potentiels.
+
+
+NOTE: Vous remarquerez que la capacité de volume peut afficher plus de 100 % sur certaines ressources de stockage. Cela est dû aux métadonnées relatives à la capacité du volume faisant partie des données de capacité consommées rapportées par la ressource.
+
+Le cas échéant, vous pouvez cliquer sur un lien d'alerte pour afficher l'alerte et le contrôle associés à la ressource.
+
+
+
+== Topologie
+
+Sur certaines pages de ressources, la section de résumé contient un lien permettant d'afficher la topologie de l'actif et ses connexions.
+
+Une topologie est disponible pour les types de ressources suivants :
+
+* Client supplémentaire
+* Disque
+* Structure
+* Hôte
+* Volume interne
+* Port
+* Commutateur
+* Ordinateur virtuel
+* VMDK
+* Volumétrie
+
+
+image:TopologyExample.png[""]

@@ -1,0 +1,95 @@
+---
+sidebar: sidebar 
+permalink: task_webhook_example_pagerduty.html 
+keywords: webhook, notification, PagerDuty, integration 
+summary: 'Créez un crochet Web pour alerter les seuils de performances ou d"inventaire pour PagerDuty' 
+---
+= Exemple de Webhook pour PagerDuty
+:allow-uri-read: 
+
+
+[role="lead"]
+Les Webpatères permettent aux utilisateurs d'envoyer des notifications d'alerte à diverses applications à l'aide d'un canal Web personnalisé. Cette page fournit un exemple de configuration des crochets pour PagerDuty.
+
+
+NOTE: Cette page fait référence aux instructions de tiers, qui peuvent faire l'objet de modifications. Reportez-vous à la link:https://support.pagerduty.com/docs/services-and-integrations["Documentation PagerDuty"] pour obtenir les informations les plus récentes.
+
+
+
+=== Configuration de la fonction PagerDuty :
+
+. Dans PagerDuty, accédez à *Services > répertoire de services* et cliquez sur le lien *+Nouveau Service* button​
+. Entrez un _Nom_ et sélectionnez _utiliser notre API directement_. Cliquez sur _Add Service_.
++
+image:Webhooks_PagerDutyScreen1.png["Écran PagerDuty"]
+
+. Cliquez sur l'onglet _Integrations_ pour afficher *Integration Key*. Vous aurez besoin de cette clé lorsque vous créez le mousqueton Cloud Insights ci-dessous.
+
+
+. Accédez à *incidents* ou *Services* pour afficher les alertes.
++
+image:Webhooks_PagerDutyScreen2.png["Écran PagerDuty"]
+
+
+
+
+
+=== Créer un Webhook Cloud Insights :
+
+. Dans Cloud Insights, accédez à *Admin > Notifications* et sélectionnez l'onglet *Webpatères*. Cliquez sur *+Webhook* pour créer un nouveau mousqueton.
+. Donnez un nom significatif au mousqueton, tel que « déclencheur PagerDuty ». Vous utiliserez ce webhook pour les événements critiques et de niveau d'avertissement.
+. Dans la liste déroulante _Template Type_, sélectionnez *PagerDuty*.
+
+
+. Créez un paramètre personnalisé secret nommé _routingKey_ et définissez la valeur sur la valeur PagerDuty _Integration Key_ du dessus.
++
+image:Webhooks_Custom_Secret_Routing_Key.png["Définition de la clé de routage"]
+
+
+
+Répétez ces étapes pour créer une bande-son « résolution de pagerDuty » pour les événements résolus.
+
+
+
+=== Mappage du champ PagerDuty to Cloud Insights
+
+Le tableau et l'image suivants montrent le mappage des champs entre PagerDuty et Cloud Insights :
+
+[cols="<,<"]
+|===
+| Service de PagerDuty | Cloud Insights 
+
+
+| Touche d'alerte | L'ID d'alerte 
+
+
+| Source | Activé 
+
+
+| Composant | Nom de la mesure 
+
+
+| Groupe | Type d'objet 
+
+
+| Classe | Nom du moniteur 
+|===
+image:Webhooks-PagerDuty_Fields.png["Champs PagerDuty dans EC"]
+
+
+
+=== Notifications via Webhook
+
+Pour notifier les événements par le biais du webhook, dans Cloud Insights, accédez à *alertes > moniteurs* et cliquez sur *+moniteur* pour créer un nouveau link:task_create_monitor.html["superviser"].
+
+* Sélectionnez une mesure et définissez les conditions du moniteur.
+* Sous _configurer la ou les notifications d'équipe, choisissez la méthode de livraison *Webhook*.
+* Choisissez le mousqueton « PagerDuty Trigger » pour les événements de niveau critique et Avertissement.
+* Choisissez la « résolution de PagerDuty » pour les événements résolus.
++
+image:Webhooks_Notifications.png["Notifications de Webhook"]
+
+
+
+
+NOTE: La définition de notifications distinctes pour les événements déclencheurs par rapport aux événements résolus est une pratique recommandée, puisque PagerDuty gère les événements déclencheurs différemment des événements résolus.

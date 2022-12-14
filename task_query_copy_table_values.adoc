@@ -1,0 +1,23 @@
+---
+sidebar: sidebar 
+permalink: task_query_copy_table_values.html 
+summary: 'Vous pouvez copier des valeurs d"une table vers le presse-papiers pour les utiliser dans d"autres applications.' 
+keywords: query, queries, copy, values, clipboard 
+---
+= Copie des valeurs de table
+:allow-uri-read: 
+
+
+[role="lead"]
+Vous pouvez copier des valeurs dans les tableaux dans le presse-papiers pour les utiliser dans les zones de recherche ou dans d'autres applications.
+
+.Description de la tâche
+Vous pouvez utiliser deux méthodes pour copier des valeurs des tableaux ou des résultats de requête dans le presse-papiers.
+
+.Étapes
+. Méthode 1 : mettez en surbrillance le texte souhaité à l'aide de la souris, copiez-le et collez-le dans des champs de recherche ou dans d'autres applications.
+. Méthode 2 : pour les champs à valeur unique, placez le curseur sur le champ et cliquez sur l'icône du presse-papiers image:ClipboardIcon.png["Presse-papiers"] qui s'affiche. La valeur est copiée dans le presse-papiers pour être utilisée dans les champs de recherche ou dans d'autres applications.
++
+Notez que seules les valeurs qui sont des liens vers des ressources peuvent être copiées à l'aide de cette méthode. Seuls les champs contenant des valeurs uniques (c'est-à-dire des non-listes) possèdent l'icône de copie.
+
+

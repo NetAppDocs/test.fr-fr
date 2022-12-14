@@ -1,0 +1,119 @@
+---
+sidebar: sidebar 
+permalink: concept_forensic.html 
+keywords: Forensic, user, entity, community 
+summary: 'Vue d"ensemble des analyses judiciaires' 
+---
+= Informations judiciaires
+:toc: macro
+:hardbreaks:
+:toclevels: 1
+:allow-uri-read: 
+:history: Review 1/17,
+:toc: 
+:toclevels: 1
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+:toc-position: content
+
+
+[role="lead"]
+La vue Forensic donne accès aux informations sur l'utilisateur, l'entité, la communauté et l'activité utilisateur.
+
+
+
+== Examen des informations utilisateur
+
+Cliquez sur *Forensic > utilisateur* pour accéder à la vue utilisateur.
+
+Cette vue contient des informations générales sur l'utilisateur :
+
+* Nom de l'utilisateur avec un lien vers des informations plus détaillées pour l'utilisateur.
+* Alertes émises par les activités de l'utilisateur
+* Nombre de communautés dont l'utilisateur est membre avec un lien vers la page des communes
+* Emplacement de l'utilisateur
+* Dernière entité accessible par l'utilisateur
+
+
+Cliquez sur le nom d'utilisateur pour accéder à des informations plus détaillées dans link:forensic_user_detail.html["Présentation de l'utilisateur"]
+
+
+
+== Examen des informations sur l'entité
+
+Cliquez sur *Forensic > entité* pour accéder à la vue entité.
+
+Cette page présente des informations générales sur les entités auxquelles les utilisateurs ont accès :
+
+Décrit en détail :
+
+* Nom de l'entité
+* Type d'entité
+
+
+* Relation communautaire avec l'entité
+* Chemin d'accès de l'entité
+* Heure du dernier accès
+* Taille de l'entité
+
+
+Cliquez sur le Nom de l'entité pour accéder à des informations plus détaillées dans link:forensic_entity_detail.html["Vue d'ensemble de l'entité"]
+
+Cliquez sur le nombre de communautés pour afficher les communautés qui contiennent l'entité.
+
+
+
+== Examen des informations sur les communautés
+
+Cliquez sur *Forensic > Communautés* pour accéder à la page Communautés.
+
+Cette vue fournit :
+
+* Noms de communauté
+* Alertes liées à la communauté
+* Nombre d'utilisateurs pour la communauté
+* Les entités comptent pour la communauté
+
+
+Cliquez ou effectuez une recherche dans un nom de communauté pour accéder à la page d'informations de la communauté.
+
+Profil de communauté:: Répertorie les emplacements des utilisateurs de la communauté et les autres communautés les plus proches.
+Comportement communautaire:: Affiche le nombre d'entités consultées et affiche les opérations d'accès aux données en lecture, écriture et méta.
+Utilisateur et entités:: Identifie le nombre total d'utilisateurs et le nombre total d'entités de la communauté.
+Analyse communautaire::
++
+--
+* Tendance des utilisateurs de la communauté
+* Opérations effectuées sur des entités
+* Tendance d'alerte
+
+
+--
+
+
+Cliquez sur le nom de la communauté pour accéder à des informations plus détaillées dans link:forensic_community_detail.html["Informations sur la communauté"]
+
+
+
+== Examen des informations sur l'activité utilisateur
+
+Cliquez sur *Forensic > activité utilisateur* pour accéder à la vue activité utilisateur.
+
+Pour chaque utilisateur contrôlé, cette vue décrit les éléments suivants :
+
+* Heure d'accès de l'entité
+* Utilisateur qui a accédé à l'entité avec un lien vers la vue d'ensemble de l'utilisateur
+* Activité réalisée :
++
+** Lecture
+** Écriture
+** Création
+** Renommer
+
+
+* Chemin d'accès de l'entité
+* Type d'entité
+* Emplacement d'accès cliquez sur le nom d'utilisateur pour accéder à des informations plus détaillées dans le link:forensic_user_detail.html["Détails de l'entité"]
+

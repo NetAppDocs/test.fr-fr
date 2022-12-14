@@ -1,0 +1,69 @@
+---
+sidebar: sidebar 
+permalink: forensic_entity_detail.html 
+keywords: Forensic, entity, entity overview, entity behavior, detail 
+summary: 'Détail de l"entité légale' 
+---
+= Détail de l'entité légale
+:allow-uri-read: 
+
+
+cot: macro:hardbreaks: :toclevels: 1:nofoter::icons: font:linkattrs::imagesdir: ./media/
+
+Utilisez la page Détails de l'entité pour accéder aux informations détaillées sur une entité.
+
+
+
+== Examen des informations sur l'entité
+
+Vous accédez au
+
+Profil d'entité:: Décrit en détail :
++
+--
+* Nom
++
+** Cliquez pour accéder à [vue d'ensemble de l'entité]
+
+
+* Type
+* Communautés
+* Chemin
+* Dernier accès
++
+** Cliquez sur utilisateur pour accéder à [User Overview]
+
+
+* Taille
+
+
+--
+Utilisateur et communauté::
++
+--
+* Nombre d'accès de l'entité par les utilisateurs
+* Nombre de fois où l'entité a été accédée par les communautés.
+
+
+--
+Bahavior entité::
++
+--
+* Activité récente :
++
+** Dernière date d'accès
+** Utilisateur ayant accédé pour la dernière fois à l'entité
+** Emplacement auquel l'entité a été accédée
+
+
+* Exploitation
++
+** Nombre d'opérations d'écriture
+** Nombre d'opérations de lecture
+** Nombre d'accès aux métadonnées
+
+
+
+
+--
+

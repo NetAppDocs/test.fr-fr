@@ -1,0 +1,30 @@
+---
+sidebar: sidebar 
+permalink: forensic_entity_detail.html 
+keywords: Forensic, entity, entity overview, entity behavior, entities 
+summary: Entités judiciaires 
+---
+= Page entités judiciaires
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+La page entités judiciaires fournit des informations détaillées sur l'activité de l'entité dans votre environnement.
+
+
+
+== Examen des informations sur l'entité
+
+Cliquez sur *Forensics > activités médico-légales* et cliquez sur l'onglet _entités_ pour accéder à la page entités.
+
+Cette page présente l'activité de l'entité dans votre environnement, en soulignant les informations suivantes : * Un graphique montrant _unique entités_ accédées par minute * Un graphique de _types d'entités accédées_ * Une ventilation des _chemins communs_ * Une liste des _50 principales entités_ sur le nombre total d'entités
+
+image:CS-Entities-Page.png["Page entités"]
+
+Un clic sur une entité dans la liste ouvre une page de présentation pour l'entité, affichant un profil de l'entité avec des détails tels que le nom, le type, le nom du périphérique, l'adresse IP la plus utilisée et le chemin d'accès, ainsi que le comportement de l'entité comme l'utilisateur, l'adresse IP, et heure du dernier accès à l'entité.
+
+image:CS-entity-detail-page.png["Page vue d'ensemble de l'entité"]

@@ -1,0 +1,59 @@
+---
+sidebar: sidebar 
+permalink: concept_asset_user_data_section.html 
+summary: 'La section données utilisateur d"une page ressource permet d"affecter des annotations ou des applications à l"actif actuel.' 
+keywords: asset page, user data, applications, annotations 
+---
+= Section données utilisateur
+:allow-uri-read: 
+
+
+[role="lead"]
+La section données utilisateur d'une page ressource s'affiche et vous permet de modifier les données définies par l'utilisateur telles que les applications et les annotations.
+
+
+
+== Utilisation de la section données utilisateur pour attribuer ou modifier des applications
+
+Vous pouvez affecter des applications exécutées dans votre environnement à certaines ressources (hôte, machines virtuelles, volumes, volumes internes, qtrees, et les hyperviseurs). La section données utilisateur vous permet d'ajouter, de modifier ou de supprimer les applications affectées à un bien. Pour tous ces types d'actif, à l'exception des volumes, vous pouvez attribuer plusieurs applications.
+
+.Étapes
+. Recherchez une page de ressources en procédant de l'une des façons suivantes :
++
+.. Recherchez une liste de ressources, puis sélectionnez-en une dans la liste.
+.. Dans un tableau de bord, recherchez un nom de ressource et cliquez dessus.
+.. Effectuez une recherche et choisissez une ressource parmi les résultats.
++
+La page ASSET s'affiche. La section données utilisateur de la page affiche les applications ou annotations actuellement affectées.
+
+
+
+
+
+Pour modifier l'application affectée ou pour affecter une application ou des applications supplémentaires, faites un menu déroulant dans la liste *application* et sélectionnez la ou les applications que vous souhaitez affecter à l'actif. Vous pouvez taper pour rechercher une application ou en sélectionner une dans la liste.
+
+Pour supprimer une application, effectuez une liste déroulante et décochez l'application.
+
+
+
+== Utilisation de la section données utilisateur pour attribuer ou modifier des annotations
+
+Lors de la personnalisation de Cloud Insights pour suivre les données en fonction des exigences de l'entreprise, vous pouvez définir des notes spécialisées appelées annotations et les attribuer à vos ressources. La section données utilisateur d'une page ressource affiche les annotations affectées à un bien et vous permet également de modifier les annotations affectées à ce bien.
+
+.Étapes
+. Pour ajouter une annotation à la ressource, dans la section données utilisateur de la page ressource, cliquez sur *+Annotation*.
+. Sélectionnez une annotation dans la liste.
+. Cliquez sur valeur et effectuez l'une des opérations suivantes, en fonction du type d'annotation que vous avez sélectionné :
++
+.. Si le type d'annotation est liste, date ou booléen, sélectionnez une valeur dans la liste.
+.. Si le type d'annotation est texte, saisissez une valeur.
+
+
+. Cliquez sur Enregistrer.
+
+
+L'annotation est attribuée à la ressource. Vous pouvez filtrer ultérieurement les ressources par annotation à l'aide d'une requête.
+
+Si vous souhaitez modifier la valeur de l'annotation après l'avoir affectée, faites descendre la liste des annotations et entrez une autre valeur.
+
+Si l'annotation est de type liste pour laquelle l'option _Ajouter de nouvelles valeurs à la volée_ est sélectionnée, vous pouvez taper pour ajouter une nouvelle valeur en plus de la sélection d'une valeur existante.

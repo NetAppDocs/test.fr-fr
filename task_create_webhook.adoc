@@ -1,0 +1,81 @@
+---
+sidebar: sidebar 
+permalink: task_create_webhook.html 
+keywords: webhook, notification, slack, integration 
+summary: 'Créez des moniteurs pour alerter les seuils de performances ou d"inventaire' 
+---
+= Notification à l'aide de Webpatères
+:allow-uri-read: 
+
+
+[role="lead"]
+Les Webpatères permettent aux utilisateurs d'envoyer des notifications d'alerte à diverses applications à l'aide d'un canal Web personnalisé.
+
+De nombreuses applications commerciales prennent en charge les crochets en tant qu'interface d'entrée standard, par exemple : Slack, PagerDuty, Teams et discorde tous les crochets de support. En prenant en charge un canal de webhook générique et personnalisable, Cloud Insights peut prendre en charge un grand nombre de ces canaux de distribution. Des informations sur les webpatères sont disponibles sur ces sites Web d'application. Par exemple, Slack fournit link:https://api.slack.com/messaging/webhooks["ce guide utile"].
+
+Vous pouvez créer plusieurs canaux de webhook, chaque canal ciblé pour un usage différent, des applications distinctes, des destinataires différents, etc
+
+L'instance de canal de webhook comprend les éléments suivants :
+
+|===
+
+
+| Nom | Nom unique 
+
+
+| URL | URL cible de Webhook, y compris le préfixe _http://_ ou _https://_ avec les paramètres d'url 
+
+
+| Méthode | GET, POST : la valeur par défaut EST POST 
+
+
+| En-tête personnalisé | Spécifiez ici les lignes d'en-tête personnalisées 
+
+
+| Corps du message | Mettez le corps de votre message ici 
+
+
+| Paramètres d'alerte par défaut | Répertorie les paramètres par défaut du mousqueton 
+
+
+| Paramètres et secrets personnalisés | Des paramètres et des secrets personnalisés vous permettent d'ajouter des paramètres uniques et des éléments sécurisés tels que des mots de passe 
+|===
+
+
+=== Création d'un Webhook
+
+Pour créer un mousqueton Cloud Insights, accédez à *Admin > Notifications* et sélectionnez l'onglet *Webpatères*.
+
+L'image suivante montre un exemple de crochet Web configuré pour Slack :
+
+image:Webhook_Example_Slack.png["Exemple de Webhook"]
+
+Les crochets Cloud Insights comprennent un certain nombre de paramètres par défaut. En outre, vous pouvez créer vos propres paramètres ou secrets personnalisés.
+
+image:Webhook_Default_Parameters.png["Paramètres de Webhook par défaut de Cloud Insights"]
+
+
+
+==== Paramètres : quels sont-ils et comment les utiliser ?
+
+Les paramètres d'alerte sont des valeurs dynamiques remplies par alerte. Par exemple, le paramètre _%%TriggeredOn%%_ sera remplacé par l'objet sur lequel l'alerte a été déclenchée.
+
+
+
+==== Paramètres et secrets personnalisés
+
+Dans cette section, vous pouvez ajouter des paramètres et/ou des secrets personnalisés. Pour des raisons de sécurité, si un secret est défini, seul le créateur de webhook peut modifier ce canal de webhook. Il est en lecture seule pour les autres. Vous pouvez utiliser les secrets d'URL/en-têtes sous la forme _%<secret_name>%_.
+
+
+
+=== Choix de notification Webhook dans un moniteur
+
+Pour choisir la notification du crochet Web dans un link:task_create_monitor.html#creating-a-monitor["superviser"], Accédez à *alertes > gérer les moniteurs* et sélectionnez le moniteur souhaité ou ajoutez un nouveau moniteur. Dans la section _configurer les notifications d'équipe_, choisissez _Webhook_ comme méthode de livraison. Sélectionnez les niveaux d'alerte (critique, Avertissement, résolu), puis choisissez le crochet souhaité.
+
+image:Webhook_Monitor_Notify.png["Notification du moniteur Webhook"]
+
+
+
+== Exemples de Webhook :
+
+Crochets pour link:task_webhook_example_slack.html["Mou"]Crochets pour link:task_webhook_example_pagerduty.html["Service de PagerDuty"]Crochets pour link:task_webhook_example_teams.html["Équipes"]Crochets pour link:task_webhook_example_discord.html["Déroulez"]

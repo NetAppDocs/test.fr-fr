@@ -1,0 +1,63 @@
+---
+sidebar: sidebar 
+permalink: task_dc_lenovo.html 
+keywords: data collector,Lenovo, HX Series 
+summary: Configuration du collecteur de données Lenovo. 
+---
+= Collecteur de données Lenovo
+:allow-uri-read: 
+
+
+[role="lead"]
+Cloud Insights utilise le collecteur de données Lenovo pour détecter les données d'inventaire et de performance des systèmes de stockage Lenovo HX.
+
+Remarque : il s'agit uniquement de mappages terminologiques communs et peuvent ne pas représenter tous les cas pour ce collecteur de données.
+
+
+
+== De formation
+
+* Adresse IP externe prismes
+* Nom d'utilisateur et mot de passe administrateur
+* Port TCP requis : 9440
+
+
+
+
+== Configuration
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| Adresse IP externe prismes | L'adresse IP des services de données externes pour le cluster 
+
+
+| Nom d'utilisateur | Nom d'utilisateur du compte Admin 
+
+
+| Mot de passe | Mot de passe du compte admin 
+|===
+
+
+== Configuration avancée
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| Port TCP | Port TCP utilisé pour la connexion à la matrice. La valeur par défaut est 9440. 
+
+
+| Intervalle d'interrogation des stocks (min) | Intervalle entre les sondages d'inventaire. La valeur par défaut est 60 minutes. 
+
+
+| Intervalle d'interrogation des performances (s) | Intervalle entre les sondages de performances. La valeur par défaut est 300 secondes. 
+|===
+
+
+== Dépannage
+
+Pour plus d'informations sur ce Data Collector, consultez le link:concept_requesting_support.html["Assistance"] ou dans le link:https://docs.netapp.com/us-en/cloudinsights/CloudInsightsDataCollectorSupportMatrix.pdf["Matrice de prise en charge du Data Collector"].

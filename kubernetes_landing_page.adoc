@@ -1,0 +1,77 @@
+---
+sidebar: sidebar 
+permalink: kubernetes_landing_page.html 
+keywords: telegraf, installation, install, kubernetes, pods, clusters, filters, filtering, k8s 
+summary: 'La page d"accueil Kubernetes s"est expliquée' 
+---
+= Présentation du cluster Kubernetes
+:allow-uri-read: 
+
+
+[role="lead"]
+Cloud Insights Kubernetes Explorer est un puissant outil qui présente l'état et l'utilisation globaux de vos clusters Kubernetes et vous permet d'examiner facilement les points d'investigation.
+
+Cliquez sur *tableaux de bord > Kubernetes Explorer* pour ouvrir la page de présentation du cluster Kubernetes. Cette page de présentation contient une grande variété d'informations d'un coup d'œil.
+
+
+NOTE: Les numéros affichés en bleu dans les différentes sections de cette page et des pages suivantes de l'explorateur Kubernetes (par exemple, l'état du nœud/pod, le nombre d'espace de noms, etc.) sont des liens vers les pages de requêtes associées qui montrent les détails derrière ces numéros.
+
+image:Kubernetes_Cluster_Overview_Page.png["Présentation de Kubernetes"]
+
+
+
+=== Présentation de l'utilisation du cluster
+
+image:Kubernetes_Cluster_List.png["Présentation de la liste des clusters"]
+
+La liste des clusters affiche les informations d'utilisation suivantes pour chaque cluster de votre environnement :
+
+* CPU : pourcentage de la capacité totale du processeur en cours d'utilisation
+* Mémoire : pourcentage de la mémoire totale utilisée
+* Stockage : pourcentage du stockage total utilisé
+
+
+Vous pouvez trier la liste des clusters selon l'un des facteurs suivants :
+
+* Niveau d'alerte nœud et pod (par défaut)
+* Nom de cluster
+* Nombre de nœuds
+* La plupart d'entre elles sont utilisées par le calcul
+* Les moins utilisées par le calcul
+* Meilleure utilisation par le stockage
+* Les moins utilisées par le stockage
+
+
+Cliquez sur un nom de cluster pour ouvrir le link:kubernetes_cluster_detail.html["*page de détails*"] pour ce cluster
+
+
+
+=== État du nœud et de l'pod
+
+image:Kubernetes_Node_Pod_Status.png["État du nœud et de l'pod"]
+
+
+
+=== Espaces de noms
+
+À droite de l'écran se trouve la liste des trois principaux espaces de noms utilisés dans chaque cluster. Cliquez sur le lien *All* pour afficher tous les espaces de noms du cluster.
+
+Cliquez sur un espace de noms pour ouvrir la page Détails de l'espace de noms.
+
+image:Kubernetes_Namespaces.png["Espaces de noms"]
+
+
+
+=== Raffinage du filtre
+
+Lorsque vous filtrez, lorsque vous commencez à taper, vous avez la possibilité de créer un *filtre générique* basé sur le texte en cours. Si vous sélectionnez cette option, tous les résultats correspondant à l'expression de caractère générique seront résélectionnés. Vous pouvez également créer *expressions* à l'aide DE NOT ou ET, ou sélectionner l'option "aucun" pour filtrer les valeurs nulles dans le champ.
+
+image:Filter_Kubernetes_Explorer.png["Filtrage avec caractère générique dans l'explorateur K8S"]
+
+Filtres basés sur des caractères génériques ou des expressions (par exemple NON, ET, « aucun », etc.) s'affichent en bleu foncé dans le champ du filtre. Les éléments que vous sélectionnez directement dans la liste s'affichent en bleu clair.
+
+image:Filter_Kubernetes_Explorer_2.png["Filtrer l'affichage des éléments génériques et sélectionnés"]
+
+Les filtres Kubernetes sont contextuels, ce qui signifie par exemple que si vous vous trouvez sur une page de nœud spécifique, le filtre pod_name ne répertorie que les pods associés à ce nœud. De plus, si vous appliquez un filtre à un espace de noms spécifique, le filtre nom_pod répertorie uniquement les pods sur ce nœud _et_ dans cet espace de noms.
+
+Notez que le filtrage des caractères génériques et des expressions fonctionne avec du texte ou des listes, mais pas avec des valeurs numériques, des dates ou des valeurs booléennes.

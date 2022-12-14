@@ -1,0 +1,56 @@
+---
+sidebar: sidebar 
+permalink: task_configure_data_collectors.html 
+keywords: acquisition, AU, data collector, collector, notification, notify, 
+summary: Instructions générales relatives au collecteur de données 
+---
+= Configuration des collecteurs de données
+:allow-uri-read: 
+
+
+[role="lead"]
+Vous configurez les collecteurs de données dans votre environnement Cloud Insights pour collecter des données à partir de périphériques du centre de données.
+
+.Avant de commencer
+* Vous devez avoir configuré une unité d'acquisition pour pouvoir commencer à collecter des données.
+* Vous avez besoin d'informations d'identification pour les périphériques à partir desquels vous recueillez des données.
+* Les adresses réseau du périphérique, les informations de compte et les mots de passe sont requis pour tous les périphériques à partir de qui vous recueillez des données.
+
+
+.Étapes
+. Dans le menu Cloud Insights, cliquez sur *Admin > Data Collectors*
++
+Le système affiche les collecteurs de données disponibles classés par fournisseur.
+
+. Cliquez sur *+ Collector* sur le fournisseur requis et sélectionnez le collecteur de données à configurer.
++
+Dans la boîte de dialogue, vous pouvez configurer le collecteur de données et ajouter une unité d'acquisition.
+
+. Entrez un nom pour le collecteur de données.
++
+Les noms peuvent contenir des lettres (a-z), des chiffres (0-9), des tirets (-), des traits de soulignement (_), des apostrophes ('), et les périodes (.).
+
+. Entrez l'unité d'acquisition à associer à ce collecteur de données.
+. Entrez les champs requis dans l'écran Configuration.
+. Lorsque vous êtes invité à configurer les notifications, choisissez d'alerter par e-mail, Webhook ou les deux, puis choisissez les types d'alerte sur lesquels vous souhaitez notifier (critique, Avertissement, informations et/ou résolu). Vous pouvez choisir de notifier à la liste des destinataires du moniteur global (configurée dans *Admin > Notifications*) ou de spécifier des destinataires supplémentaires. Lorsque vous êtes prêt à continuer, cliquez sur *Terminer l'installation*.
+
+
+image:CollectorNotifications.jpg["Notifications du collecteur"]
+
+Lorsque vous affichez une page d'accueil de Data Collector, vous pouvez modifier les notifications en cliquant sur l'icône crayon dans le champ « Notifications » de la section de résumé du Data Collector.
+
+image:CollectorNotifications_Edit.jpg["Modification des notifications du collecteur"]
+
+. Cliquez sur *Configuration avancée* pour ajouter des champs de configuration supplémentaires. (Tous les collecteurs de données ne nécessitent pas une configuration avancée.)
+. Cliquez sur *Tester la configuration* pour vérifier que le collecteur de données est correctement configuré.
+. Cliquez sur *Ajouter un collecteur* pour enregistrer la configuration et ajouter le collecteur de données à votre locataire Cloud Insights.
+
+
+Après avoir ajouté un nouveau collecteur de données, Cloud Insights lance trois sondages :
+
+* 1er sondage d'inventaire : immédiatement
+* 1er sondage de données sur les performances pour établir une ligne de base : immédiatement après l'inventaire des stocks
+* 2e sondage de performance : dans les 15 secondes après la fin du 1er sondage de performance
+
+
+L'interrogation se poursuit ensuite en fonction des intervalles d'inventaire et d'interrogation des performances configurés.

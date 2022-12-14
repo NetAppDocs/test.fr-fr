@@ -1,0 +1,56 @@
+---
+sidebar: sidebar 
+permalink: concept_cs_api.html 
+keywords: api, access, token, swagger 
+summary: 'Cloud Secure comprend une API puissante pour l"intégration à d"autres applications telles que les CMDB.' 
+---
+= API Cloud Secure
+:allow-uri-read: 
+
+
+[role="lead"]
+L'API Cloud Secure permet aux clients NetApp, ainsi qu'aux éditeurs de logiciels indépendants, d'intégrer Cloud Secure à d'autres applications, comme les systèmes de gestion de tickets de CMDB ou tout autre système de gestion de tickets.
+
+Conditions requises pour l'accès à l'API :
+
+* Un modèle de token d'accès API est utilisé pour accorder l'accès.
+* La gestion des tokens d'API est effectuée par des utilisateurs Cloud Secure dotés du rôle d'administrateur.
+
+
+
+
+== Documentation API (swagger)
+
+Pour obtenir les dernières informations sur l'API, connectez-vous à Cloud Secure et accédez à *Admin > API Access*. Cliquez sur le lien *API Documentation*. La documentation API est basée sur swagger, qui fournit une brève description et des informations d'utilisation de l'API et vous permet de l'essayer dans votre environnement.
+
+
+
+== Jetons d'accès à l'API
+
+Avant d'utiliser l'API Cloud Secure, vous devez créer un ou plusieurs *tokens d'accès API*. Les jetons d'accès accordent des autorisations de lecture. Vous pouvez également définir l'expiration de chaque jeton d'accès.
+
+Pour créer un token d'accès :
+
+* Cliquez sur *Admin > accès API*
+* Cliquez sur *+jeton d'accès API*
+* Saisissez *Nom de token*
+* Spécifiez *expiration du token*
+
+
+
+NOTE: Votre jeton ne sera disponible que pour la copie dans le presse-papiers et l'enregistrement pendant le processus de création. Les tokens ne peuvent pas être récupérés après leur création. Il est donc fortement recommandé de les copier et de les enregistrer dans un emplacement sécurisé. Vous serez invité à cliquer sur le bouton Copier le token d'accès à l'API avant de pouvoir fermer l'écran de création du jeton.
+
+Vous pouvez désactiver, activer et révoquer des jetons. Les tokens désactivés peuvent être activés.
+
+Les jetons accordent un accès général aux API du point de vue du client, et gèrent l'accès aux API dans le cadre de leur propre environnement.
+
+L'application reçoit un token d'accès après l'authentification et l'autorisation de l'accès, puis transmet le token d'accès en tant qu'identifiant lorsqu'il appelle l'API cible. Le jeton transmis informe l'API que le porteur du jeton a été autorisé à accéder à l'API et à effectuer des actions spécifiques en fonction de l'étendue accordée lors de l'autorisation.
+
+L'en-tête HTTP où le token d'accès est transmis est *X-CloudInsights-ApiKey:*
+
+Par exemple, utilisez les éléments suivants pour récupérer des actifs de stockage :
+
+ curl https://<tenant_host_name>/rest/v1/cloudsecure/activities -H 'X-CloudInsights-ApiKey: <API_Access_Token>'
+Où _<API_Access_Token>_ est le jeton que vous avez enregistré lors de la création de la clé d'accès à l'API.
+
+Vous trouverez des informations détaillées dans le lien _API Documentation_ sous *Admin > API Access*.

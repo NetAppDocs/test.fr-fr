@@ -1,0 +1,112 @@
+---
+sidebar: sidebar 
+permalink: task_dc_ibm_xiv.html 
+keywords: IBM, XIV, SAN, A9000 
+summary: Configuration du collecteur de données IBM XIV/A9000. 
+---
+= Configuration du collecteur de données IBM XIV/A9000
+:allow-uri-read: 
+
+
+[role="lead"]
+Le collecteur de données IBM XIV et A9000 (CLI) utilise l'interface de ligne de commande XIV pour collecter les données d'inventaire tandis que la collecte des performances est effectuée en effectuant des appels SMI-S vers la baie XIV/A9000, qui exécute un fournisseur SMI-S sur le port 7778.
+
+
+
+== Terminologie
+
+[cols="2*"]
+|===
+| Terme du fournisseur/modèle | Terme Cloud Insights 
+
+
+| Disque | Disque 
+
+
+| System de stockage | Stockage 
+
+
+| Pool de stockage | Pool de stockage 
+
+
+| Volumétrie | Volumétrie 
+|===
+
+
+== De formation
+
+Les conditions suivantes doivent être remplies pour configurer et utiliser ce collecteur de données :
+
+* Port requis : port TCP 7778
+* Nom d'utilisateur et mot de passe en lecture seule
+* La CLI XIV doit être installée sur l'au
+
+
+
+
+== Exigences en matière de performances
+
+Les conditions suivantes sont requises pour la collecte des performances :
+
+* Agent SMI-S 1.4 ou supérieur
+* CIMService compatible SMI-S s'exécutant sur une baie. La plupart des baies XIV disposent d'un cimserveur installé par défaut.
+* Le nom d'utilisateur doit être fourni pour le cimserver. La connexion doit disposer d'un accès complet en lecture à la configuration et aux propriétés de la matrice.
+* Espace de noms SMI-S. La valeur par défaut est root/ibm. Ceci est configurable dans le cimserver.
+* Configuration requise : 5988 pour HTTP, 5989 pour HTTPS.
+* Pour créer un compte pour la collecte de performances SMI-S, reportez-vous au lien suivant : http://publib.boulder.ibm.com/infocenter/tivihelp/v4r1/index.jsp?topic=%2Fcom.ibm.tpc_V41.doc%2Ffqz0_t_adding_cim_agent.html[]
+
+
+
+
+== Configuration
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| Adresse IP XIV | Adresse IP ou nom de domaine complet du stockage XIV 
+
+
+| Nom d'utilisateur | Nom d'utilisateur pour le stockage XIV 
+
+
+| Mot de passe | Mot de passe pour le stockage XIV 
+
+
+| Chemin complet vers l'annuaire de l'interface de ligne de commande XIV | Chemin d'accès complet au dossier contenant l'interface de ligne de commande XIV 
+
+
+| Adresse IP de l'hôte SMI-S | Adresse IP de l'hôte SMI-S. 
+|===
+
+
+== Configuration avancée
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| Intervalle d'interrogation des stocks (min) | Intervalle entre les sondages d'inventaire. La valeur par défaut est 40 minutes. 
+
+
+| Protocole SMI-S | Protocole utilisé pour la connexion au fournisseur SMI-S. Affiche également le port par défaut. 
+
+
+| Remplacer le port SMI-S | Si ce champ est vide, utilisez le port par défaut dans le champ Type de connexion, sinon entrez le port de connexion à utiliser 
+
+
+| Nom d'utilisateur | Nom d'utilisateur pour l'hôte SMI-S Provider 
+
+
+| Mot de passe | Mot de passe de l'hôte SMI-S Provider 
+
+
+| Intervalle d'interrogation des performances (s) | Intervalle entre les sondages de performances. La valeur par défaut est 300 secondes. 
+|===
+
+
+== Dépannage
+
+Pour plus d'informations sur ce Data Collector, consultez le link:concept_requesting_support.html["Assistance"] ou dans le link:https://docs.netapp.com/us-en/cloudinsights/CloudInsightsDataCollectorSupportMatrix.pdf["Matrice de prise en charge du Data Collector"].

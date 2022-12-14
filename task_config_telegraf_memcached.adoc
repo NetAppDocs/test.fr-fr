@@ -1,0 +1,52 @@
+---
+sidebar: sidebar 
+permalink: task_config_telegraf_memcached.html 
+keywords: telegraf, installation, install, memcached 
+summary: Configuration du collecteur de données Memcached 
+---
+= Collecteur de données Memcached
+:allow-uri-read: 
+
+
+[role="lead"]
+Cloud Insights utilise ce collecteur de données pour collecter des mesures à partir de Memcached.
+
+
+
+== Installation
+
+. Dans *Admin > Data Collectors*, cliquez sur *+Data Collector*. Sous *Services*, choisissez Memcached.
++
+Sélectionnez le système d'exploitation ou la plate-forme sur laquelle l'agent Telegraf est installé.
+
+. Si vous n'avez pas déjà installé un agent pour la collecte ou si vous souhaitez installer un agent pour un autre système d'exploitation ou plate-forme, cliquez sur _Afficher les instructions_ pour développer le link:task_config_telegraf_agent.html["Installation de l'agent"] instructions.
+. Sélectionnez la clé d'accès de l'agent à utiliser avec ce collecteur de données. Vous pouvez ajouter une nouvelle clé d'accès à l'agent en cliquant sur le bouton * + clé d'accès à l'agent*. Meilleure pratique : utilisez une clé d'accès d'agent différente uniquement lorsque vous souhaitez regrouper des collecteurs de données, par exemple, par OS/plate-forme.
+. Suivez les étapes de configuration pour configurer le collecteur de données. Les instructions varient en fonction du type de système d'exploitation ou de plate-forme utilisé pour collecter des données.
+
+
+image:MemcachedDCConfigWindows.png["Configuration mise en mémoire cache"]
+
+
+
+== Configuration
+
+Vous trouverez des informations dans le link:https://github.com/memcached/memcached/wiki["Wiki Memcached"].
+
+
+
+== Objets et compteurs
+
+Les objets suivants et leurs compteurs sont collectés :
+
+[cols="<.<,<.<,<.<,<.<"]
+|===
+| Objet : | Identifiants : | Attributs : | Points de données : 
+
+
+| Mise en mémoire cache | Serveur d'espace de noms | Nom du nœud IP du nœud | Acceptation des connexions traitées demandes d'authentification échouées octets utilisés octets lus (par seconde) octets écrits (par seconde) cas Banval cas Hits cas échecs rinçage cas demandes (par seconde) get Reqs (par seconde) set Reqs (par seconde) Touch Reqs (par seconde) rendements de connexion (par seconde) Structures de connexion Open Connections éléments stockés actuels demandes décr Hits (par seconde) demandes décr Hits (par seconde) demandes de suppression Hits (par seconde) demandes de suppression d'échecs (par seconde) éléments expulsés nombre d'expulsions valides nombre d'éléments expirés obtenir Hits (par seconde) échecs (par seconde) Hachage en octets utilisés le hachage est en train d'étendre le Hash Power Level Incr Requests (par seconde) demandes d'incr Hits (par seconde) nombre max octets d'écoute du serveur nombre de threads de travail récupérés Num désactivé nombre total de connexions ouvertes nombre total d'éléments stockés Touch Hits Touch Touch échecs du serveur Uptime 
+|===
+
+
+== Dépannage
+
+Pour plus d'informations, consultez le link:concept_requesting_support.html["Assistance"] page.

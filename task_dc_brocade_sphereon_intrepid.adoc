@@ -1,0 +1,95 @@
+---
+sidebar: sidebar 
+permalink: task_dc_brocade_sphereon_intrepid.html 
+keywords: data collector, Brocade, Sphereon Intrepid, 
+summary: Configuration du collecteur de données du commutateur Brocade Sphereon/Intrepid 
+---
+= Configuration du collecteur de données du commutateur Brocade Sphereon/Intrepid
+:toc: macro
+:hardbreaks:
+:toclevels: 2
+:allow-uri-read: 
+:toc: 
+:toclevels: 2
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+:toc-position: content
+
+
+[role="lead"]
+Cloud Insights utilise le collecteur de données Brocade Sphereon/Intrepid Switch (SNMP) pour détecter l'inventaire des commutateurs Brocade Sphereon ou Intrepid.
+
+
+
+== De formation
+
+Les conditions suivantes doivent être remplies pour configurer ce collecteur de données :
+
+* Il doit y avoir une connectivité IP à tous les commutateurs de la structure. Si vous cochez la case Discover All switches dans la structure, Cloud Insights identifie tous les commutateurs de la structure. Cependant, il faut une connectivité IP à ces commutateurs supplémentaires pour les découvrir.
+* Chaîne de communauté en lecture seule en cas d'utilisation de SNMP V1 ou SNMP V2.
+* Accès HTTP au commutateur pour obtenir des informations de zoning.
+* Pour valider l'accès, exécutez l'utilitaire snmpwalk sur le commutateur (voir _<install_path>\bin\_).
+
+
+
+
+== Configuration
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| Commutateur Sphereon | Adresse IP ou nom de domaine complet du commutateur 
+
+
+| Version SNMP | Version SNMP 
+
+
+| Chaîne de communauté SNMP | Chaîne de communauté en lecture seule SNMP utilisée pour accéder au commutateur 
+
+
+| Nom d'utilisateur SNMP | Nom d'utilisateur SMI-S du commutateur (SNMP v3 uniquement) 
+
+
+| Mot de passe SNMP | Mot de passe SMI-S pour le commutateur (SNMP v3 uniquement) 
+|===
+
+
+== Configuration avancée
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| Intervalle d'interrogation des stocks (min) | Intervalle entre les sondages d'inventaire. La valeur par défaut est 15 minutes. 
+
+
+| Protocole d'autorisation SNMP | Protocole d'authentification SNMP (SNMP v3 uniquement) 
+
+
+| Mot de passe de confidentialité SNMP | Mot de passe de confidentialité SNMP (SNMP v3 uniquement) 
+
+
+| Nombre de tentatives SNMP | Nombre de tentatives de tentative SNMP 
+
+
+| Nom de la structure | Nom de la structure à indiquer par le collecteur de données. Laissez vide pour signaler le nom de la structure comme WWN. 
+
+
+| Activer le recouvrement | Sélectionnez cette option pour activer l'acquisition lors de la réception d'une interruption SNMP à partir du périphérique. Si vous sélectionnez Activer le recouvrement, vous devez également activer SNMP. 
+
+
+| Temps minimum entre les trappes (secondes) | Temps minimum entre les tentatives d'acquisition déclenchées par les interruptions. La valeur par défaut est 10 secondes. 
+
+
+| Intervalle d'interrogation des performances (s) | Intervalle entre les sondages de performances. La valeur par défaut est 300 secondes. 
+|===
+
+
+== Dépannage
+
+Pour plus d'informations sur ce Data Collector, consultez le link:concept_requesting_support.html["Assistance"] ou dans le link:https://docs.netapp.com/us-en/cloudinsights/CloudInsightsDataCollectorSupportMatrix.pdf["Matrice de prise en charge du Data Collector"].

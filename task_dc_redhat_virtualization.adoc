@@ -1,0 +1,85 @@
+---
+sidebar: sidebar 
+permalink: task_dc_redhat_virtualization.html 
+keywords: data collector, Red Hat Virtualization 
+summary: Configuration du collecteur de données Red Hat Virtualization. 
+---
+= Collecteur de données Red Hat Virtualization
+:allow-uri-read: 
+
+
+[role="lead"]
+Cloud Insights utilise le collecteur de données Red Hat Virtualization pour recueillir des données d'inventaire à partir de charges de travail Linux et Microsoft Windows virtualisées.
+
+
+
+== Terminologie
+
+Pour chaque type d'actif acquis par Cloud Insights, la terminologie la plus utilisée pour l'actif est présentée. Lors de l'affichage ou du dépannage de ce collecteur de données, gardez la terminologie suivante à l'esprit :
+
+[cols="2*"]
+|===
+| Terme du fournisseur/modèle | Terme Cloud Insights 
+
+
+| Disque | Disque virtuel 
+
+
+| Hôte | Hôte 
+
+
+| Ordinateur virtuel | Ordinateur virtuel 
+
+
+| Domaine de stockage | Datastore 
+
+
+| Unité logique | LUN 
+|===
+Remarque : il s'agit uniquement de mappages terminologiques communs et peuvent ne pas représenter tous les cas pour ce collecteur de données.
+
+
+
+== De formation
+
+* Adresse IP du serveur RHEV sur le port 443 via l'API REST
+* Nom d'utilisateur et mot de passe en lecture seule
+* RHEV version 3.0+
+
+
+
+
+== Configuration
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| Adresse IP du serveur RHEV | Adresse IP du système de stockage 
+
+
+| Nom d'utilisateur | Nom d'utilisateur avec privilèges d'administrateur 
+
+
+| Mot de passe du compte admin privilégié | Mot de passe 
+|===
+
+
+== Configuration avancée
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| Port de communication HTTPS | Port utilisé pour la communication HTTPS vers RHEV 
+
+
+| Intervalle d'interrogation des stocks (min) | La valeur par défaut est 20 minutes. 
+|===
+
+
+== Dépannage
+
+Pour plus d'informations sur ce Data Collector, consultez le link:concept_requesting_support.html["Assistance"] ou dans le link:https://docs.netapp.com/us-en/cloudinsights/CloudInsightsDataCollectorSupportMatrix.pdf["Matrice de prise en charge du Data Collector"].

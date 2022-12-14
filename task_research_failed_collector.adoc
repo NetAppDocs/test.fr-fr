@@ -1,0 +1,28 @@
+---
+sidebar: sidebar 
+permalink: task_research_failed_collector.html 
+keywords: data collector, changes, failures 
+summary: Erreurs du collecteur de données 
+---
+= Recherche d'un collecteur de données défectueux
+:allow-uri-read: 
+
+
+[role="lead"]
+Si un collecteur de données a un message d'échec et un impact élevé ou moyen, vous devez rechercher ce problème à l'aide de la page de résumé du collecteur de données avec ses informations liées.
+
+Procédez comme suit pour déterminer la cause de l'échec des collecteurs de données. Les messages d'échec du collecteur de données s'affichent dans le menu *Admin* et sur la page *Data Collectors installés*.
+
+.Étapes
+. Cliquez sur *Admin* > *Data Collectors* > *Data Collectors installés*.
+. Cliquez sur le nom lié du collecteur de données défaillant pour ouvrir la page Résumé.
+. Sur la page Summary, vérifiez dans la zone Comments les remarques qui auraient pu être laissées par un autre ingénieur pour compte.
+. Notez tous les messages de performance.
+. Déplacez le pointeur de la souris sur les segments du graphique de la chronologie des événements pour afficher des informations supplémentaires.
+. Sélectionnez un message d'erreur pour un périphérique et affiché sous la chronologie des événements, puis cliquez sur l'icône Détails de l'erreur qui s'affiche à droite du message.
++
+Les détails de l'erreur incluent le texte du message d'erreur, les causes les plus probables, les informations en cours d'utilisation et les suggestions sur ce qui peut être tenté de corriger le problème.
+
+. Dans la zone périphériques signalés par ce Data Collector, vous pouvez filtrer la liste pour n'afficher que les périphériques qui vous intéressent et cliquer sur le *Nom* lié d'un périphérique pour afficher la page de ressources de ce périphérique.
+. Lorsque vous revenez à la page de résumé du collecteur de données, vérifiez la zone *Afficher les changements récents* en bas de la page pour voir si des modifications récentes pourraient avoir causé le problème.
+

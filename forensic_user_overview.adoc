@@ -1,0 +1,58 @@
+---
+sidebar: sidebar 
+permalink: forensic_user_overview.html 
+keywords: Forensic, user, user, activity 
+summary: informations utilisateur médico-légales 
+---
+= Vue d'ensemble de l'utilisateur judiciaire
+:allow-uri-read: 
+
+
+Les informations relatives à chaque utilisateur sont fournies dans la vue d'ensemble de l'utilisateur. Utilisez ces vues pour comprendre les caractéristiques des utilisateurs, les entités associées et les activités récentes.
+
+
+
+== Profil utilisateur
+
+Les informations du profil utilisateur incluent les coordonnées et l'emplacement de l'utilisateur. Le profil fournit les informations suivantes :
+
+* Nom de l'utilisateur
+* Adresse électronique de l'utilisateur
+* Responsable de l'utilisateur
+* Contact téléphonique de l'utilisateur
+* Emplacement de l'utilisateur
+
+
+
+
+== Comportement de l'utilisateur
+
+Les informations sur le comportement de l'utilisateur identifient les activités et opérations récentes effectuées par l'utilisateur. Ces informations comprennent :
+
+* Activité récente
++
+** Emplacement du dernier accès
+** Graphique d'activité
+** Alertes
+
+
+
+
+* Opérations des sept derniers jours
++
+** Nombre d'opérations
+
+
+
+
+
+
+== Intervalle de rafraîchissement
+
+La liste des utilisateurs est actualisée toutes les 12 heures.
+
+
+
+== Stratégie de conservation
+
+S'il n'est pas actualisé à nouveau, la liste des utilisateurs est conservée pendant 13 mois. Au bout de 13 mois, les données seront supprimées. Si votre environnement Cloud Secure est supprimé, toutes les données associées à cet environnement sont supprimées.

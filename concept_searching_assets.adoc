@@ -1,0 +1,122 @@
+---
+sidebar: sidebar 
+permalink: concept_searching_assets.html 
+summary: Recherche avancée techniquest peut vous aider à trouver les ressources que vous recherchez. 
+keywords: asset page, objects, search, advanced, alerts 
+---
+= Conseils et astuces pour rechercher des ressources et des alertes
+:allow-uri-read: 
+
+
+[role="lead"]
+Plusieurs techniques de recherche peuvent être utilisées pour rechercher des données ou des objets dans votre environnement surveillé.
+
+* *Recherche de caractères génériques*
++
+Vous pouvez effectuer une recherche par caractère générique à l'aide du caractère *. Par exemple, _applic*n_ renverra _application_.
+
+* *Phrases utilisées dans la recherche*
++
+Une expression est un groupe de mots entouré de guillemets, par exemple "VNX LUN 5". Vous pouvez utiliser des guillemets doubles pour rechercher des documents contenant des espaces dans leurs noms ou attributs.
+
+* *Opérateurs booléens*
++
+En utilisant des opérateurs booléens OU, ET, et NON, vous pouvez combiner plusieurs termes pour former une requête plus complexe.
+
++
+OU
+
++
+L'opérateur OR est l'opérateur de conjonction par défaut.
+
++
+S'il n'y a pas d'opérateur booléen entre deux termes, l'opérateur OR est utilisé.
+
++
+L'opérateur OR lie deux termes et trouve un document correspondant si l'un des termes existe dans un document.
+
++
+Par exemple, _stockage OU netapp_ recherche des documents contenant _Storage_ ou _netapp_.
+
++
+Des notes élevées sont attribuées aux documents qui correspondent à la plupart des termes.
+
++
+ET
+
++
+Vous pouvez utiliser l'opérateur AND pour rechercher des documents dans lesquels les deux termes de recherche existent dans un seul document. Par exemple, _stockage ET netapp_ recherchent des documents contenant à la fois _stockage_ et _netapp_.
+
++
+Vous pouvez utiliser le symbole *&&&&* au lieu du mot ET.
+
++
+PAS
+
++
+Lorsque vous utilisez L'opérateur NOT, tous les documents contenant le terme après NE sont pas exclus des résultats de la recherche. Par exemple, _stockage ET NON netapp_ recherche des documents qui ne contiennent que _Storage_ et non _netapp_.
+
++
+Vous pouvez utiliser le symbole *!* au lieu du mot NON.
+
+
+
+La recherche n'est pas sensible à la casse.
+
+
+
+== Recherche à l'aide de termes indexés
+
+Les recherches qui correspondent à davantage de termes indexés entraînent des scores plus élevés.
+
+La chaîne de recherche est divisée en termes de recherche séparés par espace. Par exemple, la chaîne de recherche « stockage aurora netapp » est divisée en trois mots clés : « stockage », « aurora » et « netapp ». La recherche s'effectue à l'aide des trois termes. Les documents qui correspondent à la plupart de ces termes auront le score le plus élevé. Plus vous fournissez d'informations, mieux les résultats de recherche sont nombreux. Par exemple, vous pouvez rechercher un stockage par son nom et son modèle.
+
+L'interface utilisateur affiche les résultats de la recherche dans les différentes catégories, avec les trois meilleurs résultats par catégorie. Si vous n'avez pas trouvé d'objet que vous attendiez, vous pouvez inclure plus de termes dans la chaîne de recherche pour améliorer les résultats de la recherche.
+
+Le tableau suivant fournit une liste de termes indexés qui peuvent être ajoutés à la chaîne de recherche.
+
+|===
+| Catégorie | Termes indexés 
+
+
+| Stockage | modèle du fournisseur de noms « stockage » 
+
+
+| Poolde stockage | Nom du nom « storagepool » des adresses IP de stockage du numéro de série du stockage du fournisseur de stockage pour tous les noms de volumes internes associés pour tous les disques associés 
+
+
+| Volume interne | Nom interne du nom des adresses IP de stockage du numéro de série de stockage du fournisseur de stockage du nom de modèle de stockage du pool de stockage de tous les partages associés de toutes les applications associées 
+
+
+| Volumétrie | Noms d'étiquette de nom « volume » de tous les volumes internes nom du pool de stockage nom des adresses IP de stockage du numéro de série de stockage du modèle de stockage du fournisseur de stockage 
+
+
+| Nœud de stockage | Nom de « storagenode » des adresses IP de stockage du numéro de série de stockage du modèle de stockage du fournisseur 
+
+
+| Hôte | Nom « hôte » adresses IP noms de toutes les applications associées 
+
+
+| Datastore | Nom du « datastore » : noms IP du centre virtuel de tous les volumes, noms de tous les volumes, de tous les volumes internes 
+
+
+| Ordinateurs virtuels | Nom de "virtualmachine" Nom DNS adresses IP nom de l'hôte adresses IP des noms d'hôte de tous les datastores noms de toutes les applications associées 
+
+
+| Commutateurs (standard et NPV) | « Switch » adresse IP wwn nom numéro de série modèle ID de domaine nom de la structure wwn de la structure 
+
+
+| Client supplémentaire | nom du locataire secteur d'activité projet de l'unité commerciale 
+
+
+| Bande | Nom de l'adresse IP « bande » fournisseur du numéro de série 
+
+
+| Port | nom wwn « port » 
+
+
+| Structure | nom wwn de la « structure » 
+
+
+| Storage Virtual machine (SVM) | UUID de nom « storagevirtualmachine » 
+|===

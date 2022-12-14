@@ -1,0 +1,75 @@
+---
+sidebar: sidebar 
+permalink: concept_notifications_email.html 
+summary: 'Ajout d"adresses e-mail pour les notifications.' 
+keywords: email, notifications, signature, recipient, list, subscription 
+---
+= Configuration des notifications par e-mail
+:allow-uri-read: 
+
+
+[role="lead"]
+Vous pouvez configurer une liste d'e-mails pour les notifications relatives à un abonnement, ainsi qu'une liste globale de destinataires pour la notification des violations de seuil de la stratégie de performances.
+
+Pour configurer les paramètres des destinataires de notification par e-mail, accédez à la page *Admin > Notifications*.
+
+
+
+== Destinataires de la notification d'abonnement
+
+[role="thumb"]
+image:SubscriptionNotificationSection.png["Notifications par e-mail d'abonnement"]
+
+Pour configurer des destinataires pour les notifications d'événements liés à un abonnement, accédez à la section « destinataires de la notification d'abonnement ». Vous pouvez choisir d'envoyer des notifications par e-mail pour les événements liés à un abonnement à l'un ou l'ensemble des destinataires suivants :
+
+* Tous les propriétaires de compte
+* Tous les administrateurs
+* Adresses e-mail supplémentaires que vous spécifiez
+
+
+Voici des exemples de types de notifications pouvant être envoyées et d'actions utilisateur que vous pouvez effectuer.
+
+|===
+
+
+| *Notification:* | *Action de l'utilisateur:* 
+
+
+| La version d'essai ou l'abonnement a été mis à jour | Consultez les détails de l'abonnement sur le link:concept_subscribing_to_cloud_insights.html["Abonnement"] page 
+
+
+| L'abonnement expirera dans 90 jours. L'abonnement expirera dans 30 jours | Aucune action n'est nécessaire si "Renouvellement automatique" est activé Contact link:https://www.netapp.com/us/forms/sales-inquiry/cloud-insights-sales-inquiries.aspx["Ventes NetApp"] pour renouveler l'abonnement 
+
+
+| L'essai se termine dans 2 jours | Renouvelez l'essai à partir du link:concept_subscribing_to_cloud_insights.html["Abonnement"] page. Vous pouvez renouveler une version d'évaluation une seule fois. Contactez link:https://www.netapp.com/us/forms/sales-inquiry/cloud-insights-sales-inquiries.aspx["Ventes NetApp"] pour souscrire un abonnement 
+
+
+| La période d'essai ou l'abonnement a expiré le compte cessera de collecter les données dans 48 heures. Le compte sera supprimé après 48 heures | Contactez link:https://www.netapp.com/us/forms/sales-inquiry/cloud-insights-sales-inquiries.aspx["Ventes NetApp"] pour souscrire un abonnement 
+|===
+
+
+== Liste globale des destinataires des alertes
+
+Les notifications par e-mail d'alertes sont envoyées à la liste des destinataires de l'alerte pour chaque action de l'alerte. Vous pouvez choisir d'envoyer des notifications d'alerte à une liste de destinataires globale.
+
+Pour configurer les destinataires d'alertes globales, cliquez sur *Admin > Notifications* et sélectionnez les destinataires souhaités dans la section *destinataires de notification du moniteur global*.
+
+.image:GlobalMonitorRecipients.png["Destinataires des notifications du contrôle global"]
+[role="thumb"]
+Vous pouvez toujours remplacer la liste globale des destinataires d'un moniteur individuel lors de la création ou de la modification du moniteur.
+
+
+
+== Liste globale des destinataires pour les notifications de politique de performances
+
+[role="thumb"]
+image:PerformancePolicyNotificationSection.png["Notifications par e-mail relatives aux règles de performances"]
+
+Pour ajouter des destinataires à la liste d'e-mails de notification de la stratégie de performances globale, accédez à la section « destinataires de la stratégie de performances globales » et saisissez des adresses e-mail séparées par des virgules. Les e-mails envoyés sous forme d'alertes provenant de violations des seuils de la politique de performances seront envoyés à tous les destinataires de la liste.
+
+En cas d'erreur, vous pouvez cliquer sur [x] pour supprimer un destinataire de la liste.
+
+Vous pouvez également ajouter un bloc de signature facultatif qui sera joint aux notifications par e-mail envoyées.
+
+
+NOTE: Vous pouvez remplacer la liste globale d'une stratégie spécifique lorsque vous configurez cette stratégie.

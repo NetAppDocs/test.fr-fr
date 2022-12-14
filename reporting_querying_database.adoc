@@ -1,0 +1,127 @@
+---
+sidebar: sidebar 
+permalink: reporting_querying_database.html 
+summary: Utilisez les API Cloud Insights pour interroger directement la base de données de reporting. 
+keywords: reporting, cognos, data warehouse, dwh, API 
+---
+= Accéder à la base de données de rapports via l'API
+:allow-uri-read: 
+
+
+[role="lead"]
+La puissante API de Cloud Insights permet aux utilisateurs d'interroger directement la base de données Cloud Insights Reporting, sans passer par l'environnement Cognos Reporting.
+
+
+NOTE: Cette documentation fait référence à la fonctionnalité de création de rapports Cloud Insights, disponible dans le link:/concept_subscribing_to_cloud_insights.html#editions["Édition Premium"].
+
+
+
+== OData
+
+L'API de génération de rapports Cloud Insights suit link:https://www.odata.org/["OData v4"] (Open Data Protocol) norme pour ses requêtes de la base de données de rapports. Pour en savoir plus ou pour en savoir plus, consultez le document link:https://www.odata.org/getting-started/basic-tutorial/["ce tutoriel"] Sur OData.
+
+Toutes les demandes commenceront par l'url _\https://<Cloud Insights URL>/REST/v1/dwh-management/odata_
+
+
+
+== Génération d'une clé APIKey
+
+En savoir plus sur link:API_Overview.html["Les API Cloud Insights"].
+
+Pour générer une clé API, procédez comme suit :
+
+* Connectez-vous à votre environnement Cloud Insights et sélectionnez *Admin > accès API*.
+* Cliquez sur "+ jeton d'accès à l'API ".
+* Entrez un nom et une description.
+* Pour le type, choisissez _Data Warehouse_.
+* Définir les autorisations comme lecture/écriture.
+* Définissez une date d'expiration de désirs.
+* Cliquez sur “Enregistrer”, puis *copiez la clé et enregistrez-la* quelque part en toute sécurité. Vous ne pourrez plus accéder à la clé complète ultérieurement.
+
+
+Les touches APIkeys sont bonnes pour _Sync_ ou _Async_.
+
+
+
+== Requête directe des tables
+
+Une fois la clé API en place, les requêtes directes de la base de données de rapports sont désormais possibles. Les URL longues peuvent être simplifiées à \https://.../odata/ pour l'affichage plutôt que l'URL \https://<Cloud Insights>/REST/v1/dwh-management/odata/
+
+Essayez des requêtes simples comme
+
+* \https://<Cloud Insights URL>/REST/v1/dwh-management/odata/dwh_custom
+* \https://<Cloud Insights URL>/REST/v1/dwh-management/odata/dwh_Inventory
+* \https://<Cloud Insights URL>/REST/v1/dwh-management/odata/dwh_Inventory/Storage
+* \https://<Cloud Insights URL>/REST/v1/dwh-management/odata/dwh_Inventory/Disk
+* \https://.../odata/dwh_custom/custom_queries
+
+
+
+
+== Exemples d'API REST
+
+L'URL de tous les appels est _\https://<Cloud Insights URL>/REST/v1/dwh-management/odata_.
+
+* OBTENIR /{schéma}/** - récupère les données de la base de données de rapports, nécessite au moins le rôle _invité_.
+
+
+Format : _\https://<Cloud Insights URL>/REST/v1/dwh-management/odata/<nom_schéma>/<requête>_
+
+Exemple :
+
+ https://<domain>/rest/v1/dwh-management/odata/dwh_inventory/fabric?$count=true&$orderby=name
+Résultat :
+
+....
+{
+   "@odata.context": "$metadata#fabric",
+   "@odata.count": 2,
+   "value": [
+       {
+           "id": 851,
+           "identifier": "10:00:50:EB:1A:40:3B:44",
+           "wwn": "10:00:50:EB:1A:40:3B:44",
+           "name": "10:00:50:EB:1A:40:3B:44",
+           "vsanEnabled": "0",
+           "vsanId": null,
+           "zoningEnabled": "0",
+           "url": "https://<domain>/web/#/assets/fabrics/941716"
+       },
+       {
+           "id": 852,
+           "identifier": "10:00:50:EB:1A:40:44:0C",
+           "wwn": "10:00:50:EB:1A:40:44:0C",
+           "name": "10:00:50:EB:1A:40:44:0C",
+           "vsanEnabled": "0",
+           "vsanId": null,
+           "zoningEnabled": "0",
+           "url": "https://<domain>/web/#/assets/fabrics/941836"
+        }
+    ]
+}
+....
+
+
+== Conseils utiles
+
+Gardez à l'esprit les éléments suivants lorsque vous utilisez des requêtes de l'API de reporting.
+
+* La charge utile de la requête doit être une chaîne JSON valide
+* La charge utile de la requête doit être contenue dans une seule ligne
+* Les guillemets doivent être échappés, par exemple \"
+* Les onglets sont pris en charge sous la forme \t
+* Évitez les commentaires
+* Les noms de tables en minuscules sont pris en charge
+
+
+En outre :
+
+* 2 en-têtes sont nécessaires :
++
+** Nom « X-CloudInsights-ApiKey »
+** Attribut valeur «<apikey> »
+
+
+
+
+Votre clé d'API sera spécifique à votre environnement Cloud Insights.

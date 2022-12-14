@@ -1,0 +1,59 @@
+---
+sidebar: sidebar 
+permalink: task_business_entity_annotations.html 
+keywords: annotations, business entity 
+summary: 'Les annotations d"entité métier peuvent être utilisées pour surveiller et créer des rapports sur les ressources de votre hiérarchie business' 
+---
+= Annotations d'entité métier
+:allow-uri-read: 
+
+
+[role="lead"]
+Créez et gérez des entités métiers pour votre environnement d'entreprise en utilisant le type d'annotation *entité métier*.
+
+
+
+== Création d'une entité métier
+
+Pour créer une entité commerciale, procédez comme suit :
+
+. Cliquez sur *gérer > Annotations* et cliquez sur le lien _entité métier_.
++
+La liste des entités commerciales actuellement définies s'affiche.
+
+. Cliquez sur *+ entité commerciale*.
+. Entrez les valeurs des champs *tenant*, *secteur d'activité*, *unité commerciale* et *projet*.
++
+Vous pouvez laisser un champ vide s'il ne s'applique pas à votre entité commerciale.
+
+. Si vous avez déjà saisi une valeur pour un champ, vous pouvez la sélectionner dans la liste déroulante. Il n'est pas nécessaire de le saisir à nouveau.
+
+
+
+NOTE: Les valeurs sélectionnées doivent composer une entité métier totale unique. Par exemple, si vous avez déjà une entité métier avec les valeurs _A / B / C / D_ dans cet ordre, vous ne pouvez pas créer une autre entité métier avec ces valeurs. Vous pouvez cependant créer une entité métier avec ces valeurs dans un ordre différent.
+
+
+
+== Application d'une entité métier à un objet
+
+La façon la plus simple d'appliquer une entité métier à un ou plusieurs objets consiste à effectuer une requête.
+
+. Cliquez sur *requêtes > +Nouvelle requête* et sélectionnez le type d'objet souhaité. Vous pouvez appliquer des filtres pour affiner davantage les résultats.
+. Cochez la case pour sélectionner le ou les objets pour lesquels vous souhaitez appliquer l'entité métier.
+. Cliquez sur *actions groupées* et sélectionnez *Ajouter une annotation*.
+. Choisissez l'annotation _entité métier_ et sélectionnez la valeur d'entité métier souhaitée dans la liste.
+. Cliquez sur *Enregistrer* pour appliquer l'entité métier aux objets.
+
+
+Vous pouvez également appliquer une entité métier à un objet individuel en accédant à la page d'accueil de la ressource de l'objet et en cliquant sur *+Annotation) dans la section données utilisateur.
+
+Vous pouvez également configurer un link:task_create_annotation_rules.html["Règle d'annotation"] pour appliquer des entités métier aux objets.
+
+
+NOTE: Un objet ne peut être associé qu'à une seule entité commerciale.
+
+
+
+== Suppression d'une entité métier d'un objet
+
+Pour supprimer une entité métier d'un ou plusieurs objets, recherchez et sélectionnez le(s) objet(s), cliquez sur *actions groupées* et sélectionnez _Supprimer annotation_. Sélectionnez l'annotation entité métier et cliquez sur *Supprimer*.

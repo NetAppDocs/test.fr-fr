@@ -1,0 +1,67 @@
+---
+sidebar: sidebar 
+permalink: concept_asset_page_overview.html 
+summary: 'Les pages ASSET peuvent être affichées pour la plupart des types d"objet.' 
+keywords: asset page, objects, landing page, Virtual machine, VM, Storage Virtual Machine, SVM, Volume, Internal volume, Host, Hypervisor, pool, Storage, Datastore, Application, node, Qtree, Disk, VMDK, Port, Switch, Fabric 
+---
+= Présentation de la page de ressources
+:allow-uri-read: 
+
+
+[role="lead"]
+Les pages d'actifs résument l'état actuel d'un bien et contiennent des liens vers des informations supplémentaires sur le bien et ses actifs connexes.
+
+
+
+== Types de pages de biens
+
+Cloud Insights fournit des pages de ressources pour les ressources suivantes :
+
+* Ordinateur virtuel
+* Storage Virtual machine (SVM)
+* Volumétrie
+* Volume interne
+* Hôte (hyperviseur compris)
+* Pool de stockage
+* Stockage
+* Datastore
+* Client supplémentaire
+* Nœud de stockage
+* Qtree
+* Disque
+* VMDK
+* Port
+* Commutateur
+* Structure
+
+
+
+
+== Modification de la plage horaire des données affichées
+
+Par défaut, une page d'inventaire affiche les 24 dernières heures de données. Cependant, vous pouvez modifier le segment de données affiché en sélectionnant une autre plage de temps fixe ou une plage de temps personnalisée pour afficher moins ou plus de données.
+
+Vous pouvez modifier le segment de temps des données affichées à l'aide d'une option située sur chaque page de ressource, quel que soit le type de ressource. Pour modifier la plage horaire, cliquez sur la plage horaire affichée dans la barre supérieure et choisissez parmi les segments de temps suivants :
+
+* Dernières 15 minutes
+* Dernières 30 minutes
+* Dernières 60 minutes
+* Dernières 2 heures
+* Les 3 dernières heures (il s'agit de la valeur par défaut)
+* Dernières 6 heures
+* Dernières 12 heures
+* Dernières 24 heures
+* 2 derniers jours
+* 3 derniers jours
+* 7 derniers jours
+* 30 derniers jours
+* Plage horaire personnalisée
+
+
+La plage de temps personnalisée vous permet de sélectionner jusqu'à 31 jours consécutifs. Vous pouvez également définir l'heure de début et l'heure de fin de la journée pour cette plage. L'heure de début par défaut est 12:00 AM le premier jour sélectionné et l'heure de fin par défaut est 11:59 PM le dernier jour sélectionné. Cliquez sur appliquer pour appliquer la plage horaire personnalisée à la page ressource.
+
+
+
+== Ajouter des widgets personnalisés
+
+Vous pouvez ajouter vos propres widgets à n'importe quelle page de ressources. Les widgets que vous ajoutez apparaîtront sur les pages de contenu pour tous les objets de ce type. Par exemple, l'ajout d'un widget personnalisé à une page d'actifs de stockage affichera ce widget sur les pages d'actifs de toutes les ressources de stockage.

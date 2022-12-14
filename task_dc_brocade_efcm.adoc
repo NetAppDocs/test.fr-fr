@@ -1,0 +1,79 @@
+---
+sidebar: sidebar 
+permalink: task_dc_brocade_efcm.html 
+keywords: data collector, Brocade, EFCM, 
+summary: Configuration du collecteur de données Brocade 
+---
+= Configuration du collecteur de données Brocade Enterprise Fabric Connectivity Manager
+:allow-uri-read: 
+
+
+[role="lead"]
+Cloud Insights utilise le collecteur de données Brocade Enterprise Fabric Connectivity Manager (EFCM) pour détecter l'inventaire des commutateurs Brocade EFCM. Cloud Insights prend en charge EFCM versions 9.5, 9.6 et 9.7.
+
+
+
+== De formation
+
+* Adresse réseau ou nom de domaine complet pour le serveur EFCM
+* La version EFCM doit être 9.5, 9.6 ou 9.7
+* Adresse IP du serveur EFCM
+* Nom d'utilisateur et mot de passe en lecture seule pour le serveur EFCM
+* Accès validé au commutateur Connectrix par Telnet à partir du serveur Cloud Insights, à l'aide du nom d'utilisateur et du mot de passe en lecture seule sur le port 51512
+
+
+
+
+== Configuration
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| Serveur EFC | Adresse IP ou nom de domaine complet du serveur EFC 
+
+
+| Nom d'utilisateur | Nom d'utilisateur du commutateur 
+
+
+| Mot de passe | Mot de passe du commutateur 
+|===
+
+
+== Configuration avancée
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| Intervalle d'interrogation des stocks (min) | Intervalle entre les sondages d'inventaire. La valeur par défaut est 15 minutes. 
+
+
+| Nom de la structure | Le nom de la structure doit être signalé par le collecteur de données EFCM. Laissez vide pour signaler le nom de la structure comme WWN. 
+
+
+| Port de communication | Port utilisé pour la communication avec le commutateur 
+
+
+| Activer le recouvrement | Sélectionnez cette option pour activer l'acquisition lors de la réception d'une interruption SNMP à partir du périphérique. Si vous sélectionnez Activer le recouvrement, vous devez également activer SNMP. 
+
+
+| Temps minimum entre les recouvrements (s) | Temps minimum entre les tentatives d'acquisition déclenchées par les interruptions. La valeur par défaut est 15 secondes. 
+
+
+| Zonesets inactifs | Liste séparée par des virgules des zonesets inactifs sur lesquels effectuer l'acquisition, en plus d'effectuer l'acquisition sur les ensembles de zones actives 
+
+
+| NIC à utiliser | Spécifiez quelle interface réseau doit être utilisée sur le RAU lors de la génération de rapports sur les périphériques SAN 
+
+
+| Exclure les périphériques | Liste de noms d'unités séparés par des virgules à inclure ou exclure de l'interrogation 
+
+
+| Utilisez le surnom du commutateur EFCM comme nom de commutateur | Sélectionnez cette option pour utiliser le surnom du commutateur EFCM comme nom du commutateur Cloud Insights. 
+
+
+| Intervalle d'interrogation des performances (s) | Intervalle entre les sondages de performances. La valeur par défaut est 300 secondes. 
+|===

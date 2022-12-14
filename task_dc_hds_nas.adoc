@@ -1,0 +1,105 @@
+---
+sidebar: sidebar 
+permalink: task_dc_hds_nas.html 
+keywords: data collector, HDS HNAS, HDS NAS 
+summary: 'Configuration du collecteur de données HDS NAS (HNAS).' 
+---
+= Configuration du collecteur de données NAS Hitachi Vantara
+:allow-uri-read: 
+
+
+[role="lead"]
+Le collecteur de données NAS Hitachi Vantara est un collecteur de données d'inventaire et de configuration qui prend en charge la découverte des clusters HDS NAS. Cloud Insights prend en charge la détection des partages NFS et CIFS, des systèmes de fichiers (volumes internes) et des étendues (pools de stockage).
+
+
+
+== Terminologie
+
+Cloud Insights acquiert les informations d'inventaire suivantes à partir du collecteur de données HNAS. Pour chaque type de bien acquis par Cloud Insights, la terminologie la plus utilisée pour ce bien est présentée. Lors de l'affichage ou du dépannage de ce collecteur de données, gardez la terminologie suivante à l'esprit :
+
+[cols="2*"]
+|===
+| Terme du fournisseur/modèle | Terme Cloud Insights 
+
+
+| Niveau | Groupe de disques 
+
+
+| Cluster | Stockage 
+
+
+| Nœud | Nœud de stockage 
+
+
+| De la plage | Pool de stockage 
+
+
+| Entraînement du système | LUN interne 
+
+
+| Système de fichiers | Volume interne 
+|===
+Remarque : il s'agit uniquement de mappages terminologiques communs et peuvent ne pas représenter tous les cas pour ce collecteur de données.
+
+
+
+== De formation
+
+* Adresse IP du périphérique
+* Port 22, protocole SSH
+* Nom d'utilisateur et mot de passe - niveau de privilège : superviseur
+* Remarque : ce collecteur de données est basé sur SSH. L'UA qui l'héberge doit donc être capable d'initier des sessions SSH vers TCP 22 sur le HNAS lui-même, ou l'unité de gestion des systèmes (SMU) à laquelle le cluster est connecté.
+
+
+
+
+== Configuration
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| Hôte HNAS | Adresse IP ou nom de domaine complet de l'hôte de gestion HNAS 
+
+
+| Nom d'utilisateur | Nom d'utilisateur pour l'interface de ligne de commande HNAS 
+
+
+| Mot de passe | Mot de passe utilisé pour l'interface de ligne de commande HNAS 
+|===
+
+
+== Configuration avancée
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| Intervalle d'interrogation des stocks (min) | Intervalle entre les sondages d'inventaire. La valeur par défaut est 30 minutes. 
+|===
+
+
+== Dépannage
+
+Certaines choses à essayer si vous rencontrez des problèmes avec ce collecteur de données :
+
+
+
+==== Inventaire
+
+[cols="2*"]
+|===
+| Problème : | Essayer : 
+
+
+| "Erreur lors de la connexion" avec les messages d'erreur "erreur lors de la configuration du canal du shell :" ou "erreur lors de l'ouverture du canal du shell" | La cause est probablement des problèmes de connectivité réseau ou de configuration incorrecte du système SSH. Vérifiez la connexion avec un autre client SSH 
+
+
+| "Timeout" ou "erreur lors de la récupération des données" avec les messages d'erreur "la commande: XXX a expiré". | * Essayez la commande avec un autre client SSH * augmentez le délai d'attente 
+
+
+| « Erreur lors de la connexion » ou « informations d'identification non valides » avec des messages d'erreur « Impossible de communiquer avec le périphérique : » | * Vérifiez l'adresse IP * Vérifiez le nom d'utilisateur et le mot de passe * Confirmez la connexion avec un autre client SSH 
+|===
+Pour plus d'informations, consultez le link:concept_requesting_support.html["Assistance"] ou dans le link:https://docs.netapp.com/us-en/cloudinsights/CloudInsightsDataCollectorSupportMatrix.pdf["Matrice de prise en charge du Data Collector"].

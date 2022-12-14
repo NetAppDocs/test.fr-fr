@@ -1,0 +1,73 @@
+---
+sidebar: sidebar 
+permalink: task_dc_ms_anf.html 
+keywords: data collector, azure, Netapp files, anf 
+summary: Configuration du collecteur de données Azure NetApp Files. 
+---
+= Configuration du collecteur de données Azure NetApp Files
+:allow-uri-read: 
+
+
+[role="lead"]
+Cloud Insights utilise le collecteur de données Azure NetApp Files pour acquérir des données d'inventaire et de performance.
+
+
+
+== De formation
+
+Vous avez besoin des informations suivantes pour configurer ce collecteur de données.
+
+* Port requis : 443 HTTPS
+* IP REST Azure Management (management.azure.com)
+* ID client principal du service Azure (compte utilisateur)
+* Clé d'authentification principale du service Azure (mot de passe utilisateur)
+* Vous devez configurer un compte Azure pour la découverte Cloud Insights.
++
+Une fois le compte correctement configuré et l'application enregistrée dans Azure, vous disposez des identifiants nécessaires pour découvrir l'instance Azure avec Cloud Insights. Le lien suivant explique comment configurer le compte pour la découverte :
+
+
+
+https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal[]
+
+
+
+== Configuration
+
+Entrez les données dans les champs du collecteur de données conformément au tableau ci-dessous :
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| ID client principal du service Azure | ID de connexion à Azure 
+
+
+| ID de locataire Azure | ID de locataire Azure 
+
+
+| Clé d'authentification principale du service Azure | Clé d'authentification de connexion 
+
+
+| J'ai bien compris que Microsoft me facture pour les demandes d'API | Vérifiez que vous avez bien compris que Microsoft vous facture des demandes d'API formulées par l'interrogation Insight. 
+|===
+
+
+== Configuration avancée
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| Intervalle d'interrogation des stocks (min) | La valeur par défaut est 60 
+|===
+
+
+== Dépannage
+
+* Les informations d'identification utilisées par votre collecteur de données ANF ne doivent pas avoir accès aux abonnements Azure contenant des volumes ANF.
+* Si l'accès au lecteur provoque l'échec de la collecte des performances, essayez d'accorder l'accès au collaborateur au niveau d'un groupe de ressources.
+
+
+Pour plus d'informations sur ce Data Collector, consultez le link:concept_requesting_support.html["Assistance"] ou dans le link:https://docs.netapp.com/us-en/cloudinsights/CloudInsightsDataCollectorSupportMatrix.pdf["Matrice de prise en charge du Data Collector"].

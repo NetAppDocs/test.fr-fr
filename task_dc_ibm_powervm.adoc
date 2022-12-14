@@ -1,0 +1,101 @@
+---
+sidebar: sidebar 
+permalink: task_dc_ibm_powervm.html 
+keywords: IBM, powerVM, 
+summary: Configuration du collecteur de données IBM PowerVM 
+---
+= Configuration du collecteur de données IBM PowerVM
+:allow-uri-read: 
+
+
+[role="lead"]
+Le collecteur de données IBM PowerVM (SSH) est utilisé pour collecter des informations sur les partitions virtuelles exécutées sur des instances matérielles IBM POWER gérées par une console de gestion du matériel (HMC).
+
+
+
+== Terminologie
+
+Cloud Insights acquiert les informations d'inventaire à partir des partitions virtuelles s'exécutant sur des instances matérielles IBM POWER. Pour chaque type d'actif acquis, la terminologie la plus utilisée pour l'actif est indiquée. Lors de l'affichage ou du dépannage de ce collecteur de données, gardez la terminologie suivante à l'esprit :
+
+[cols="2*"]
+|===
+| Terme du fournisseur/modèle | Terme Cloud Insights 
+
+
+| hdisque | Disque virtuel 
+
+
+| Système géré | Hôte 
+
+
+| LPAR, serveur VIO | Ordinateur virtuel 
+
+
+| Groupe de volumes | Datastore 
+
+
+| Volume physique | LUN 
+|===
+Remarque : il s'agit uniquement de mappages terminologiques communs et peuvent ne pas représenter tous les cas pour ce collecteur de données.
+
+
+
+== De formation
+
+Les conditions suivantes doivent être remplies pour configurer et utiliser ce collecteur de données :
+
+* Adresse IP de la console de gestion du matériel (HMC)
+* Nom d'utilisateur et mot de passe permettant d'accéder à la console HMC (Hardware Management Console) via SSH
+* Port requis SSH-22
+* Afficher les autorisations sur tous les systèmes de gestion et les domaines de sécurité des partitions logiques
++
+L'utilisateur doit également disposer de l'autorisation Afficher sur les configurations HMC et de la possibilité de collecter des informations VPD pour le regroupement de sécurité de la console HMC. L'utilisateur doit également être autorisé à accéder aux commandes Virtual IO Server sous le regroupement de sécurité de partition logique. Il est recommandé de commencer par un rôle d'opérateur, puis de supprimer tous les rôles. Les utilisateurs en lecture seule de la console HMC ne disposent pas des privilèges nécessaires pour exécuter des commandes proxy sur les hôtes AIX.
+
+* La meilleure pratique d'IBM consiste à faire contrôler les appareils par deux ou plusieurs NCSM. Sachez que OnCommand Insight peut signaler les périphériques dupliqués. Il est donc fortement recommandé d'ajouter des périphériques redondants à la liste « exclure les périphériques » de la configuration avancée pour ce collecteur de données.
+
+
+
+
+== Configuration
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| Adresse IP de la console de gestion du matériel (HMC) | Adresse IP ou nom de domaine complet de la console PowerVM Hardware Management Console 
+
+
+| Utilisateur HMC | Nom d'utilisateur de la console de gestion du matériel 
+
+
+| Mot de passe | Mot de passe utilisé pour la console de gestion du matériel 
+|===
+
+
+== Configuration avancée
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| Intervalle d'interrogation des stocks (min) | Intervalle entre les sondages d'inventaire. La valeur par défaut est 20 minutes. 
+
+
+| Port SSH | Port utilisé pour SSH vers PowerVM 
+
+
+| Mot de passe | Mot de passe utilisé pour la console de gestion du matériel 
+
+
+| Nombre de tentatives | Nombre de tentatives d'inventaire 
+
+
+| Exclure les périphériques | Liste séparée par des virgules d'ID de périphérique ou de noms d'affichage à exclure 
+|===
+
+
+== Dépannage
+
+Pour plus d'informations sur ce Data Collector, consultez le link:concept_requesting_support.html["Assistance"] ou dans le link:https://docs.netapp.com/us-en/cloudinsights/CloudInsightsDataCollectorSupportMatrix.pdf["Matrice de prise en charge du Data Collector"].

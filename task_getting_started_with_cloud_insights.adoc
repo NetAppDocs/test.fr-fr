@@ -1,0 +1,100 @@
+---
+sidebar: sidebar 
+permalink: task_getting_started_with_cloud_insights.html 
+summary: Mise en route de Cloud Insights. 
+keywords: invite, roles, data collector, acquisition unit, AU 
+---
+= Début de la collecte des données
+:allow-uri-read: 
+
+
+Une fois que vous vous êtes inscrit à Cloud Insights et que vous vous connectez à votre environnement pour la première fois, vous serez guidé dans les étapes suivantes afin de commencer à collecter et à gérer les données.
+
+Les collecteurs de données détectent les informations provenant de vos sources de données, telles que les périphériques de stockage, les commutateurs réseau et les machines virtuelles. Les informations recueillies sont utilisées à des fins d'analyse, de validation, de surveillance et de dépannage.
+
+Cloud Insights utilise trois types de collecteurs de données :
+
+* Systèmes d'exploitation
+* Administratifs
+* Infrastructures
+
+
+Sélectionnez votre premier collecteur de données parmi les fournisseurs et modèles pris en charge disponibles. Vous pouvez facilement ajouter des collecteurs de données supplémentaires ultérieurement.
+
+
+
+== Installer une unité d'acquisition
+
+Si vous avez sélectionné un collecteur de données _Infrastructure_, une unité d'acquisition est requise pour injecter des données dans Cloud Insights. Vous devrez télécharger et installer le logiciel acquisition Unit sur un serveur ou une machine virtuelle pour collecter des données pour Cloud Insights. Une unité d'acquisition unique peut être utilisée pour plusieurs collecteurs de données.
+
+image:NewLinuxAUInstall.png["Instructions Linux au"]
+
+* Suivez le link:task_configure_acquisition_unit.html["instructions"] S'affiche pour installer votre unité d'acquisition. Une fois le logiciel de l'unité d'acquisition installé, le bouton Continuer s'affiche et vous pouvez passer à l'étape suivante.
+
+
+image:NewAUDetected.png["Nouvelle au détectée"]
+
+Vous pouvez configurer des unités d'acquisition supplémentaires ultérieurement, si nécessaire. Par exemple, différentes unités d'acquisition peuvent collecter des informations provenant de data centers situés dans différentes régions.
+
+
+
+== Configurer Data Collector - Infrastructure
+
+Pour les collecteurs de données _Infrastructure_, on vous demandera de remplir les champs du collecteur de données présentés :
+
+* Donnez au collecteur de données un nom unique et significatif.
+* Entrez le nom d'utilisateur et le mot de passe pour vous connecter au terminal, le cas échéant.
+* Remplissez tous les autres champs obligatoires des sections _Configuration_ et _Advanced Configuration_.
+* Cliquez sur *Tester la connexion* pour tester la connexion au périphérique.
+* Cliquez sur *Ajouter un collecteur* pour enregistrer le collecteur de données.
+
+
+Vous pourrez configurer des collecteurs de données supplémentaires ultérieurement.
+
+
+
+== Configurer Data Collector - systèmes d'exploitation et services
+
+
+
+=== Système d'exploitation :
+
+Pour les collecteurs de données _système d'exploitation_, choisissez une plate-forme (MacOS, Linux, Windows) pour installer un agent Cloud Insights. Vous devez disposer d'au moins un agent pour collecter des données auprès des Services. L'agent collecte également les données de l'hôte lui-même, à utiliser dans Cloud Insights. Ces données sont classées comme des données de « nœud » dans des widgets, etc
+
+* Ouvrez un terminal ou une fenêtre de commande sur l'hôte de l'agent ou le VM, puis collez la commande affichée pour installer l'agent.
+* Une fois l'installation terminée, cliquez sur *Terminer l'installation*.
+
+
+
+
+=== Services :
+
+Pour les collecteurs de données _Service_, cliquez sur une vignette pour ouvrir la page d'instructions pour ce service.
+
+* Choisissez une plate-forme et une clé d'accès Agent.
+* Si aucun agent n'est installé sur cette plate-forme, suivez les instructions d'installation de l'agent.
+* Cliquez sur *Continuer* pour ouvrir la page d'instructions du collecteur de données.
+* Suivez les instructions pour configurer le collecteur de données.
+* Une fois la configuration terminée, cliquez sur *Terminer l'installation*.
+
+
+
+
+== Ajouter tableaux de bord
+
+En fonction du type de collecteur de données initial que vous avez sélectionné pour configurer (stockage, commutateur, etc.), un ou plusieurs tableaux de bord pertinents seront importés. Par exemple, si vous avez configuré un collecteur de données de stockage, un ensemble de tableaux de bord liés au stockage sera importé et un sera défini comme page d'accueil Cloud Insights. Vous pouvez modifier la page d'accueil à partir de la liste *tableaux de bord > Afficher tous les tableaux de bord*.
+
+Vous pouvez importer des tableaux de bord supplémentaires ultérieurement, ou link:concept_dashboards_overview.html["créez la vôtre"].
+
+
+
+== Ce n'est pas plus compliqué que cela
+
+Une fois le processus de configuration initial terminé, votre environnement commence à collecter des données.
+
+Si le processus de configuration initial est interrompu (par exemple, si vous fermez la fenêtre du navigateur), vous devez suivre les étapes manuellement :
+
+* Choisissez un Data Collector
+* Installez un agent ou une unité d'acquisition si vous y êtes invité
+* Configurer le Data Collector
+

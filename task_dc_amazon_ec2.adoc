@@ -1,0 +1,150 @@
+---
+sidebar: sidebar 
+permalink: task_dc_amazon_ec2.html 
+keywords: data collector, EC2, 
+summary: Configuration du collecteur de données Amazon EC2. 
+---
+= Configuration du collecteur de données Amazon EC2
+:allow-uri-read: 
+
+
+[role="lead"]
+Cloud Insights utilise le collecteur de données Amazon EC2 pour acquérir les données d'inventaire et de performance des instances EC2.
+
+
+
+== De formation
+
+Pour collecter des données à partir de terminaux Amazon EC2, vous devez disposer des informations suivantes :
+
+* Vous devez disposer de l'une des options suivantes :
++
+** Le rôle *IAM* pour votre compte cloud Amazon EC2, si vous utilisez l'authentification par rôle IAM. Le rôle IAM s'applique uniquement si votre unité d'acquisition est installée sur une instance AWS.
+** L'ID *IAM Access Key* et la clé d'accès secrète pour votre compte Cloud Amazon EC2, si vous utilisez l'authentification IAM Access Key.
+
+
+* Vous devez disposer du privilège « organisation de liste »
+* Port 443 HTTPS
+* Les instances EC2 peuvent être signalées comme un ordinateur virtuel ou (moins naturellement) comme un hôte. Les volumes EBS peuvent être signalés comme des virtualDisk utilisés par la machine virtuelle, ainsi qu'un datastore fournissant la capacité pour la virtuelleDisk.
+
+
+Les clés d'accès comprennent un ID de clé d'accès (par exemple, AKIAIOSFONDN7EXAMPLE) et une clé d'accès secrète (par exemple, wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY). Utilisez des clés d'accès pour signer les demandes de programmation que vous créez à EC2 si vous utilisez les opérations des kits de développement logiciel Amazon EC2, REST ou API de requête. Ces clés sont fournies avec votre contrat Amazon.
+
+
+
+== Configuration
+
+Entrez les données dans les champs du collecteur de données conformément au tableau ci-dessous :
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| Région AWS | Choisissez la région AWS 
+
+
+| Rôle IAM | À utiliser uniquement lorsqu'il est acquis sur un au dans AWS. Voir ci-dessous pour plus d'informations sur link:task_dc_amazon_ec2.html#iam-roles["Rôles IAM"]. 
+
+
+| ID de clé d'accès IAM AWS | Entrez l'ID de clé d'accès IAM AWS. Obligatoire si vous n'utilisez pas le rôle IAM. 
+
+
+| Clé d'accès secrète AWS IAM | Entrez la clé d'accès secrète IAM AWS. Obligatoire si vous n'utilisez pas le rôle IAM. 
+
+
+| J'ai compris les factures AWS pour les demandes d'API | Vérifiez que vous comprenez bien qu'AWS vous facture pour les demandes d'API faites par l'interrogation de Cloud Insights. 
+|===
+
+
+== Configuration avancée
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| Inclure régions supplémentaires | Spécifiez les régions supplémentaires à inclure dans l'interrogation. 
+
+
+| Rôle inter-comptes | Rôle d'accès aux ressources de différents comptes AWS. 
+
+
+| Intervalle d'interrogation des stocks (min) | La valeur par défaut est 60 
+
+
+| Choisissez exclure ou inclure pour appliquer le filtrage des VM par balises | Indiquez s'il faut inclure ou exclure des VM par des étiquettes lors de la collecte de données. Si l'option "inclure" est sélectionnée, le champ clé d'étiquette ne peut pas être vide. 
+
+
+| Clés de balise et valeurs sur lesquelles filtrer les machines virtuelles | Cliquez sur *+ Filter Tag* pour choisir les VM (et les disques associés) à inclure/exclure en filtrant les clés et les valeurs qui correspondent aux clés et aux valeurs des balises de la VM. La clé d'étiquette est requise, la valeur d'étiquette est facultative. Lorsque la valeur de balise est vide, la machine virtuelle est filtrée tant qu'elle correspond à la clé de balise. 
+
+
+| Intervalle d'interrogation des performances (s) | La valeur par défaut est 1800 
+
+
+| Espace de noms des metrics de CloudWatch Agent | Espace de noms dans EC2/EBS à partir duquel collecter des données. Notez que si le nom des metrics par défaut dans cet espace de noms est modifié, Cloud Insights risque de ne pas pouvoir collecter ces données renommées. Il est recommandé de conserver les noms de mesures par défaut. 
+|===
+
+
+== Touche accès IAM
+
+Les clés d'accès sont des identifiants à long terme pour un utilisateur IAM ou l'utilisateur root du compte AWS. Les clés d'accès sont utilisées pour signer des demandes de programmation vers l'interface de ligne de commande AWS ou l'API AWS (directement ou à l'aide du kit de développement logiciel AWS).
+
+Les clés d'accès sont constituées de deux parties : un ID de clé d'accès et une clé d'accès secrète. Lorsque vous utilisez l'authentification _IAM Access Key_ (par opposition à l'authentification _IAM role_), vous devez utiliser à la fois l'ID de clé d'accès et la clé d'accès secrète pour l'authentification des requêtes. Pour plus d'informations, consultez la documentation Amazon sur link:https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html["Touches d'accès"].
+
+
+
+== Rôle IAM
+
+Lorsque vous utilisez l'authentification _IAM role_ (par opposition à l'authentification IAM Access Key), vous devez vous assurer que le rôle que vous créez ou spécifiez dispose des autorisations appropriées nécessaires pour accéder à vos ressources.
+
+Par exemple, si vous créez un rôle IAM nommé _InstanceEc2ReadOnly_, vous devez configurer la règle pour accorder l'autorisation d'accès à la liste en lecture seule EC2 à toutes les ressources EC2 pour ce rôle IAM. En outre, vous devez accorder l'accès STS (Security Token Service) pour que ce rôle soit autorisé à assumer des comptes croisés de rôles.
+
+Une fois que vous avez créé un rôle IAM, vous pouvez le joindre lorsque vous créez une nouvelle instance EC2 ou toute instance EC2 existante.
+
+Après avoir associé le rôle IAM _InstanceEc2ReadOnly_ à une instance EC2, vous pourrez récupérer les informations d'identification temporaires via les métadonnées de l'instance par le nom de rôle IAM et les utiliser pour accéder aux ressources AWS par toute application exécutée sur cette instance EC2.
+
+Pour plus d'informations, reportez-vous à la documentation Amazon sur link:https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html["Rôles IAM"].
+
+Remarque : le rôle IAM ne peut être utilisé que lorsque l'unité d'acquisition est exécutée dans une instance AWS.
+
+
+
+== Mappage des balises Amazon sur les annotations Cloud Insights
+
+Le collecteur de données Amazon EC2 inclut une option qui vous permet de remplir les annotations Cloud Insights avec des balises configurées sur EC2. Les annotations doivent être nommées exactement comme balises EC2. Cloud Insights renseigne toujours les annotations de type texte nommées identique et tentera de remplir les annotations des autres types (nombre, booléen, etc.). Si votre annotation est de type différent et que le collecteur de données ne parvient pas à la remplir, il peut être nécessaire de supprimer l'annotation et de la recréer en tant que type de texte.
+
+Notez qu'AWS est sensible à la casse, tandis que Cloud Insights n'est pas sensible à la casse. Si vous créez une annotation nommée « PROPRIÉTAIRE » dans Cloud Insights et que des balises nommées « PROPRIÉTAIRE », « propriétaire » et « propriétaire » dans EC2, toutes les variantes EC2 du « propriétaire » seront mappées sur l'annotation « PROPRIÉTAIRE » de Cloud Insight.
+
+
+
+== Inclure régions supplémentaires
+
+Dans la section AWS Data Collector *Advanced Configuration*, vous pouvez définir le champ *inclure les régions supplémentaires* pour inclure des régions supplémentaires, séparées par une virgule ou un point-virgule. Par défaut, ce champ est défini sur *_US-.*_*, qui collecte sur toutes les régions AWS des États-Unis. Pour collecter sur _toutes_ régions, définissez ce champ sur *_.*_*. Si le champ *inclure les régions supplémentaires* est vide, le collecteur de données collecte les ressources spécifiées dans le champ *région AWS* comme spécifié dans la section *Configuration*.
+
+
+
+== Collecte depuis les comptes enfants AWS
+
+Cloud Insights prend en charge la collecte de comptes enfants pour AWS dans un collecteur de données AWS unique. La configuration de cette collection est effectuée dans l'environnement AWS :
+
+* Vous devez configurer chaque compte enfant pour qu'il dispose d'un rôle AWS qui permet à l'ID de compte principal d'accéder aux informations EC2 à partir du compte enfants.
+* Chaque compte enfant doit avoir le nom du rôle configuré comme la même chaîne.
+* Entrez cette chaîne de nom de rôle dans la section Cloud Insights AWS Data Collector *Advanced Configuration*, dans le champ *Cross account role*.
+
+
+Meilleure pratique : il est fortement recommandé d'attribuer la politique AWS prédéfinie _Amazon EC2ReadOnlyAccess_ au compte principal ECS. En outre, l'utilisateur configuré dans la source de données doit avoir au moins la stratégie prédéfinie _AWOrganiztionsReadOnlyAccess_, afin d'interroger AWS.
+
+Pour plus d'informations sur la configuration de votre environnement permettant Cloud Insights la collecte de données à partir de comptes enfants AWS, consultez les documents suivants :
+
+link:https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html["Tutoriel : déléguer l'accès aux comptes AWS à l'aide des rôles IAM"]
+
+link:https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_common-scenarios_aws-accounts.html["Configuration AWS : accès à un utilisateur IAM dans un autre compte AWS dont vous disposez"]
+
+link:https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-user.html["Création d'un rôle pour déléguer des autorisations à un utilisateur IAM"]
+
+
+
+== Dépannage
+
+Pour plus d'informations sur ce Data Collector, consultez le link:concept_requesting_support.html["Assistance"] ou dans le link:https://docs.netapp.com/us-en/cloudinsights/CloudInsightsDataCollectorSupportMatrix.pdf["Matrice de prise en charge du Data Collector"].

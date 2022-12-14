@@ -1,0 +1,54 @@
+---
+sidebar: sidebar 
+permalink: task_config_telegraf_puppetagent.html 
+keywords: telegraf, installation, install, Puppet 
+summary: Configuration Puppet Data Collector 
+---
+= Collecteur de données Puppet Agent
+:allow-uri-read: 
+
+
+[role="lead"]
+Cloud Insights utilise ce collecteur de données pour collecter des metrics auprès de l'agent Puppet.
+
+
+
+== Installation
+
+. Dans *Admin > Data Collectors*, cliquez sur *+Data Collector*. Sous *Services*, choisissez Puppet.
++
+Sélectionnez le système d'exploitation ou la plate-forme sur laquelle l'agent Telegraf est installé.
+
+. Si vous n'avez pas déjà installé un agent pour la collecte ou si vous souhaitez installer un agent pour un autre système d'exploitation ou plate-forme, cliquez sur _Afficher les instructions_ pour développer le link:task_config_telegraf_agent.html["Installation de l'agent"] instructions.
+. Sélectionnez la clé d'accès de l'agent à utiliser avec ce collecteur de données. Vous pouvez ajouter une nouvelle clé d'accès à l'agent en cliquant sur le bouton * + clé d'accès à l'agent*. Meilleure pratique : utilisez une clé d'accès d'agent différente uniquement lorsque vous souhaitez regrouper des collecteurs de données, par exemple, par OS/plate-forme.
+. Suivez les étapes de configuration pour configurer le collecteur de données. Les instructions varient en fonction du type de système d'exploitation ou de plate-forme utilisé pour collecter des données.
+
+
+image:PuppetDCConfigWindows.png["Configuration de Puppet"]
+
+
+
+== Configuration
+
+Vous trouverez des informations dans le https://puppet.com/docs["Documentation Puppet"]
+
+
+
+== Objets et compteurs
+
+Les objets suivants et leurs compteurs sont collectés :
+
+[cols="<.<,<.<,<.<,<.<"]
+|===
+
+
+| Objet : | Identifiants : | Attributs : | Points de données : 
+
+
+| Agent Puppet | UUID de nœud de namespace | Nom du nœud emplacement nœud version IP de la chaîne de configuration version Puppet | Changements Total des événements échec événements succès événements Total des ressources modifiées Ressources non modifiées Ressources non activées redémarrer les ressources désync Ressources redémarrées Ressources planifiées Ressources ignorées Ressources Total temps d'ancrage temps d'extraction temps d'extraction Cron Time Exec Time File Time Filebucket Time LASTRUN temps temps du temps du temps du temps du temps de service Sshauthorizedkey Time Total Utilisateur de temps 
+|===
+
+
+== Dépannage
+
+Pour plus d'informations, consultez le link:concept_requesting_support.html["Assistance"] page.

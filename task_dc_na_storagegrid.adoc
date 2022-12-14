@@ -1,0 +1,63 @@
+---
+sidebar: sidebar 
+permalink: task_dc_na_storagegrid.html 
+summary: Configuration du collecteur de données NetApp StorageGRID 
+keywords: data collector, queries, create, storagegrid 
+---
+= Collecteur de données NetApp StorageGRID
+:allow-uri-read: 
+
+
+[role="lead"]
+Le collecteur de données NetApp StorageGRID prend en charge l'inventaire et la collecte des performances à partir des configurations StorageGRID.
+
+
+NOTE: StorageGRID est mesuré en To brut différent du taux unitaire géré. Chaque tranche de 40 To de capacité StorageGRID non formatée est facturée comme étant 1 link:concept_subscribing_to_cloud_insights.html#pricing["Unité gérée (UM)"].
+
+
+
+== De formation
+
+La configuration de cette source de données est requise pour :
+
+* Adresse IP de l'hôte StorageGRID
+* Nom d'utilisateur et mot de passe pour un utilisateur auquel les rôles de requête métrique et d'accès au locataire ont été attribués
+* Orifice 443
+
+
+
+
+== Configuration
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| Adresse IP de l'hôte StorageGRID | Adresse IP virtuelle de gestion de l'appliance StorageGRID 
+
+
+| Nom d'utilisateur | Nom utilisé pour se connecter à l'appliance StorageGRID 
+
+
+| Mot de passe | Mot de passe utilisé pour se connecter à l'appliance StorageGRID 
+|===
+
+
+== Configuration avancée
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| Intervalle d'interrogation des stocks (min) | La valeur par défaut est 60 minutes 
+
+
+| Intervalle d'interrogation des performances (s) | La valeur par défaut est de 900 secondes 
+|===
+
+
+== Dépannage
+
+Pour plus d'informations sur ce Data Collector, consultez le link:concept_requesting_support.html["Assistance"] ou dans le link:https://docs.netapp.com/us-en/cloudinsights/CloudInsightsDataCollectorSupportMatrix.pdf["Matrice de prise en charge du Data Collector"].

@@ -1,0 +1,14 @@
+---
+sidebar: sidebar 
+permalink: reference_object_icons.html 
+summary: 'Référence de l"icône de l"objet Cloud Insights.' 
+keywords: icons, assets, objects, reference 
+---
+= Référence de l'icône d'objet
+:allow-uri-read: 
+
+
+[role="lead"]
+Une référence rapide pour les icônes d'objet utilisées dans Cloud Insights.
+
+image:Icon_Glossary.png["Référence de l'icône"]

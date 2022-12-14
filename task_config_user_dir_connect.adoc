@@ -1,0 +1,182 @@
+---
+sidebar: sidebar 
+permalink: task_config_user_dir_connect.html 
+keywords: collector, configure, LDAP, Active Directory 
+summary: 'Configuration du collecteur d"annuaire d"utilisateurs Active Directory Cloud Secure' 
+---
+= Configuration d'un collecteur d'annuaire d'utilisateurs Active Directory (AD)
+:allow-uri-read: 
+
+
+[role="lead"]
+Cloud Secure peut être configuré de manière à collecter des attributs utilisateur à partir des serveurs Active Directory.
+
+.Avant de commencer
+* Vous devez être administrateur Cloud Insights ou propriétaire de compte pour effectuer cette tâche.
+* Vous devez avoir l'adresse IP du serveur hébergeant le serveur Active Directory.
+* Un agent doit être configuré avant de configurer un connecteur de répertoire utilisateur.
+
+
+.Procédure de configuration d'un collecteur d'annuaire d'utilisateurs
+. Dans le menu Cloud Secure, cliquez sur : *Admin > collecteurs de données > collecteurs d'annuaires d'utilisateurs > + collecteur d'annuaire d'utilisateurs* et sélectionnez *Active Directory*
++
+Le système affiche l'écran Ajouter un répertoire d'utilisateurs.
+
+
+
+Configurez le collecteur d'annuaire d'utilisateurs en entrant les données requises dans les tableaux suivants :
+
+[cols="2*"]
+|===
+
+
+| Nom | Description 
+
+
+| Nom | Nom unique du répertoire utilisateur. Par exemple _GlobalADCollector_ 
+
+
+| Agent | Sélectionnez un agent configuré dans la liste 
+
+
+| IP/Nom de domaine du serveur | Adresse IP ou nom de domaine complet (FQDN) du serveur hébergeant le répertoire actif 
+
+
+| Nom de la forêt | Niveau forestier de la structure du répertoire. Le nom de forêt permet les deux formats suivants : _x. correct.z_ => nom de domaine direct comme vous l'avez sur votre SVM. [Exemple : hq.companyname.com] _DC=x,DC=y,DC=z_ => noms distinctifs relatifs [exemple : DC=hq,DC= companyname,DC=com] ou vous pouvez spécifier les éléments suivants : _Ou=engineering,DC=hq,DC= companyname,DC=com_ [to filter by Specific UO Engineering] _CN=username,ou=engineering,DC=companyname, DC=netapp, DC=com_ [to get only user with <username> from ou <engineering>] _CN=Acrobat,CN=Users,CN=company=ID=DC=ID=ID=ID=ici=ID=ID=ID=ID=entreprise,DC=ID=ici=ID=s=ID=ID=s=s=s=s=ici=ID_a_a_a_c,c=ID=s=s=noms_a_a_c=noms_c= 
+
+
+| Lier DN | L'utilisateur est autorisé à rechercher dans le répertoire. Par exemple : _username@companyname.com_ ou _username@domainname.com_ 
+
+
+| LIER le mot de passe | Mot de passe du serveur d'annuaire (c'est-à-dire mot de passe pour le nom d'utilisateur utilisé dans Bind DN) 
+
+
+| Protocole | ldap, ldaps, ldap-start-tls 
+
+
+| Ports | Sélectionnez le port 
+|===
+Entrez les attributs requis du serveur d'annuaire suivants si les noms d'attribut par défaut ont été modifiés dans Active Directory. Le plus souvent, ces noms d'attributs sont _non_ modifiés dans Active Directory, auquel cas vous pouvez simplement continuer avec le nom d'attribut par défaut.
+
+[cols="2*"]
+|===
+
+
+| Attributs | Nom d'attribut dans le serveur d'annuaire 
+
+
+| Afficher le nom | nom 
+
+
+| SID | id d'objet 
+
+
+| Nom d'utilisateur | SAMAccountName 
+|===
+Cliquez sur inclure les attributs facultatifs pour ajouter l'un des attributs suivants :
+
+[cols="2*"]
+|===
+
+
+| Attributs | Nom d'attribut dans le serveur d'annuaire 
+
+
+| Adresse électronique | e-mail 
+
+
+| Numéro de téléphone | téléphone 
+
+
+| Rôle | titre 
+
+
+| Pays | co 
+
+
+| État | état 
+
+
+| Service | service 
+
+
+| Photo | miniature 
+
+
+| Gestionnaire DN | gestionnaire 
+
+
+| Groupes | Membre 
+|===
+
+
+== Test de la configuration du collecteur d'annuaire d'utilisateurs
+
+Vous pouvez valider les autorisations utilisateur LDAP et les définitions d'attributs en suivant les procédures suivantes :
+
+* Utiliser la commande suivante pour valider l'autorisation utilisateur LDAP de Cloud Secure :
++
+`ldapsearch -o ldif-wrap=no -LLL -x -b "dc=netapp,dc=com" -h 10.235.40.29 -p 389 -D \Administrator@netapp.com -W`
+
+* Utilisez l'Explorateur AD pour naviguer dans une base de données AD, afficher les propriétés et les attributs des objets, afficher les autorisations, afficher le schéma d'un objet, exécuter des recherches sophistiquées que vous pouvez enregistrer et exécuter à nouveau.
++
+** Installer link:https://docs.microsoft.com/en-us/sysinternals/downloads/adexplorer["Explorateur D'ANNONCES"] Sur n'importe quel ordinateur Windows pouvant se connecter à AD Server.
+** Connectez-vous au serveur AD à l'aide du nom d'utilisateur/mot de passe du serveur d'annuaire AD.
+
+
+
+
+image:cs_ADExample.png["Connexion AD"]
+
+
+
+== Dépannage des erreurs de configuration du collecteur d'annuaire utilisateur
+
+Le tableau suivant décrit les problèmes connus et les solutions qui peuvent survenir pendant la configuration du collecteur :
+
+[cols="2*"]
+|===
+| Problème : | Résolution : 
+
+
+| L'ajout d'un connecteur de répertoire utilisateur donne l'état "erreur". Erreur indique : “informations d'identification non valides fournies pour le serveur LDAP”. | Nom d'utilisateur ou mot de passe incorrect fourni. Modifiez et fournissez le nom d'utilisateur et le mot de passe corrects. 
+
+
+| L'ajout d'un connecteur de répertoire utilisateur donne l'état "erreur". L'erreur indique : « Impossible d'obtenir l'objet correspondant à DN=DC=hq,DC=domainname,DC=com fourni comme nom de forêt ». | Nom de forêt incorrect fourni. Modifiez et fournissez le nom de forêt correct. 
+
+
+| Les attributs facultatifs de l'utilisateur de domaine ne s'affichent pas dans la page profil utilisateur Cloud Secure. | Ceci est probablement dû à une incohérence entre les noms des attributs facultatifs ajoutés dans CloudSecure et les noms réels des attributs dans Active Directory. Modifiez et fournissez le ou les noms d'attribut facultatifs appropriés. 
+
+
+| Data Collector à l'état d'erreur avec « Impossible de récupérer les utilisateurs LDAP. Raison de l'échec : impossible de se connecter sur le serveur, la connexion est nulle » | Redémarrez le collecteur en cliquant sur le bouton _Restart_. 
+
+
+| L'ajout d'un connecteur de répertoire utilisateur donne l'état "erreur". | Assurez-vous que vous avez fourni des valeurs valides pour les champs requis (serveur, nom-forêt, nom-bind, mot-de-passe-bind). Assurez-vous que l'entrée bind-DN est toujours fournie en tant que 'Administrateur@<nom_domaine_forêt>' ou en tant que compte d'utilisateur disposant de privilèges d'administrateur de domaine. 
+
+
+| L'ajout d'un connecteur d'annuaire utilisateur a pour résultat l'état « RECOMMANDE ». Affiche l'erreur "Impossible de définir l'état du collecteur,raison de la commande TCP [Connect(localhost:35012,None,List(),About(,secondes),true)] a échoué en raison de java.net.ConnectionException:Connection refusé." | IP ou FQDN incorrect fourni pour le serveur AD. Modifiez et fournissez l'adresse IP ou le nom de domaine complet approprié. 
+
+
+| L'ajout d'un connecteur de répertoire utilisateur donne l'état "erreur". L'erreur indique "échec de l'établissement de la connexion LDAP". | IP ou FQDN incorrect fourni pour le serveur AD. Modifiez et fournissez l'adresse IP ou le nom de domaine complet approprié. 
+
+
+| L'ajout d'un connecteur de répertoire utilisateur donne l'état "erreur". L'erreur indique : « Impossible de charger les paramètres. Motif : la configuration de la source de données présente une erreur. Raison spécifique : /Connector/conf/application.conf: 70: ldap.ldap-port a une CHAÎNE de type plutôt QUE DU NOMBRE” | Valeur incorrecte pour le port fourni. Essayez d'utiliser les valeurs de port par défaut ou le numéro de port correct pour le serveur AD. 
+
+
+| J'ai commencé avec les attributs obligatoires, et cela a fonctionné. Après avoir ajouté les données facultatives, les données d'attributs facultatives ne sont pas extraites d'AD. | Ceci est probablement dû à une incohérence entre les attributs facultatifs ajoutés dans CloudSecure et les noms réels des attributs dans Active Directory. Modifiez et fournissez le nom d'attribut obligatoire ou facultatif correct. 
+
+
+| Après le redémarrage du collecteur, quand la synchronisation AD se produira-t-elle ? | LA synchronisation AD se produit immédiatement après le redémarrage du collecteur. La récupération des données utilisateur d'environ 300 000 utilisateurs prend environ 15 minutes. De plus, elle est mise à jour automatiquement toutes les 12 heures. 
+
+
+| Les données utilisateur sont synchronisées d'AD vers CloudSecure. Quand les données seront-elles supprimées ? | Les données utilisateur sont conservées pendant 13 mois en cas d'actualisation non prévue. Si le locataire est supprimé, les données seront supprimées. 
+
+
+| Le connecteur de répertoire utilisateur indique l'état "erreur". « Le connecteur est en état d'erreur. Nom du service : usersLdap. Motif de l'échec : échec de la récupération des utilisateurs LDAP. Motif de l'échec: 80090308: LdapErr: DSID-0C090453, commentaire: AcceptSecurityContext error, data 52e, v3839" | Nom de forêt incorrect fourni. Voir ci-dessus comment fournir le nom de forêt correct. 
+
+
+| Le numéro de téléphone n'est pas renseigné dans la page de profil utilisateur. | Ceci est probablement dû à un problème de mappage d'attribut avec Active Directory. 1. Modifiez le collecteur Active Directory particulier qui recherche les informations de l'utilisateur à partir d'Active Directory. 2. Avis sous attributs facultatifs, il existe un nom de champ “Numéro de téléphone” mappé sur l’attribut Active Directory ‘Numéro de téléphone’. 4. Maintenant, utilisez l'outil Explorateur Active Directory comme décrit ci-dessus pour naviguer dans Active Directory et voir le nom d'attribut correct. 3. Assurez-vous que dans Active Directory il y a un attribut appelé «téléphone» qui a en effet le numéro de téléphone de l'utilisateur. 5. Disons dans Active Directory qu'il a été modifié en "numéro de téléphone". 6. Puis modifiez le collecteur de répertoire d'utilisateurs CloudSecure. Dans la section des attributs facultatifs, remplacer «téléphone» par «numéro de téléphone». 7. Enregistrez le collecteur Active Directory, le collecteur redémarre et affiche le numéro de téléphone de l'utilisateur dans la page de profil utilisateur. 
+
+
+| Si le certificat de cryptage (SSL) est activé sur le serveur Active Directory (AD), le collecteur d'annuaire des utilisateurs Cloud Secure ne peut pas se connecter au serveur AD. | Désactivez le cryptage du serveur AD avant de configurer un collecteur d'annuaire utilisateur. Une fois les informations utilisateur extraites, elles seront disponibles pendant 13 mois. Si le serveur AD est déconnecté après avoir récupéré les détails de l'utilisateur, les nouveaux utilisateurs dans AD ne seront pas extraits. Pour récupérer à nouveau, le collecteur d'annuaire de l'utilisateur doit être connecté à AD. 
+|===

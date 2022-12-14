@@ -1,0 +1,90 @@
+---
+sidebar: sidebar 
+permalink: task_dc_emc_datadomain.html 
+keywords: data collector, Data Domain, EMC, DELL 
+summary: Configuration DU collecteur de données DELL EMC Data Domain. 
+---
+= Collecteur de données DELL EMC Data Domain
+:allow-uri-read: 
+
+
+[role="lead"]
+Ce collecteur de données rassemble les informations d'inventaire et de performances des systèmes de stockage Dell EMC Data Domain Deduplication. Pour configurer ce collecteur de données, vous devez suivre des instructions de configuration spécifiques et des recommandations d'utilisation.
+
+
+
+== Terminologie
+
+Cloud Insights acquiert les informations d'inventaire suivantes à partir du collecteur de données Data Domain. Pour chaque type de bien acquis par Cloud Insights, la terminologie la plus utilisée pour ce bien est présentée. Lors de l'affichage ou du dépannage de ce collecteur de données, gardez la terminologie suivante à l'esprit :
+
+[cols="2*"]
+|===
+| Terme du fournisseur/modèle | Terme Cloud Insights 
+
+
+| Disque | Disque 
+
+
+| Baie | Stockage 
+
+
+| Port FC | Port 
+
+
+| Système de fichiers | Volume interne 
+
+
+| Quota | Quota 
+
+
+| Partage NFS et CIFS | Fileshare 
+|===
+Remarque : il s'agit uniquement de mappages de terminologie courants et ils peuvent ne pas représenter tous les cas pour ce coletor de données.
+
+
+
+== De formation
+
+Vous avez besoin des informations suivantes pour configurer ce collecteur de données :
+
+* Adresse IP du périphérique Data Domain
+* Nom d'utilisateur et mot de passe en lecture seule pour le stockage Data Domain
+* Port SSH 22
+
+
+
+
+== Configuration
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| Adresse IP | Adresse IP ou nom de domaine complet de la baie de stockage Data Domain 
+
+
+| Nom d'utilisateur | Nom d'utilisateur de la baie de stockage Data Domain 
+
+
+| Mot de passe | Mot de passe de la matrice de stockage Data Domain 
+|===
+
+
+== Configuration avancée
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| Intervalle d'interrogation des stocks (min) | Intervalle entre les sondages d'inventaire. La valeur par défaut est 20. 
+
+
+| Port SSH | Port de service SSH 
+|===
+
+
+== Dépannage
+
+Pour plus d'informations sur ce Data Collector, consultez le link:concept_requesting_support.html["Assistance"] ou dans le link:https://docs.netapp.com/us-en/cloudinsights/CloudInsightsDataCollectorSupportMatrix.pdf["Matrice de prise en charge du Data Collector"].

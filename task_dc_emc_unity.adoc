@@ -1,0 +1,116 @@
+---
+sidebar: sidebar 
+permalink: task_dc_emc_unity.html 
+keywords: data collector, VNXe, EMC, Unity 
+summary: Configuration du collecteur de données VNXe. 
+---
+= Configuration du collecteur de données EMC Unity
+:allow-uri-read: 
+
+
+[role="lead"]
+Le collecteur de données Dell EMC Unity (anciennement VNXe) fournit une prise en charge de l'inventaire des baies de stockage unifiées VNXe. Cloud Insights prend actuellement en charge les protocoles iSCSI et NAS.
+
+
+
+== De formation
+
+* Le collecteur de données Unity est basé sur la CLI ; vous devez installer Unisphere for Unity CLI (uemcli.exe) sur l'unité d'acquisition où réside votre collecteur de données VNXe.
+* uemcli.exe utilise HTTPS comme protocole de transport. L'unité d'acquisition doit donc pouvoir lancer des connexions HTTPS vers Unity.
+* Adresse IP ou nom de domaine complet du périphérique Unity
+* Vous devez disposer d'au moins un utilisateur en lecture seule à utiliser par le collecteur de données.
+* HTTPS pour le port 443 est requis
+* Le collecteur de données EMC Unity prend en charge NAS et iSCSI pour les inventaires ; les volumes Fibre Channel seront découverts, mais Cloud Insights n'établit aucun rapport sur les ports de mappage FC, de masquage ou de stockage.
+
+
+
+
+== Terminologie
+
+Cloud Insights acquiert les informations d'inventaire suivantes à partir du collecteur de données Unity. Pour chaque type de bien acquis par Cloud Insights, la terminologie la plus utilisée pour ce bien est présentée. Lors de l'affichage ou du dépannage de ce collecteur de données, gardez la terminologie suivante à l'esprit :
+
+[cols="2*"]
+|===
+| Terme du fournisseur/modèle | Terme Cloud Insights 
+
+
+| Disque | Disque 
+
+
+| Baie de stockage | Stockage 
+
+
+| Processeur | Nœud de stockage 
+
+
+| Pool de stockage | Pool de stockage 
+
+
+| Informations générales sur les blocs iSCSI, VMware VMFS | Partagez 
+
+
+| Réplication du système distant | Synchronisation 
+
+
+| Nœud iSCSI | Nœud cible iSCSI 
+
+
+| Initiateur iSCSI | Initiateur cible iSCSI 
+|===
+Remarque : il s'agit uniquement de mappages terminologiques courants et peuvent ne pas représenter tous les cas pour cette source de données.
+
+
+
+== Configuration
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| Stockage unitaire | Adresse IP ou nom de domaine complet du périphérique Unity 
+
+
+| Nom d'utilisateur | Nom d'utilisateur du périphérique Unity 
+
+
+| Mot de passe | Mot de passe du périphérique Unity 
+
+
+| Chemin complet vers l'UEMCLI exécutable | Chemin d'accès complet au dossier contenant l'exécutable _uemcli.exe_ 
+|===
+
+
+== Configuration avancée
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| Intervalle d'interrogation des stocks (min) | Intervalle entre les sondages d'inventaire. La valeur par défaut est 40 minutes 
+
+
+| Port CLI Unity | Port utilisé pour l'interface de ligne de commande Unity 
+
+
+| Intervalle d'interrogation des performances (s) | La valeur par défaut est 300. 
+|===
+
+
+== Dépannage
+
+Certaines choses à essayer si vous rencontrez des problèmes avec ce collecteur de données :
+
+
+
+==== Inventaire
+
+[cols="2*"]
+|===
+| Problème : | Essayer : 
+
+
+| « Impossible d'exécuter l'utilitaire externe » avec les messages d'erreur « Impossible de trouver le fichier exécutable Unisphere uemcli ». | * Vérifiez l'adresse IP, le nom d'utilisateur et le mot de passe corrects * Confirmez que la CLI Unisphere est installée sur l'unité d'acquisition Cloud Insights * Confirmez que le répertoire d'installation de la CLI Unisphere est correct dans la configuration de la source de données * Confirmez que l'adresse IP du VNXe est correcte dans la configuration de la source de données. Dans l'unité d'acquisition Cloud Insights, ouvrez un CMD et passez au répertoire d'installation configuré : ${INSTALLDIR. Essayez d'établir une connexion avec le périphérique VNXe en tapant : uemcli -d <votre IP> -u <votre ID> /sys/General show 
+|===
+Pour plus d'informations, consultez le link:concept_requesting_support.html["Assistance"] ou dans le link:https://docs.netapp.com/us-en/cloudinsights/CloudInsightsDataCollectorSupportMatrix.pdf["Matrice de prise en charge du Data Collector"].

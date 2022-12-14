@@ -1,0 +1,54 @@
+---
+sidebar: sidebar 
+permalink: reference_legal_notices.html 
+keywords: copyrights, notice, trademarks, patents, privacy, open source 
+summary: Les mentions légales donnent accès aux déclarations de copyright, aux marques, aux brevets, etc. 
+---
+= Mentions légales
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Les mentions légales donnent accès aux déclarations de copyright, aux marques, aux brevets, etc.
+
+
+
+== Droits d'auteur
+
+http://www.netapp.com/us/legal/copyright.aspx[]
+
+
+
+== Marques déposées
+
+NetApp, le logo NETAPP et les marques mentionnées sur la page des marques commerciales NetApp sont des marques commerciales de NetApp, Inc. Les autres noms de sociétés et de produits peuvent être des marques commerciales de leurs propriétaires respectifs.
+
+http://www.netapp.com/us/legal/netapptmlist.aspx[]
+
+
+
+== Brevets
+
+Vous trouverez une liste actuelle des brevets appartenant à NetApp à l'adresse suivante :
+
+https://www.netapp.com/us/media/patents-page.pdf[]
+
+
+
+== Politique de confidentialité
+
+https://www.netapp.com/us/legal/privacypolicy/index.aspx[]
+
+
+
+== Source ouverte
+
+Les fichiers de notification fournissent des informations sur les droits d'auteur et les licences de tiers utilisés dans le logiciel NetApp.
+
+* link:media/Notice_Cloud_Insights-2021.05.18.pdf["Notification relative à Cloud Insights"]
+

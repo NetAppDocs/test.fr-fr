@@ -1,0 +1,23 @@
+---
+sidebar: sidebar 
+permalink: task_view_queries.html 
+summary: Affichage des requêtes qui ont été créées 
+keywords: query, queries, viewing 
+---
+= Affichage des requêtes
+:allow-uri-read: 
+
+
+[role="lead"]
+Vous pouvez afficher vos requêtes pour surveiller vos actifs et modifier la façon dont vos requêtes affichent les données associées à vos ressources.
+
+.Étapes
+. Connectez-vous à votre locataire Cloud Insights.
+. Cliquez sur *requêtes* et sélectionnez *Afficher toutes les requêtes*. Vous pouvez modifier l'affichage des requêtes en effectuant l'une des actions suivantes :
+. Vous pouvez entrer du texte dans la zone de filtre pour rechercher des requêtes spécifiques.
+. Vous pouvez modifier l'ordre de tri des colonnes dans le tableau de requêtes en croissant (flèche vers le haut) ou en descendant (flèche vers le bas) en cliquant sur la flèche dans l'en-tête de colonne.
+. Pour redimensionner une colonne, placez le curseur de la souris sur l'en-tête de la colonne jusqu'à ce qu'une barre bleue s'affiche. Placez la souris sur la barre et faites-la glisser vers la droite ou vers la gauche.
+. Pour déplacer une colonne, cliquez sur l'en-tête de colonne et faites-la glisser vers la droite ou vers la gauche.
+
+
+Lorsque vous faites défiler les résultats de la requête, sachez que les résultats peuvent changer car Cloud Insights interroge automatiquement vos collecteurs de données. Cela peut entraîner l'absence de certains éléments ou l'affichage de certains éléments hors de la commande en fonction du mode de tri.

@@ -1,0 +1,143 @@
+---
+sidebar: sidebar 
+permalink: task_defining_annotations.html 
+keywords: annotations, monitor, notes, tags 
+summary: 'Suivi des données à l"aide d"annotations.' 
+---
+= Définition des annotations
+:allow-uri-read: 
+
+
+[role="lead"]
+Lorsque vous personnalisez Cloud Insights pour suivre les données en fonction des exigences de l'entreprise, vous pouvez définir des notes spécialisées, appelées annotations, et les attribuer à vos ressources.
+
+Vous pouvez attribuer des annotations à des ressources avec des informations telles que la fin de vie des ressources, le data Center, l'emplacement de construction, le Tier de stockage ou le niveau de service du volume.
+
+L'utilisation d'annotations pour vous aider à contrôler votre environnement comprend les tâches de haut niveau suivantes :
+
+* Création ou modification de définitions pour tous les types d'annotation.
+* Affichage des pages ASSET et association de chaque ressource à une ou plusieurs annotations.
++
+Par exemple, si un bien est loué et que le bail expire dans un délai de deux mois, vous pouvez appliquer une annotation de fin de vie à l'actif. Cela permet d'éviter que d'autres personnes n'utilisent cette ressource pendant une période prolongée.
+
+* Création de règles pour appliquer automatiquement des annotations à plusieurs ressources du même type.
+* Filtrer les ressources par leurs annotations.
+
+
+
+
+== Types d'annotation par défaut
+
+Cloud Insights fournit certains types d'annotation par défaut. Ces annotations peuvent être utilisées pour filtrer ou regrouper des données.
+
+Vous pouvez associer des ressources à des types d'annotation par défaut tels que :
+
+* Le cycle de vie des actifs, comme l'anniversaire, le coucher du soleil ou la fin de vie
+* Informations de localisation sur un appareil, comme un centre de données, un bâtiment ou un sol
+* Classification des actifs, par exemple par qualité (niveaux), par périphériques connectés (niveau du commutateur) ou par niveau de service
+* État, comme les données fortement sollicitées (utilisation élevée)
+
+
+Le tableau suivant répertorie les types d'annotations fournies par Cloud Insights.
+
+[cols="30,53, 16"]
+|===
+
+
+| Types d'annotation | Description | Type 
+
+
+| Alias | Nom convivial pour une ressource | Texte 
+
+
+| Calculer le groupe de ressources | Affectation de groupe utilisée par le collecteur de données systèmes de fichiers hôte et VM | Liste 
+
+
+| Data Center | Emplacement physique | Liste 
+
+
+| Chaud | Dispositifs en utilisation intensive sur une base régulière ou au seuil de capacité | Booléen 
+
+
+| Remarque | Commentaires associés à une ressource | Testez 
+
+
+| Niveau de service | Un ensemble de niveaux de service pris en charge que vous pouvez attribuer aux ressources. Le fournit une liste d'options ordonnée pour les volumes internes, qtree et volumes. Modifiez les niveaux de service pour définir des règles de performances adaptées à différents niveaux. | Liste 
+
+
+| Coucher de soleil | Seuil défini après lequel aucune nouvelle attribution ne peut être effectuée à ce périphérique. Utile pour les migrations planifiées et autres modifications réseau en attente. | Date 
+
+
+| Niveau du commutateur | Options prédéfinies pour la configuration des catégories de commutateurs. Généralement, ces désignations restent pour la durée de vie du périphérique, bien que vous puissiez les modifier. Disponible uniquement pour les commutateurs. | Liste 
+
+
+| Niveau | Peut être utilisé pour définir différents niveaux de service au sein de votre environnement. Les niveaux peuvent définir le type de niveau, comme la vitesse nécessaire (par exemple, Gold ou Silver). Cette fonctionnalité est disponible uniquement sur les volumes internes, les qtrees, les baies de stockage, les pools de stockage et les volumes. | Liste 
+
+
+| Gravité de la violation | Classer (par exemple, majeur) d'une violation (par exemple, ports hôtes manquants ou redondance manquante), dans une hiérarchie de la plus haute à la plus faible importance. | Liste 
+|===
+
+NOTE: Alias, data Center, données actives, niveau de service, coucher de soleil, Niveau de commutation, niveau et gravité de violation sont des annotations au niveau du système, que vous ne pouvez pas supprimer ou renommer ; vous pouvez uniquement modifier les valeurs qui leur sont attribuées.
+
+
+
+== Création d'annotations personnalisées
+
+Ces annotations vous permettent d'ajouter des données personnalisées spécifiques à l'entreprise qui correspondent aux ressources de votre entreprise. Alors que Cloud Insights fournit un ensemble d'annotations par défaut, vous pouvez trouver que vous voulez afficher les données d'autres façons. Les données contenues dans des annotations personnalisées complètent les données déjà collectées, telles que le fabricant du stockage, le nombre de volumes et les statistiques de performance. Les données que vous ajoutez à l'aide d'annotations ne sont pas découvertes par Cloud Insights.
+
+.Étapes
+. Dans le menu Cloud Insights, cliquez sur *gérer > Annotations*.
++
+La page Annotations affiche la liste des annotations.
+
+. Cliquez sur *+Ajouter*
+. Saisissez un *Nom* et *Description* de l'annotation.
++
+Ces champs peuvent comporter jusqu'à 255 caractères.
+
+. Cliquez sur *Type*, puis sélectionnez l'une des options suivantes qui représente le type de données autorisé dans cette annotation :
+
+
+.Types d'annotation
+Booléen:: Crée une liste déroulante avec les choix de oui et non Par exemple, l'annotation « Direct Attached » est booléenne.
+Date:: Ceci crée un champ contenant une date. Par exemple, si l'annotation est une date, sélectionnez cette option.
+Liste:: Crée l'une des options suivantes :
++
+--
+* Liste déroulante fixe
++
+Lorsque d'autres personnes sont affectées à ce type d'annotation sur un périphérique, elles ne peuvent pas ajouter de valeurs supplémentaires à la liste.
+
+* Liste déroulante flexible
++
+Si vous sélectionnez l'option Ajouter de nouvelles valeurs à la volée lorsque vous créez cette liste, lorsque d'autres personnes assignent ce type d'annotation à un périphérique, elles peuvent ajouter d'autres valeurs à la liste.
+
+
+
+--
+Nombre:: Crée un champ dans lequel l'utilisateur qui affecte l'annotation peut entrer un nombre. Par exemple, si le type d'annotation est « sol », l'utilisateur peut sélectionner le type de valeur « nombre » et saisir le numéro d'étage.
+Texte:: Crée un champ permettant un texte libre. Par exemple, vous pouvez saisir "langue" comme type d'annotation, sélectionner "texte" comme type de valeur et entrer une langue comme valeur.
+
+
+
+NOTE: Après avoir défini le type et enregistré vos modifications, vous ne pouvez pas modifier le type de l'annotation. Si vous devez modifier le type, vous devez supprimer l'annotation et en créer une nouvelle.
+
+. Si vous sélectionnez liste comme type d'annotation, procédez comme suit :
++
+.. Sélectionnez *Ajouter de nouvelles valeurs à la volée* si vous souhaitez pouvoir ajouter des valeurs supplémentaires à l'annotation sur une page de ressources, ce qui crée une liste flexible.
++
+Par exemple, supposons que vous vous trouvez sur une page d'actifs et que l'actif comporte l'annotation City avec les valeurs Detroit, Tampa et Boston. Si vous avez sélectionné l'option *Ajouter de nouvelles valeurs à la volée*, vous pouvez ajouter des valeurs supplémentaires à la ville comme San Francisco et Chicago directement sur la page de la ressource au lieu de devoir aller à la page Annotations pour les ajouter. Si vous ne choisissez pas cette option, vous ne pouvez pas ajouter de nouvelles valeurs d'annotation lors de l'application de l'annotation. Cela crée une liste fixe.
+
+.. Entrez une valeur et une description dans les champs *valeur* et *Description*.
+.. Cliquez sur *+Ajouter+* pour ajouter des valeurs supplémentaires.
+.. Cliquez sur l'icône Corbeille pour supprimer une valeur.
+
+
+. Cliquez sur *Enregistrer*
++
+Vos annotations apparaissent dans la liste de la page Annotations.
+
+
+
+.Une fois que vous avez terminé
+L'annotation est immédiatement disponible dans l'interface utilisateur.

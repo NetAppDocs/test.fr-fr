@@ -1,0 +1,55 @@
+---
+sidebar: sidebar 
+permalink: task_config_telegraf_couchbase.html 
+keywords: telegraf, installation, install, couchbase 
+summary: Configuration du collecteur de données Couchbase 
+---
+= Collecteur de données Couchbase
+:allow-uri-read: 
+
+
+[role="lead"]
+Cloud Insights utilise ce collecteur de données pour collecter des metrics depuis Couchbase.
+
+
+
+== Installation
+
+. Dans *Admin > Data Collectors*, cliquez sur *+Data Collector*. Sous *Services*, choisissez Couchbase.
++
+Sélectionnez le système d'exploitation ou la plate-forme sur laquelle l'agent Telegraf est installé.
+
+. Si vous n'avez pas déjà installé un agent pour la collecte ou si vous souhaitez installer un agent pour un autre système d'exploitation ou plate-forme, cliquez sur _Afficher les instructions_ pour développer le link:task_config_telegraf_agent.html["Installation de l'agent"] instructions.
+. Sélectionnez la clé d'accès de l'agent à utiliser avec ce collecteur de données. Vous pouvez ajouter une nouvelle clé d'accès à l'agent en cliquant sur le bouton * + clé d'accès à l'agent*. Meilleure pratique : utilisez une clé d'accès d'agent différente uniquement lorsque vous souhaitez regrouper des collecteurs de données, par exemple, par OS/plate-forme.
+. Suivez les étapes de configuration pour configurer le collecteur de données. Les instructions varient en fonction du type de système d'exploitation ou de plate-forme utilisé pour collecter des données.
+
+
+image:CouchbaseDCConfigWindows.png["Configuration Couchbase"]
+
+
+
+== Configuration
+
+Vous trouverez des informations dans le link:https://docs.couchbase.com/home/index.html["Documentation Couchbase"].
+
+
+
+== Objets et compteurs
+
+Les objets suivants et leurs compteurs sont collectés :
+
+[cols="<.<,<.<,<.<,<.<"]
+|===
+| Objet : | Identifiants : | Attributs : | Points de données : 
+
+
+| Couchbase Node | Nom d'hôte du nœud Couchbase du cluster namespace | IP du nœud de nom de nœud | Mémoire mémoire mémoire disponible totale 
+
+
+| Compartiment Couchbase | Cluster des compartiments d'espace de noms | IP du nœud de nom de nœud | Données utilisées Fetches Disk Used Item Count Memory Used opérations par seconde quota utilisé 
+|===
+
+
+== Dépannage
+
+Pour plus d'informations, consultez le link:concept_requesting_support.html["Assistance"] page.

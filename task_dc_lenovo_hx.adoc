@@ -1,0 +1,83 @@
+---
+sidebar: sidebar 
+permalink: task_dc_lenovo_hx.html 
+keywords: data collector, Lenovo, HX 
+summary: Configuration du collecteur de données Lenovo HX 
+---
+= Collecteur de données Lenovo HX
+:allow-uri-read: 
+
+
+[role="lead"]
+Le collecteur de données Lenovo HX reçoit des informations d'inventaire et de performances des systèmes de stockage Lenovo HX.
+
+
+
+== De formation
+
+Les informations suivantes sont requises pour configurer ce collecteur de données :
+
+* Un nom unique pour le collecteur de données
+* Unité d'acquisition associée au collecteur de données
+* Port TCP requis 9440
+
+
+
+
+== Terminologie
+
+Cloud Insights acquiert les informations d'inventaire et de performances suivantes auprès du collecteur de données Lenovo HX. Pour chaque type de bien acquis par Cloud Insights, la terminologie la plus utilisée pour ce bien est présentée. Lors de l'affichage ou du dépannage de ce collecteur de données, gardez la terminologie suivante à l'esprit :
+
+[cols="2*"]
+|===
+| Terme du fournisseur/modèle | Terme Cloud Insights 
+
+
+| Pool de stockage | Pool de stockage 
+
+
+| Conteneur | Volume interne 
+
+
+| Nœud | Contrôleur 
+
+
+| Partagez | Partage de fichiers 
+
+
+| Système de fichiers distribué Nutanix (NDF) | Partagez 
+
+
+| Groupe de volumes | LUN interne 
+|===
+
+
+== Configuration
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| Adresse IP externe prismes | Adresse IP utilisée pour la connexion au système de stockage 
+
+
+| Nom d'utilisateur | Nom de l'utilisateur pour se connecter au système de stockage. La valeur par défaut est admin. 
+
+
+| Mot de passe | Mot de passe du système de stockage Lenovo HX 
+|===
+
+
+== Configuration avancée
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| Port TCP | Port TCP utilisé pour la connexion à Lenovo HX. La valeur par défaut est 9440. 
+
+
+| Intervalle de sondage des stocks | Intervalle entre les sondages d'inventaire. La valeur par défaut est 60 minutes. 
+|===

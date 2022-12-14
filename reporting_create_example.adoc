@@ -1,0 +1,49 @@
+---
+sidebar: sidebar 
+permalink: reporting_create_example.html 
+summary: 'Utilisez cette procédure pour créer un rapport à l"aide des rapports Cloud Insights prédéfinis.' 
+keywords: reporting, cognos, data warehouse, dwh, create, report 
+---
+= Création d'un rapport (exemple)
+:allow-uri-read: 
+
+
+[role="lead"]
+Utilisez les étapes de cet exemple pour générer un rapport simple sur la capacité physique des pools de stockage et de stockage dans plusieurs data centers.
+
+.Étapes
+. Dans la barre d'outils, cliquez sur *[+]*
+. Cliquez sur *Rapport*
+. Cliquez sur *modèles > blanc*
+. Cliquez sur *Thèmes > Bleu clair > OK*
++
+Les onglets Source et données s'affichent
+
+. Cliquez sur *Source > [+]*
+. Dans la boîte de dialogue *Ouvrir fichier*, cliquez sur *contenu d'association > Forfaits*
++
+La liste des packages disponibles s'affiche.
+
+. Cliquez sur *capacité de stockage et de pool de stockage > Ouvrir*
+. Cliquez sur *[+]*
++
+Les styles disponibles pour votre rapport sont affichés.
+
+. Cliquez sur *liste*
++
+Ajoutez des noms appropriés pour la liste et la requête
+
+. Cliquez sur *OK*
+. Développez _la capacité physique_
+. Développez jusqu'au niveau le plus bas de _Data Center_
+. Faites glisser _Data Center_ vers le palais de reporting.
+. Développez _Capacity (Mo)_
+. Faites glisser _Capacity (Mo)_ vers le palais de reporting.
+. Faites glisser _used Capacity (MB)_ vers le palais de reporting.
+. Exécutez le rapport en cliquant sur image:Reporting-RunButton.png["Courez"] et sélection d'un type de sortie.
+
+
+.Résultat
+Un rapport similaire à ce qui suit est créé :
+
+image:Reporting-Example1.png["Exemple de rapport"]

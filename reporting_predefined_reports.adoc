@@ -1,0 +1,176 @@
+---
+sidebar: sidebar 
+permalink: reporting_predefined_reports.html 
+summary: Présentation des rapports prédéfinis 
+keywords: reporting, cognos, data warehouse, dwh, pre-defined 
+---
+= Les rapports prédéfinis sont faciles à réaliser
+:allow-uri-read: 
+
+
+[role="lead"]
+Les rapports Cloud Insights incluent des rapports prédéfinis qui répondent à un certain nombre d'exigences courantes en matière de rapports et offrent aux parties prenantes une visibilité stratégique sur la nécessité de prendre des décisions avisées concernant leur infrastructure de stockage.
+
+
+NOTE: La fonction de création de rapports est disponible dans Cloud Insights link:concept_subscribing_to_cloud_insights.html["Édition Premium"].
+
+Vous pouvez générer des rapports prédéfinis à partir du portail de rapports Cloud Insights, les envoyer par e-mail à d'autres utilisateurs et même les modifier. Plusieurs rapports vous permettent de filtrer par périphérique, entité commerciale ou niveau. Les outils de création de rapports utilisent IBM Cognos comme fondation et vous donnent de nombreuses options de présentation de données.
+
+Les rapports prédéfinis indiquent votre inventaire, vos capacités de stockage, votre facturation interne, vos performances, votre efficacité du stockage, et les données de coût du cloud. Vous pouvez modifier ces rapports prédéfinis et enregistrer vos modifications.
+
+Vous pouvez générer des rapports sous différents formats, notamment HTML, PDF, CSV, XML, Et Excel.
+
+Cloud Insights s'adapte à plusieurs services de création de rapports en vous permettant d'associer des utilisateurs aux unités commerciales. Grâce à cette fonction, les administrateurs peuvent séparer des données ou des rapports en fonction des attributs d'un utilisateur ou de son affiliation.
+
+
+
+== Accès aux rapports prédéfinis
+
+Lorsque vous ouvrez le portail de rapports, le dossier _Team Content_ est le point de départ pour vous permettre de sélectionner le type d'informations dont vous avez besoin dans les rapports Cloud Insights.
+
+. Dans le volet de navigation de gauche, cliquez sur *contenu d'équipe* et sélectionnez la catégorie d'informations que vous souhaitez utiliser.
+. Cliquez sur *Rapports* pour accéder aux rapports prédéfinis.
+
+
+image:Reporting-TeamContent.png["Contenu de l'équipe"]
+
+
+
+== Utilisation de rapports prédéfinis pour répondre aux questions courantes
+
+Les rapports prédéfinis suivants sont disponibles dans *contenu de l'équipe > Rapports*.
+
+
+
+=== Performance et capacité des applications au niveau de service
+
+Le rapport capacité et performances des niveaux de service d'applications offre une vue d'ensemble de vos applications. Vous pouvez utiliser ces informations pour planifier la capacité ou pour élaborer un plan de migration.
+
+
+
+=== Refacturation
+
+Le rapport Chargeback fournit des informations sur la refacturation de la capacité de stockage et la comptabilité par hôte, application et entité commerciale, et inclut des données actuelles et historiques.
+
+Pour éviter le double comptage, n'incluez pas les serveurs ESX, uniquement surveiller les machines virtuelles.
+
+
+
+=== Sources des données
+
+Le rapport sources de données affiche toutes les sources de données installées sur votre site, l'état de la source de données (succès/échec) et les messages d'état. Le rapport fournit des informations sur le démarrage du dépannage des sources de données. Les sources de données défectueuses ont une incidence sur l'exactitude des rapports et sur l'utilisation générale du produit.
+
+
+
+=== Performances ESX et VM
+
+Le rapport ESX/VM Performance compare les serveurs ESX et les ordinateurs virtuels. Il présente les IOPS, le débit, la latence et l'utilisation des serveurs ESX et des VM en moyenne et en pics. Pour éviter le double comptage, exclure les serveurs ESX ; n'incluez que les VM. Une version mise à jour de ce rapport est disponible sur le site NetApp Storage Automation Store.
+
+
+
+=== Synthèse de la structure
+
+Le rapport Fabric Summary identifie les switchs et les switchs, y compris le nombre de ports, les versions du firmware et l'état des licences. Le rapport n'inclut pas les ports de commutateur NPV.
+
+
+
+=== HBA hôtes
+
+Le rapport Host HBA fournit une vue d'ensemble des hôtes dans l'environnement et fournit le fournisseur, le modèle et la version du micrologiciel des HBA, ainsi que le niveau de micrologiciel des commutateurs auxquels ils sont connectés. Ce rapport peut être utilisé pour analyser la compatibilité du micrologiciel lors de la planification d'une mise à niveau du micrologiciel pour un commutateur ou un HBA.
+
+
+
+=== Capacité et performances du niveau de service hôte
+
+Le rapport capacité et performances du niveau de service hôte fournit une vue d'ensemble de l'utilisation du stockage par hôte pour les applications en mode bloc uniquement.
+
+
+
+=== Récapitulatif de l'hôte
+
+Le rapport Host Summary fournit une vue d'ensemble de l'utilisation du stockage par chaque hôte sélectionné avec des informations sur les hôtes Fibre Channel et iSCSI. Ce rapport vous permet de comparer les ports et les chemins, la capacité Fibre Channel et ISCSI, ainsi que le nombre de violations.
+
+
+
+=== Détails de licence
+
+Le rapport Détails de la licence indique la quantité de ressources autorisées pour tous les sites avec des licences actives. Le rapport montre également une somme de la quantité réelle sur tous les sites avec des licences actives. La somme peut inclure des chevauchements de baies de stockage gérées par plusieurs serveurs.
+
+
+
+=== Volumes mappés mais pas masqués
+
+Le rapport volumes mappés mais non masqués répertorie les volumes dont le numéro d'unité logique (LUN) a été mappé pour être utilisé par un hôte donné, mais n'est pas masqué pour cet hôte. Dans certains cas, ces LUN peuvent être désaffectées. Les volumes non masqués sont accessibles par n'importe quel hôte, ce qui les rend vulnérables à la corruption des données.
+
+
+
+=== Capacité et performances NetApp
+
+Le rapport capacité et performances de NetApp fournit des données globales pour la capacité allouée, utilisée et engagée, avec des données d'tendances et de performances pour la capacité NetApp.
+
+
+
+=== Tableau de bord
+
+Le rapport sur la carte de score présente un résumé et un état général de tous les actifs acquis par Cloud Insights. L'état est indiqué par des indicateurs verts, jaunes et rouges :
+
+* Le vert indique un état normal
+* Le jaune indique un problème potentiel dans l'environnement
+* Le rouge indique un problème nécessitant une intervention
+
+
+Tous les champs du rapport sont décrits dans le dictionnaire de données fourni avec le rapport.
+
+
+
+=== Récapitulatif du stockage
+
+Le rapport Storage Summary fournit une synthèse globale des données de capacité utilisées et inutilisées pour les volumes, les pools de stockage et les volumes bruts, alloués et alloués. Ce rapport offre une vue d'ensemble de l'ensemble du stockage découvert.
+
+
+
+=== Capacité et performances des machines virtuelles
+
+Décrit l'environnement de machine virtuelle et son utilisation de la capacité. Les outils des machines virtuelles doivent être activés pour afficher certaines données, par exemple lorsque les machines virtuelles ont été hors tension.
+
+
+
+=== Chemins d'accès aux VM
+
+Le rapport VM Paths fournit des mesures de performances et de capacité de stockage des données pour lesquelles la machine virtuelle est exécutée sur quel hôte, quels hôtes accèdent aux volumes partagés, au contenu du chemin d'accès actif et aux éléments qui comprennent l'allocation et l'utilisation de la capacité.
+
+
+
+=== Capacité HDS en fonction du pool fin
+
+Le rapport HDS Capacity par thin Pool indique la quantité de capacité utilisable sur un pool de stockage provisionné.
+
+
+
+=== Capacité NetApp par agrégat
+
+Le rapport capacité NetApp par agrégat indique l'espace brut, total, utilisé, disponible et engagé d'agrégats.
+
+
+
+=== Capacité Symmetrix par Thick Array
+
+Le rapport Symmetrix Capacity by Thick Array affiche la capacité brute, la capacité utilisable, la capacité libre, mappée, masquée, et capacité libre totale.
+
+
+
+=== Capacité Symmetrix par thin Pool
+
+Le rapport Symmetrix Capacity by Thin Pool indique la capacité brute, la capacité utilisable, la capacité utilisée, la capacité libre, le pourcentage utilisé, capacité souscrite et taux d'abonnement.
+
+
+
+=== Capacité XIV par baie
+
+Le rapport XIV Capacity by Array indique les capacités utilisées et inutilisées pour la baie.
+
+
+
+=== Capacité XIV par pool
+
+Le rapport XIV Capacity by Pool indique la capacité utilisée et non utilisée pour les pools de stockage.

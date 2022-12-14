@@ -1,0 +1,104 @@
+---
+sidebar: sidebar 
+permalink: concept_dashboards_overview.html 
+summary: Présentation des tableaux de bord dans Cloud Insights. 
+keywords: dashboard, widget, custom, view, data 
+---
+= Présentation des tableaux de bord
+:allow-uri-read: 
+
+
+[role="lead"]
+Cloud Insights offre aux utilisateurs la flexibilité de créer des vues opérationnelles des données d'infrastructure. Vous pouvez ainsi créer des tableaux de bord personnalisés avec divers widgets, chacun d'entre eux assurant une grande flexibilité d'affichage et de saisie des données.
+
+
+IMPORTANT: Les exemples présentés dans ces sections sont fournis à des fins d'explication uniquement et ne couvrent pas tous les scénarios possibles. Les concepts et étapes dans ce document peuvent être utilisés pour créer vos propres tableaux de bord afin de mettre en évidence les données spécifiques à vos besoins spécifiques.
+
+
+toc::[]
+
+
+== Création d'un tableau de bord
+
+Vous créez un nouveau tableau de bord à deux endroits :
+
+* *Tableaux de bord > [+Nouveau tableau de bord]*
+* *Tableaux de bord > Afficher tous les tableaux de bord >* cliquez sur le bouton *[+Dashboard]*
+
+
+
+
+== Commandes du tableau de bord
+
+L'écran Tableau de bord comporte plusieurs commandes :
+
+* *Time Selector* : permet d'afficher les données du tableau de bord pendant une période allant des 15 dernières minutes aux 30 derniers jours, ou une plage de temps personnalisée allant jusqu'à 31 jours. Vous pouvez choisir de remplacer cette plage de temps globale dans des widgets individuels.
+* Bouton *Edit* : cette option active le mode Edit, qui vous permet d'apporter des modifications au tableau de bord. Les nouveaux tableaux de bord s'ouvrent par défaut en mode d'édition.
+* *Bouton Enregistrer* : permet d'enregistrer ou de supprimer le tableau de bord.
++
+Vous pouvez renommer le tableau de bord actuel en saisissant un nouveau nom avant de cliquer sur *Enregistrer*.
+
+
+
+* *Bouton Ajouter un widget*, qui vous permet d'ajouter un nombre quelconque de tableaux, de graphiques ou d'autres widgets au tableau de bord.
++
+Les widgets peuvent être redimensionnés et déplacés vers différentes positions dans le tableau de bord pour vous fournir une vue optimale de vos données selon vos besoins actuels.
+
+
+
+
+
+== Types de widget
+
+Vous pouvez choisir parmi les types de widget suivants :
+
+* *Widget Table* : tableau affichant les données en fonction des filtres et des colonnes que vous choisissez. Les données de table peuvent être combinées dans des groupes qui peuvent être réduits et développés.
++
+image:TableWidgetPerformanceData.png["Widget de tableau"]
+
+* *Graphiques ligne, Spline, surface, surface empilée* : il s'agit de widgets graphiques de séries chronologiques sur lesquels vous pouvez afficher les performances et d'autres données au fil du temps.
++
+image:Time-Series Charts.png["Zone, zone empilée, ligne, graphiques de spline"]
+
+* *Widget valeur unique* : widget permettant d'afficher une valeur unique qui peut être dérivée directement d'un compteur ou calculée à l'aide d'une requête ou d'une expression. Vous pouvez définir des seuils de mise en forme des couleurs pour indiquer si la valeur est dans la plage attendue, avertissement ou critique.
++
+image:Single-Value Widgets.png["Widgets à valeur unique avec et sans formatage"]
+
+* *Widget de jauge* : affiche des données à valeur unique dans une jauge traditionnelle (solide) ou une jauge à puce, avec des couleurs basées sur les valeurs "Avertissement" ou "critique" vous link:concept_dashboard_features.adoc#formatting-gauge-widgets["personnaliser"].
++
+image:Gauge Widgets.png["Valeur unique avec formatage, jauge traditionnelle, jauge à puce"]
+
+* *Bar, colonnes graphiques* : affiche les valeurs N supérieures ou inférieures, par exemple, les 10 premiers stockages par capacité ou les 5 volumes inférieurs par IOPS.
++
+image:Bar and Column Charts.png["Graphiques à barres et colonnes"]
+
+* *Diagramme de tracé de boîte* : tracé de la valeur minimale, maximale, médiane et de la plage entre le quartile inférieur et le quartile supérieur des données dans un seul graphique.
++
+image:Box Plot.png["Tracé de la case"]
+
+* *Diagramme de tracé Scatter* : trace les données associées en points, par exemple, les IOPS et la latence. Dans cet exemple, vous pouvez localiser rapidement des ressources bénéficiant d'un débit élevé et d'IOPS faibles.
++
+image:Scatter Plot.png["Tracé de diffusion"]
+
+* *Pie Chart*: Un diagramme circulaire traditionnel pour afficher les données en tant que pièce du total.
++
+image:Pie Chart.png["Graphique à secteurs"]
+
+* *Note widget* : jusqu'à 1000 caractères de texte libre.
++
+image:Note Widget.png["Widget de note"]
+
+* *Tableau des alertes* : affiche jusqu'aux 1,000 dernières alertes.
+
+
+Pour des explications plus détaillées de ces fonctions et d'autres fonctions du tableau de bord, link:concept_dashboard_features.html["cliquez ici"].
+
+
+
+== Définition d'un tableau de bord comme page d'accueil
+
+Vous pouvez choisir le tableau de bord à définir comme *page d'accueil* de votre environnement en utilisant l'une des méthodes suivantes :
+
+* Accédez à *tableaux de bord > Afficher tous les tableaux de bord* pour afficher la liste des tableaux de bord de votre environnement. Cliquez sur le menu d'options à droite du tableau de bord souhaité et sélectionnez *définir comme page d'accueil*.
+* Cliquez sur un tableau de bord dans la liste pour ouvrir le tableau de bord. Cliquez sur le menu déroulant dans le coin supérieur et sélectionnez *définir comme page d'accueil*.
+

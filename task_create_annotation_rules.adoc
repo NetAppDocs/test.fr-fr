@@ -1,0 +1,99 @@
+---
+sidebar: sidebar 
+permalink: task_create_annotation_rules.html 
+summary: 'Vous créez des règles d"annotation pour appliquer automatiquement des annotations à plusieurs ressources.' 
+---
+= Création de règles d'annotation
+:allow-uri-read: 
+
+
+[role="lead"]
+Vous pouvez utiliser des règles d'annotation pour appliquer automatiquement des annotations à plusieurs ressources en fonction de critères que vous définissez. Cloud Insights attribue les annotations aux ressources en fonction de ces règles. Les annotations définies manuellement sur une page de ressource individuelle ont priorité sur les annotations basées sur des règles lors de l'évaluation des règles d'annotation par Cloud Insight.
+
+.Avant de commencer
+Vous devez avoir créé une requête pour la règle d'annotation.
+
+.Étapes
+. Dans le menu Cloud Insights, cliquez sur *gérer > règles d'annotation*.
+. Cliquez sur *+ règle* pour ajouter une nouvelle règle d'annotation.
++
+La boîte de dialogue Ajouter une règle s'affiche.
+
+. Procédez comme suit :
++
+.. Dans la zone *Nom*, entrez un nom unique qui décrit la règle.
++
+Le nom apparaît dans la page règles d'annotation.
+
+.. Cliquez sur *requête* et sélectionnez la requête utilisée par Cloud Insights pour identifier les ressources auxquelles l'annotation s'applique.
+.. Cliquez sur *Annotation* et sélectionnez l'annotation que vous souhaitez appliquer.
+.. Cliquez sur *valeur* et sélectionnez une valeur pour l'annotation.
++
+Par exemple, si vous choisissez anniversaire comme annotation, vous spécifiez une date pour la valeur.
+
+.. Cliquez sur *Enregistrer*
+.. Cliquez sur *Exécuter toutes les règles* si vous souhaitez exécuter toutes les règles immédiatement ; sinon, les règles sont exécutées à un intervalle planifié régulièrement.
++
+
+NOTE: Dans un environnement Cloud Insights de grande taille, vous remarquerez que l'exécution de règles d'annotation semble prendre un certain temps. Ceci est dû au fait que l'indexeur s'exécute en premier et doit se terminer avant d'exécuter les règles. L'indexeur permet à Cloud Insights de rechercher ou de filtrer des objets et des compteurs nouveaux ou mis à jour dans vos données. Le moteur de règles attend que l'indexeur termine sa mise à jour avant d'appliquer les règles.
+
+
+
+
+
+
+
+== Modification des règles d'annotation
+
+Vous pouvez modifier une règle d'annotation pour modifier le nom de la règle, son annotation, la valeur de l'annotation ou la requête associée à la règle.
+
+.Étapes
+. Dans le menu Cloud Insights, cliquez sur *gérer > règles d'annotation*.
++
+La page règles d'annotation affiche la liste des règles d'annotation existantes.
+
+. Localisez la règle d'annotation à modifier.
++
+Vous pouvez filtrer les règles d'annotation en entrant une valeur dans la zone de filtre ou en cliquant sur un numéro de page pour parcourir les règles d'annotation par page.
+
+. Cliquez sur l'icône de menu de la règle que vous souhaitez modifier.
+. Cliquez sur *Modifier*
++
+La boîte de dialogue Modifier la règle s'affiche.
+
+. Modifiez le nom, l'annotation, la valeur ou la requête de la règle d'annotation.
+
+
+
+
+== Modification de l'ordre des règles
+
+Les règles d'annotation sont traitées du haut de la liste des règles au bas. Pour modifier l'ordre de traitement d'une règle, procédez comme suit :
+
+.Étapes
+. Cliquez sur l'icône de menu correspondant à la règle que vous souhaitez déplacer.
+. Cliquez sur *déplacer vers le haut* ou *déplacer vers le bas* selon les besoins jusqu'à ce que la règle s'affiche à l'emplacement souhaité.
+
+
+
+
+== Suppression de règles d'annotation
+
+Vous pouvez supprimer les règles d'annotation qui ne sont plus utilisées.
+
+.Étapes
+. Dans le menu Cloud Insights, cliquez sur *gérer > règles d'annotation*.
++
+La page règles d'annotation affiche la liste des règles d'annotation existantes.
+
+. Localisez la règle d'annotation à supprimer.
++
+Vous pouvez filtrer les règles d'annotation en entrant une valeur dans la zone de filtre ou en cliquant sur un numéro de page pour parcourir les règles d'annotation par page.
+
+. Cliquez sur l'icône de menu de la règle à supprimer.
+. Cliquez sur *Supprimer*
++
+Un message de confirmation s'affiche, vous invitant à supprimer la règle.
+
+. Cliquez sur *OK*
+

@@ -1,0 +1,78 @@
+---
+sidebar: sidebar 
+permalink: task_troubleshooting_windows_acquisition_unit_problems.html 
+summary: 'Conseils de dépannage pour les problèmes d"unité d"acquisition sous Windows.' 
+keywords: AU, acquisition unit, trioubleshooting 
+---
+= Dépannage des problèmes d'unité d'acquisition sous Windows
+:allow-uri-read: 
+
+
+[role="lead"]
+Vous trouverez ici des suggestions de dépannage des problèmes liés aux unités d'acquisition sur un serveur Windows.
+
+|===
+
+
+| *Problème:* | *Essayez ceci:* 
+
+
+| L'état au sur la page *Admin > Data Collectors* de l'onglet *unités d'acquisition* affiche "certificat expiré" ou "certificat révoqué" . | Cliquez sur le menu à droite de l'UA et sélectionnez *Restaurer la connexion*. Suivez les instructions pour restaurer votre unité d'acquisition : 1. Arrêtez le service de l'unité d'acquisition (au). Vous pouvez cliquer sur le bouton _Copy Stop Command_ pour copier rapidement la commande dans le presse-papiers, puis la coller dans une invite de commande sur la machine d'acquisition. 2. Créez un fichier nommé "token" dans le dossier _c:\Program Files\Cloud Insights\acquisition Unit\conf\_ de l'UA. 3. Cliquez sur le bouton _Copy Token_ et collez ce token dans le fichier que vous avez créé. 4. Redémarrez le service au. Cliquez sur le bouton _Copy Restart Command_ et collez la commande dans une invite de commande sur l'au. 
+
+
+| Configuration serveur non respectée | Assurez-vous que votre serveur d'unité d'acquisition ou votre VM répond link:concept_acquisition_unit_requirements.html["de formation"] 
+
+
+| Configuration réseau non respectée | Assurez-vous que le serveur/VM de l'unité d'acquisition peut accéder à votre environnement Cloud Insights (<nom de l'environnement> .c01.cloudinsights.netapp.com) via une connexion SSL sur le port 443. Essayez les commandes suivantes : _ping <nom-environnement> .c01.cloudinsights.netapp.com_ _traceroute <nom-environnement> .c01.cloudinsights.netapp.com_ _curl \https://<environment-name>.c01.cloudinsights.netapp.com_ _wget \https://<environment-name>.c01.cloudinsights.netapp.com_ 
+
+
+| Le serveur proxy n'est pas configuré correctement | Vérifiez les paramètres de votre proxy et désinstallez/réinstallez le logiciel de l'unité d'acquisition si nécessaire pour entrer les paramètres de proxy corrects. 1. Essayez de « boucler ». Reportez-vous aux informations/documentation sur "boucle homme" concernant les proxys : --préproxy, --proxy-* (c'est un caractère générique "*" car Curl prend en charge de nombreux paramètres proxy). 2. Essayez "wget". Consultez la documentation pour connaître les options du proxy. 
+
+
+| L'installation de l'unité d'acquisition a échoué dans Cloud Insights avec des erreurs d'informations d'identification lors du démarrage du service d'acquisition (et visible dans le journal acq.log). | Cela peut être dû à l'inclusion de caractères spéciaux dans les informations d'identification du proxy. Désinstallez l'au (_sudo cloudInsights-uninstall.sh_) et réinstallez-le sans utiliser de caractères spéciaux. 
+
+
+| Problèmes d'autorisation | Assurez-vous d'être connecté en tant qu'utilisateur avec des autorisations d'administrateur 
+
+
+| Acquisition non en cours d'exécution | Vous trouverez des informations dans le fichier acq.log dans le dossier _<répertoire d'installation>\Cloud Insights\acquisition Unit\log_. Redémarrez l'acquisition via les services Windows 
+
+
+| Problèmes de collecte de données | Envoyez un rapport d'erreur à partir de la page d'accueil du Data Collector en cliquant sur le bouton « Envoyer un rapport d'erreur » 
+
+
+| État : échec du signal de détection | L'unité d'acquisition (au) envoie un signal de présence à Cloud Insights toutes les 60 secondes pour renouveler son bail. Si l'appel de pulsation échoue en raison d'un problème de réseau ou si le Cloud Insights ne répond pas, le délai de bail de l'au n'est pas mis à jour. Lorsque le délai de bail de l'au expire, Cloud Insights affiche le statut "Heartbeat failed". Étapes de dépannage : * Vérifiez la connexion réseau entre l'unité d'acquisition sever et CloudInsights. * Vérifiez si le service de l'unité d'acquisition est en cours d'exécution. Si le service n'est pas en cours d'exécution, démarrez-le. * Vérifiez le journal de l'unité d'acquisition (<dossier d'installation>:\Program Files\Cloud Insights\acquisition Unit\log\acq.log) pour voir s'il y a des erreurs. 
+
+
+| Je vois un message « Heartbeat Error: | Cette erreur peut survenir en cas d'interruption du réseau entraînant l'interruption de la communication entre l'unité d'acquisition et l'environnement Cloud Insights pendant plus d'une minute. Vérifier que la connexion entre l'au et l'Cloud Insights est stable et active. 
+|===
+
+
+=== Considérations sur Proxies et pare-feu
+
+Si votre entreprise nécessite une utilisation par proxy pour l'accès à Internet, vous devrez peut-être comprendre le comportement de votre organisation par procuration et rechercher certaines exceptions pour que Cloud Insights fonctionne. Gardez à l'esprit les éléments suivants :
+
+* Tout d'abord, votre organisation bloque-t-elle l'accès par défaut et autorise-t-elle uniquement l'accès à des sites ou domaines Web spécifiques par exception ? Si c'est le cas, vous devrez ajouter le domaine suivant à votre liste d'exceptions :
++
+ *.cloudinsights.netapp.com
++
+Votre unité d'acquisition Cloud Insights, ainsi que vos interactions dans un navigateur Web avec Cloud Insights, seront toutes des hôtes avec ce nom de domaine.
+
+* Ensuite, certains proxys tentent d'effectuer l'inspection TLS/SSL en usurpant l'identité des sites Web Cloud Insights avec des certificats numériques non générés par NetApp. Le modèle de sécurité de l’unité d’acquisition de Cloud Insights est fondamentalement incompatible avec ces technologies. Vous aurez également besoin du nom de domaine ci-dessus, à l'exception de cette fonctionnalité, pour que l'unité d'acquisition Cloud Insights puisse se connecter avec succès à Cloud Insights et faciliter la découverte de données.
+
+
+
+
+==== Affichage des noeuds finaux du proxy
+
+Vous pouvez afficher vos noeuds finaux proxy en cliquant sur le lien *Paramètres proxy* lorsque vous choisissez un collecteur de données pendant l'intégration, ou sur le lien sous _Paramètres proxy_ de la page *aide > support*. Un tableau comme celui ci-dessous s'affiche. Si vous avez Cloud Secure dans votre environnement, les URL de point final configurées s'affichent également dans cette liste.
+
+image:ProxyEndpoints_NewTable.png["Table des noeuds finaux du proxy"]
+
+
+
+=== Ressources
+
+D'autres conseils de dépannage sont disponibles dans le link:https://kb.netapp.com/Advice_and_Troubleshooting/Cloud_Services/Cloud_Insights["Base de connaissances NetApp"] (connexion au support requise).
+
+Vous trouverez d'autres informations de support dans le Cloud Insights link:concept_requesting_support.html["Assistance"] page.

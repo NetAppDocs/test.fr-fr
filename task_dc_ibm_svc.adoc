@@ -1,0 +1,123 @@
+---
+sidebar: sidebar 
+permalink: task_dc_ibm_svc.html 
+keywords: IBM, SVC,SAN 
+summary: Configuration du collecteur de données du contrôleur de volume IBM SAN. 
+---
+= Configuration du collecteur de données du contrôleur de volume SAN IBM
+:allow-uri-read: 
+
+
+[role="lead"]
+Le collecteur de données du contrôleur de volume SAN (SVC) IBM collecte les données d'inventaire et de performances à l'aide de SSH, prenant en charge une variété de périphériques exécutant le système d'exploitation SVC.
+
+La liste des périphériques pris en charge comprend des modèles tels que le SVC, le v7000, le v5000 et le v3700. Consultez le tableau de prise en charge des Cloud Insights pour connaître les modèles et versions de firmware pris en charge.
+
+
+
+== Terminologie
+
+Cloud Insights acquiert les informations d'inventaire suivantes auprès du collecteur de données IBM SVC. Pour chaque type de bien acquis par Cloud Insights, la terminologie la plus utilisée pour ce bien est présentée. Lors de l'affichage ou du dépannage de ce collecteur de données, gardez la terminologie suivante à l'esprit :
+
+[cols="2*"]
+|===
+| Terme du fournisseur/modèle | Terme Cloud Insights 
+
+
+| Lecteur | Disque 
+
+
+| Cluster | Stockage 
+
+
+| Nœud | Nœud de stockage 
+
+
+| Groupe Mdisk | Pool de stockage 
+
+
+| Disque virtuel | Volumétrie 
+
+
+| Disque Mdisk | LUN et chemins back-end 
+|===
+Remarque : il s'agit uniquement de mappages terminologiques communs et peuvent ne pas représenter tous les cas pour ce collecteur de données.
+
+
+
+=== Exigences d'inventaire
+
+* Adresse IP de chaque cluster SVC
+* Port 22 disponible
+* Nom d'utilisateur et mot de passe en lecture seule
+
+
+
+
+=== Exigences en matière de performances
+
+* Console SVC, obligatoire pour tout cluster SVC et requise pour le package de base de découverte SVC.
+* Les identifiants exigent un niveau d'accès administratif uniquement pour copier les fichiers de performances des nœuds de cluster vers le nœud de configuration.
+* Activez la collecte de données en vous connectant au cluster SVC par SSH et en exécutant : _svcTask startstats -interval 1_
++
+Remarque : vous pouvez également activer la collecte de données à l'aide de l'interface utilisateur de gestion du service.
+
+
+
+
+
+== Configuration
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| Adresses IP de cluster | Adresses IP ou noms de domaine complets du stockage SVC 
+
+
+| Nom de l'utilisateur de stock | Nom d'utilisateur pour l'interface de ligne de commande du CSPR 
+
+
+| Mot de passe d'inventaire | Mot de passe pour l'interface CLI du CSPR 
+|===
+
+
+== Configuration avancée
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| Intervalle d'interrogation des stocks (min) | Intervalle entre les sondages d'inventaire. La valeur par défaut est 40 minutes. 
+
+
+| Intervalle d'interrogation des performances (s) | Intervalle entre les sondages de performances. La valeur par défaut est 300 secondes. 
+
+
+| Pour nettoyer les fichiers de statistiques sous-évaluées | Cochez cette case pour nettoyer les fichiers de statistiques sous-évaluées 
+|===
+
+
+== Dépannage
+
+Certaines choses à essayer si vous rencontrez des problèmes avec ce collecteur de données :
+
+[cols="2*"]
+|===
+| Problème : | Essayer : 
+
+
+| Erreur : « la commande ne peut pas être initialisée, car elle n'a pas été exécutée sur le nœud de configuration. » | La commande doit être exécutée sur le nœud de configuration. 
+|===
+Certaines choses à essayer si vous rencontrez des problèmes avec ce collecteur de données :
+
+[cols="2*"]
+|===
+| Problème : | Essayer : 
+
+
+| Erreur : « la commande ne peut pas être initialisée, car elle n'a pas été exécutée sur le nœud de configuration. » | La commande doit être exécutée sur le nœud de configuration. 
+|===
+Pour plus d'informations sur ce Data Collector, consultez le link:concept_requesting_support.html["Assistance"] ou dans le link:https://docs.netapp.com/us-en/cloudinsights/CloudInsightsDataCollectorSupportMatrix.pdf["Matrice de prise en charge du Data Collector"].

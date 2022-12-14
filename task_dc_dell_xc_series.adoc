@@ -1,0 +1,52 @@
+---
+sidebar: sidebar 
+permalink: task_dc_dell_xc_series.html 
+keywords: data collector, Dell, EMC, xc 
+summary: Configuration du collecteur de données de la série Dell EMC XC. 
+---
+= Collecteur de données de la série Dell EMC XC
+:allow-uri-read: 
+
+
+[role="lead"]
+Cloud Insights utilise ce collecteur de données pour détecter les informations d'inventaire et de performances des baies de stockage Dell EMC XC Series.
+
+
+
+== Configuration
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| Adresse IP externe prismes | Adresse IP du serveur XC 
+
+
+| Nom d'utilisateur | Nom d'utilisateur du serveur XC 
+
+
+| Mot de passe | Mot de passe utilisé pour le serveur XC 
+|===
+
+
+== Configuration avancée
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| Port TCP | Port utilisé pour la communication TCP avec le serveur XC 
+
+
+| Intervalle d'interrogation des stocks (min) | Intervalle entre les sondages d'inventaire. La valeur par défaut est 60 minutes. 
+
+
+| Intervalle d'interrogation des performances (min) | Intervalle entre les sondages de performances. La valeur par défaut est 300 secondes. 
+|===
+
+
+== Dépannage
+
+Pour plus d'informations, consultez le link:concept_requesting_support.html["Assistance"] ou dans le link:https://docs.netapp.com/us-en/cloudinsights/CloudInsightsDataCollectorSupportMatrix.pdf["Matrice de prise en charge du Data Collector"].

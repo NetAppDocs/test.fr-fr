@@ -1,0 +1,61 @@
+---
+sidebar: sidebar 
+permalink: task_dc_google_cloud.html 
+summary: Configurez le collecteur de données Google Compute 
+keywords: data collector, queries, create 
+---
+= Collecteur de données NetApp Google Compute
+:allow-uri-read: 
+
+
+[role="lead"]
+Ce collecteur de données prend en charge l'inventaire et la collecte de performances à partir des configurations de plateforme cloud Google Compute. Ce collecteur s'efforcera de découvrir toutes les ressources de calcul de tous les projets au sein d'une seule organisation Google. Si vous avez plusieurs organisations Google que vous souhaitez découvrir avec Cloud Insights, vous devrez déployer un collecteur Cloud Insights par organisation.
+
+
+
+== Configuration
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| ID d'organisation | ID d'organisation que vous souhaitez découvrir avec ce collecteur. Ce champ est obligatoire si votre compte de service peut afficher plusieurs organisations 
+
+
+| Choisissez exclure ou inclure pour filtrer les projets GCP par ID | Si vous souhaitez limiter les ressources des projets disponibles dans Cloud Insights. 
+
+
+| ID de projet | La liste des ID de projet que vous souhaitez filtrer ou retirer de la découverte, en fonction de la valeur de la valeur choisir « exclure ».... La liste par défaut est vide 
+
+
+| ID client | ID client pour la configuration Google Cloud Platform 
+
+
+| Copiez et collez le contenu de votre fichier d'informations d'identification Google ici | Copiez vos identifiants Google pour le compte Cloud Platform dans ce champ 
+|===
+
+
+== Configuration avancée
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| Intervalle d'interrogation des stocks (min) | La valeur par défaut est 60 minutes 
+
+
+| Choisissez 'exclure' ou 'inclure' pour appliquer au filtre des VM par étiquettes | Indiquez s'il faut inclure ou exclure les VM par étiquettes lors de la collecte de données. Si 'inclure' est sélectionné, le champ clé d'étiquette ne peut pas être vide. 
+
+
+| Étiqueter les clés et les valeurs sur lesquelles filtrer les VM | Cliquez sur *+ Filter Label* pour choisir les VM (et les disques associés) à inclure/exclure en filtrant les clés et les valeurs correspondant aux clés et aux valeurs des étiquettes de la VM. La clé d'étiquette est requise, la valeur d'étiquette est facultative. Lorsque la valeur d'étiquette est vide, la machine virtuelle est filtrée tant qu'elle correspond à la clé d'étiquette. 
+
+
+| Intervalle d'interrogation des performances (s) | La valeur par défaut est de 1800 secondes 
+|===
+
+
+== Dépannage
+
+Pour plus d'informations sur ce Data Collector, consultez le link:concept_requesting_support.html["Assistance"] ou dans le link:https://docs.netapp.com/us-en/cloudinsights/CloudInsightsDataCollectorSupportMatrix.pdf["Matrice de prise en charge du Data Collector"].

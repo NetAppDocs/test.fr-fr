@@ -1,0 +1,30 @@
+---
+sidebar: sidebar 
+permalink: task_getting_started_with_cloud_secure.html 
+summary: Mise en route de Cloud Secure. 
+keywords: invite, roles, data collector, agent 
+---
+= Mise en route de Cloud Secure
+:allow-uri-read: 
+
+
+Une fois que vous vous êtes inscrit à Cloud Secure et que vous vous connectez à votre environnement pour la première fois, vous devez effectuer certaines étapes de configuration avant de commencer à collecter et à analyser les données d'accès aux données.
+
+
+
+== Installez un agent
+
+Un agent est nécessaire pour collecter les données à des fins d'analyse par Cloud Secure. Vous installez le logiciel Agent sur un serveur ou une machine virtuelle de votre environnement. Un agent unique peut être utilisé pour plusieurs collecteurs de données.
+
+* Voir link:concept_cs_agent_requirements.html["Exigences de l'agent"] et link:task_cs_add_agent.html["Installation de l'agent"] Pour installer votre agent.
+
+
+
+
+== Configurer les collecteurs de données
+
+Cloud Secure collecte les données d'un collecteur d'annuaire d'utilisateurs pour les informations utilisateur et les collecte à partir des systèmes de stockage. Cloud Secure utilise les données pour analyser l'accès des utilisateurs aux entités des systèmes de stockage.
+
+* Pour configurer un connecteur de répertoire utilisateur, voir : link:task_config_user_dir_connect.html["Configuration du collecteur d'annuaire d'utilisateurs"]
+* Pour configurer un Data Collector, reportez-vous à la documentation du menu à gauche pour chaque Data Collector spécifique.
+

@@ -1,0 +1,46 @@
+---
+sidebar: sidebar 
+permalink: task_dc_na_cloud_volumes.html 
+summary: Configuration du collecteur de données NetApp Cloud volumes Services pour AWS 
+keywords: data collector, NetApp, Cloud, AWS 
+---
+= Collecteur de données NetApp Cloud volumes Services pour AWS
+:allow-uri-read: 
+
+
+[role="lead"]
+Ce collecteur de données prend en charge la collecte d'inventaire depuis les configurations NetApp Cloud volumes Services pour AWS.
+
+
+
+== Configuration
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| Région Cloud volumes | Région de NetApp Cloud volumes Services pour AWS 
+
+
+| Clé API | Clé Cloud volumes API 
+
+
+| Clé secrète | Clé secrète Cloud volumes 
+|===
+
+
+== Configuration avancée
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| Intervalle d'interrogation des stocks (min) | La valeur par défaut est 60 minutes 
+|===
+
+
+== Dépannage
+
+Pour plus d'informations sur ce Data Collector, consultez le link:concept_requesting_support.html["Assistance"] ou dans le link:https://docs.netapp.com/us-en/cloudinsights/CloudInsightsDataCollectorSupportMatrix.pdf["Matrice de prise en charge du Data Collector"].

@@ -1,0 +1,43 @@
+---
+sidebar: sidebar 
+permalink: concept_about_applications.html 
+keywords: applications, asset, cost 
+summary: 'Connaître les applications utilisées dans l"environnement de votre entreprise vous aide à surveiller l"utilisation des ressources et les coûts.' 
+---
+= Suivi de l'utilisation des ressources par application
+:allow-uri-read: 
+
+
+[role="lead"]
+Connaître les applications utilisées dans l'environnement de votre entreprise vous aide à surveiller l'utilisation des ressources et les coûts.
+
+Avant de pouvoir suivre les données associées aux applications exécutées dans votre environnement, vous devez d'abord définir ces applications et les associer aux ressources appropriées. Vous pouvez associer des applications aux ressources suivantes : hôtes, machines virtuelles, volumes, volumes internes, qtrees, les partages et les hyperviseurs.
+
+Cette rubrique fournit un exemple de suivi de l'utilisation des machines virtuelles que l'équipe marketing utilise pour son courrier électronique Exchange.
+
+Vous pouvez créer un tableau similaire à ce qui suit pour identifier les applications utilisées dans votre environnement et noter le groupe ou l'unité commerciale utilisant chaque application.
+
+[cols="5*"]
+|===
+
+
+| Locataire | Secteur d'activité | Unité commerciale | Projet | En termes de latence 
+
+
+| NetApp | Stockage des données | Légal | Brevets | Oracle Identity Manager, Oracle On Demand, PatentWiz 
+
+
+| NetApp | Stockage des données | Marketing | Événements commerciaux | Exchange, base de données partagée Oracle, planificateur d'événements BlastOff 
+|===
+Le tableau indique que l'équipe marketing utilise l'application Exchange. Nous souhaitons suivre l'utilisation de leurs ordinateurs virtuels pour Exchange, afin que nous puissions prévoir quand il nous faudra ajouter du stockage. Nous pouvons associer l'application Exchange à toutes les machines virtuelles de Marketing :
+
+. Créez une application nommée _Exchange_
+. Accédez à *Queries > +New Query* pour créer une nouvelle requête pour les machines virtuelles (ou sélectionnez une requête VM existante, le cas échéant).
++
+En supposant que les ordinateurs virtuels de l'équipe Marketing aient tous un nom contenant la chaîne "*mkt*", créez votre requête pour filtrer le nom de la machine virtuelle pour "mkt".
+
+. Sélectionnez les VM.
+. Associez les machines virtuelles à l'application _Exchange_ à l'aide de *actions groupées > Ajouter des applications*.
+. Sélectionnez l'application souhaitée et cliquez sur *Enregistrer*.
+. Lorsque vous avez terminé, *Enregistrer* la requête.
+

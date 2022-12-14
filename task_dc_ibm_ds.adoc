@@ -1,0 +1,122 @@
+---
+sidebar: sidebar 
+permalink: task_dc_ibm_ds.html 
+keywords: data collector, IBM DS6xxx, IBM DS6xxx, IBM, IBM DS 
+summary: Configuration du collecteur de données de la gamme DS8000 System Storage. 
+---
+= Collecteur de données de la gamme IBM System Storage DS8000
+:allow-uri-read: 
+
+
+[role="lead"]
+Le collecteur de données IBM DS (CLI) prend en charge l'acquisition de données d'inventaire et de performance pour les périphériques DS6xxx et DS8xxx.
+
+Les appareils DS3xxx, DS4xxx et DS5xxx sont pris en charge par le link:task_dc_na_eseries.html["Collecteur de données NetApp E-Series"]. Pour connaître les modèles et les versions de firmware pris en charge, consultez la matrice de prise en charge des disques Cloud Insights.
+
+
+
+== Terminologie
+
+Cloud Insights acquiert les informations d'inventaire suivantes à partir du collecteur de données IBM DS. Pour chaque type de bien acquis par Cloud Insights, la terminologie la plus utilisée pour ce bien est présentée. Lors de l'affichage ou du dépannage de ce collecteur de données, gardez la terminologie suivante à l'esprit :
+
+[cols="2*"]
+|===
+| Terme du fournisseur/modèle | Terme Cloud Insights 
+
+
+| Module de lecteur de disque | Disque 
+
+
+| Image stockage | Stockage 
+
+
+| Pool d'extension | Nœud de stockage 
+
+
+| Volume du bloc fixe | Volumétrie 
+
+
+| Initiateur FC hôte (mappé) | Masque de volume 
+|===
+Remarque : il s'agit uniquement de mappages de terminologie communs et ne représentent peut-être pas tous les cas pour ce collectant de données.
+
+
+
+== De formation
+
+Vous devez disposer des éléments suivants pour configurer ce collecteur de données :
+
+* Adresse IP de chaque matrice DS
+* Nom d'utilisateur et mot de passe en lecture seule sur chaque baie DS
+* Logiciels tiers installés sur le Cloud Insights au : IBM _dscli_
+* Validation des accès : exécutez les commandes _dscli_ à l'aide du nom d'utilisateur et du mot de passe
+* Configuration minimale requise pour les ports : 80, 443 et 1750
+
+
+
+
+== Configuration
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| Stockage DS | Adresse IP ou nom de domaine complet du périphérique DS 
+
+
+| Nom d'utilisateur | Nom d'utilisateur pour la CLI DS 
+
+
+| Mot de passe | Mot de passe pour la CLI DS 
+
+
+| _dscli_ chemin exécutable | Chemin complet vers l'exécutable _dscli_ 
+|===
+
+
+== Configuration avancée
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| Intervalle d'interrogation des stocks (min) | Intervalle entre les sondages d'inventaire (min). La valeur par défaut est 40. 
+
+
+| Nom d'affichage du stockage | Nom de la baie de stockage IBM DS 
+
+
+| Périphériques d'exclusion d'inventaire | Liste des numéros de série des périphériques séparés par des virgules à exclure de la collecte des stocks 
+
+
+| Intervalle d'interrogation des performances (s) | La valeur par défaut est 300. 
+
+
+| Type de filtre de performances | Inclure : données collectées uniquement à partir des périphériques de la liste. Exclure : aucune donnée de ces périphériques n'est collectée 
+
+
+| Liste des périphériques de filtre de performances | Liste séparée par des virgules d'ID de périphérique à inclure ou exclure de la collecte de performances 
+|===
+
+
+== Dépannage
+
+Certaines choses à essayer si vous rencontrez des problèmes avec ce collecteur de données :
+
+
+
+==== Inventaire
+
+[cols="2*"]
+|===
+| Problème : | Essayer : 
+
+
+| Erreur contenant : CMUC00192E, CMUC00191E ou CMUC00190E | * Vérifier les informations d'identification et l'adresse IP saisies. * Essayez de communiquer avec la baie par le biais de la console de gestion Web https://${ip}:8452/DS8000/Console[]. Remplacez le ${ip} par l'adresse IP configurée par le collecteur de données. 
+
+
+| Erreur : * Impossible d'exécuter PROGRAM * erreur d'exécution de la commande | * À partir de l'unité d'acquisition Cloud Insights Ouvrez un fichier CMD * Ouvrir CLI.CFG dans le dossier/lib de l'interface de ligne de commande et vérifiez la propriété JAVA_INSTALL, modifiez la valeur pour qu'elle corresponde à votre environnement * Afficher la version Java installée sur cet ordinateur, entrez : "java -version" * Envoyez une commande ping à l'adresse IP du périphérique de stockage IBM spécifié dans la commande CLI. * Si toutes les réponses ci-dessus fonctionnent correctement, exécutez manuellement une commande CLI 
+|===
+Pour plus d'informations, consultez le link:concept_requesting_support.html["Assistance"] ou dans le link:https://docs.netapp.com/us-en/cloudinsights/CloudInsightsDataCollectorSupportMatrix.pdf["Matrice de prise en charge du Data Collector"].

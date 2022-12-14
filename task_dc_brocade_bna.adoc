@@ -1,0 +1,113 @@
+---
+sidebar: sidebar 
+permalink: task_dc_brocade_bna.html 
+keywords: data collector, Brocade, BNA 
+summary: Configuration du collecteur Brocade BNA. 
+---
+= Collecteur de données Brocade Network Advisor
+:allow-uri-read: 
+
+
+[role="lead"]
+Cloud Insights utilise le collecteur de données Brocade Network Advisor pour acquérir les données d'inventaire et de performance des commutateurs Brocade.
+
+
+
+== Terminologie
+
+Cloud Insights acquiert les informations d'inventaire suivantes auprès du collecteur de données Brocade Network Advisor. Pour chaque type de bien acquis par Cloud Insights, la terminologie la plus utilisée pour ce bien est présentée. Lors de l'affichage ou du dépannage de ce collecteur de données, gardez la terminologie suivante à l'esprit :
+
+[cols="2*"]
+|===
+| Terme du fournisseur/modèle | Terme Cloud Insights 
+
+
+| Commutateur | Commutateur 
+
+
+| Port | Port 
+
+
+| Structure virtuelle, structure physique | Structure 
+
+
+| Commutateur logique | Commutateur logique 
+|===
+Remarque : il s'agit uniquement de mappages terminologiques communs et peuvent ne pas représenter tous les cas pour ce collecteur de données.
+
+
+
+== De formation
+
+Les éléments suivants sont nécessaires pour configurer ce collecteur de données :
+
+* L'unité d'acquisition Cloud Insights va créer des connexions au port TCP 443 sur le serveur BNA. Le serveur BNA doit exécuter la version 14.2.1 ou supérieure.
+* Adresse IP du serveur Brocade Network Advisor
+* Nom d'utilisateur et mot de passe d'un compte d'administrateur
+* Port requis : HTTP/HTTPS 443
+
+
+
+
+== Configuration
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| IP du serveur Brocade Network Advisor | Adresse IP du serveur Network Advisor 
+
+
+| Nom d'utilisateur | Nom d'utilisateur du commutateur 
+
+
+| Nom d'utilisateur | Nom d'utilisateur administrateur 
+
+
+| Mot de passe | Mot de passe administrateur 
+|===
+
+
+== Configuration avancée
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| Type de connexion | HTTPS (port par défaut 443) ou HTTP (port par défaut 80) 
+
+
+| Remplacer le port de connexion | Si ce champ est vide, utilisez le port par défaut dans le champ Type de connexion, sinon entrez le port de connexion à utiliser 
+
+
+| Mot de passe | Mot de passe du commutateur 
+
+
+| Intervalle d'interrogation des stocks (min) | La valeur par défaut est 40 
+
+
+| Passerelle d'accès aux rapports | Cochez cette case pour inclure les périphériques en mode passerelle d'accès 
+
+
+| Intervalle d'interrogation des performances (s) | La valeur par défaut est 1800 
+|===
+
+
+== Dépannage
+
+Certaines choses à essayer si vous rencontrez des problèmes avec ce collecteur de données :
+
+
+
+==== Inventaire
+
+[cols="2*"]
+|===
+| Problème : | Essayer : 
+
+
+| Recevez un message indiquant que plus d'un nœud est connecté au port Access Gateway ou que le collecteur de données ne parvient pas à détecter le périphérique Access Gateway. | Vérifiez que le périphérique NPV fonctionne correctement et que tous les WWN connectés sont attendus. N'obtenez pas directement le périphérique NPV. L'acquisition du commutateur principal de la structure collecte plutôt les données du dispositif NPV. 
+|===
+Pour plus d'informations, consultez le link:concept_requesting_support.html["Assistance"] ou dans le link:https://docs.netapp.com/us-en/cloudinsights/CloudInsightsDataCollectorSupportMatrix.pdf["Matrice de prise en charge du Data Collector"].

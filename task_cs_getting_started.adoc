@@ -1,0 +1,45 @@
+---
+sidebar: sidebar 
+permalink: task_cs_getting_started.html 
+keywords: collectors, data collectors, configure, introduction, browsers 
+summary: Pour commencer à utiliser Cloud Secure, quelques étapes simples sont nécessaires 
+---
+= Mise en route de Cloud Secure
+:allow-uri-read: 
+
+
+Certaines tâches de configuration doivent être effectuées avant de pouvoir utiliser Cloud Secure pour surveiller l'activité des utilisateurs.
+
+Le système Cloud Secure utilise un agent pour collecter les données d'accès à partir des systèmes de stockage et des informations utilisateur à partir des serveurs de services d'annuaire.
+
+Vous devez configurer les éléments suivants avant de pouvoir commencer à collecter les données :
+
+[cols="2*"]
+|===
+
+
+| Tâche | Informations associées 
+
+
+| Configurer un agent  a| 
+link:concept_cs_agent_requirements.html["Exigences de l'agent"]
+
+link:task_cs_add_agent.html["Ajouter un agent"]
+
+link:https://netapp.hubs.vidyard.com/watch/Lce7EaGg7NZfvCUw4Jwy5P?["*Vidéo* : déploiement de l'agent"]
+
+
+
+| Configurer un connecteur de répertoire utilisateur | link:task_config_user_dir_connect.html["Ajouter un connecteur de répertoire utilisateur"]
+
+link:https://netapp.hubs.vidyard.com/watch/NEmbmYrFjCHvPps7QMy8me?["*Vidéo* : connexion Active Directory"] 
+
+
+| Configurer des collecteurs de données | Cliquez sur *Admin > Data Collectors* cliquez sur le collecteur de données que vous souhaitez configurer. Voir la section référence du fournisseur du Data Collector de la documentation.link:https://netapp.hubs.vidyard.com/watch/YSQrcYA7DKXbj1UGeLYnSF?["*Vidéo* : connexion SVM ONTAP"] 
+
+
+| Créer des comptes d'utilisateurs | link:concept_user_roles.html["Gérer les comptes d'utilisateurs"] 
+
+
+| Dépannage | link:https://netapp.hubs.vidyard.com/watch/Fs8N2w9wBtsFGrhRH9X85U?["*Vidéo* : dépannage"] 
+|===

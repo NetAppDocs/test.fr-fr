@@ -1,0 +1,104 @@
+---
+sidebar: sidebar 
+permalink: task_dc_ms_hyperv.html 
+keywords: data collector, Microsoft, Hyper-V 
+summary: Configuration du collecteur de données Microsoft Hyper-V. 
+---
+= Collecteur de données Microsoft Hyper-V.
+:allow-uri-read: 
+
+
+[role="lead"]
+Le collecteur de données Microsoft Hyper-V acquiert les données d'inventaire et de performances de l'environnement informatique de serveur virtualisé.
+
+
+
+== Terminologie
+
+Cloud Insights acquiert les informations d'inventaire suivantes à partir de Microsoft Hyper-V (WMI). Pour chaque type de bien acquis par Cloud Insights, la terminologie la plus utilisée pour ce bien est présentée. Lors de l'affichage ou du dépannage de ce collecteur de données, gardez la terminologie suivante à l'esprit :
+
+[cols="2*"]
+|===
+| Terme du fournisseur/modèle | Terme Cloud Insights 
+
+
+| Disque dur virtuel | Disque virtuel 
+
+
+| Hôte | Hôte 
+
+
+| Ordinateur virtuel | Ordinateur virtuel 
+
+
+| CSV (Cluster Shared volumes), Volume de partitions | Datastore 
+
+
+| Périphérique SCSI Internet, LUN SCSI Multi Path | LUN 
+
+
+| Port Fibre Channel | Port 
+|===
+Remarque : il s'agit uniquement de mappages terminologiques communs et peuvent ne pas représenter tous les cas pour ce collecteur de données.
+
+
+
+== De formation
+
+Les éléments suivants sont nécessaires pour configurer ce collecteur de données :
+
+* Hyper-V requiert l'ouverture du port 5985 pour la collecte de données et l'accès/la gestion à distance.
+* Adresse IP du nœud du groupe de clusters
+* Utilisateur de l'administrateur local et mot de passe sur l'hyperviseur
+* Compte utilisateur de niveau administratif
+* Commande WMI (Windows Management Instrumentation), qui est la commande par défaut installée par Windows.
+* Configuration requise du port : le port 135 via les ports WMI et TCP dynamique a été attribué à 1024-65535 pour Windows 2003 et versions antérieures et à 49152-65535 pour Windows 2008.
+* La résolution DNS doit réussir, même si le collecteur de données est pointé à une seule adresse IP
+* Chaque hyperviseur Hyper-V doit avoir la fonction de mesure des ressources activée pour chaque machine virtuelle, sur chaque hôte. Cela permet à chaque hyperviseur de disposer de plus de données pour Cloud Insights sur chaque invité. Si ce paramètre n'est pas défini, moins de mesures de performance sont acquises pour chaque client. Pour plus d'informations sur le dosage des ressources, consultez la documentation microsoft :
++
+link:https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-R2-and-2012/hh831661(v=ws.11)["Présentation de la mesure des ressources Hyper-V"]
+
++
+link:https://docs.microsoft.com/en-us/powershell/module/hyper-v/enable-vmresourcemetering?view=win10-ps["Activer-VMResourceMetering"]
+
+
+
+
+NOTE: Le collecteur de données Hyper-V nécessite une unité d'acquisition Windows.
+
+
+
+== Configuration
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| Adresse IP de l'hôte physique | Adresse IP ou nom de domaine complet de l'hôte physique (hyperviseur) 
+
+
+| Nom d'utilisateur | Nom d'utilisateur administrateur de l'hyperviseur 
+
+
+| Mot de passe | Mot de passe de l'hyperviseur 
+
+
+| Domaine NT | Nom DNS utilisé par les nœuds du cluster 
+|===
+
+
+== Configuration avancée
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| Intervalle d'interrogation des stocks (min) | La valeur par défaut est 20 minutes. 
+|===
+
+
+== Dépannage
+
+Pour plus d'informations sur ce Data Collector, consultez le link:concept_requesting_support.html["Assistance"] ou dans le link:https://docs.netapp.com/us-en/cloudinsights/CloudInsightsDataCollectorSupportMatrix.pdf["Matrice de prise en charge du Data Collector"].

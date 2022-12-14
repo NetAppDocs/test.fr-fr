@@ -1,0 +1,24 @@
+---
+sidebar: sidebar 
+permalink: task_identify_inactive_devices.html 
+keywords: inactive, device, 
+summary: 'L"identification des périphériques inactifs vous permet de choisir de les supprimer ou de les attribuer à un rôle actif.' 
+---
+= Identification des périphériques inactifs
+:allow-uri-read: 
+
+
+[role="lead"]
+L'identification des ressources dont vous disposez et de qui les utilise est essentielle pour « dimensionner correctement » et libérer l'infrastructure inutilisée. Vous pouvez facilement réaffecter ou désaffecter les ressources sous-utilisées et éviter ainsi les achats inutiles.
+
+Procédez comme suit pour identifier les ressources inactives.
+
+.Étapes
+. Dans le menu Cloud Insights, cliquez sur *requêtes > Nouvelle requête*
+. Dans le `Search For` sélectionnez le type de ressource à interroger
+. Cliquez sur *+ > est actif*
+. Cliquez sur *any* et remplacez-le par *non*
++
+Le système affiche la liste des ressources inactives du type de périphérique sélectionné.
+
+

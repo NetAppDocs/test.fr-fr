@@ -1,0 +1,127 @@
+---
+sidebar: sidebar 
+permalink: task_dc_na_amazon_fsx.html 
+keywords: 'data collector, stout, fsx, fsx-netapp, Amazon, AWS, cluster, volume, share, LUN"' 
+summary: Amazon FSX pour NetApp ONTAP Data Collector 
+---
+= Amazon FSX pour le collecteur de données NetApp ONTAP
+:allow-uri-read: 
+
+
+[role="lead"]
+Ce collecteur de données fait l'acquisition des données d'inventaire et de performance par Amazon FSX pour NetApp ONTAP. Ce collecteur de données sera disponible progressivement dans toutes les régions de service Cloud Insights. Contactez votre vendeur si vous ne voyez pas l'icône de ce collecteur dans votre environnement Cloud Insights.
+
+
+
+== Terminologie
+
+Cloud Insights acquiert les données d'inventaire et de performance provenant du collecteur de données FSX-NetApp. Pour chaque type d'actif acquis, la terminologie la plus utilisée pour l'actif est indiquée. Lors de l'affichage ou du dépannage de ce collecteur de données, gardez la terminologie suivante à l'esprit :
+
+[cols="2*"]
+|===
+| Terme du fournisseur/modèle | Terme Cloud Insights 
+
+
+| Cluster | Stockage 
+
+
+| LUN | Volumétrie 
+
+
+| Volumétrie | Volume interne 
+|===
+
+
+== Terminologie FSX-NetApp
+
+Les termes suivants s'appliquent aux objets ou aux références que vous trouverez sur les pages d'accueil des ressources de stockage FSX-NetApp. Un grand nombre de ces termes s'appliquent également à d'autres collecteurs de données.
+
+
+
+=== Stockage
+
+* Modèle – liste délimitée par des virgules des noms de modèles uniques et discrets de ce cluster.
+* Fournisseur : AWS
+* Numéro de série – le numéro de série de la baie.
+* IP : il s'agit généralement des adresses IP ou des noms d'hôte configurés dans la source de données.
+* Capacité brute : somme de base 2 de tous les disques physiques du système, quel que soit leur rôle.
+* Latence : représentation des charges de travail côté hôte, à la fois en lecture et en écriture. Idéalement, Cloud Insights s'approvisionna directement cette valeur, mais ce n'est souvent pas le cas. Au lieu de cela, Cloud Insights effectue généralement un calcul pondéré par IOPS, à partir des statistiques des volumes internes individuels.
+* Débit : agrégé à partir de volumes internes. Gestion – il peut contenir un lien hypertexte pour l'interface de gestion du périphérique. Créé par programmation par la source de données Cloud Insights dans le cadre du rapport d'inventaire.
+
+
+
+
+=== Pool de stockage
+
+* Stockage : sur quelle baie de stockage ce pool vit. Obligatoire.
+* Type – valeur descriptive d'une liste de possibilités énumérées. Le plus souvent sera “agrégat” ou “RAID Group”.
+* Utilise Flash Pool – valeur Oui/non – ce pool basé sur SATA/SAS utilise-t-il des disques SSD pour accélérer la mise en cache ?
+* Redondance : niveau RAID ou schéma de protection. RAID_DP est la double parité, RAID_TP est la triple parité.
+* Capacité : les valeurs indiquées ici sont les valeurs logiques utilisées, la capacité utilisable et la capacité totale logique, ainsi que le pourcentage utilisé sur ces valeurs.
+* Capacité sursollicitée : si grâce aux technologies d'efficacité, vous avez alloué une somme totale de capacités de volume ou de volume interne supérieure à la capacité logique du pool de stockage, le pourcentage de valeur ici est supérieur à 0 %.
+* Snapshot : les capacités des copies Snapshot utilisées et totales, si l'architecture des pools de stockage consacre une partie de sa capacité à la segmentation uniquement des snapshots. Ce document présente notamment la solution ONTAP dans les configurations MetroCluster, tandis que les autres configurations ONTAP sont moins nombreuses.
+* Utilisation : pourcentage indiquant le pourcentage le plus élevé d'occupation du disque de tout disque contribuant à la capacité de ce pool de stockage. L'utilisation du disque n'est pas forcément synonyme de performances de la baie. L'utilisation peut être élevée en raison des reconstructions des disques et des activités de déduplication, etc. En l'absence de charges de travail pilotées par l'hôte. De plus, les implémentations de réplication de nombreuses baies peuvent conduire à l'utilisation du disque sans apparaître comme volume interne ou charge de travail du volume.
+* IOPS : somme des IOPS de tous les disques qui fournissent la capacité à ce pool de stockage. Débit : somme du débit de tous les disques qui fournissent la capacité à ce pool de stockage.
+
+
+
+
+== De formation
+
+Les conditions suivantes sont requises pour configurer et utiliser ce collecteur de données :
+
+* Vous devez avoir accès à un compte administrateur configuré pour les appels API en lecture seule.
+* Les détails du compte incluent le nom d'utilisateur et le mot de passe.
+* Configuration requise pour les ports : 80 ou 443
+
+
+
+
+== Configuration
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| IP de gestion NetApp | Adresse IP ou nom de domaine complet du cluster NetApp 
+
+
+| Nom d'utilisateur | Nom d'utilisateur du cluster NetApp 
+
+
+| Mot de passe | Mot de passe pour le cluster NetApp 
+|===
+
+
+== Dépannage
+
+Certaines choses à essayer si vous rencontrez des problèmes avec ce collecteur de données :
+
+
+
+==== Inventaire
+
+[cols="2*"]
+|===
+| Problème : | Essayer : 
+
+
+| Réception 401 réponse HTTP ou 13003 code d'erreur ZAPI et ZAPI renvoie “privilèges insuffisants” ou “non autorisés pour cette commande” | Vérifiez le nom d'utilisateur et le mot de passe, ainsi que les privilèges/autorisations utilisateur. 
+
+
+| ZAPI renvoie « le rôle de cluster n'est pas Cluster_mgmt LIF ». | L'au doit communiquer avec l'IP de gestion de cluster. Vérifiez l'adresse IP et remplacez-la par une autre adresse IP si nécessaire 
+
+
+| La commande ZAPI échoue après une nouvelle tentative | Problème de communication au avec le cluster. Vérifiez le réseau, le numéro de port et l'adresse IP. L'utilisateur doit également essayer d'exécuter une commande à partir de la ligne de commande à partir de l'ordinateur au. 
+
+
+| Echec de la connexion à ZAPI via HTTP | Vérifiez si le port ZAPI accepte le texte en clair. Si l'au tente d'envoyer du texte en texte clair vers une socket SSL, la communication échoue. 
+
+
+| La communication échoue avec SSLException | Au tente d'envoyer SSL vers un port en texte clair sur un filer. Vérifiez si le port ZAPI accepte SSL ou utilise un autre port. 
+
+
+| Autres erreurs de connexion : la réponse ZAPI a le code d’erreur 13001, “la base de données n’est pas ouverte” le code d’erreur ZAPI est 60 et la réponse contient “l’API n’a pas terminé à temps” la réponse ZAPI contient “initialize_session() retourné environnement NULL” le code d’erreur ZAPI est 14007 et la réponse contient “noeud n’est pas sain” | Vérifiez le réseau, le numéro de port et l'adresse IP. L'utilisateur doit également essayer d'exécuter une commande à partir de la ligne de commande à partir de l'ordinateur au. 
+|===
+Pour plus d'informations, consultez le link:concept_requesting_support.html["Assistance"] ou dans le link:https://docs.netapp.com/us-en/cloudinsights/CloudInsightsDataCollectorSupportMatrix.pdf["Matrice de prise en charge du Data Collector"].

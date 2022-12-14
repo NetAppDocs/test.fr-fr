@@ -1,0 +1,51 @@
+---
+sidebar: sidebar 
+permalink: task_config_telegraf_elasticsearch.html 
+keywords: telegraf, installation, install, ElasticSearch 
+summary: Configuration du collecteur de données Elasticsearch 
+---
+= Collecteur de données Elasticsearch
+:allow-uri-read: 
+
+
+[role="lead"]
+Cloud Insights utilise ce collecteur de données pour collecter des mesures à partir du service Elasticsearch.
+
+. Dans *Admin > Data Collectors*, cliquez sur *+Data Collector*. Sous *Services*, choisissez Elasticsearch.
++
+Sélectionnez le système d'exploitation ou la plate-forme sur laquelle l'agent Telegraf est installé.
+
+. Si vous n'avez pas déjà installé un agent pour la collecte ou si vous souhaitez installer un agent pour un autre système d'exploitation ou plate-forme, cliquez sur _Afficher les instructions_ pour développer le link:task_config_telegraf_agent.html["Installation de l'agent"] instructions.
+. Sélectionnez la clé d'accès de l'agent à utiliser avec ce collecteur de données. Vous pouvez ajouter une nouvelle clé d'accès à l'agent en cliquant sur le bouton * + clé d'accès à l'agent*. Meilleure pratique : utilisez une clé d'accès d'agent différente uniquement lorsque vous souhaitez regrouper des collecteurs de données, par exemple, par OS/plate-forme.
+. Suivez les étapes de configuration pour configurer le collecteur de données. Les instructions varient en fonction du type de système d'exploitation ou de plate-forme utilisé pour collecter des données.
+
+
+image:ElasticsearchDCConfigLinux.png["Configuration d'Elasticsearch"]
+
+
+
+== Configuration
+
+Vous trouverez des informations dans le link:https://www.elastic.co/guide/index.html["Documentation relative à Elasticsearch"].
+
+
+
+== Objets et compteurs
+
+Les objets suivants et leurs compteurs sont collectés :
+
+[cols="<.<,<.<,<.<,<.<"]
+|===
+| Objet : | Identifiants : | Attributs : | Points de données : 
+
+
+| Cluster Elasticsearch | Cluster de namespace | Nom de nœud IP du nœud État du cluster | Nombre de nœuds maîtres nombre total de nœuds données de système de fichiers disponibles (octets) données de système de fichiers libres (octets) données de système de fichiers Total (octets) threads JVM threads OS alloués Processes OS disponibles processeurs OS libres (octets) OS mémoire système d'exploitation mémoire Mo Total (octets) OS mémoire utilisé (octets) OS mémoire de processus utilisé indices UC taille d'achèvement (octets) Indices nombre indices nombre Docs indices nombre Docs indices nombre Index supprimés indices champs Suppression données champs Suppression indices valeurs champ données champ taille mémoire (octets) indices requête cache nombre indices taille cache indices segments nombre indices segments indices segments indices segments nombre segments valeurs Doc valeurs mémoire (octets) indices des éclats Index primaires moy indices des éclats Index primaires des éclats indices Max indices des éclats Index primaires min indices Index des shards indices de réplication moy. Bardes indices de réplication max. Indices de réplication des bardes index réplication min indices de taille moyenne des bardes indices de taille des bardes indices de type des éclats indices de réplication indices de type des éclats indices de réplication indices de taille totale des magasins (octets) 
+
+
+| Nœud Elasticsearch | Nom du nœud ES du cluster d'espace de noms noeud ES noeud IP noeud ES | ID de zone | Machine learning activé machine apprentissage machine apprentissage machine nombre maximal de travaux ouverts X-Pack disjoncteurs installés Comptabilité taille estimée (octets) disjoncteurs limite comptable taille (octets) disjoncteurs comptable disjoncteur de tête comptable disjoncteurs comptables disjoncteur de données de champ estimation taille (octets) disjoncteurs limite de données de champ taille (octets) disjoncteurs de données de champ disjoncteurs de champ déclenchement de données de champ courts disjoncteurs Disjoncteurs de taille (octets) de plafond en vol disjoncteurs de limite en vol taille (octets) disjoncteurs de plafond en vol disjoncteurs de charge estimée en vol taille (octets) disjoncteurs de limite parent taille (octets) disjoncteurs de limite parent disjoncteurs de plafond parent disjoncteurs de charge de tête parent Date estimée de requête (octets) disjoncteurs de limite de requête Date de limite de requête (système de fichiers) disjoncteurs de requête requête disjoncteurs de tête de tête de tête de requête octets de requête Date de sortie disponibles (Octets) données de système de fichiers sans fichier (octets) données de système de fichiers Total (octets) Statistiques d'E/S du système de fichiers unités d'E/S du système de fichiers Statistiques d'E/S du système de fichiers Statistiques d'E/S du système de fichiers Statistiques d'E/S du système de fichiers Statistiques d'E/S totales d'opérations d'E/S du système de fichiers (kb) Statistiques d'E/S lecture Filesystem Stats d'E/S total Write (kb) Stats d'E/S du système de fichiers par écriture minimale estimation d'utilisation disponible (octets) système de fichiers moins d'utilisation Total (octets) système de fichiers le moins utilisé utilisation système de fichiers le plus d'estimations d'utilisation Total (octets) système de fichiers le plus utilisé utilisation système de fichiers le plus utilisé Total disponible (octets) Filesystem Total libre (octets) Filesystem Total (octets) indices de la taille d'achèvement (octets) indices de nombre Docs indices de données de champ indices de suppression indices de données de champ taille de mémoire (octets) indices de zone rinçage indicateurs périodiques Flush Total indices de temps rinçage indices de temps total Get indices de temps actuels obtention indices de temps d'existence Total indices GET Total indices Indexing Delete Total indices Index Index Total indices Indexing Noop Update Total indices Indexing accélérateur Time HTTP Current Open HTTP Total ouvert JVM pool tampon JVM classes nombre actuel de JVM Groupe chargé actuel nombre de Collectors ancien Collection JVM dem Heap (octets) CPU OS Charge moyenne 15 m CPU OS mémoire Mo libre (octets) processus sans échange OS processus CPU processus total processus Max descripteurs de fichier Mo Total virtuel (octets) Thread Pool analyser Active Thread Pool analyser le pool de threads terminé analyser le pool de threads le plus important analyser la file d'attente analyser le pool de threads rejeté analyser le pool de threads rejeté analyser Thread Pool extraction de pool de threads démarré Active Thread extraction de pool de threads démarré extraction de pool de threads terminé exécution extraction de pool de threads lancé plus grand pool de threads extraction de chards de file d'attente démarrage de pool de threads extraction de pool de threads démarré extraction de pool de threads démarrage Shard de threads extraction de pool de threads stockage de disques de threads actif transport terminé RX (par seconde) transport RX Bytes (par seconde) transport Server Open transport TX (par seconde) transport TX Bytes (par seconde) 
+|===
+
+
+== Dépannage
+
+Pour plus d'informations, consultez le link:concept_requesting_support.html["Assistance"] page.

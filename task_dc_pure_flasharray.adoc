@@ -1,0 +1,107 @@
+---
+sidebar: sidebar 
+permalink: task_dc_pure_flasharray.html 
+keywords: data collector, Pure Storage, pure 
+summary: Configuration du collecteur de données Pure Storage. 
+---
+= Collecteur de données FlashArray de Pure Storage
+:allow-uri-read: 
+
+
+[role="lead"]
+Cloud Insights utilise le collecteur de données FlashArray de Pure Storage pour collecter les données d'inventaire et de performance.
+
+
+
+== Terminologie
+
+Pour chaque type d'actif acquis par Cloud Insights, la terminologie la plus utilisée pour l'actif est présentée. Lors de l'affichage ou du dépannage de ce collecteur de données, gardez la terminologie suivante à l'esprit :
+
+[cols="2*"]
+|===
+| Terme du fournisseur/modèle | Terme Cloud Insights 
+
+
+| Disque (SSD) | Disque 
+
+
+| Baie | Stockage 
+
+
+| Contrôleur | Nœud de stockage 
+
+
+| Volumétrie | Volumétrie 
+
+
+| Mappage de LUN | Carte de volume 
+
+
+| Initiateur,cible | Masque de volume 
+|===
+Remarque : il s'agit uniquement de mappages terminologiques communs et peuvent ne pas représenter tous les cas pour ce collecteur de données.
+
+
+
+== De formation
+
+* Adresse IP du système de stockage
+* Nom d'utilisateur et mot de passe du compte Administrateur du système Pure Storage.
+* Port requis : HTTP/HTTPS 80/443
+
+
+
+
+== Configuration
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| Adresse IP de l'hôte FlashArray | Adresse IP du système de stockage 
+
+
+| Nom d'utilisateur | Nom d'utilisateur avec privilèges d'administrateur 
+
+
+| Mot de passe du compte admin privilégié | Mot de passe 
+|===
+
+
+== Configuration avancée
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| Type de connexion | Choisissez HTTP ou HTTPS. Affiche également le port par défaut. 
+
+
+| Remplacer le port TCP | Si ce champ est vide, utilisez le port par défaut dans le champ Type de connexion, sinon entrez le port de connexion à utiliser 
+
+
+| Intervalle d'interrogation des stocks (min) | La valeur par défaut est 60 minutes 
+
+
+| Intervalle d'interrogation des performances (s) | La valeur par défaut est 300 
+|===
+
+
+== Dépannage
+
+Certaines choses à essayer si vous rencontrez des problèmes avec ce collecteur de données :
+
+
+
+==== Inventaire
+
+[cols="2*"]
+|===
+| Problème : | Essayer : 
+
+
+| "Informations d'identification non valides" avec les messages d'erreur "la stratégie n'autorise pas" ou "vous n'êtes pas autorisé" | Valider le compte utilisateur et le mot de passe Pure via l'interface http Pure 
+|===
+Pour plus d'informations, consultez le link:concept_requesting_support.html["Assistance"] ou dans le link:https://docs.netapp.com/us-en/cloudinsights/CloudInsightsDataCollectorSupportMatrix.pdf["Matrice de prise en charge du Data Collector"].

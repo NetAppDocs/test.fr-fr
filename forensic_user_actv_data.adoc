@@ -1,0 +1,32 @@
+---
+sidebar: sidebar 
+permalink: forensic_user_actv_data.html 
+keywords: Forensic, user activity, user activity data, 
+summary: 'données d"activité des utilisateurs médico-légales' 
+---
+= Données d'activité judiciaire de l'utilisateur
+:allow-uri-read: 
+
+
+La page activité utilisateur vous aide à comprendre les actions effectuées par les utilisateurs sur des entités.
+
+Les données disponibles dans cette page, décrit :
+
+* Heure d'accès de l'entité, mois, jour, année et heure compris.
+* L'utilisateur qui a accédé à l'entité avec un lien vers le link:<forensic_user_detail>.html["Données détaillées utilisateur"].
+* L'activité effectuée par l'utilisateur :
++
+** Écriture
+** Lecture
+** Accéder aux métadonnées
+
+
+* Chemin d'accès à l'entité avec un lien vers le link:<forensic_entity_detail>.html["Données de détail d'entité"]
+* Le type d'entité :
++
+** Fichier
+** Chemin
+
+
+* Adresse IP à partir de laquelle l'opération a été effectuée.
+

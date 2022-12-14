@@ -1,0 +1,87 @@
+---
+sidebar: sidebar 
+permalink: concept_ttl_and_downsampling.html 
+summary: 'Explication du temps de vie (TTL) et du sous-échantillonnage' 
+keywords: time-to-live, TTL, downsampling, downsample, 
+---
+= Temps de vie (TTL) et données sous-échantillonnées
+:allow-uri-read: 
+
+
+[role="lead"]
+Comme Cloud Insights conserve les données pour une période définie (par édition), il est possible de traiter des milliers de points de données. Les données peuvent donc être sous-échantillonnées avant d'être affichées dans les graphiques et les tableaux.
+
+
+
+== Conservation des données (durée de vie)
+
+Cloud Insights conserve les données pendant une durée déterminée par l'édition souscrite active. La conservation des données est également appelée « Time-to-Live » ou TTL.
+
+|===
+| Édition | TTL 
+
+
+| Basique | 7 jours 
+
+
+| Standard | 90 jours 
+
+
+| Premium | 13 mois 
+|===
+Les abonnements Premium Edition avec au moins 500 unités gérées (Us) conservent également les données de Business Intelligence et de reporting pour la période de 13 mois.
+
+
+
+== Sous-échantillonnage des données
+
+*Downsampling* fournit une approximation statistique de vos données dans des graphiques, vous donnant un aperçu efficace des données sans avoir à afficher chaque point de données, tout en maintenant une vue précise de vos données collectées.
+
+
+
+=== Pourquoi le sous-échantillonnage est-il nécessaire ?
+
+Étant donné qu'une grande quantité de traitement est nécessaire pour préparer les données à afficher dans les graphiques et graphiques, afin de permettre aux graphiques de s'afficher rapidement et efficacement, les données peuvent être sous-échantillonnées d'une manière qui conserve la forme globale d'un graphique sans qu'il soit nécessaire de traiter chaque point de données unique pour ce graphique.
+
+Remarque : aucune donnée réelle n'est perdue pendant le sous-échantillonnage. Vous pouvez choisir d'afficher les données réelles de votre graphique au lieu de sous-échantillonner les données en suivant les étapes illustrées ci-dessous.
+
+
+
+=== Fonctionnement du sous-échantillonnage
+
+Les données sont sous-échantillonnées dans les conditions suivantes :
+
+* Lorsque la plage horaire sélectionnée comprend 7 jours de données ou moins, aucun sous-échantillonnage n'est effectué. Les graphiques affichent les données réelles.
+* Lorsque la plage horaire sélectionnée inclut plus de 7 jours de données mais moins de 1,000 points de données, aucun sous-échantillonnage n'est effectué. Les graphiques affichent les données réelles.
+* Lorsque la plage de temps sélectionnée inclut plus de 7 jours de données et plus de 1,000 points de données, les données sont sous-échantillonnées. Les graphiques affichent des données approximatives.
+
+
+Les exemples suivants montrent un sous-échantillonnage en action. La première illustration montre des graphiques sur la latence et les IOPS d'une page de ressource de datastore pour une période de 24 heures, comme le montre la sélection de l'heure de la page des ressources sous 24 heures. Vous pouvez également voir les mêmes données en sélectionnant personnalisé et en définissant la plage horaire sur la même période de 24 heures.
+
+Puisque nous avons choisi une plage horaire de moins de 7 jours et que nous avons moins de 1,000 points de données à saisir, les données affichées sont des données réelles. Aucun sous-échantillonnage n'a lieu.
+
+image:Charts_NoDownsample.png["Pas de sous-échantillonnage"]
+
+Cependant, si vous affichez des données en choisissant soit 30d dans le sélecteur d'heure de la page ASSET, Ou en définissant une plage de temps personnalisée de plus de 7 jours (ou si Cloud Insights a recueilli plus de 1,000 échantillons de données pour la période choisie), les données sont sous-échantillonnées avant d'être affichées. Lorsque vous effectuez un zoom avant sur une carte sous-échantillonnée, l'affichage continue d'afficher les données approximatives.
+
+
+NOTE: Lorsque vous effectuez un zoom avant sur une carte sous-échantillonnée, le zoom est un zoom numérique. L'affichage continue d'afficher les données approximées.
+
+Vous pouvez voir ceci dans l'illustration suivante, où la plage horaire est d'abord définie sur 30d, et le graphique est ensuite agrandi pour afficher la même période de 24 heures que ci-dessus.
+
+image:Charts_Downsampled.png["Sous-échantillonnage"]
+
+Les graphiques sous-échantillonnés affichent la même période de 24 heures que les graphiques « réels » ci-dessus, de sorte que les lignes suivent la même forme générale, ce qui vous permet de repérer rapidement des pics ou des vallées intéressants dans vos données de performances.
+
+
+NOTE: En raison de la manière dont les données sont approchées pour le sous-échantillonnage, les lignes de graphique peuvent être légèrement désactivées lors de la comparaison de l'échantillonnage inférieur par rapport à données réelles, afin de permettre un meilleur alignement dans les graphiques. Cependant, la différence est minime et n'affecte pas la précision globale des données affichées.
+
+
+
+=== Violations sur les graphiques sous-échantillonnés
+
+Lorsque vous affichez des graphiques sous-échantillonnés, sachez que les violations ne sont pas affichées. Pour voir les violations, vous pouvez effectuer l'une des deux opérations suivantes :
+
+* Pour afficher les données réelles de cette plage horaire, sélectionnez personnalisé dans le sélecteur d'heure de la page ASSET et entrez une plage de temps inférieure à 7 jours. Passez le curseur sur chaque point rouge. L'info-bulle indique la violation qui s'est produite.
+* Notez la plage horaire et trouvez la ou les violation(s) dans le tableau de bord des violations.
+

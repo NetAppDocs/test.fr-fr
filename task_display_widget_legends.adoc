@@ -1,0 +1,28 @@
+---
+sidebar: sidebar 
+permalink: task_display_widget_legends.html 
+summary: Affichage des légendes dans les widgets du tableau de bord. 
+keywords: dashboard, widget, legends 
+---
+= Affichage des légendes du widget
+:toc: macro
+:hardbreaks:
+:toclevels: 2
+:allow-uri-read: 
+:toc: 
+:toclevels: 2
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+:toc-position: content
+
+
+[role="lead"]
+Les widgets des tableaux de bord peuvent être affichés avec ou sans légendes.
+
+Lors de l'affichage du tableau de bord, les légendes des widgets peuvent être activées ou désactivées en cliquant sur le bouton *Options* du widget et en sélectionnant *Afficher légendes* dans le menu.
+
+Au fur et à mesure que les données affichées dans le widget changent, la légende de ce widget est mise à jour dynamiquement.
+
+Lorsque des légendes sont affichées, si la page d'accueil de la ressource indiquée par la légende peut être navigué vers, la légende s'affiche sous forme de lien vers cette page de ressources.

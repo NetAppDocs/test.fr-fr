@@ -1,0 +1,46 @@
+---
+sidebar: sidebar 
+permalink: task_cs_add_collector_ontap.html 
+keywords: data collector, ONTAP, SVM 
+summary: Ajout de collecteurs de données 
+---
+= Configuration du collecteur de données NetApp ONTAP
+:allow-uri-read: 
+
+
+[role="lead"]
+Cloud Secure utilise des collecteurs de données pour collecter les données d'accès des fichiers et des utilisateurs à partir de terminaux. Les données sont fournies à Cloud Secure pour analyse.
+
+.Avant de commencer
+Vous avez besoin des informations suivantes pour configurer ce collecteur de données :
+
+* Un agent doit être configuré pour collecter des données
+* Adresse IP de gestion SVM
+* Un nom d'utilisateur pour accéder au SVM
+* Mot de passe pour accéder à la SVM
+
+
+.Étapes de configuration
+. Connectez-vous en tant qu'administrateur ou responsable de compte à votre environnement Cloud Secure.
+. Cliquez sur *Admin > Data Collectors > +Data Collectors*
++
+Le système affiche les collecteurs de données disponibles.
+
+. Cliquez sur *+surveillance* dans la vignette NetApp ONTAP.
++
+Le système affiche la page de configuration Add Data Collector : ONTAP SVM.
+
+. Entrez un nom unique pour le collecteur
+. Sélectionnez l'agent qui va collecter les données
+. Entrer l'adresse IP de gestion SVM
+. Entrer le nom d'utilisateur pour accéder au SVM
+. Entrer le mot de passe pour accéder à la SVM
+. Cliquez sur *+Ajouter un collecteur*
+
+
+.Une fois que vous avez terminé
+* Cliquez sur *Admin > Data Collectors* pour vérifier l'état du collecteur que vous avez configuré.
++
+Il y a normalement un délai avant l'affichage de l'état du collecteur.
+
+

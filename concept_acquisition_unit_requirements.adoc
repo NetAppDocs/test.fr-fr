@@ -1,0 +1,65 @@
+---
+sidebar: sidebar 
+permalink: concept_acquisition_unit_requirements.html 
+summary: 'Le serveur ou la VM que vous utilisez comme unité d"acquisition doit répondre aux exigences minimales' 
+keywords: AU, acquisition unit, RAU, requirements, sizing 
+---
+= Exigences relatives à l'unité d'acquisition
+:allow-uri-read: 
+
+
+[role="lead"]
+Vous devez installer une unité d'acquisition (au) afin d'obtenir des informations auprès de vos collecteurs de données d'infrastructure (stockage, VM, port, EC2, etc.). Avant d'installer l'unité d'acquisition, assurez-vous que votre environnement répond aux exigences de votre système d'exploitation, de votre processeur, de la mémoire et de l'espace disque.
+
+
+
+=== De formation
+
+|===
+
+
+| Composant | Configuration Linux requise | Configuration Windows requise 
+
+
+| Système d'exploitation | Un ordinateur exécutant une version sous licence de l'un des éléments suivants : * CentOS (64 bits) : 7.2 à 7.9, 8.1 à 8.4 * Debian (64 bits) : 9 et 10 * Oracle Enterprise Linux (64 bits) : 7.5 à 7.9, 8.1 à 8.4 * Red Hat Enterprise Linux (64 bits) : 7.2 à 7.9, 8.1 à 8.4 * Ubuntu Server: 18.04 et 20.04 LTS cet ordinateur ne doit pas exécuter d'autre logiciel de niveau application. Un serveur dédié est recommandé. | Ordinateur exécutant une version sous licence de l'un des ordinateurs suivants : * Microsoft Windows 10 64 bits * Microsoft Windows Server 2012 * Microsoft Windows Server 2012 R2 * Microsoft Windows Server 2016 * Microsoft Windows Server 2019 cet ordinateur ne doit pas exécuter d'autre logiciel de niveau application. Un serveur dédié est recommandé. 
+
+
+| CPU | 2 cœurs de processeurs | Identique 
+
+
+| Mémoire | 8 GO DE RAM | Identique 
+
+
+| Espace disque disponible | 50 Go pour Linux, l'espace disque doit être alloué de cette manière : /opt/netapp 10 Go /var/log/netapp 40 Go | 50 Go 
+
+
+| Le réseau | Connexion Ethernet 100 Mbit/s /1 Gbit/s, adresse IP statique, connectivité IP à tous les périphériques FC et port requis vers l'instance Cloud Insights (80 ou 443). | Identique 
+
+
+| Autorisations | Autorisations sudo sur le serveur de l'unité d'acquisition. /tmp doit être monté avec les fonctions exec. | Autorisations d'administrateur sur le serveur de l'unité d'acquisition 
+
+
+| Analyse antivirus |  | Au cours de l'installation, vous devez désactiver complètement tous les antivirus. Après l'installation, les chemins utilisés par le logiciel acquisition Unit doivent être exclus de l'analyse antivirus. 
+|===
+
+
+=== Recommandations supplémentaires
+
+* Pour un audit et un reporting précis des données, il est fortement recommandé de synchroniser l'heure sur la machine de l'unité d'acquisition à l'aide de *Network Time Protocol (NTP)* ou *simple Network Time Protocol (SNTP)*.
+
+
+
+
+=== Par rapport au dimensionnement
+
+Vous pouvez commencer par utiliser une unité d'acquisition Cloud Insights avec seulement 8 Go de mémoire et 50 Go d'espace disque, mais dans le cas des environnements plus importants, vous pouvez vous poser les questions suivantes :
+
+Vous vous attendez à :
+
+* Découvrez plus de 2500 machines virtuelles ou 10 clusters ONTAP de grande taille (> 2 nœuds), Symmetrix ou HDS/HPE VSP/XP sur cette unité d'acquisition ?
+* Déployer 75 collecteurs de données ou plus sur cette unité d'acquisition ?
+
+
+Pour chaque réponse "Oui" ci-dessus, il est recommandé d'ajouter 8 Go de mémoire et 50 Go d'espace disque à l'au. Donc, par exemple, si vous avez répondu « Oui » aux deux, vous devriez déployer un système de 24 Go avec 150 Go ou plus d'espace disque. Sous Linux, l'espace disque à ajouter à l'emplacement du journal.
+
+Pour toute question sur le dimensionnement, contactez le support NetApp.

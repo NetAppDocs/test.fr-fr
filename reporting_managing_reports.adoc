@@ -1,0 +1,85 @@
+---
+sidebar: sidebar 
+permalink: reporting_managing_reports.html 
+summary: 'Personnalisation de la sortie et de la livraison du rapport, copie des rapports dans le presse-papiers, ouverture des rapports (XML).' 
+keywords: reporting, cognos, data warehouse, dwh, managing, customizing, copying 
+---
+= Gestion des rapports
+:allow-uri-read: 
+
+
+[role="lead"]
+Vous pouvez personnaliser le format de sortie et la diffusion d'un rapport, définir les propriétés ou les horaires des rapports et les rapports par e-mail.
+
+
+NOTE: La fonction de création de rapports est disponible dans Cloud Insights link:concept_subscribing_to_cloud_insights.html["Édition Premium"].
+
+
+
+=== Personnalisation du format de sortie et de l'envoi d'un rapport
+
+Vous pouvez personnaliser le format et la méthode de diffusion des rapports.
+
+. Dans le portail de rapports Cloud Insights, passez la souris sur le rapport que vous souhaitez personnaliser et cliquez sur *[...]*.
+
+
+image:ReportCustomizationMenu.png["Menu de personnalisation du rapport"]
+
+. Cliquez sur *Propriétés > Programme*
+
+
+image:ReportSchedule.png["Planification d'un rapport"]
+
+. Vous pouvez définir les options suivantes :
++
+** Planifier l'exécution des rapports.
+** Formatez la sortie du rapport.
+** Livraison : imprimez, enregistrez ou envoyez le rapport par e-mail.
+** Les langues définissent la langue dans laquelle le rapport est fourni.
+
+
+. Cliquez sur *Créer* pour produire le rapport en utilisant les sélections que vous avez faites.
+
+
+
+
+=== Copie d'un rapport dans le presse-papiers
+
+Utilisez ce processus pour copier un rapport dans le presse-papiers.
+
+. Dans la barre d'outils, cliquez sur *[+]*
+. Cliquez sur *Rapport*
+. Cliquez sur l'icône *pages* image:PageIcon.png["Icône de page"]. L'icône Rapport image:ReportIcon.png["Icône de rapport"] s'affiche
+. Cliquez avec le bouton gauche de la souris sur l'icône Rapport. Les options de rapport s'affichent.
+. Cliquez sur *Copier le rapport dans le presse-papiers*.
+
+
+
+
+=== Ouverture de rapports (xml) à partir du presse-papiers
+
+Vous pouvez ouvrir une spécification de rapport qui a été précédemment copiée dans le presse-papiers.
+
+A propos de cette tâche vous entrez dans l'interface utilisateur de génération de rapports en créant un nouveau rapport ou en ouvrant un rapport existant
+
+. Dans la barre d'outils, cliquez sur *[+]*
+. Cliquez sur *Rapport*
+. Cliquez sur l'icône *pages* image:PageIcon.png["Icône de page"]. L'icône Rapport image:ReportIcon.png["Icône de rapport"] s'affiche
+. Cliquez avec le bouton gauche de la souris sur l'icône Rapport. Les options de rapport s'affichent.
+. Cliquez sur *Ouvrir le rapport à partir du presse-papiers*.
+
+
+
+
+== Dépannage
+
+Vous trouverez ici des suggestions pour résoudre les problèmes liés à la création de rapports.
+
+|===
+
+
+| *Problème:* | *Essayez ceci:* 
+
+
+| Lorsque vous planifiez l'envoi d'un rapport par e-mail, le nom de l'utilisateur connecté est pré-renseigné dans le champ « à » de l'e-mail. Toutefois, le nom est sous la forme de "prénom nom lastname" (prénom, espace, nom de famille). Étant donné que cette adresse e-mail n'est pas valide, l'e-mail ne peut pas être envoyé lorsque le rapport programmé est exécuté. | Lorsque vous planifiez l'envoi du rapport par e-mail, effacez le nom pré-rempli et saisissez une adresse e-mail valide et correctement formatée dans le champ « à ». 
+|===

@@ -1,0 +1,107 @@
+---
+sidebar: sidebar 
+permalink: task_dc_hds_ops_center.html 
+keywords: data collector, Hitachi Ops Center 
+summary: Configuration du collecteur de données HDS Copps Center. 
+---
+= Collecteur de données Hitachi Ops Center
+:allow-uri-read: 
+
+
+[role="lead"]
+Ce collecteur de données utilise la suite intégrée d'applications d'Hitachi Ops Center pour accéder aux données d'inventaire et de performances de plusieurs périphériques de stockage.
+
+
+
+== Terminologie
+
+Cloud Insights acquiert les informations d'inventaire suivantes à partir de ce collecteur de données. Pour chaque type de bien acquis par Cloud Insights, la terminologie la plus utilisée pour ce bien est présentée. Lors de l'affichage ou du dépannage de ce collecteur de données, gardez la terminologie suivante à l'esprit :
+
+[cols="2*"]
+|===
+| Terme du fournisseur/modèle | Terme Cloud Insights 
+
+
+| Systèmes de stockage | Stockage 
+
+
+| Volumétrie | Volumétrie 
+
+
+| Groupes de parité | Pool de stockage (RAID), groupes de disques 
+
+
+| Disque | Disque 
+
+
+| Pool de stockage | Pool de stockage (fin, SNAP) 
+
+
+| Groupes de parité externes | Storage Pool(interne), groupes de disques 
+
+
+| Port | Nœud de stockage → nœud de contrôleur → port 
+
+
+| Groupes d'hôtes | Mappage de volume et masquage 
+
+
+| Paires de volume | Synchronisation du stockage 
+|===
+Remarque : il s'agit uniquement de mappages terminologiques communs et peuvent ne pas représenter tous les cas pour ce collecteur de données.
+
+
+
+== Exigences d'inventaire
+
+Vous devez disposer des éléments suivants pour collecter les données de stock :
+
+* Adresse IP du serveur Ops Center
+* Nom d'utilisateur et mot de passe en lecture seule pour le logiciel Ops Center et les privilèges peer
+
+
+
+
+== Configuration
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| Adresse IP du centre d'opérations Hitachi | Adresse IP ou nom de domaine complet du serveur Ops Center 
+
+
+| Nom d'utilisateur | Nom d'utilisateur pour le serveur Ops Center. 
+
+
+| Mot de passe | Mot de passe utilisé pour le serveur Ops Center. 
+|===
+
+
+== Configuration avancée
+
+|===
+
+
+| Champ | Description 
+
+
+| Type de connexion | HTTPS (port 443) est l'option par défaut 
+
+
+| Remplacer le port TCP | Spécifiez le port à utiliser si ce n'est pas le port par défaut 
+
+
+| Intervalle d'interrogation des stocks (min) | Intervalle entre les sondages d'inventaire. La valeur par défaut est 40. 
+
+
+| Choisissez 'exclure' ou 'inclure' pour spécifier une liste | Indiquez si vous souhaitez inclure ou exclure la liste des matrices ci-dessous lors de la collecte des données. 
+
+
+| Filtrer la liste des périphériques | Liste séparée par des virgules des noms d'ID de périphérique ou de tableau à inclure ou exclure 
+
+
+| Intervalle d'interrogation des performances (s) | Intervalle entre les sondages de performances. La valeur par défaut est 300. 
+|===
+Pour plus d'informations, consultez le link:concept_requesting_support.html["Assistance"] ou dans le link:https://docs.netapp.com/us-en/cloudinsights/CloudInsightsDataCollectorSupportMatrix.pdf["Matrice de prise en charge du Data Collector"].

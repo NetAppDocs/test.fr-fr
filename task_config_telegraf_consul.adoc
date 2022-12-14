@@ -1,0 +1,51 @@
+---
+sidebar: sidebar 
+permalink: task_config_telegraf_consul.html 
+keywords: telegraf, installation, install, consul 
+summary: Configuration du collecteur de données consul 
+---
+= Collecteur de données consul
+:allow-uri-read: 
+
+
+[role="lead"]
+Cloud Insights utilise ce collecteur de données pour collecter des mesures auprès de Consul.
+
+
+
+== Installation
+
+. Dans *Admin > Data Collectors*, cliquez sur *+Data Collector*. Sous *Services*, choisissez Consul.
++
+Si vous n'avez pas configuré un agent pour la collecte, vous êtes invité à le faire link:task_config_telegraf_agent.html["installez un agent"] dans votre environnement.
+
++
+Si un agent est déjà configuré, sélectionnez le système d'exploitation ou la plate-forme approprié et cliquez sur *Continuer*.
+
+. Suivez les instructions de l'écran Configuration consul pour configurer le collecteur de données. Les instructions varient en fonction du type de système d'exploitation ou de plate-forme utilisé pour collecter des données.
+
+
+
+
+== Configuration
+
+Vous trouverez des informations dans le link:https://www.consul.io/docs/index.html["Documentation consul"].
+
+
+
+== Objets et compteurs pour consul
+
+Les objets suivants et leurs compteurs sont collectés :
+
+[cols="<.<,<.<,<.<,<.<"]
+|===
+| Objet : | Identifiants : | Attributs : | Points de données : 
+
+
+| Consul | Numéro de contrôle d'espace de noms nœud de service | Nœud IP nœud OS UUID Nom du nœud Nom du service Vérification Nom ID de service État | Avertissement de réussite critique 
+|===
+
+
+== Dépannage
+
+Pour plus d'informations, consultez le link:concept_requesting_support.html["Assistance"] page.

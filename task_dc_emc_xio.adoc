@@ -1,0 +1,101 @@
+---
+sidebar: sidebar 
+permalink: task_dc_emc_xio.html 
+keywords: data collector, XtremeIO, EMC 
+summary: Configuration du collecteur de données XtremeIO 
+---
+= Collecteur de données Dell EMC XtremeIO
+:allow-uri-read: 
+
+
+[role="lead"]
+Le collecteur de données EMC XtremIO fait l'acquisition des données d'inventaire et de performance du système de stockage EMC XtremIO.
+
+
+
+== De formation
+
+Pour configurer le collecteur de données EMC XtremIO (HTTP), vous devez avoir :
+
+* Adresse hôte du serveur de gestion XtremIO (XMS)
+* Un compte avec des privilèges d'administrateur
+* Accès au port 443 (HTTPS)
+
+
+
+
+== Terminologie
+
+Cloud Insights acquiert les informations d'inventaire suivantes auprès du collecteur de données EMC XtremIO. Pour chaque type de bien acquis par Cloud Insights, la terminologie la plus utilisée pour ce bien est présentée. Lors de l'affichage ou du dépannage de cette source de données, gardez à l'esprit la terminologie suivante :
+
+[cols="2*"]
+|===
+| Terme du fournisseur/modèle | Terme Cloud Insights 
+
+
+| Disque (SSD) | Disque 
+
+
+| Cluster | Stockage 
+
+
+| Contrôleur | Nœud de stockage 
+
+
+| Volumétrie | Volumétrie 
+
+
+| Mappage de LUN | Carte de volume 
+
+
+| Initiateur FC cible | Masque de volume 
+|===
+Remarque : il s'agit uniquement de mappages terminologiques courants et peuvent ne pas représenter tous les cas pour cette source de données.
+
+
+
+== De formation
+
+* Adresse IP de l'hôte XtremIO Management Server (XMS)
+* Nom d'utilisateur et mot de passe administrateur pour XtremIO
+
+
+
+
+== Configuration
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| Hôte XMS | Adresse IP ou nom de domaine complet du serveur de gestion XtremIO 
+
+
+| Nom d'utilisateur | Nom d'utilisateur du serveur de gestion XtremIO 
+
+
+| Mot de passe | Mot de passe du serveur de gestion XtremIO 
+|===
+
+
+== Configuration avancée
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| Port TCP | Port TCP utilisé pour la connexion au serveur de gestion XTreXtremIO. La valeur par défaut est 443. 
+
+
+| Intervalle d'interrogation des stocks (min) | Intervalle entre les sondages d'inventaire. La valeur par défaut est 60 minutes. 
+
+
+| Intervalle d'interrogation des performances (s) | Intervalle entre les sondages de performances. La valeur par défaut est 300 secondes. 
+|===
+
+
+== Dépannage
+
+Pour plus d'informations sur ce Data Collector, consultez le link:concept_requesting_support.html["Assistance"] ou dans le link:https://docs.netapp.com/us-en/cloudinsights/CloudInsightsDataCollectorSupportMatrix.pdf["Matrice de prise en charge du Data Collector"].

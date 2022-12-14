@@ -1,0 +1,111 @@
+---
+sidebar: sidebar 
+permalink: task_config_telegraf_haproxy.html 
+keywords: telegraf, installation, install, haproxy 
+summary: Configuration du collecteur de données HABProxy 
+---
+= Collecteur de données HAProxy
+:allow-uri-read: 
+
+
+[role="lead"]
+Cloud Insights utilise ce collecteur de données pour recueillir des mesures auprès de HABProxy.
+
+
+
+== Installation
+
+. Dans *Admin > Data Collectors*, cliquez sur *+Data Collector*. Sous *Services*, choisissez HAProxy.
++
+Sélectionnez le système d'exploitation ou la plate-forme sur laquelle l'agent Telegraf est installé.
+
+. Si vous n'avez pas déjà installé un agent pour la collecte ou si vous souhaitez installer un agent pour un autre système d'exploitation ou plate-forme, cliquez sur _Afficher les instructions_ pour développer le link:task_config_telegraf_agent.html["Installation de l'agent"] instructions.
+. Sélectionnez la clé d'accès de l'agent à utiliser avec ce collecteur de données. Vous pouvez ajouter une nouvelle clé d'accès à l'agent en cliquant sur le bouton * + clé d'accès à l'agent*. Meilleure pratique : utilisez une clé d'accès d'agent différente uniquement lorsque vous souhaitez regrouper des collecteurs de données, par exemple, par OS/plate-forme.
+. Suivez les étapes de configuration pour configurer le collecteur de données. Les instructions varient en fonction du type de système d'exploitation ou de plate-forme utilisé pour collecter des données.
+
+
+image:HAProxyDCConfigLinux.png["Configuration HABProxy"]
+
+
+
+== Configuration
+
+Le plug-in de Telegraf pour HAProxy repose sur l'activation des statistiques HAProxy. Il s'agit d'une configuration intégrée dans HAProxy, mais elle n'est pas prête à l'emploi. Lorsqu'il est activé, HAProxy expose un noeud final HTML qui peut être affiché sur votre navigateur ou gratté pour extraction de l'état de toutes les configurations HAProxy.
+
+
+
+==== Compatibilité :
+
+La configuration a été développée par HAProxy version 1.9.4.
+
+
+
+==== Configuration :
+
+Pour activer les statistiques, modifiez votre fichier de configuration hproxy et ajoutez les lignes suivantes après la section « attaques », en utilisant votre propre utilisateur/mot de passe et/ou URL de proxy :
+
+[listing]
+----
+stats enable
+stats auth myuser:mypassword
+stats uri  /haproxy?stats
+----
+Voici un exemple de fichier de configuration simplifié avec des statistiques activées :
+
+[listing]
+----
+global
+  daemon
+  maxconn 256
+
+defaults
+  mode http
+  stats enable
+  stats uri /haproxy?stats
+  stats auth myuser:mypassword
+  timeout connect 5000ms
+  timeout client 50000ms
+  timeout server 50000ms
+
+frontend http-in
+  bind *:80
+  default_backend servers
+
+frontend http-in9080
+  bind *:9080
+  default_backend servers_2
+
+backend servers
+  server server1 10.128.0.55:8080 check ssl verify none
+  server server2 10.128.0.56:8080 check ssl verify none
+
+backend servers_2
+  server server3 10.128.0.57:8080 check ssl verify none
+  server server4 10.128.0.58:8080 check ssl verify none
+----
+Pour obtenir des instructions complètes et à jour, reportez-vous au link:https://cbonte.github.io/haproxy-dconv/1.8/configuration.html#4-stats%20enable["Documentation HABProxy"].
+
+
+
+== Objets et compteurs
+
+Les objets suivants et leurs compteurs sont collectés :
+
+[cols="<.<,<.<,<.<,<.<"]
+|===
+| Objet : | Identifiants : | Attributs : | Points de données : 
+
+
+| HAVANCHAproxy frontal | Proxy d'adresse d'espace de noms | Noeud IP Nom de noeud ID proxy mode ID de processus sessions limite de taux sessions ID de serveur Etat limite de limite de nombre de sessions | Octets en octets hors cache Hits cache recherches cache octets de compression Bytes de compression Bytes de compression réponses de compression taux de connexion nombre maximal de demandes refusées par règle de connexion demandes refusées par des problèmes de sécurité réponses refusées par des demandes de sécurité refusées par la règle de session demandes d'erreurs réponses 1xx Réponses 2xx réponses 3xx réponses 4xx réponses 5xx autres demandes interceptées sessions Rate sessions demandes Rate Max demandes Rate demandes Rate nombre max sessions nombre max sessions nombre total sessions nombre total de requêtes nombre de réécritures 
+
+
+| Serveur HAProxy | Serveur proxy d'adresse d'espace de noms | Nœud Nom du nœud IP heure de vérification de la vérification de la configuration de chute Vérification de la valeur de l’état Vérification de l’état de l’état ID du proxy dernière modification de la dernière session mode de l’heure de la dernière session ID du processus ID du serveur poids de l’état | Serveurs actifs serveurs de sauvegarde octets en octets hors octets Vérification Downs échec client liaisons connexion temps moyen d'arrêt Total réponses refusées erreurs de connexion réponses 1xx réponses 2xx réponses 3xx réponses 4xx réponses 5xx autres réponses serveur sélectionné File d'attente totale de la file d'attente actuelle durée moyenne des sessions par Seconde sessions par seconde Max Connection Reuse temps de réponse sessions moyennes sessions Max Server Transfer interrompt sessions Total sessions Total Time moyenne demandes rerépartit les demandes nouvelles tentatives réécritures 
+
+
+| Système back-end HANProxy | Proxy d'adresse d'espace de noms | Noeud IP Nom de noeud ID proxy dernière modification heure dernière session mode temps processus ID de serveur sessions limite poids d’état | Serveurs actifs serveurs de sauvegarde octets en octets en octets en octets en cache Hits cache recherches cache Check Downs client abandonne les octets de compression ignorés octets de compression réponses de compression connexions temps moyen de connexion nombre de demandes refusées par des problèmes de sécurité réponses refusées par des problèmes de sécurité erreurs de connexion réponses aux erreurs de réponse 1xx réponses 2xx réponses 3xx réponses 4xx réponses 5xx autres réponses serveur sélectionné File d'attente totale file d'attente actuelle maximale file d'attente moyenne sessions par seconde nombre max demandes durée moyenne de la connexion réutilisation nombre total de sessions nombre moyen de sessions transfert serveur nombre total de sessions nombre total de sessions nombre total de sessions nombre total de fois nombre de requêtes redistribue les demandes de nouvelles Réécrit 
+|===
+
+
+== Dépannage
+
+Pour plus d'informations, consultez le link:concept_requesting_support.html["Assistance"] page.

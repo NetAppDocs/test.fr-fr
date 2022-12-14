@@ -1,0 +1,30 @@
+---
+sidebar: sidebar 
+permalink: concept_asset_alerts_section.html 
+summary: Présentation de la section alertes associées à la page de la ressource dans Cloud Insights. 
+keywords: asset, landing page, violations, Alerts, 
+---
+= Section alertes associées à la page de ressources
+:allow-uri-read: 
+
+
+[role="lead"]
+Vous pouvez utiliser la section alertes associées d'une page de ressources pour afficher toutes les alertes qui se produisent dans votre environnement suite à un moniteur affecté à une ressource. Les moniteurs génèrent des alertes en fonction des conditions que vous définissez et vous permettent d'identifier l'implication et d'analyser l'impact et la cause première du problème de manière à permettre une correction rapide et efficace.
+
+L'exemple suivant montre une section typique des alertes associées qui s'affiche sur une page de ressource :
+
+image:Alerts_on_Landing_Page.png["Tableau des alertes associées"]
+
+La section alertes associées vous permet d'afficher et de gérer les alertes qui se produisent sur votre réseau en fonction des conditions de surveillance affectées à un actif.
+
+.Étapes
+* Recherchez une page de ressources en procédant de l'une des façons suivantes :
++
+** Saisissez le nom de la ressource dans la zone de recherche, puis sélectionnez la ressource dans la liste.
+** Dans un widget Dashboard, cliquez sur le nom d'une ressource.
+** Rechercher un ensemble d'actifs et sélectionner activé dans la liste des résultats.
+
+
+
+
+La page ASSET s'affiche. La section alertes associées affiche l'heure à laquelle l'alerte a été déclenchée ainsi que l'état actuel de l'alerte et le moniteur qui l'a déclenchée. Vous pouvez cliquer sur l'ID d'alerte pour ouvrir la page d'arrivée de l'alerte pour une enquête plus approfondie.

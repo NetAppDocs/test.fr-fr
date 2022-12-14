@@ -1,0 +1,256 @@
+---
+sidebar: sidebar 
+permalink: API_Overview.html 
+keywords: API, customer API, premium, JSON, Swagger, Access Token, token 
+summary: 'L"API Cloud Insights permet l"intégration à d"autres applications, telles que les systèmes de contrôle et de reporting.' 
+---
+= API Cloud Insights
+:allow-uri-read: 
+
+
+[role="lead"]
+L'API Cloud Insights permet aux clients NetApp, ainsi qu'aux éditeurs de logiciels indépendants, d'intégrer Cloud Insights à d'autres applications, comme les systèmes de gestion de tickets de CMDB ou tout autre système de gestion de tickets.
+
+Notez que les API Cloud Insights sont disponibles en fonction de votre édition actuelle :
+
+[cols="<,^s,^s,^s"]
+|===
+| Catégorie API | Basique | Standard | Premium 
+
+
+| Unité d'acquisition | image:SmallCheckMark.png[""] | image:SmallCheckMark.png[""] | image:SmallCheckMark.png[""] 
+
+
+| Collecte de données | image:SmallCheckMark.png[""] | image:SmallCheckMark.png[""] | image:SmallCheckMark.png[""] 
+
+
+| Alertes |  | image:SmallCheckMark.png[""] | image:SmallCheckMark.png[""] 
+
+
+| Ressources |  | image:SmallCheckMark.png[""] | image:SmallCheckMark.png[""] 
+
+
+| Ingestion des données |  | image:SmallCheckMark.png[""] | image:SmallCheckMark.png[""] 
+|===
+
+
+== Conditions requises pour l'accès aux API
+
+* Un modèle de token d'accès API est utilisé pour accorder l'accès.
+* La gestion des tokens d'API est effectuée par des utilisateurs Cloud Insights dotés du rôle d'administrateur.
+
+
+
+
+== Documentation API (swagger)
+
+Les dernières informations API sont trouvées en se connectant à Cloud Insights et en accédant à *Admin > accès API*. Cliquez sur le lien *API Documentation*.
+
+image:API_Documentation.png["Documentation API"]
+
+La documentation API est basée sur swagger, qui fournit une brève description et des informations d'utilisation de l'API, et vous permet de l'essayer dans votre environnement.
+
+image:API_Swagger_Example.png["Exemple de swagger API"]
+
+
+
+== Jetons d'accès à l'API
+
+Avant d'utiliser l'API Cloud Insights, vous devez créer un ou plusieurs *tokens d'accès API*. Les jetons d'accès sont utilisés pour certaines catégories d'API et peuvent accorder des autorisations de lecture et/ou d'écriture. Vous pouvez également définir l'expiration de chaque jeton d'accès. Toutes les API situées sous les catégories spécifiées sont valides pour le jeton d'accès. Chaque jeton est vide d'un nom d'utilisateur ou d'un mot de passe.
+
+Pour créer un token d'accès :
+
+* Cliquez sur *Admin > accès API*
+* Cliquez sur *+jeton d'accès API*
++
+** Entrez le nom du token
+** Sélectionnez catégories d'API
+** Spécifiez les autorisations accordées pour cet accès API
+** Spécifiez l'expiration du token
+
+
+
+
+
+NOTE: Votre jeton ne sera disponible que pour la copie dans le presse-papiers et l'enregistrement pendant le processus de création. Les tokens ne peuvent pas être récupérés après leur création. Il est donc fortement recommandé de les copier et de les enregistrer dans un emplacement sécurisé. Vous serez invité à cliquer sur le bouton *Copier le token d'accès API* avant de pouvoir fermer l'écran de création de jeton.
+
+Vous pouvez désactiver, activer et révoquer des jetons. Les tokens désactivés peuvent être activés.
+
+Les jetons accordent un accès général aux API du point de vue du client, et gèrent l'accès aux API dans le cadre de leur propre locataire. Les administrateurs du client peuvent accorder et révoquer ces clés sans intervention directe du personnel interne de Cloud Insights.
+
+L'application reçoit un token d'accès après l'authentification et l'autorisation de l'accès, puis transmet le token d'accès en tant qu'identifiant lorsqu'il appelle l'API cible. Le jeton transmis informe l'API que le porteur du token a été autorisé à accéder à l'API et à effectuer des actions spécifiques spécifiées par le périmètre qui a été accordé lors de l'autorisation.
+
+L'en-tête HTTP où le token d'accès est transmis est *X-CloudInsights-ApiKey:*.
+
+Par exemple, utilisez les éléments suivants pour récupérer des actifs de stockage :
+
+ curl https://<tenant_host_name>/rest/v1/assets/storages -H 'X-CloudInsights-ApiKey: <API_Access_Token>'
+Où _<API_Access_Token>_ est le jeton que vous avez enregistré lors de la création de la clé d'accès à l'API.
+
+
+
+== Catégories d'API
+
+L'API Cloud Insights est basée sur une catégorie et contient actuellement les catégories suivantes :
+
+* La catégorie DE RESSOURCES contient des API de ressource, de requête et de recherche.
++
+** Atouts : énumérer les objets de premier niveau et récupérer un objet spécifique ou une hiérarchie d'objets.
+** Requête : récupération et gestion des requêtes Cloud Insights.
+** Importer : importez des annotations ou des applications et affectez-les à des objets
+** Recherche : recherchez un objet spécifique sans connaître son ID unique ou son nom complet.
+
+
+* La catégorie DE COLLECTE DE DONNÉES est utilisée pour extraire et gérer les collecteurs de données.
+* La catégorie D'INGESTION DE DONNÉES est utilisée pour récupérer et gérer les données d'ingestion et les métriques personnalisées, telles que celles des agents de Telegraf
+
+
+D'autres catégories et/ou API peuvent devenir disponibles au fil du temps. Vous trouverez les dernières informations API dans le link:#api-documentation-swagger["Documentation de swagger API"].
+
+Notez que les catégories d'API auxquelles un utilisateur a accès dépendent également du link:concept_user_roles.html["Rôle utilisateur"] Ils sont dotés dans chaque jeu de fonctions Cloud Insights (surveillance, Cloud Secure, création de rapports).
+
+
+
+== Traversée des stocks
+
+Cette section décrit comment parcourir une hiérarchie d'objets Cloud Insights.
+
+
+
+=== Objets de premier niveau
+
+Les objets individuels sont identifiés dans les demandes par une URL unique (appelée « auto » dans JSON) et nécessitent une connaissance du type d'objet et de l'ID interne Pour certains objets de niveau supérieur (hôtes, stockages, etc.), l'API REST permet d'accéder à la collection complète.
+
+Le format général d'une URL API est :
+
+ https://<tenant>/rest/v1/<category>/<object>
+Par exemple, pour récupérer tous les stockages d'un locataire nommé _mysite.c01.cloudinsights.netapp.com_, l'URL de la demande est :
+
+ https://mysite.c01.cloudinsights.netapp.com/rest/v1/assets/storages
+
+
+=== Enfants et objets connexes
+
+Les objets de premier niveau, tels que stockage, peuvent être utilisés pour circuler vers d'autres enfants et objets associés. Par exemple, pour récupérer tous les disques d'un stockage spécifique, concaténez l'URL de stockage « self » avec « /disks », par exemple :
+
+ https://<tenant>/rest/v1/assets/storages/4537/disks
+
+
+== Se développe
+
+De nombreuses commandes API prennent en charge le paramètre *expansion*, qui fournit des détails supplémentaires sur l'objet ou les URL pour les objets associés.
+
+Le paramètre de développement commun est _Expands_. La réponse contient une liste de tous les développement spécifiques disponibles pour l'objet.
+
+Par exemple, lorsque vous demandez ce qui suit :
+
+ https://<tenant>/rest/v1/assets/storages/2782?expand=_expands
+L'API renvoie toutes les versions disponibles pour l'objet comme suit :
+
+image:expands.gif["développe l'exemple"]
+
+Chaque expansion contient des données, une URL ou les deux. Le paramètre développer prend en charge les attributs multiples et imbriqués, par exemple :
+
+ https://<tenant>/rest/v1/assets/storages/2782?expand=performance,storageResources.storage
+Développez vous permet de rassembler plusieurs données associées en une seule réponse. NetApp vous conseille de ne pas demander trop d'informations à la fois. Vous risquez alors d'endommager les performances.
+
+Pour décourager cela, les demandes de recouvrement de premier niveau ne peuvent pas être étendues. Par exemple, vous ne pouvez pas demander d'étendre simultanément les données de tous les objets de stockage. Les clients sont nécessaires pour récupérer la liste des objets, puis choisir des objets spécifiques à développer.
+
+
+
+== Données de performance
+
+Les données de performances sont recueillies sur de nombreux appareils sous forme d'échantillons distincts. Toutes les heures (par défaut), Cloud Insights rassemble et résume les exemples de performances.
+
+L'API permet d'accéder aux échantillons et aux données résumées. Pour un objet avec des données de performances, un résumé des performances est disponible sous la forme _développer=performance_. Les séries de temps d'historique des performances sont disponibles via _sexpansion=performance.historique_ imbriqué.
+
+Voici des exemples d'objets Performance Data :
+
+* StoragePerformance
+* Poolde stockage haute performance
+* PortPerformance
+* DiskPerformance
+
+
+Une mesure de rendement comporte une description et une catégorie et contient un ensemble de résumés de rendement. Par exemple, latence, trafic et débit.
+
+Un résumé des performances comporte une description, une unité, l'heure de début de l'échantillon, l'heure de fin de l'échantillon et un ensemble de valeurs résumées (courant, min, max, moy, etc.) calculées à partir d'un seul compteur de performances sur une plage de temps (1 heure, 24 heures, 3 jours, etc.).
+
+image:API_Performance.png["Exemple de performances d'API"]
+
+Le dictionnaire de données de performances obtenu possède les clés suivantes :
+
+* « Self » est l'URL unique de l'objet
+* “historique” est la liste des paires d’horodatage et de valeurs de compteurs
+* Chaque autre clé de dictionnaire (« diskThroughput », etc.) est le nom d'une mesure de performance.
+
+
+Chaque type d'objet de données de performance dispose d'un ensemble unique de metrics de performance. Par exemple, l'objet performances de la machine virtuelle prend en charge “diskThroughput” comme mesure de performances. Chaque mesure de performance prise en charge correspond à une certaine « catégorie de performance » présentée dans le dictionnaire de mesures. Cloud Insights prend en charge plusieurs catégories de mesures de performance répertoriées ci-après. Chaque dictionnaire de mesures de performance aura également le champ "description" qui est une description lisible par l'homme de cette mesure de performance et un ensemble d'entrées de compteur de résumé de performance.
+
+Le compteur de synthèse des performances est le résumé des compteurs de performances. Il présente des valeurs agrégées typiques telles que min, max et avg pour un compteur ainsi que la dernière valeur observée, la plage de temps pour les données résumées, le type d'unité pour le compteur et les seuils pour les données. Seuls les seuils sont facultatifs ; le reste des attributs est obligatoire.
+
+Les résumés de performance sont disponibles pour ces types de compteurs :
+
+* Lire – Résumé des opérations de lecture
+* Write – Résumé des opérations d'écriture
+* Total : récapitulatif pour toutes les opérations. Elle peut être supérieure à la somme simple de lecture et d'écriture ; elle peut inclure d'autres opérations.
+* Total max. : Récapitulatif pour toutes les opérations. Il s'agit de la valeur totale maximale dans la plage de temps spécifiée.
+
+
+
+
+== Mesures de performances de l'objet
+
+L'API peut renvoyer des metrics détaillées pour les objets de votre environnement, par exemple :
+
+* Mesures de performances du stockage telles que les IOPS (nombre de demandes d'entrée/sortie par seconde), la latence ou le débit.
+
+
+* Mesures de performances de commutateur, telles que l'utilisation du trafic, les données de zéro crédit BB ou les erreurs de port.
+
+
+Voir la link:#api-documentation-swagger["Documentation de swagger API"] pour des informations sur les metrics pour chaque type d'objet.
+
+
+
+== Données d'historique des performances
+
+Les données historiques sont présentées dans les données de performance sous forme de liste de paires d'horodatage et de mappage de compteur.
+
+Les compteurs historiques sont nommés en fonction du nom de l'objet de la mesure de performances. Par exemple, l’objet de performances de la machine virtuelle prend en charge “diskThroughput”, de sorte que la carte d’historique contient les clés nommées “diskThroughput.read”, “diskThroughput.write” et “diskThroughput.total”.
+
+
+NOTE: L'horodatage est au format d'heure UNIX.
+
+Voici un exemple de données de performance JSON pour un disque :
+
+image:DiskPerformanceExample.png["Performance du disque JSON"]
+
+
+
+== Objets avec attributs de capacité
+
+Les objets avec attributs de capacité utilisent des types de données de base et le CapacityItem pour la représentation.
+
+
+
+=== Elément de capacité
+
+CapacityItem est une unité logique unique de capacité. Il a “valeur” et “seuil” dans les unités définies par son objet parent. Il prend également en charge une carte de répartition facultative qui explique la construction de la valeur de capacité. Par exemple, la capacité totale d'un StoragePool de 100 To serait un CapacitéItem avec une valeur de 100. La répartition peut indiquer 60 To affectés aux « données » et 40 To pour les « instantanés ».
+
+Remarque:: “HighThreshold” représente les seuils définis par le système pour les mesures correspondantes, qu’un client peut utiliser pour générer des alertes ou des repères visuels sur des valeurs en dehors des plages configurées acceptables.
+
+
+Voici la capacité du StoragePools avec plusieurs compteurs de capacité :
+
+image:StoragePoolCapacity.png["Exemple de capacité du pool de stockage"]
+
+
+
+== Utilisation de la fonction Rechercher pour rechercher des objets
+
+L'API de recherche est un point d'entrée simple vers le système. Le seul paramètre d'entrée de l'API est une chaîne de forme libre et le fichier JSON qui en résulte contient une liste classée des résultats. Les catégories sont les différents types de ressources de l'inventaire, par exemple les stockages, les hôtes, les datastores, etc. Chaque catégorie contiendra une liste d'objets du type de catégorie correspondant aux critères de recherche.
+
+Cloud Insights est une solution extensible (Wide Open) qui permet les intégrations avec des systèmes d'orchestration, de gestion commerciale, de contrôle des changements et de gestion des tickets et des intégrations CMDB personnalisées.
+
+L'API RESTful de Cloud Insights est un point d'intégration principal qui permet un déplacement simple et efficace des données et permet aux utilisateurs d'accéder de manière transparente à ces données.

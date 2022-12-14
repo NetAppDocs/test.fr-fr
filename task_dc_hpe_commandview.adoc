@@ -1,0 +1,207 @@
+---
+sidebar: sidebar 
+permalink: task_dc_hpe_commandview.html 
+keywords: data collector, HP Command View, HP, CVAE 
+summary: Configuration du collecteur de données HP Enterprise Command View 
+---
+= Collecteur de données HP Enterprise Command View
+:allow-uri-read: 
+
+
+[role="lead"]
+Le collecteur de données HP Enterprise Command View Advanced Edition prend en charge la découverte des baies XP et P9500 via le serveur Command View Advanced Edition (CVAE). Cloud Insights communique avec CVAE à l'aide de l'API standard Command View pour collecter des données d'inventaire et de performances.
+
+
+
+== Terminologie
+
+Cloud Insights acquiert les informations d'inventaire suivantes à partir du collecteur de données HP Enterprise Command View. Pour chaque type de bien acquis par Cloud Insights, la terminologie la plus utilisée pour ce bien est présentée. Lors de l'affichage ou du dépannage de ce collecteur de données, gardez la terminologie suivante à l'esprit :
+
+[cols="2*"]
+|===
+| Terme du fournisseur/modèle | Terme Cloud Insights 
+
+
+| PDEV | Disque 
+
+
+| Pool de journaux | Groupe de disques 
+
+
+| Baie de stockage | Stockage 
+
+
+| Contrôleur de port | Nœud de stockage 
+
+
+| Groupe de baies, DP Pool | Pool de stockage 
+
+
+| Unité logique, LDEV | Volumétrie 
+|===
+Remarque : il s'agit uniquement de mappages terminologiques communs et peuvent ne pas représenter tous les cas pour ce collecteur de données.
+
+
+
+== Exigences d'inventaire
+
+Vous devez disposer des éléments suivants pour collecter les données de stock :
+
+* Adresse IP du serveur CVAE
+* Nom d'utilisateur et mot de passe en lecture seule pour le logiciel CVAE et les privilèges peer
+* Port requis : 2001
+
+
+
+
+== Exigences en matière de performances
+
+Les exigences suivantes doivent être respectées pour collecter les données de performance :
+
+* Performances HDS USP, USP V, et VSP
++
+** Le moniteur de performances doit être sous licence.
+** L'interrupteur de surveillance doit être activé.
+** L'outil d'exportation (Export.exe) doit être copié dans Cloud Insights au et extrait vers un emplacement. Sur ci Linux AUS, assurez-vous que "cisys" dispose d'autorisations de lecture et d'exécution.
+** La version de l'outil d'exportation doit correspondre à la version du microcode de la matrice cible.
+
+
+* Performances AMS :
++
+** Le moniteur de performances doit être sous licence.
+** L'utilitaire CLI Storage Navigator Modular 2 (SNM2) est installé sur le Cloud Insights au.
+
+
+* Exigences liées au réseau
++
+** Les outils d'exportation sont basés sur Java et utilisent RMI pour parler à la baie. Ces outils peuvent ne pas être adaptés au pare-feu car ils peuvent négocier de manière dynamique les ports TCP source et de destination sur chaque invocation. De plus, les outils d'exportation de différentes baies de modèles peuvent fonctionner différemment sur l'ensemble du réseau. Consultez HPE pour connaître les exigences de votre modèle
+
+
+
+
+
+
+== Configuration
+
+[cols="2*"]
+|===
+| Champ | Description 
+
+
+| Serveur d'affichage des commandes | Adresse IP ou nom de domaine complet du serveur Command View 
+
+
+| Nom d'utilisateur | Nom d'utilisateur du serveur Command View. 
+
+
+| Mot de passe | Mot de passe utilisé pour le serveur Command View. 
+
+
+| PÉRIPHÉRIQUES : STOCKAGES VSP G1000 (R800), VSP (R700), HUS VM (HM700) ET USP | Liste des appareils pour les stockages VSP G1000 (R800), VSP (R700), HUS VM (HM700) et USP. Chaque stockage nécessite : * adresse IP de la matrice : adresse IP du stockage * Nom d'utilisateur : nom d'utilisateur pour le stockage * Mot de passe : mot de passe pour le stockage * dossier contenant les fichiers JAR de l'utilitaire d'exportation 
+
+
+| SNM2Devices - WMS/SMS/AMS Storages | Liste des périphériques pour les stockages WMS/SMS/AMS. Chaque stockage nécessite : * adresse IP de la baie : adresse IP de la baie de stockage * chemin de la CLI du Storage Navigator : chemin de la CLI SNM2 * authentification du compte valide : sélectionnez cette option pour choisir une authentification de compte valide * Nom d'utilisateur : nom d'utilisateur pour le stockage * Mot de passe : mot de passe pour le stockage 
+
+
+| Choisissez Tuning Manager pour les performances | Remplacer les autres options de performances 
+
+
+| L'hôte de Tuning Manager | Adresse IP ou nom de domaine complet du gestionnaire de réglages 
+
+
+| Port du gestionnaire de réglage | Port utilisé pour Tuning Manager 
+
+
+| Nom d'utilisateur du gestionnaire de réglage | Nom d'utilisateur pour Tuning Manager 
+
+
+| Mot de passe du gestionnaire de réglage | Mot de passe pour Tuning Manager 
+|===
+Remarque : dans les HDS USP, USP V et VSP, tout disque peut appartenir à plusieurs groupes de baies.
+
+
+
+== Configuration avancée
+
+|===
+
+
+| Champ | Description 
+
+
+| Commande Afficher le port du serveur | Port utilisé pour le serveur Command View 
+
+
+| HTTPS activé | Sélectionnez pour activer HTTPS 
+
+
+| Intervalle d'interrogation des stocks (min) | Intervalle entre les sondages d'inventaire. La valeur par défaut est 40. 
+
+
+| Choisissez 'exclure' ou 'inclure' pour spécifier une liste | Indiquez si vous souhaitez inclure ou exclure la liste des matrices ci-dessous lors de la collecte des données. 
+
+
+| Exclure ou inclure des périphériques | Liste séparée par des virgules des noms d'ID de périphérique ou de tableau à inclure ou exclure 
+
+
+| Gestionnaire d'hôte de requêtes | Sélectionnez cette option pour interroger le gestionnaire d'hôte 
+
+
+| Intervalle d'interrogation des performances (en secondes) | Intervalle entre les sondages de performances. La valeur par défaut est 300. 
+|===
+
+
+== Dépannage
+
+Certaines choses à essayer si vous rencontrez des problèmes avec ce collecteur de données :
+
+
+
+==== Inventaire
+
+[cols="2*"]
+|===
+| Problème : | Essayer : 
+
+
+| Erreur : l'utilisateur ne dispose pas d'une autorisation suffisante | Utilisez un compte utilisateur différent qui a plus de privilèges ou augmente le privilège du compte utilisateur configuré dans le collecteur de données 
+
+
+| Erreur : la liste des stockages est vide. Soit les périphériques ne sont pas configurés, soit l'utilisateur ne dispose pas des autorisations suffisantes | * Utilisez DeviceManager pour vérifier si les périphériques sont configurés. * Utilisez un autre compte utilisateur qui a plus de privilèges ou augmentez le privilège du compte utilisateur 
+
+
+| Erreur : la baie de stockage HDS n'a pas été actualisée depuis quelques jours | Étudiez les raisons pour lesquelles cette baie n'est pas actualisée dans HP CommandView AE. 
+|===
+
+
+==== Performance
+
+[cols="2*"]
+|===
+| Problème : | Essayer : 
+
+
+| Erreur : * erreur lors de l'exécution de l'utilitaire d'exportation * erreur lors de l'exécution de la commande externe | * Confirmez que l'utilitaire d'exportation est installé sur l'unité d'acquisition Cloud Insights * Confirmez que l'emplacement de l'utilitaire d'exportation est correct dans la configuration du collecteur de données * Confirmez que l'adresse IP de la matrice USP/R600 est correcte dans la configuration du collecteur de données * Confirmez que le nom de l'utilisateur Et le mot de passe est correct dans la configuration du collecteur de données * Vérifiez que la version de l'utilitaire d'exportation est compatible avec la version * du micro code de la matrice de stockage de l'unité d'acquisition Cloud Insights, ouvrez une invite CMD et procédez comme suit : - Modifiez le répertoire dans le répertoire d'installation configuré - essayez d'établir une connexion avec la matrice de stockage configurée en exécutant le fichier batch runWin.bat 
+
+
+| Erreur : la connexion de l'outil d'exportation a échoué pour l'adresse IP cible | * Confirmez que le nom d'utilisateur/mot de passe est correct * Créez un ID utilisateur principalement pour ce collecteur de données HDS * Confirmez qu'aucun autre collecteur de données n'est configuré pour acquérir ce tableau 
+
+
+| Erreur : les outils d'exportation sont consignés « Impossible d'obtenir la plage de temps pour la surveillance ». | * Vérifiez que la surveillance des performances est activée sur la matrice. * Essayez d'appeler les outils d'exportation en dehors de Cloud Insights pour confirmer que le problème se situe en dehors de Cloud Insights. 
+
+
+| Erreur : * erreur de configuration : matrice de stockage non prise en charge par l'utilitaire d'exportation * erreur de configuration : matrice de stockage non prise en charge par l'interface CLI modulaire de Storage Navigator | * Configurez uniquement les matrices de stockage prises en charge. * Utilisez “Filtrer la liste de périphériques” pour exclure les matrices de stockage non prises en charge. 
+
+
+| Erreur : * erreur d'exécution de la commande externe * erreur de configuration : la matrice de stockage n'a pas été signalée par Inventory * erreur de configuration : le dossier d'exportation ne contient pas de fichiers JAR | * Vérifier l'emplacement de l'utilitaire d'exportation. * Vérifiez si la matrice de stockage en question est configurée dans Command View Server * définissez l'intervalle d'interrogation des performances sur plusieurs 60 secondes. 
+
+
+| Erreur : * erreur de l'interface CLI du navigateur de stockage * erreur lors de l'exécution de la commande auPerform * erreur lors de l'exécution de la commande externe | * Vérifiez que la CLI modulaire du navigateur de stockage est installée sur l'unité d'acquisition Cloud Insights * Confirmez que l'emplacement de la CLI modulaire du navigateur de stockage est correct dans la configuration du collecteur de données * Confirmez que l'adresse IP de la matrice WMS/SMS/SMS est correcte dans la configuration du collecteur de données * Confirmez Que la version de l'interface CLI modulaire de Storage Navigator est compatible avec la version micro-code de la matrice de stockage configurée dans le collecteur de données * à partir de l'unité d'acquisition Cloud Insights, ouvrez une invite CMD et procédez comme suit : - Modifiez le répertoire dans le répertoire d'installation configuré - essayez d'établir une connexion avec la matrice de stockage configurée en exécutant la commande suivante “auunitref.exe” 
+
+
+| Erreur : erreur de configuration : matrice de stockage non signalée par Inventory | Vérifiez si la matrice de stockage en question est configurée dans le serveur Command View 
+
+
+| Erreur : * aucune matrice n'est enregistrée avec la matrice CLI * Storage Navigator modulaire 2 n'est pas enregistrée avec la CLI * Storage Navigator modulaire 2 erreur de configuration : la matrice de stockage n'est pas enregistrée avec la CLI modulaire StorageNavigator | * Ouvrir l'invite de commande et passer au chemin configuré * Exécuter la commande "set=STONAVM_HOME=". * Exécutez la commande "auunitref" * Vérifiez que la sortie de la commande contient les détails de la matrice avec IP * si la sortie ne contient pas les détails de la matrice, puis enregistrez la matrice avec l'interface de ligne de commande de Storage Navigator : - Ouvrir l'invite de commande et passer au répertoire du chemin configuré - Exécuter la commande "set=STONAVM_HOME=". - Exécutez la commande « auunitaddauto -ip ${ip} ». Remplacez ${ip} par une adresse IP réelle 
+|===
+Pour plus d'informations, consultez le link:concept_requesting_support.html["Assistance"] ou dans le link:https://docs.netapp.com/us-en/cloudinsights/CloudInsightsDataCollectorSupportMatrix.pdf["Matrice de prise en charge du Data Collector"].

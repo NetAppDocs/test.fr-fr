@@ -1,0 +1,30 @@
+---
+sidebar: sidebar 
+permalink: cs_automated_response_policies.html 
+keywords: alert, snapshot, ransomware, attack 
+summary: 'Vous pouvez définir des règles de réponse automatisées pour des attaques potentielles (par exemple, des ransomwares) et/ou des avertissements d"activité' 
+---
+= Stratégies de réponse automatisées
+:allow-uri-read: 
+
+
+[role="lead"]
+Les stratégies de réponse déclenchent des actions telles que la prise d'un instantané ou la restriction de l'accès de l'utilisateur en cas d'attaque ou de comportement anormal de l'utilisateur.
+
+Vous pouvez définir des stratégies sur des périphériques spécifiques ou sur tous les périphériques. Pour définir une stratégie de réponse, sélectionnez *Admin > Automated Response Policies* et cliquez sur le bouton *+Policy+ approprié. Vous pouvez créer des stratégies pour les attaques ou les avertissements.
+
+image:AutomatedAttackPolicy.png["Créer une stratégie d'attaque"]
+
+Vous devez enregistrer la police avec un nom unique.
+
+Pour désactiver une action de réponse automatisée (par exemple, prendre un instantané), il suffit d'annuler l'action et d'enregistrer la stratégie.
+
+Lorsqu'une alerte est déclenchée par rapport aux périphériques spécifiés (ou à tous les périphériques, si elle est sélectionnée), la stratégie de réponse automatique prend un instantané de vos données. Vous pouvez voir l'état des snapshots sur le link:cs_alert_data.html#the-alert-details-page["Page de détails de l'alerte"].
+
+Voir la link:cs_restrict_user_access.html["Limiter l'accès des utilisateurs"] Pour plus d'informations sur la restriction de l'accès des utilisateurs par IP.
+
+Vous pouvez modifier ou interrompre une stratégie de réponse automatique en sélectionnant l'option dans le menu déroulant de la stratégie.
+
+Cloud Secure supprime automatiquement les snapshots une fois par jour en fonction des paramètres de suppression de l'instantané.
+
+image:CloudSecure_SnapshotPurgeSettings.png["Paramètres de purge des instantanés"]

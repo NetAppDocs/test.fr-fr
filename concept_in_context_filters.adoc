@@ -1,0 +1,41 @@
+---
+sidebar: sidebar 
+permalink: concept_in_context_filters.html 
+summary: 'Vous pouvez filtrer les objets qui sont directement liés à l"actif actuel.' 
+keywords: Assets, landing page, filtering, context, related 
+---
+= Filtrage des objets dans le contexte
+:allow-uri-read: 
+
+
+[role="lead"]
+Lors de la configuration d'un widget sur la page d'accueil d'une ressource, vous pouvez définir des filtres _dans-contexte_ pour afficher uniquement les objets directement liés à l'actif actuel. Par défaut, lorsque vous ajoutez un widget, les _tous_ objets du type sélectionné dans votre environnement sont affichés. Les filtres dans le contexte vous permettent d'afficher uniquement les données pertinentes pour votre ressource actuelle.
+
+Sur la plupart des pages d'accueil des ressources, les widgets vous permettent de filtrer les objets associés à la ressource actuelle. Dans les listes déroulantes de filtre, les types d'objet qui affichent une icône de lien image:LinkIcon.png["Icône de lien"] peut être filtré dans le contexte de l'actif actuel.
+
+Par exemple, sur une page Storage Asset, vous pouvez ajouter un widget Bar Chart pour afficher les IOPS les plus élevées sur les volumes internes uniquement sur ce stockage. Par défaut, lorsque vous ajoutez un widget, les _All_ volumes internes de votre environnement sont affichés.
+
+Pour afficher uniquement les volumes internes de l'actif de stockage actuel, procédez comme suit :
+
+.Étapes
+. Ouvrez une page de ressources pour toute ressource *Storage*.
+. Cliquez sur *Modifier* pour ouvrir la page de ressources en mode Édition.
+. Cliquez sur *Ajouter un widget* et sélectionnez _BarBar Chart_.
+. Sélectionnez *Volume interne* pour le type d'objet à afficher dans le graphique à barres. Notez que le type d'objet de volume interne possède une icône de lien image:LinkIcon.png["Icône de lien"] à côté. L'icône « lié » est activée par défaut.
++
+image:LinkingObjects.png["volumes des graphiques à barres"]
+
+. Choisissez _IOPS - Total_ et définissez les filtres supplémentaires que vous souhaitez.
+. Réduisez le champ *remonter* en cliquant sur [X] en regard de celui-ci. Le champ *Afficher* s'affiche.
+. Choisissez d'afficher le Top 10.
+. Enregistrez le widget.
++
+Le graphique à barres indique uniquement les volumes internes résidant sur l'actif de stockage actuel.
+
+
+
+Le widget s'affiche sur les pages d'actifs de tous les objets de stockage. Lorsque le lien In-context est activé dans le widget, le graphique à barres affiche les données des volumes internes liés uniquement à l'actif de stockage actuellement affiché.
+
+Pour dissocier les données d'objet, éditez le widget et cliquez sur l'icône de lien image:LinkIconEnabled.png["Icône de lien activée"] à côté du type d'objet. Le lien est désactivé image:LinkIconDisabled.png["Icône de lien désactivée"] et le graphique affiche les données pour _all_ objects dans votre environnement.
+
+Vous pouvez également utiliser link:concept_dashboard_features.html#variables["*variables spéciales dans les widgets*"] pour afficher les informations relatives aux ressources sur les pages d'accueil.
