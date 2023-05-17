@@ -6,10 +6,10 @@ settings:
   internal:
     pdf_enabled: true
   prod:
-    pdf_enabled: false
+    pdf_enabled: true
     harmony_enabled: false
-    hide_language_selector: true
-  langs: fr-fr,us-en,ja-jp,ko-kr,zh-cn,zh-tw,de-de,es-es
+    langs: fr-fr,us-en,de-de,es-es
+  langs: fr-fr,us-en,de-de,es-es
 sidebar:
   entries:
   - title: Documentation Cloud Insights
