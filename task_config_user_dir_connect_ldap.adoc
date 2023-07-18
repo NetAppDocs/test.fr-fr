@@ -125,7 +125,7 @@ Vous pouvez valider les autorisations utilisateur LDAP et les définitions d'att
  ldapsearch -D "uid=john ,cn=users,cn=accounts,dc=dorp,dc=company,dc=com" -W -x -LLL -o ldif-wrap=no -b "cn=accounts,dc=dorp,dc=company,dc=com" -H ldap://vmwipaapp08.dorp.company.com
 * Utilisez l'Explorateur LDAP pour naviguer dans une base de données LDAP, afficher les propriétés et les attributs des objets, afficher les autorisations, afficher le schéma d'un objet, exécuter des recherches sophistiquées que vous pouvez enregistrer et exécuter à nouveau.
 +
-** Installez LDAP Explorer (http://ldaptool.sourceforge.net/)[] Ou Java LDAP Explorer (http://jxplorer.org/)[] Sur n'importe quel ordinateur Windows qui peut se connecter au serveur LDAP.
+** Installez LDAP Explorer  Ou Java LDAP Explorer  Sur n'importe quel ordinateur Windows qui peut se connecter au serveur LDAP.
 ** Connectez-vous au serveur LDAP à l'aide du nom d'utilisateur/mot de passe du serveur d'annuaire LDAP.
 
 
