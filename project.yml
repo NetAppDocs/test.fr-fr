@@ -1,440 +1,342 @@
 ---
 settings:
-  name: Cloud Insights
-  rss_page: concept_whats_new.html
-  noindex: true
+  name: Cloud Volumes ONTAP
+  harmony_integration: maestro
+  platform: cloud
   internal:
     pdf_enabled: true
   prod:
     pdf_enabled: true
     harmony_enabled: false
-    langs: fr-fr,us-en,de-de,es-es
-  langs: fr-fr,us-en,de-de,es-es
+  versions:
+  - name: Cloud Volumes ONTAP
+    url: "/cloud-volumes-ontap-relnotes"
+    version-number: 9.13.1
+  - name: Cloud Volumes ONTAP
+    url: "/cloud-volumes-ontap-9130-relnotes"
+    version-number: 9.13.0
+  - name: Cloud Volumes ONTAP
+    url: "/cloud-volumes-ontap-9121-relnotes"
+    version-number: 9.12.1
+  - name: Cloud Volumes ONTAP
+    url: "/cloud-volumes-ontap-9120-relnotes"
+    version-number: 9.12.0
+  - name: Cloud Volumes ONTAP
+    url: "/cloud-volumes-ontap-9111-relnotes"
+    version-number: 9.11.1
+  - name: Cloud Volumes ONTAP
+    url: "/cloud-volumes-ontap-9110-relnotes"
+    version-number: 9.11.0
+  - name: Cloud Volumes ONTAP
+    url: "/cloud-volumes-ontap-9101-relnotes"
+    version-number: 9.10.1
+  - name: Cloud Volumes ONTAP
+    url: "/cloud-volumes-ontap-9100-relnotes"
+    version-number: 9.10.0
+  - name: Cloud Volumes ONTAP
+    url: "/cloud-volumes-ontap-991-relnotes"
+    version-number: 9.9.1
+  - name: Cloud Volumes ONTAP
+    url: "/cloud-volumes-ontap-990-relnotes"
+    version-number: 9.9.0
+  - name: Cloud Volumes ONTAP
+    url: "/cloud-volumes-ontap-98-relnotes"
+    version-number: '9.8'
+  - name: Cloud Volumes ONTAP
+    url: "/cloud-volumes-ontap-97-relnotes"
+    version-number: '9.7'
+  - name: Cloud Volumes ONTAP
+    url: "/cloud-volumes-ontap-96-relnotes"
+    version-number: '9.6'
+  - name: Cloud Volumes ONTAP
+    url: "/cloud-volumes-ontap-95-relnotes"
+    version-number: '9.5'
+  - name: Cloud Volumes ONTAP
+    url: "/cloud-volumes-ontap-94-relnotes"
+    version-number: '9.4'
+  - name: Cloud ONTAP
+    url: "/cloud-volumes-ontap-93-relnotes"
+    version-number: '9.3'
+  rss_page: whats-new.html
+  filter:
+    label: Ou du fournisseur cloud
+    default: Tous les fournisseurs cloud
+    options:
+    - name: Amazon Web Services
+      alias: AWS
+      id: aws
+    - name: Google Cloud
+      alias: Google Cloud
+      id: gcp
+    - name: Microsoft Azure
+      alias: Azure
+      id: azure
+  langs: fr-fr,us-en,ja-jp,ko-kr,zh-cn,zh-tw,de-de,es-es,it-it
 sidebar:
   entries:
-  - title: Documentation Cloud Insights
+  - title: Documentation Cloud Volumes ONTAP
     url: "/index.html"
-  - title: Nouveautés
-    url: "/concept_whats_new.html"
-  - title: Inscription à Cloud Insights
-    url: "/task_cloud_insights_onboarding_1.html"
-  - title: Sécurité
+  - title: Notes de mise à jour
     entries:
-    - title: Pratiques de sécurité
-      url: "/security_overview.html"
-    - title: Ce que nous Store et où
-      url: "/security_information_and_region.html"
-  - title: Mise en route
+    - title: Quoi de neuf
+      url: "/whats-new.html"
+    - title: Limites connues
+      url: "/reference-limitations.html"
+    - title: Notes de version de Cloud Volumes ONTAP
+      url: "/whats-new-ontap.html"
+  - title: Commencez
     entries:
-    - title: Tutoriels de fonctionnalités
-      url: "/concept_feature_tutorials.html"
-    - title: Collecte des données
+    - title: Découvrez Cloud Volumes ONTAP
+      url: "/concept-overview-cvo.html"
+    - title: Versions prises en charge pour les nouveaux déploiements
+      url: "/reference-versions.html"
+    - title: Lancez-vous dans Amazon Web Services
+      flavor: aws
       entries:
-      - title: Présentation
-        url: "/task_getting_started_with_cloud_insights.html"
-      - title: Exigences relatives à l'unité d'acquisition
-        url: "/concept_acquisition_unit_requirements.html"
-      - title: Configuration d'une unité d'acquisition
-        url: "/task_configure_acquisition_unit.html"
-      - title: Configuration d'un agent
-        url: "/task_config_telegraf_agent.html"
-      - title: Configuration des collecteurs de données
-        url: "/task_configure_data_collectors.html"
-      - title: Détermination de l'état d'acquisition du Data Collector
-        url: "/concept_determining_data_collector_acq_status.html"
-      - title: Gérer les collecteurs de données configurés
-        url: "/task_view_configured_data_collectors.html"
-      - title: Erreurs de collecte de données de recherche
-        url: "/task_research_failed_collector.html"
-    - title: Importation des tableaux de bord recommandés
-      url: "/concept_import_from_dashboard_gallery.html"
-    - title: Comptes utilisateur et rôles
-      url: "/concept_user_roles.html"
-    - title: Passage à d'autres produits Cloud Central
-      url: "/concept_other_cloud_products.html"
-  - title: Liste Data Collector
-    url: "/data_collector_list.html"
-  - title: Abonnement à Cloud Insights
-    url: "/concept_subscribing_to_cloud_insights.html"
-  - title: Résolution automatique des périphériques
-    entries:
-    - title: Présentation de la résolution des périphériques
-      url: "/concept_device_resolution_overview.html"
-    - title: Règles de résolution des périphériques
-      url: "/task_device_resolution_rules.html"
-    - title: Résolution de périphérique Fibre Channel
-      url: "/task_device_resolution_fibre_channel.html"
-    - title: Résolution de périphérique IP
-      url: "/task_device_resolution_ip.html"
-    - title: Définition des préférences de résolution du périphérique
-      url: "/task_device_resolution_preferences.html"
-    - title: Exemples d'expression régulière
-      url: "/concept_device_resolution_regex_examples.html"
-  - title: Création de tableaux de bord
-    entries:
-    - title: Présentation du tableau de bord
-      url: "/concept_dashboards_overview.html"
-    - title: Caractéristiques des tableaux de bord
-      url: "/concept_dashboard_features.html"
-    - title: Exemple de tableaux de bord
+      - title: Démarrage rapide
+        url: "/task-getting-started-aws.html"
+      - title: Planification de la configuration
+        url: "/task-planning-your-config.html"
+      - title: Configurez votre réseau
+        entries:
+        - title: Configuration réseau requise
+          url: "/reference-networking-aws.html"
+        - title: Configuration d'une passerelle de transit AWS
+          url: "/task-setting-up-transit-gateway.html"
+        - title: Déploiement d'une paire haute disponibilité dans un sous-réseau partagé
+          url: "/task-deploy-aws-shared-vpc.html"
+        - title: Règles de groupe de sécurité pour AWS
+          url: "/reference-security-groups.html"
+      - title: Configuration du KMS AWS
+        url: "/task-setting-up-kms.html"
+      - title: Configurer les rôles IAM
+        url: "/task-set-up-iam-roles.html"
+      - title: Configuration des licences
+        url: "/task-set-up-licensing-aws.html"
+      - title: Lancement d'Cloud Volumes ONTAP dans AWS
+        url: "/task-deploying-otc-aws.html"
+      - title: Lancez-vous dans AWS C2S
+        url: "/task-getting-started-aws-c2s.html"
+    - title: Commencez avec Microsoft Azure
+      flavor: azure
       entries:
-      - title: Performances des ordinateurs virtuels
-        url: "/task_dashboard_example_VM_performance.html"
-    - title: Meilleures pratiques de tableau de bord
-      url: "/concept_dashboard_best_practices.html"
-  - title: Kubernetes Explorer
-    entries:
-    - title: Page de présentation de Kubernetes
-      url: "/kubernetes_landing_page.html"
-    - title: Page du cluster Kubernetes
-      url: "/kubernetes_cluster_detail.html"
-  - title: Utilisation des requêtes
-    entries:
-    - title: Interrogation des ressources
-      url: "/concept_querying_assets.html"
-    - title: Création d'une requête
-      url: "/task_create_query.html"
-    - title: Affichage des requêtes disponibles
-      url: "/task_view_queries.html"
-    - title: Exportation des résultats de la requête au format .CSV
-      url: "/task_export_query_results.html"
-    - title: Modification ou suppression d'une requête
-      url: "/task_modify_delete_query.html"
-    - title: Affectation de plusieurs applications/annotations à des objets
-      url: "/task_query_assign_multiple_applicationss.html"
-    - title: Copie des valeurs de table dans le presse-papiers
-      url: "/task_query_copy_table_values.html"
-    - title: Interrogation des journaux
-      url: "/concept_log_explorer.html"
-  - title: Utilisation des annotations
-    entries:
-    - title: Définition d'annotations
-      url: "/task_defining_annotations.html"
-    - title: Utilisation d'annotations
-      url: "/task_create_annotation.html"
-    - title: Utilisation des règles d'annotation
-      url: "/task_create_annotation_rules.html"
-    - title: Importation d'annotations avec l'API
-      url: "/task_annotation_import.html"
-  - title: Utilisation des applications
-    entries:
-    - title: Concepts d'application
-      url: "/concept_about_applications.html"
-    - title: Configuration des applications
-      url: "/task_create_application.html"
-  - title: Surveille et alerte
-    entries:
-    - title: Création de moniteurs
-      url: "/task_create_monitor.html"
-    - title: Affichage et gestion des alertes
-      url: "/task_view_and_manage_alerts.html"
-    - title: Configuration des destinataires de notification
-      url: "/concept_notifications_email.html"
-    - title: Moniteurs définis par le système
-      url: "/task_system_monitors.html"
-  - title: Utilisation d'API
-    url: "/API_Overview.html"
-  - title: Notification Webhook
-    url: "/task_create_webhook.html"
-  - title: Contrôle de votre environnement
-    entries:
-    - title: Événements d'audit
-      url: "/concept_audit.html"
-    - title: TTL et sous-échantillonnage
-      url: concept_ttl_and_downsampling.html
-  - title: Informations sur la page de ressources
-    entries:
-    - title: Présentation de la page de ressources
-      url: "/concept_asset_page_overview.html"
-    - title: Filtrage dans le contexte pour les objets
-      url: "/concept_in_context_filters.html"
-    - title: Récapitulatif des sections de topologie
-      url: "/concept_asset_summary_section.html"
-    - title: Section vue expert
-      url: "/concept_asset_expert_view_section.html"
-    - title: Section données utilisateur
-      url: "/concept_asset_user_data_section.html"
-    - title: Section alertes associées
-      url: "/concept_asset_alerts_section.html"
-    - title: Conseils et astuces pour rechercher des ressources
-      url: "/concept_searching_assets.html"
-  - title: Création de rapports
-    entries:
-    - title: Présentation des rapports
-      url: "/reporting_overview.html"
-    - title: Génération de rapports des rôles utilisateur
-      url: "/reporting_user_roles.html"
-    - title: Utilisation de rapports prédéfinis
-      url: "/reporting_predefined_reports.html"
-    - title: Tableau de bord de Storage Manager
-      url: "/reporting_storage_manager_dashboard.html"
-    - title: Création d'un exemple de rapport
-      url: "/reporting_create_example.html"
-    - title: Gestion des rapports
-      url: "/reporting_managing_reports.html"
-    - title: Rapports personnalisés
-      url: "/reporting_creating_custom_reports.html"
-    - title: Modèles de données
-      url: "/reporting_creating_custom_reports.html#reporting-data-models"
-    - title: API de base de données de reporting
-      url: "/reporting_querying_database.html"
-    - title: Conservation des données
-      url: "/reporting_data_retention.html"
-    - title: Diagrammes de schéma
-      url: "/reporting_schema_diagrams.html"
-    - title: Tables de schéma
-      url: "/reference_schemas.html"
-  - title: Cloud Secure
-    entries:
-    - title: À propos de Cloud Secure
-      url: "/cs_intro.html"
-    - title: Mise en route
+      - title: Démarrage rapide
+        url: "/task-getting-started-azure.html"
+      - title: Planification de la configuration
+        url: "/task-planning-your-config-azure.html"
+      - title: Configurez votre réseau
+        url: "/reference-networking-azure.html"
+      - title: Configurez le chiffrement à l'aide de votre clé
+        url: "/task-set-up-azure-encryption.html"
+      - title: Configuration des licences
+        url: "/task-set-up-licensing-azure.html"
+      - title: Activer le mode haute disponibilité
+        url: "/task-azure-high-availability-mode.html"
+      - title: Lancez Cloud Volumes ONTAP dans Azure
+        url: "/task-deploying-otc-azure.html"
+    - title: Lancez-vous dans Google Cloud
+      flavor: gcp
       entries:
-      - title: Mise en route de Cloud Secure
-        url: "/task_cs_getting_started.html"
-      - title: Configuration requise pour l'agent Cloud Secure
-        url: "/concept_cs_agent_requirements.html"
-      - title: Configuration d'un agent Cloud Secure
-        url: "/task_cs_add_agent.html"
-      - title: Suppression d'un agent Cloud Secure
-        url: "/task_cs_delete_agent.html"
-      - title: Configuration d'un collecteur AD Directory
-        url: "/task_config_user_dir_connect.html"
-      - title: Configuration d'un collecteur d'annuaire LDAP
-        url: "/task_config_user_dir_connect_ldap.html"
-      - title: Configuration d'Amazon FSX pour NetApp ONTAP Collector
-        url: "/task_config_cs_amazon_fsx.html"
-      - title: Configuration du SVM Data Collector de ONTAP
-        url: "/task_add_collector_svm.html"
-      - title: Configuration du collecteur de données Cloud ONTAP
-        url: "/task_config_cs_incloud.html"
-      - title: Gestion des utilisateurs Cloud Secure
-        url: "/task_cs_user_management.html"
-      - title: Vérificateur de taux d'événement
-        url: "/concept_cs_event_rate_checker.html"
-    - title: Alertes
-      url: "/cs_alert_data.html"
-    - title: Médecine légale
-      entries:
-      - title: Activités médico-légales - toutes les activités
-        url: "/forensic_activity_history.html"
-      - title: Activités médico-légales - entités
-        url: "/forensic_entity_detail.html"
-      - title: Utilisateurs
-        url: "/forensic_user_overview.html"
-    - title: Stratégies de réponse automatisées
-      url: "/cs_automated_response_policies.html"
-    - title: Restriction de l'accès des utilisateurs
-      url: "/cs_restrict_user_access.html"
-    - title: Simulation d'une attaque par ransomware
-      url: "/concept_cs_attack_simulator.html"
-    - title: Notifications
-      url: "/cs_notifications_email.html"
-    - title: API Cloud Secure
-      url: "/concept_cs_api.html"
-  - title: Active IQ
-    url: "/concept_activeiq.html"
-  - title: Dépannage
+      - title: Démarrage rapide
+        url: "/task-getting-started-gcp.html"
+      - title: Planification de la configuration
+        url: "/task-planning-your-config-gcp.html"
+      - title: Configurez votre réseau
+        url: "/reference-networking-gcp.html"
+      - title: Planifiez les contrôles de service VPC
+        url: "/reference-vpc-service-controls-gcp.html"
+      - title: Créez un compte de service
+        url: "/task-creating-gcp-service-account.html"
+      - title: Utilisez des clés de chiffrement gérées par le client
+        url: "/task-setting-up-gcp-encryption.html"
+      - title: Configuration des licences
+        url: "/task-set-up-licensing-google.html"
+      - title: Lancez Cloud Volumes ONTAP dans Google Cloud
+        url: "/task-deploying-gcp.html"
+      - title: Vérification des images Google Cloud Platform
+        entries:
+        - title: Présentation
+          url: "/concept-gcp-image-verification.html"
+        - title: Convertir l'image au format brut sur GCP
+          url: "/task-gcp-convert-image-raw.html"
+        - title: Vérification de la signature d'image
+          entries:
+          - title: Vérifiez les images signées GCP
+            url: "/concept-gcp-verify-signed-image.html"
+          - title: Vérifiez le contenu à l'aide d'OpenSSL
+            url: "/task-verify-openssl-gcp.html"
+  - title: Utiliser Cloud Volumes ONTAP
     entries:
-    - title: Dépannage général
-      url: "/task_troubleshooting_general_problems.html"
-    - title: Dépannage des problèmes d'unité d'acquisition Linux
-      url: "/task_troubleshooting_linux_acquisition_unit_problems.html"
-    - title: Dépannage des problèmes d'unité d'acquisition Windows
-      url: "/task_troubleshooting_windows_acquisition_unit_problems.html"
-    - title: Recherche d'erreurs du Data Collector
-      url: "/task_research_failed_collector.html"
-  - title: Support de référence
+    - title: Gestion des licences
+      entries:
+      - title: Gestion des licences basées sur la capacité
+        url: "/task-manage-capacity-licenses.html"
+      - title: Gestion des abonnements Keystone
+        url: "/task-manage-keystone.html"
+      - title: Gestion des licences basées sur des nœuds
+        url: "/task-manage-node-licenses.html"
+    - title: Administration des volumes et des LUN
+      entries:
+      - title: Créer des volumes
+        url: "/task-create-volumes.html"
+      - title: Gérer les volumes existants
+        url: "/task-manage-volumes.html"
+      - title: Transférez les données inactives vers le stockage objet
+        url: "/task-tiering.html"
+      - title: Connectez une LUN à un hôte
+        url: "/task-connect-lun.html"
+      - title: Accélérez l'accès aux données avec FlexCache
+        url: "/task-accelerate-data-access.html"
+    - title: Administration d'agrégats
+      entries:
+      - title: Créer des agrégats
+        url: "/task-create-aggregates.html"
+      - title: Gérez les agrégats existants
+        url: "/task-manage-aggregates.html"
+      - title: Gérer les paramètres de capacité
+        url: "/task-manage-capacity-settings.html"
+    - title: Administration des machines virtuelles de stockage
+      entries:
+      - title: Compatible avec les machines virtuelles de stockage dans BlueXP
+        url: "/task-managing-svms.html"
+      - title: Créez des machines virtuelles de stockage dans AWS
+        flavor: aws
+        url: "/task-managing-svms-aws.html"
+      - title: Créez des machines virtuelles de stockage dans Azure
+        flavor: azure
+        url: "/task-managing-svms-azure.html"
+      - title: Création de machines virtuelles de stockage dans Google Cloud
+        flavor: gcp
+        url: "/task-managing-svms-gcp.html"
+      - title: Configuration de la reprise d'activité SVM
+        url: "/task-manage-svm-dr.html"
+    - title: Sécurité et chiffrement des données
+      entries:
+      - title: Chiffrement des volumes avec le chiffrement NetApp
+        url: "/task-encrypting-volumes.html"
+      - title: Gérez les clés avec le service de gestion des clés AWS
+        flavor: aws
+        url: "/task-aws-key-management.html"
+      - title: Gérez les clés avec Azure Key Vault
+        flavor: azure
+        url: "/task-azure-key-vault.html"
+      - title: Gérez les clés via Google Cloud KMS
+        flavor: gcp
+        url: "/task-google-key-manager.html"
+      - title: Améliorez la protection par ransomware
+        url: "/task-protecting-ransomware.html"
+    - title: Administration du système
+      entries:
+      - title: Mettez à niveau Cloud Volumes ONTAP
+        url: "/task-updating-ontap-cloud.html"
+      - title: Enregistrez les systèmes avec paiement à l'utilisation
+        url: "/task-registering.html"
+      - title: Arrêter et démarrer un système
+        url: "/task-managing-state.html"
+      - title: Synchroniser l'heure du système
+        url: "/task-sync-time.html"
+      - title: Modifier la vitesse d'écriture du système
+        url: "/task-modify-write-speed.html"
+      - title: Modifier le mot de passe système
+        url: "/task-change-password.html"
+      - title: Ajouter, supprimer ou supprimer des systèmes
+        entries:
+        - title: Ajouter un système existant
+          url: "/task-adding-systems.html"
+        - title: Supprimez un environnement de travail
+          url: "/task-removing.html"
+        - title: Supprimer un système
+          url: "/task-deleting-working-env.html"
+      - title: Administration AWS
+        flavor: aws
+        entries:
+        - title: Modifiez le type d'instance EC2
+          url: "/task-change-ec2-instance.html"
+        - title: Modifier les tables de routage pour les paires haute disponibilité
+          url: "/task-change-route-tables.html"
+        - title: Configurer la création d'un groupe de placement
+          url: task-configure-placement-group-failure-aws.html
+      - title: Administration d'Azure
+        flavor: azure
+        entries:
+        - title: Modifier le type de machine virtuelle Azure
+          url: "/task-change-azure-vm.html"
+        - title: Remplacement des verrouillages CIFS
+          url: "/task-overriding-cifs-locks.html"
+        - title: Utilisez une liaison privée Azure ou des terminaux de service
+          url: "/task-enabling-private-link.html"
+        - title: Déplacer des groupes de ressources
+          url: "/task-moving-resource-groups-azure.html"
+      - title: Administration Google Cloud
+        flavor: gcp
+        entries:
+        - title: Modifier le type de machine
+          url: "/task-change-gcp-machine.html"
+      - title: Administration depuis System Manager
+        url: "/task-administer-advanced-view.html"
+      - title: Administration depuis l'interface de ligne de commandes
+        url: "/task-connecting-to-otc.html"
+    - title: État de santé du système et événements
+      entries:
+      - title: Vérifiez la configuration de AutoSupport
+        url: "/task-verify-autosupport.html"
+      - title: Configurer EMS
+        url: "/task-configure-ems.html"
+  - title: Concepts
     entries:
-    - title: Demande d'aide
-      url: "/concept_requesting_support.html"
-    - title: Matrice de prise en charge du Data Collector
-      url: "/reference_data_collector_support_matrix.html"
-    - title: Data Collector Reference - Infrastructure
+    - title: Licences
+      url: "/concept-licensing.html"
+    - title: Stockage
       entries:
-      - title: Présentation de référence des fournisseurs
-        url: "/concept_data_collector_reference.html"
-      - title: AWS
-        url: "/task_dc_amazon_ec2.html"
-      - title: Azure
-        url: "/task_dc_ms_azure.html"
-      - title: Broadcom
-        entries:
-        - title: Brocade Network Advisor
-          url: "/task_dc_brocade_bna.html"
-        - title: Commutateur Fibre Channel
-          url: "/task_dc_brocade_fc_switch.html"
-      - title: Cisco
-        url: "/task_dc_cisco_fc_switch.html"
-      - title: Dell
-        entries:
-        - title: Série XC
-          url: "/task_dc_dell_xc_series.html"
-      - title: Dell EMC
-        entries:
-        - title: Data Domain
-          url: "/task_dc_emc_datadomain.html"
-        - title: ECS
-          url: "/task_dc_emc_ecs.html"
-        - title: PowerScale
-          url: "/task_dc_emc_isilon.html"
-        - title: PowerStore
-          url: "/task_dc_emc_powerstore.html"
-        - title: RecoverPoint
-          url: "/task_dc_emc_recoverpoint.html"
-        - title: ScaleIO
-          url: "/task_dc_emc_scaleio.html"
-        - title: Unity (VNXe)
-          url: "/task_dc_emc_unity.html"
-        - title: VMAX/PowerMax
-          url: "/task_dc_emc_vmax_powermax.html"
-        - title: VNX Block (CLARiiON)
-          url: "/task_dc_emc_vnx_block.html"
-        - title: VNX File (Celerra)
-          url: "/task_dc_emc_vnx_file.html"
-        - title: VNX Unified
-          url: "/task_dc_emc_vnx_unified.html"
-        - title: VPLEX
-          url: "/task_dc_emc_vplex.html"
-        - title: XtremIO
-          url: "/task_dc_emc_xio.html"
-      - title: Fujitsu
-        url: "/task_dc_fujitsu_eternus.html"
-      - title: Google
-        url: "/task_dc_google_cloud.html"
-      - title: HP Enterprise
-        entries:
-        - title: HP Alletra 9000 et Primera
-          url: "/task_dc_hp_3par.html"
-        - title: AE HP Command View
-          url: "/task_dc_hpe_commandview.html"
-        - title: HPE Alletra 6000
-          url: "/task_dc_hpe_nimble.html"
-      - title: Hitachi Data Systems
-        entries:
-        - title: HDS Command Suite
-          url: "/task_dc_hds_commandsuite.html"
-        - title: HDS HNAS
-          url: "/task_dc_hds_nas.html"
-        - title: HDS Ops Center
-          url: "/task_dc_hds_ops_center.html"
-      - title: Infinidat
-        url: "/task_dc_infinidat_infinibox.html"
-      - title: Huawei
-        url: "/task_dc_huawei_oceanstor.html"
-      - title: IBM
-        entries:
-        - title: Cleversafe
-          url: "/task_dc_ibm_cleversafe.html"
-        - title: Gamme CS
-          url: "/task_dc_ibm_cs.html"
-        - title: Systèmes de stockage DS8000
-          url: "/task_dc_ibm_ds.html"
-        - title: PowerVM
-          url: "/task_dc_ibm_powervm.html"
-        - title: Contrôleur de volume SAN (SVC)
-          url: "/task_dc_ibm_svc.html"
-        - title: XIV/A9000
-          url: "/task_dc_ibm_xiv.html"
-      - title: Lenovo
-        url: "/task_dc_lenovo.html"
-      - title: Microsoft
-        entries:
-        - title: Azure NetApp Files
-          url: "/task_dc_ms_anf.html"
-        - title: Hyper-V
-          url: "/task_dc_ms_hyperv.html"
-      - title: NetApp
-        entries:
-        - title: Magasin de données Astra
-          url: "/task_dc_na_astra_data_store.html"
-        - title: Connexion cloud pour ONTAP 9.9+
-          url: "/task_dc_na_cloud_connection.html"
-        - title: Cloud Volumes ONTAP
-          url: "/task_dc_na_cloud_volumes_ontap.html"
-        - title: Cloud volumes Services pour AWS
-          url: "/task_dc_na_cloud_volumes.html"
-        - title: Logiciel de gestion des données ONTAP
-          url: "/task_dc_na_cdot.html"
-        - title: Data ONTAP 7-mode
-          url: "/task_dc_na_7mode.html"
-        - title: E-Series
-          url: "/task_dc_na_eseries.html"
-        - title: Serveur de gestion NetApp HCI
-          url: "/task_dc_na_hci.html"
-        - title: SolidFire
-          url: "/task_dc_na_solidfire.html"
-        - title: StorageGRID
-          url: "/task_dc_na_storagegrid.html"
-      - title: Nutanix
-        url: "/task_dc_nutanix.html"
-      - title: OpenStack
-        url: "/task_dc_openstack.html"
-      - title: Oracle
-        url: "/task_dc_oracle_zfs.html"
-      - title: Pure
-        url: "/task_dc_pure_flasharray.html"
-      - title: Red Hat
-        url: "/task_dc_redhat_virtualization.html"
-      - title: VMware
-        url: "/task_dc_vmware.html"
-    - title: Data Collector Reference - Services
+      - title: Protocoles clients
+        url: "/concept-client-protocols.html"
+      - title: Disques et agrégats
+        url: "/concept-storage.html"
+      - title: Volumes flexibles dans AWS
+        flavor: aws
+        url: "/concept-aws-elastic-volumes.html"
+      - title: Tiering des données
+        url: "/concept-data-tiering.html"
+      - title: Gestion du stockage
+        url: "/concept-storage-management.html"
+      - title: Vitesse d'écriture
+        url: "/concept-write-speed.html"
+      - title: Flash cache
+        url: "/concept-flash-cache.html"
+      - title: Stockage WORM
+        url: "/concept-worm.html"
+    - title: Paires haute disponibilité
       entries:
-      - title: Hôte/nœud
-        url: "/task_config_telegraf_node.html"
-      - title: ActiveMQ
-        url: "/task_config_telegraf_activemq.html"
-      - title: Apache
-        url: "/task_config_telegraf_apache.html"
-      - title: Consul
-        url: "/task_config_telegraf_consul.html"
-      - title: Couchbase
-        url: "/task_config_telegraf_couchbase.html"
-      - title: CouchDB
-        url: "/task_config_telegraf_couchdb.html"
-      - title: Docker
-        url: "/task_config_telegraf_docker.html"
-      - title: ElasticSearch
-        url: "/task_config_telegraf_elasticsearch.html"
-      - title: Encre
-        url: "/task_config_telegraf_flink.html"
-      - title: Hadoop
-        url: "/task_config_telegraf_hadoop.html"
-      - title: HABProxy
-        url: "/task_config_telegraf_haproxy.html"
-      - title: Java
-        url: "/task_config_telegraf_jvm.html"
-      - title: Kafka
-        url: "/task_config_telegraf_kafka.html"
-      - title: Kapacitor
-        url: task_config_telegraf_kapacitor.html
-      - title: Kibana
-        url: "/task_config_telegraf_kibana.html"
-      - title: Kubernetes
-        url: "/task_config_telegraf_agent.html#kubernetes"
-      - title: Mise en mémoire cache
-        url: "/task_config_telegraf_memcached.html"
-      - title: MongoDB
-        url: "/task_config_telegraf_mongodb.html"
-      - title: MySQL
-        url: "/task_config_telegraf_mysql.html"
-      - title: Netstat
-        url: "/task_config_telegraf_netstat.html"
-      - title: Nginx
-        url: "/task_config_telegraf_nginx.html"
-      - title: OpenZFS
-        url: task_config_telegraf_openzfs.html
-      - title: PostgreSQL
-        url: "/task_config_telegraf_postgresql.html"
-      - title: Puppet
-        url: "/task_config_telegraf_puppetagent.html"
-      - title: Redis
-        url: "/task_config_telegraf_redis.html"
-      - title: RethinkDB
-        url: task_config_telegraf_rethinkdb.html
-      - title: Zookeeper
-        url: task_config_telegraf_zookeeper.html
-    - title: Référence de l'icône d'objet
-      url: "/reference_object_icons.html"
+      - title: Paires HA dans AWS
+        flavor: aws
+        url: "/concept-ha.html"
+      - title: Paires HA dans Azure
+        flavor: azure
+        url: "/concept-ha-azure.html"
+      - title: Paires HAUTE DISPONIBILITÉ dans GCP
+        flavor: gcp
+        url: "/concept-ha-google-cloud.html"
+      - title: Actions lors de l'acquisition du stockage
+        url: "/concept-degraded-ha-pair.html"
+    - title: Sécurité
+      url: "/concept-security.html"
+    - title: Performance
+      url: "/concept-performance.html"
+    - title: Gestion du modèle BYOL basé sur des nœuds
+      url: "/concept-license-management.html"
+    - title: Conseiller digital AutoSupport et Active IQ
+      url: "/concept-active-iq.html"
+    - title: Configurations par défaut
+      url: "/reference-default-configs.html"
+  - title: Connaissances et support
+    entries:
+    - title: S'inscrire pour obtenir de l'aide
+      url: "/task-support-registration.html"
+    - title: Obtenez de l'aide
+      url: "/task-get-help.html"
   - title: Mentions légales
-    url: "/reference_legal_notices.html"
+    url: "/legal-notices.html"
+product-family:
+  name: BlueXP
+  repo: bluexp-family
+  sidebar_label: Toute la documentation BlueXP

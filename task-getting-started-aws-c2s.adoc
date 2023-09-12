@@ -1,0 +1,662 @@
+---
+sidebar: sidebar 
+permalink: task-getting-started-aws-c2s.html 
+keywords: commercial cloud services, c2s, secret region, aws secret region, cloud manager, BlueXP 
+summary: 'Comme pour une région AWS standard, vous pouvez utiliser BlueXP dans l"environnement C2S (AWS commercial Cloud Services) pour déployer Cloud Volumes ONTAP, qui fournit des fonctionnalités haute performance pour votre stockage cloud. AWS C2S est une région fermée spécifique aux États-Unis Intelligence Community : les instructions de cette page s"appliquent uniquement aux utilisateurs de la région AWS C2S.' 
+---
+= Commencez à utiliser Cloud Volumes ONTAP dans l'environnement AWS C2S
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+À l'instar d'une région AWS standard, vous pouvez utiliser Cloud Manager dans le link:https://aws.amazon.com/federal/us-intelligence-community/["AWS commercial Cloud Services (C2S)"^] Environnement à déployer Cloud Volumes ONTAP, qui fournit des fonctionnalités de grande qualité pour votre stockage cloud. AWS C2S est une région fermée spécifique aux États-Unis Intelligence Community : les instructions de cette page s'appliquent uniquement aux utilisateurs de la région AWS C2S.
+
+
+
+== Versions prises en charge dans C2S
+
+* Cloud Volumes ONTAP 9.8 est pris en charge
+* La version 3.9.4 du connecteur est prise en charge
++
+Il s'agit du logiciel requis pour déployer et gérer Cloud Volumes ONTAP dans AWS. Vous allez vous connecter à Cloud Manager à partir du logiciel installé sur l'instance de connecteur. Le site Web SaaS pour Cloud Manager n'est pas pris en charge dans l'environnement C2S.
+
+
+
+
+NOTE: Cloud Manager a été récemment renommé BlueXP, mais nous continuons à le qualifier de Cloud Manager dans C2S, car l'interface utilisateur incluse dans la version 3.9.4 du connecteur est toujours appelée Cloud Manager.
+
+
+
+== Fonctions prises en charge dans C2S
+
+Cloud Manager inclut les fonctionnalités suivantes dans l'environnement C2S :
+
+* Cloud Volumes ONTAP
+* Réplication des données
+* Un calendrier pour l'audit
+
+
+Pour Cloud Volumes ONTAP, vous pouvez créer un système à un seul nœud ou une paire HA. Ces deux options de licence sont disponibles : paiement à l'utilisation et BYOL (Bring Your Own License).
+
+Le Tiering des données vers S3 est également pris en charge par Cloud Volumes ONTAP dans C2S.
+
+
+
+== Limites
+
+* Aucun des services cloud de NetApp n'est disponible dans Cloud Manager.
+* Comme il n'y a pas d'accès à Internet dans l'environnement C2S, les fonctions suivantes ne sont pas disponibles :
++
+** Mises à niveau logicielles automatisées depuis Cloud Manager
+** NetApp AutoSupport
+** Informations sur les coûts AWS pour les ressources Cloud Volumes ONTAP
+
+
+* Les licences Freemium ne sont pas prises en charge dans l'environnement C2S.
+
+
+
+
+== Présentation du déploiement
+
+La mise en route de Cloud Volumes ONTAP dans C2S comprend quelques étapes.
+
+. <<Préparation de votre environnement AWS>>
++
+Vous pouvez notamment configurer la mise en réseau, vous abonner à Cloud Volumes ONTAP, configurer des autorisations et éventuellement configurer le KMS AWS.
+
+. <<Installation du connecteur et configuration de Cloud Manager>>
++
+Avant de pouvoir commencer à utiliser Cloud Manager pour déployer Cloud Volumes ONTAP, vous devez créer un _Connector_. Ce connecteur permet à Cloud Manager de gérer les ressources et les processus au sein de votre environnement de cloud public (y compris Cloud Volumes ONTAP).
+
++
+Vous allez vous connecter à Cloud Manager à partir du logiciel installé sur l'instance de connecteur.
+
+. <<Lancement de Cloud Volumes ONTAP à partir de Cloud Manager>>
+
+
+Chacune de ces étapes est décrite ci-dessous.
+
+
+
+== Préparation de votre environnement AWS
+
+Votre environnement AWS doit répondre à quelques exigences.
+
+
+
+=== Configurez votre réseau
+
+Configurez votre réseau AWS pour que Cloud Volumes ONTAP puisse fonctionner correctement.
+
+.Étapes
+. Choisissez le VPC et les sous-réseaux dans lesquels vous souhaitez lancer l'instance de connecteur et les instances Cloud Volumes ONTAP.
+. Vérifiez que votre VPC et vos sous-réseaux prennent en charge la connectivité entre le connecteur et Cloud Volumes ONTAP.
+. Configurez un terminal VPC sur le service S3.
++
+Un point de terminaison VPC est requis si vous souhaitez transférer des données à froid de Cloud Volumes ONTAP vers un stockage objet économique.
+
+
+
+
+
+=== Abonnez-vous à Cloud Volumes ONTAP
+
+Un abonnement Marketplace est nécessaire pour déployer Cloud Volumes ONTAP depuis Cloud Manager.
+
+.Étapes
+. Accédez au Marketplace de la communauté AWS Intelligence et recherchez Cloud Volumes ONTAP.
+. Sélectionnez l'offre que vous prévoyez de déployer.
+. Vérifiez les termes et cliquez sur *Accept*.
+. Répétez ces étapes pour les autres offres si vous prévoyez de les déployer.
++
+Vous devez utiliser Cloud Manager pour lancer les instances Cloud Volumes ONTAP. Vous ne devez pas lancer des instances Cloud Volumes ONTAP à partir de la console EC2.
+
+
+
+
+
+=== Configurez les autorisations
+
+Définissez des règles et des rôles IAM qui fournissent au connecteur et à Cloud Volumes ONTAP les autorisations nécessaires pour effectuer des actions dans l'environnement des services cloud AWS commerciaux.
+
+Vous avez besoin d'une politique IAM et d'un rôle IAM pour chacun des éléments suivants :
+
+* L'instance de connecteur
+* Instances Cloud Volumes ONTAP
+* L'instance de médiateur Cloud Volumes ONTAP HA (si vous souhaitez déployer des paires HA)
+
+
+.Étapes
+. Accédez à la console IAM AWS et cliquez sur *Policies*.
+. Créez une stratégie pour l'instance de connecteur.
++
+[source, json]
+----
+{
+    "Version": "2012-10-17",
+    "Statement": [{
+            "Effect": "Allow",
+            "Action": [
+                "ec2:DescribeInstances",
+                "ec2:DescribeInstanceStatus",
+                "ec2:RunInstances",
+                "ec2:ModifyInstanceAttribute",
+                "ec2:DescribeRouteTables",
+                "ec2:DescribeImages",
+                "ec2:CreateTags",
+                "ec2:CreateVolume",
+                "ec2:DescribeVolumes",
+                "ec2:ModifyVolumeAttribute",
+                "ec2:DeleteVolume",
+                "ec2:CreateSecurityGroup",
+                "ec2:DeleteSecurityGroup",
+                "ec2:DescribeSecurityGroups",
+                "ec2:RevokeSecurityGroupEgress",
+                "ec2:RevokeSecurityGroupIngress",
+                "ec2:AuthorizeSecurityGroupEgress",
+                "ec2:AuthorizeSecurityGroupIngress",
+                "ec2:CreateNetworkInterface",
+                "ec2:DescribeNetworkInterfaces",
+                "ec2:DeleteNetworkInterface",
+                "ec2:ModifyNetworkInterfaceAttribute",
+                "ec2:DescribeSubnets",
+                "ec2:DescribeVpcs",
+                "ec2:DescribeDhcpOptions",
+                "ec2:CreateSnapshot",
+                "ec2:DeleteSnapshot",
+                "ec2:DescribeSnapshots",
+                "ec2:GetConsoleOutput",
+                "ec2:DescribeKeyPairs",
+                "ec2:DescribeRegions",
+                "ec2:DeleteTags",
+                "ec2:DescribeTags",
+                "cloudformation:CreateStack",
+                "cloudformation:DeleteStack",
+                "cloudformation:DescribeStacks",
+                "cloudformation:DescribeStackEvents",
+                "cloudformation:ValidateTemplate",
+                "iam:PassRole",
+                "iam:CreateRole",
+                "iam:DeleteRole",
+                "iam:PutRolePolicy",
+                "iam:ListInstanceProfiles",
+                "iam:CreateInstanceProfile",
+                "iam:DeleteRolePolicy",
+                "iam:AddRoleToInstanceProfile",
+                "iam:RemoveRoleFromInstanceProfile",
+                "iam:DeleteInstanceProfile",
+                "s3:GetObject",
+                "s3:ListBucket",
+                "s3:GetBucketTagging",
+                "s3:GetBucketLocation",
+                "s3:ListAllMyBuckets",
+                "kms:List*",
+                "kms:Describe*",
+                "ec2:AssociateIamInstanceProfile",
+                "ec2:DescribeIamInstanceProfileAssociations",
+                "ec2:DisassociateIamInstanceProfile",
+                "ec2:DescribeInstanceAttribute",
+                "ec2:CreatePlacementGroup",
+                "ec2:DeletePlacementGroup"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "fabricPoolPolicy",
+            "Effect": "Allow",
+            "Action": [
+                "s3:DeleteBucket",
+                "s3:GetLifecycleConfiguration",
+                "s3:PutLifecycleConfiguration",
+                "s3:PutBucketTagging",
+                "s3:ListBucketVersions"
+            ],
+            "Resource": [
+                "arn:aws-iso:s3:::fabric-pool*"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "ec2:StartInstances",
+                "ec2:StopInstances",
+                "ec2:TerminateInstances",
+                "ec2:AttachVolume",
+                "ec2:DetachVolume"
+            ],
+            "Condition": {
+                "StringLike": {
+                    "ec2:ResourceTag/WorkingEnvironment": "*"
+                }
+            },
+            "Resource": [
+                "arn:aws-iso:ec2:*:*:instance/*"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "ec2:AttachVolume",
+                "ec2:DetachVolume"
+            ],
+            "Resource": [
+                "arn:aws-iso:ec2:*:*:volume/*"
+            ]
+        }
+    ]
+}
+----
+. Création d'une policy pour Cloud Volumes ONTAP.
++
+[source, json]
+----
+{
+    "Version": "2012-10-17",
+    "Statement": [{
+        "Action": "s3:ListAllMyBuckets",
+        "Resource": "arn:aws-iso:s3:::*",
+        "Effect": "Allow"
+    }, {
+        "Action": [
+            "s3:ListBucket",
+            "s3:GetBucketLocation"
+        ],
+        "Resource": "arn:aws-iso:s3:::fabric-pool-*",
+        "Effect": "Allow"
+    }, {
+        "Action": [
+            "s3:GetObject",
+            "s3:PutObject",
+            "s3:DeleteObject"
+        ],
+        "Resource": "arn:aws-iso:s3:::fabric-pool-*",
+        "Effect": "Allow"
+    }]
+}
+----
+. Si vous prévoyez de déployer une paire Cloud Volumes ONTAP HA, créez une règle pour le médiateur haute disponibilité.
++
+[source, json]
+----
+{
+	"Version": "2012-10-17",
+	"Statement": [{
+			"Effect": "Allow",
+			"Action": [
+				"ec2:AssignPrivateIpAddresses",
+				"ec2:CreateRoute",
+				"ec2:DeleteRoute",
+				"ec2:DescribeNetworkInterfaces",
+				"ec2:DescribeRouteTables",
+				"ec2:DescribeVpcs",
+				"ec2:ReplaceRoute",
+				"ec2:UnassignPrivateIpAddresses"
+			],
+			"Resource": "*"
+		}
+	]
+}
+----
+. Créez des rôles IAM avec le type de rôle Amazon EC2 et associez les règles créées aux étapes précédentes.
++
+De la même manière que les règles, vous devez avoir un rôle IAM pour le connecteur, un pour les nœuds Cloud Volumes ONTAP et un pour le médiateur HA (si vous souhaitez déployer des paires HA).
+
++
+Vous devez sélectionner le rôle IAM de connecteur lorsque vous lancez l'instance de connecteur.
+
++
+Vous pouvez sélectionner les rôles IAM pour Cloud Volumes ONTAP et le médiateur HA lorsque vous créez un environnement de travail Cloud Volumes ONTAP à partir de Cloud Manager.
+
+
+
+
+
+=== Configuration du KMS AWS
+
+Si vous souhaitez utiliser le chiffrement Amazon avec Cloud Volumes ONTAP, assurez-vous que les exigences du service de gestion des clés AWS sont respectées.
+
+.Étapes
+. Assurez-vous qu'une clé maître client (CMK) active existe dans votre compte ou dans un autre compte AWS.
++
+La CMK peut être une CMK gérée par AWS ou une CMK gérée par le client.
+
+. Si le CMK se trouve dans un compte AWS séparé du compte sur lequel vous prévoyez de déployer Cloud Volumes ONTAP, vous devez obtenir l'ARN de cette clé.
++
+Vous devrez fournir l'ARN dans Cloud Manager lors de la création du système Cloud Volumes ONTAP.
+
+. Ajoutez le rôle IAM de l'instance de connecteur à la liste des utilisateurs clés d'un CMK.
++
+Cela permet à Cloud Manager d'utiliser le CMK avec Cloud Volumes ONTAP.
+
+
+
+
+
+== Installation du connecteur et configuration de Cloud Manager
+
+Avant de lancer des systèmes Cloud Volumes ONTAP dans AWS, vous devez d'abord lancer l'instance de connecteur à partir d'AWS Marketplace, puis vous connecter et configurer Cloud Manager.
+
+.Étapes
+. Obtenir un certificat racine signé par une autorité de certification (CA) au format X.509 encodé base-64 de Privacy Enhanced Mail (PEM). Consultez les politiques et procédures de votre organisation pour obtenir le certificat.
++
+Vous devrez télécharger le certificat pendant le processus d'installation. Cloud Manager utilise le certificat de confiance pour l'envoi de demandes vers AWS sur HTTPS.
+
+. Lancez l'instance de connecteur :
++
+.. Accédez à la page AWS Intelligence Community Marketplace pour Cloud Manager.
+.. Dans l'onglet Custom Launch, sélectionnez l'option de lancement de l'instance à partir de la console EC2.
+.. Suivez les invites pour configurer l'instance.
++
+Notez les éléments suivants lors de la configuration de l'instance :
+
++
+*** Nous recommandons une instance t3.XLarge.
+*** Vous devez choisir le rôle IAM que vous avez créé lors de la préparation de votre environnement AWS.
+*** Vous devez conserver les options de stockage par défaut.
+*** Les méthodes de connexion requises pour le connecteur sont les suivantes : SSH, HTTP et HTTPS.
+
+
+
+
+. Configurez Cloud Manager à partir d'un hôte connecté à l'instance de connecteur :
++
+.. Ouvrez un navigateur Web et entrez https://_ipaddress_[] Où _ipaddress_ est l'adresse IP de l'hôte Linux où vous avez installé le connecteur.
+.. Spécifiez un serveur proxy pour la connectivité aux services AWS.
+.. Téléchargez le certificat que vous avez obtenu à l'étape 1.
+.. Suivez les étapes de l'assistant d'installation pour configurer Cloud Manager.
++
+*** *Détails du système* : saisissez un nom pour cette instance de Cloud Manager et indiquez le nom de votre entreprise.
+*** *Créer un utilisateur* : créez l'utilisateur Admin que vous utiliserez pour administrer Cloud Manager.
+*** *Revue* : passez en revue les détails et approuvez le contrat de licence de l'utilisateur final.
+
+
+.. Pour terminer l'installation du certificat signé par l'autorité de certification, redémarrez l'instance de connecteur à partir de la console EC2.
+
+
+. Une fois le connecteur redémarré, connectez-vous à l'aide du compte utilisateur administrateur que vous avez créé dans l'assistant de configuration.
+
+
+
+
+== Lancement de Cloud Volumes ONTAP à partir de Cloud Manager
+
+Vous pouvez lancer des instances Cloud Volumes ONTAP dans l'environnement AWS commercial Cloud Services en créant de nouveaux environnements de travail dans Cloud Manager.
+
+.Ce dont vous avez besoin
+* Si vous avez acheté une licence, vous devez disposer du fichier de licence que vous avez reçu de NetApp. Le fichier de licence est un fichier .NLF au format JSON.
+* Une paire de clés est requise pour activer l'authentification SSH basée sur des clés au médiateur HA.
+
+
+.Étapes
+. Sur la page environnements de travail, cliquez sur *Ajouter un environnement de travail*.
+. Sous Créer, sélectionnez Cloud Volumes ONTAP ou Cloud Volumes ONTAP HA.
+. Suivez les étapes de l'assistant pour lancer le système Cloud Volumes ONTAP.
++
+Notez les éléments suivants lorsque vous terminez l'assistant :
+
++
+** Si vous souhaitez déployer Cloud Volumes ONTAP HA dans plusieurs zones de disponibilité, déployez la configuration comme suit, car seuls deux AZS étaient disponibles dans l'environnement AWS commercial Cloud Services au moment de la publication :
++
+*** Nœud 1 : zone de disponibilité A
+*** Nœud 2 : zone de disponibilité B
+*** Médiateur : zone de disponibilité A ou B
+
+
+** Vous devez laisser l'option par défaut pour utiliser un groupe de sécurité généré.
++
+Le groupe de sécurité prédéfini comprend les règles dont Cloud Volumes ONTAP a besoin pour fonctionner correctement. Si vous avez besoin d'utiliser votre propre, vous pouvez vous reporter à la section du groupe de sécurité ci-dessous.
+
+** Vous devez choisir le rôle IAM que vous avez créé lors de la préparation de votre environnement AWS.
+** Le type de disque AWS sous-jacent concerne le volume Cloud Volumes ONTAP initial.
++
+Vous pouvez choisir un autre type de disque pour les volumes suivants.
+
+** Les performances des disques AWS sont liées à la taille des disques.
++
+Choisissez la taille qui offre les performances dont vous avez besoin. Pour plus d'informations sur les performances d'EBS, consultez la documentation AWS.
+
+** La taille du disque est la taille par défaut de tous les disques du système.
++
+
+NOTE: Si vous avez besoin d'une taille différente par la suite, vous pouvez utiliser l'option d'allocation avancée pour créer un agrégat qui utilise des disques d'une taille spécifique.
+
+** Les fonctionnalités d'efficacité du stockage améliorent l'utilisation du stockage et réduisent la quantité totale de stockage nécessaire.
+
+
+
+
+.Résultat
+Cloud Manager lance l'instance Cloud Volumes ONTAP. Vous pouvez suivre la progression dans la chronologie.
+
+
+
+== Règles de groupe de sécurité
+
+Cloud Manager crée des groupes de sécurité comprenant les règles entrantes et sortantes que Cloud Manager et Cloud Volumes ONTAP doivent fonctionner avec succès dans le cloud. Vous pouvez consulter les ports à des fins de test ou si vous préférez utiliser vos propres groupes de sécurité.
+
+
+
+=== Groupe de sécurité du connecteur
+
+Le groupe de sécurité du connecteur nécessite à la fois des règles entrantes et sortantes.
+
+
+
+==== Règles entrantes
+
+[cols="10,10,80"]
+|===
+| Protocole | Port | Objectif 
+
+
+| SSH | 22 | Fournit un accès SSH à l'hôte du connecteur 
+
+
+| HTTP | 80 | Fournit un accès HTTP à partir des navigateurs Web du client vers l'interface utilisateur locale 
+
+
+| HTTPS | 443 | Fournit un accès HTTPS à l'interface utilisateur locale à partir des navigateurs Web clients 
+|===
+
+
+==== Règles de sortie
+
+Le groupe de sécurité prédéfini pour le connecteur inclut les règles de trafic sortant suivantes.
+
+[cols="20,20,60"]
+|===
+| Protocole | Port | Objectif 
+
+
+| Tous les protocoles TCP | Tout | Tout le trafic sortant 
+
+
+| Tous UDP | Tout | Tout le trafic sortant 
+|===
+
+
+=== Groupe de sécurité pour Cloud Volumes ONTAP
+
+Le groupe de sécurité des nœuds Cloud Volumes ONTAP nécessite à la fois des règles entrantes et sortantes.
+
+
+
+==== Règles entrantes
+
+Lorsque vous créez un environnement de travail et choisissez un groupe de sécurité prédéfini, vous pouvez choisir d'autoriser le trafic dans l'un des éléments suivants :
+
+* *VPC sélectionné uniquement* : la source du trafic entrant est la plage de sous-réseau du VPC pour le système Cloud Volumes ONTAP et la plage de sous-réseau du VPC où réside le connecteur. Il s'agit de l'option recommandée.
+* *Tous les VPC* : la source du trafic entrant est la plage IP 0.0.0.0/0.
+
+
+[cols="10,10,80"]
+|===
+| Protocole | Port | Objectif 
+
+
+| Tous les protocoles ICMP | Tout | Envoi d'une requête ping à l'instance 
+
+
+| HTTP | 80 | Accès HTTP à la console Web System Manager à l'aide de l'adresse IP du LIF de gestion de cluster 
+
+
+| HTTPS | 443 | Accès HTTPS à la console Web System Manager via l'adresse IP du LIF de cluster management 
+
+
+| SSH | 22 | Accès SSH à l'adresse IP du LIF de gestion de cluster ou d'un LIF de gestion de nœud 
+
+
+| TCP | 111 | Appel de procédure à distance pour NFS 
+
+
+| TCP | 139 | Session de service NetBIOS pour CIFS 
+
+
+| TCP | 161-162 | Protocole de gestion de réseau simple 
+
+
+| TCP | 445 | Microsoft SMB/CIFS sur TCP avec encadrement NetBIOS 
+
+
+| TCP | 658 | Montage NFS 
+
+
+| TCP | 749 | Kerberos 
+
+
+| TCP | 2049 | Démon du serveur NFS 
+
+
+| TCP | 3260 | Accès iSCSI via le LIF de données iSCSI 
+
+
+| TCP | 4045 | Démon de verrouillage NFS 
+
+
+| TCP | 4046 | Surveillance de l'état du réseau pour NFS 
+
+
+| TCP | 10000 | Sauvegarde avec NDMP 
+
+
+| TCP | 11104 | Gestion des sessions de communication intercluster pour SnapMirror 
+
+
+| TCP | 11105 | Transfert de données SnapMirror à l'aide de LIF intercluster 
+
+
+| UDP | 111 | Appel de procédure à distance pour NFS 
+
+
+| UDP | 161-162 | Protocole de gestion de réseau simple 
+
+
+| UDP | 658 | Montage NFS 
+
+
+| UDP | 2049 | Démon du serveur NFS 
+
+
+| UDP | 4045 | Démon de verrouillage NFS 
+
+
+| UDP | 4046 | Surveillance de l'état du réseau pour NFS 
+
+
+| UDP | 4049 | Protocole NFS rquotad 
+|===
+
+
+==== Règles de sortie
+
+Le groupe de sécurité prédéfini pour Cloud Volumes ONTAP inclut les règles de sortie suivantes.
+
+[cols="20,20,60"]
+|===
+| Protocole | Port | Objectif 
+
+
+| Tous les protocoles ICMP | Tout | Tout le trafic sortant 
+
+
+| Tous les protocoles TCP | Tout | Tout le trafic sortant 
+
+
+| Tous UDP | Tout | Tout le trafic sortant 
+|===
+
+
+=== Groupe de sécurité externe pour le médiateur HA
+
+Le groupe de sécurité externe prédéfini pour le médiateur Cloud Volumes ONTAP HA inclut les règles entrantes et sortantes suivantes.
+
+
+
+==== Règles entrantes
+
+La source des règles entrantes est le trafic du VPC où réside le connecteur.
+
+[cols="20,20,60"]
+|===
+| Protocole | Port | Objectif 
+
+
+| SSH | 22 | Connexions SSH au médiateur haute disponibilité 
+
+
+| TCP | 3000 | Accès à l'API RESTful depuis le connecteur 
+|===
+
+
+==== Règles de sortie
+
+Le groupe de sécurité prédéfini du médiateur HA inclut les règles de sortie suivantes.
+
+[cols="20,20,60"]
+|===
+| Protocole | Port | Objectif 
+
+
+| Tous les protocoles TCP | Tout | Tout le trafic sortant 
+
+
+| Tous UDP | Tout | Tout le trafic sortant 
+|===
+
+
+=== Groupe de sécurité interne du médiateur HA
+
+Le groupe de sécurité interne prédéfini pour le médiateur Cloud Volumes ONTAP HA inclut les règles suivantes. Cloud Manager crée toujours ce groupe de sécurité. Vous n'avez pas la possibilité d'utiliser votre propre.
+
+
+
+==== Règles entrantes
+
+Le groupe de sécurité prédéfini inclut les règles entrantes suivantes.
+
+[cols="20,20,60"]
+|===
+| Protocole | Port | Objectif 
+
+
+| Tout le trafic | Tout | Communication entre le médiateur HA et les nœuds HA 
+|===
+
+
+==== Règles de sortie
+
+Le groupe de sécurité prédéfini inclut les règles de sortie suivantes.
+
+[cols="20,20,60"]
+|===
+| Protocole | Port | Objectif 
+
+
+| Tout le trafic | Tout | Communication entre le médiateur HA et les nœuds HA 
+|===

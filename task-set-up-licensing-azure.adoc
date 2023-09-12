@@ -1,0 +1,174 @@
+---
+sidebar: sidebar 
+permalink: task-set-up-licensing-azure.html 
+keywords: freemium, professional, essentials, licensing, licenses, cloud volumes ontap charging, cloud volumes ontap licenses, cloud volumes ontap licensing, cvo licenses, cvo licensing, byol, bring your own license, paygo, pay as you go, keystone flex, keystone, digital wallet 
+summary: 'Après avoir décidé de l"option de licence à utiliser pour Cloud Volumes ONTAP, quelques étapes sont nécessaires avant de choisir cette option de licence lors du déploiement d"un nouveau système.' 
+---
+= Configuration des licences pour Cloud Volumes ONTAP dans Azure
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Après avoir décidé de l'option de licence que vous souhaitez utiliser avec Cloud Volumes ONTAP, quelques étapes sont nécessaires avant de pouvoir choisir cette option de licence lors de la création d'un nouvel environnement de travail.
+
+
+
+== Fréemium
+
+Sélectionnez l'offre « Freemium » pour utiliser Cloud Volumes ONTAP gratuitement et bénéficier d'une capacité provisionnée de 500 Gio. link:https://docs.netapp.com/us-en/bluexp-cloud-volumes-ontap/concept-licensing.html#packages["En savoir plus sur l'offre Freemium"^].
+
+.Étapes
+. Dans le menu de navigation de gauche, sélectionnez *stockage > Canvas*.
+. Sur la page Canvas, cliquez sur *Ajouter un environnement de travail* et suivez les étapes de BlueXP.
++
+.. Sur la page *Détails et informations d'identification*, cliquez sur *Modifier les informations d'identification > Ajouter un abonnement*, puis suivez les invites pour vous abonner à l'offre de paiement basé sur l'utilisation dans Azure Marketplace.
++
+Vous ne serez pas facturé via l'abonnement Marketplace sauf si vous dépassez votre capacité provisionnée de 500 Gio, à l'heure où le système est automatiquement converti en link:https://docs.netapp.com/us-en/bluexp-cloud-volumes-ontap/concept-licensing.html#capacity-based-licensing["Pack Essentials"^].
+
++
+image:screenshot-azure-paygo-subscription.png["Capture d'écran de l'option d'abonnement PAYGO lors de la création d'un environnement de travail Cloud Volumes ONTAP."]
+
+.. Après votre retour à BlueXP, sélectionnez *Freemium* lorsque vous atteignez la page méthodes de charge.
++
+image:screenshot-freemium.png["Capture d'écran de l'option Freemium lors de la création d'un environnement de travail Cloud Volumes ONTAP."]
+
+
+
+
+
+link:task-deploying-otc-azure.html["Consultez des instructions détaillées pour lancer Cloud Volumes ONTAP dans Azure"].
+
+
+
+== Licence basée sur la capacité
+
+La licence basée sur la capacité vous permet de payer pour le Cloud Volumes ONTAP par Tio de capacité. Une licence basée sur la capacité est disponible sous la forme d'un _package_ : le package Essentials ou le pack Professional.
+
+Les packs Essentials et Professional sont disponibles avec les modèles de consommation suivants :
+
+* Licence (BYOL) achetée auprès de NetApp
+* Un abonnement à l'heure avec paiement à l'utilisation (PAYGO) à partir d'Azure Marketplace
+* Un contrat annuel
+
+
+link:concept-licensing.html["En savoir plus sur les licences basées sur la capacité"].
+
+Les sections suivantes expliquent comment commencer avec chacun de ces modèles de consommation.
+
+
+
+=== BYOL
+
+Payez l'achat initial d'une licence (BYOL) auprès de NetApp pour le déploiement des systèmes Cloud Volumes ONTAP, quel que soit le fournisseur de cloud.
+
+.Étapes
+. https://cloud.netapp.com/contact-cds["Contactez l'équipe commerciale de NetApp pour obtenir une licence"^]
+. https://docs.netapp.com/us-en/bluexp-setup-admin/task-adding-nss-accounts.html#add-an-nss-account["Ajoutez votre compte sur le site de support NetApp à BlueXP"^]
++
+BlueXP interroge automatiquement le service des licences NetApp pour obtenir des informations sur les licences associées à votre compte sur le site de support NetApp. S'il n'y a pas d'erreur, BlueXP ajoute automatiquement les licences au portefeuille digital.
+
++
+Votre licence doit être disponible auprès du portefeuille digital BlueXP avant que vous ne puissiez l'utiliser avec Cloud Volumes ONTAP. Si nécessaire, vous pouvez link:task-manage-capacity-licenses.html#add-purchased-licenses-to-your-account["Ajoutez manuellement la licence au portefeuille digital BlueXP"].
+
+. Sur la page Canvas, cliquez sur *Ajouter un environnement de travail* et suivez les étapes de BlueXP.
++
+.. Sur la page *Détails et informations d'identification*, cliquez sur *Modifier les informations d'identification > Ajouter un abonnement*, puis suivez les invites pour vous abonner à l'offre de paiement basé sur l'utilisation dans Azure Marketplace.
++
+La licence que vous avez achetée auprès de NetApp est toujours facturée en premier. Elle vous sera facturée à l'heure du marché en cas de dépassement de votre capacité autorisée ou d'expiration de la licence.
+
++
+image:screenshot-azure-paygo-subscription.png["Capture d'écran de l'option d'abonnement PAYGO lors de la création d'un environnement de travail Cloud Volumes ONTAP."]
+
+.. Après votre retour à BlueXP, sélectionnez un package basé sur la capacité lorsque vous accédez à la page méthodes de charge.
++
+image:screenshot-professional.png["Capture d'écran de l'option Professional lors de la création d'un environnement de travail Cloud Volumes ONTAP."]
+
+
+
+
+
+link:task-deploying-otc-azure.html["Consultez des instructions détaillées pour lancer Cloud Volumes ONTAP dans Azure"].
+
+
+
+=== Abonnement PAYGO
+
+Payez votre abonnement à l'heure par abonnement à l'offre sur le marché de votre fournisseur cloud.
+
+Lorsque vous créez un environnement de travail Cloud Volumes ONTAP, BlueXP vous invite à vous abonner au contrat disponible sur Azure Marketplace. Cet abonnement est ensuite associé à l'environnement de travail pour la facturation. Vous pouvez utiliser ce même abonnement pour d'autres environnements de travail.
+
+.Étapes
+. Dans le menu de navigation de gauche, sélectionnez *stockage > Canvas*.
+. Sur la page Canvas, cliquez sur *Ajouter un environnement de travail* et suivez les étapes de BlueXP.
++
+.. Sur la page *Détails et informations d'identification*, cliquez sur *Modifier les informations d'identification > Ajouter un abonnement*, puis suivez les invites pour vous abonner à l'offre de paiement basé sur l'utilisation dans Azure Marketplace.
++
+image:screenshot-azure-paygo-subscription.png["Capture d'écran de l'option d'abonnement PAYGO lors de la création d'un environnement de travail Cloud Volumes ONTAP."]
+
+.. Après votre retour à BlueXP, sélectionnez un package basé sur la capacité lorsque vous accédez à la page méthodes de charge.
++
+image:screenshot-professional.png["Capture d'écran de l'option Professional lors de la création d'un environnement de travail Cloud Volumes ONTAP."]
+
+
+
+
+
+link:task-deploying-otc-azure.html["Consultez des instructions détaillées pour lancer Cloud Volumes ONTAP dans Azure"].
+
+
+TIP: Vous pouvez gérer les abonnements Azure Marketplace associés à vos comptes Azure à partir de la page Paramètres > informations d'identification. https://docs.netapp.com/us-en/bluexp-setup-admin/task-adding-azure-accounts.html["Découvrez comment gérer vos comptes et abonnements Azure"^]
+
+
+
+=== Contrat annuel
+
+Payez Cloud Volumes ONTAP annuellement par l'achat d'un contrat annuel.
+
+.Étapes
+. Contactez votre ingénieur commercial NetApp pour acheter un contrat annuel.
++
+Le contrat est disponible sous la forme d'une offre _privée_ dans Azure Marketplace.
+
++
+Une fois que NetApp vous a fait part de son offre privée, vous pouvez sélectionner le plan annuel lorsque vous vous abonnez à Azure Marketplace lors de la création d'un environnement de travail.
+
+. Sur la page Canvas, cliquez sur *Ajouter un environnement de travail* et suivez les étapes de BlueXP.
++
+.. Sur la page *Détails et informations d'identification*, cliquez sur *Modifier les informations d'identification > Ajouter un abonnement > Continuer*.
+.. Dans le portail Azure, sélectionnez le plan annuel partagé avec votre compte Azure, puis cliquez sur *Subscribe*.
+.. Après votre retour à BlueXP, sélectionnez un package basé sur la capacité lorsque vous accédez à la page méthodes de charge.
++
+image:screenshot-professional.png["Capture d'écran de l'option Professional lors de la création d'un environnement de travail Cloud Volumes ONTAP."]
+
+
+
+
+
+link:task-deploying-otc-azure.html["Consultez des instructions détaillées pour lancer Cloud Volumes ONTAP dans Azure"].
+
+
+
+== Abonnement Keystone
+
+L'abonnement Keystone est un service d'abonnement avec paiement basé sur l'utilisation. link:concept-licensing.html#keystone-subscription["En savoir plus sur les abonnements NetApp Keystone"].
+
+.Étapes
+. Si vous n'avez pas encore d'abonnement, https://www.netapp.com/forms/keystone-sales-contact/["Contactez NetApp"^]
+. Mailto:ng-keystone-success@netapp.com[Contactez NetApp] pour autoriser votre compte utilisateur BlueXP avec un ou plusieurs abonnements Keystone.
+. Après que NetApp autorise votre compte, link:task-manage-keystone.html#link-a-subscription["Associez vos abonnements pour une utilisation avec Cloud Volumes ONTAP"].
+. Sur la page Canvas, cliquez sur *Ajouter un environnement de travail* et suivez les étapes de BlueXP.
++
+.. Sélectionnez la méthode de facturation de l'abonnement Keystone lorsque vous êtes invité à choisir une méthode de facturation.
++
+image:screenshot-keystone.png["Capture d'écran de l'option d'abonnement Keystone lors de la création d'un environnement de travail Cloud Volumes ONTAP."]
+
+
+
+
+
+link:task-deploying-otc-azure.html["Consultez des instructions détaillées pour lancer Cloud Volumes ONTAP dans Azure"].

@@ -1,0 +1,29 @@
+---
+sidebar: sidebar 
+permalink: task-change-route-tables.html 
+keywords: route tables, update route tables, modify route tables, change route table 
+summary: 'Vous pouvez modifier les tables de routage AWS incluant des routes vers les adresses IP flottantes pour une paire HA déployée sur plusieurs zones de disponibilité AWS. Vous pouvez le faire si les nouveaux clients NFS ou CIFS ont besoin d"accéder à une paire haute disponibilité dans AWS.' 
+---
+= Modifier les tables de routage pour les paires HA dans plusieurs AZS
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Vous pouvez modifier les tables de routage AWS qui incluent des routes vers les adresses IP flottantes pour une paire HA déployée dans plusieurs zones de disponibilité AWS (AZS). Vous pouvez le faire si les nouveaux clients NFS ou CIFS ont besoin d'accéder à une paire haute disponibilité dans AWS.
+
+.Étapes
+. Sur la page Canevas, sélectionnez l'environnement de travail.
+. Dans l'onglet vue d'ensemble, cliquez sur le panneau fonctionnalités, puis cliquez sur l'icône en forme de crayon en regard de *tables d'acheminement*.
++
+image:screenshot_features_route_tables.png["Capture d'écran affichant le paramètre tables de routage sous le panneau fonctionnalités disponible en haut à droite de la page vue d'ensemble lors de l'affichage d'un environnement de travail."]
+
+. Modifiez la liste des tables de routage sélectionnées, puis cliquez sur *Enregistrer*.
+
+
+.Résultat
+BlueXP envoie une demande AWS pour modifier les tables de routage.

@@ -1,0 +1,275 @@
+---
+sidebar: sidebar 
+permalink: reference-default-configs.html 
+keywords: svm, LIF, LIFs, configuration backups, attributes, autosize, security style, space guarantee, unix permissions, NTFS, UNIX, boot, root, disks, aggr0, aggr1, svm, svms, storage virtual machine, LIF failover, failover, attributes, volume attributes, boot disk, root disk, licenses, feature licenses, default licenses, ontap licenses, ontap features 
+summary: La configuration par défaut de Cloud Volumes ONTAP peut vous aider à configurer et administrer vos systèmes, surtout si vous connaissez ONTAP, car la configuration par défaut de Cloud Volumes ONTAP est différente de ONTAP. 
+---
+= Configuration par défaut pour Cloud Volumes ONTAP
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+La configuration par défaut de Cloud Volumes ONTAP peut vous aider à configurer et administrer vos systèmes, surtout si vous connaissez ONTAP, car la configuration par défaut de Cloud Volumes ONTAP est différente de ONTAP.
+
+
+
+== Configuration par défaut
+
+* BlueXP crée une VM de stockage qui assure le service des données lors du déploiement de Cloud Volumes ONTAP. Certaines configurations prennent en charge des machines virtuelles de stockage supplémentaires. link:task-managing-svms.html["En savoir plus sur la gestion des machines virtuelles de stockage"].
++
+Depuis la version BlueXP 3.9.5, le reporting de l'espace logique est activé sur la machine virtuelle de stockage initiale. Lorsqu'un espace est indiqué de manière logique, ONTAP indique l'espace volume afin que toutes les fonctionnalités d'efficacité du stockage soient également signalées comme utilisées.
+
+* BlueXP installe automatiquement les licences de fonction ONTAP suivantes sur Cloud Volumes ONTAP :
++
+** CIFS
+** FlexCache
+** FlexClone
+** ISCSI
+** Gestion des clés de chiffrement (MTEKM) mutualisée, à partir de Cloud Volumes ONTAP 9.12.1 GA
+** Chiffrement de volume NetApp (uniquement pour les systèmes BYOL ou enregistrés de PAYGO)
+** NFS
+
+
+
+
+ifdef::aws[]
+
+endif::aws[]
+
+ifdef::azure[]
+
+endif::azure[]
+
+* SnapMirror
+* SnapRestore
+* SnapVault
++
+** Plusieurs interfaces réseau sont créées par défaut :
+
+
+* Un LIF de gestion de cluster
+* Un FRV intercluster
+
+
+ifdef::azure[]
+
+* LIF de gestion SVM sur des systèmes HA dans Azure
+
+
+endif::azure[]
+
+ifdef::gcp[]
+
+* LIF de gestion SVM sur des systèmes HA dans Google Cloud
+
+
+endif::gcp[]
+
+ifdef::aws[]
+
+* Une LIF de gestion SVM sur des systèmes à un seul nœud dans AWS
+
+
+endif::aws[]
+
+* Un LIF de gestion des nœuds
+
+
+ifdef::gcp[]
+
++
+Dans Google Cloud, cette LIF est combinée avec le LIF intercluster.
+
+endif::gcp[]
+
+* Un LIF de données iSCSI
+* Un LIF de données CIFS et NFS
++
+
+NOTE: Le basculement de LIF est désactivé par défaut pour Cloud Volumes ONTAP en raison des exigences du fournisseur de cloud. La migration d'un LIF vers un port différent rompt le mappage externe entre les adresses IP et les interfaces réseau de l'instance, ce qui rend le LIF inaccessible.
+
++
+** Cloud Volumes ONTAP envoie des sauvegardes de configuration au connecteur via HTTP.
++
+Les sauvegardes sont accessibles à partir de \http://ipaddress/occm/offboxconfig/ où _ipaddress_ est l'adresse IP de l'hôte du connecteur.
+
+** BlueXP définit quelques attributs de volume différemment des autres outils de gestion (System Manager ou CLI, par exemple).
++
+Le tableau suivant répertorie les attributs de volume définis par BlueXP différemment des valeurs par défaut :
+
++
+[cols="15,85"]
+|===
+| Attribut | Valeur définie par BlueXP 
+
+
+| Mode Autosize | Grandir 
+
+
+| Positionnement automatique maximum  a| 
+1 000 pour cent
+
+
+NOTE: L'administrateur du compte peut modifier cette valeur à partir de la page Paramètres.
+
+
+
+| Style de sécurité | NTFS pour les volumes CIFS
+UNIX pour les volumes NFS 
+
+
+| Style de garantie de l'espace | Aucune 
+
+
+| Autorisations UNIX (NFS uniquement) | 776 
+|===
++
+Voir la link:https://docs.netapp.com/us-en/ontap-cli-9121/volume-create.html["ONTAP _volume create_ man page"] pour plus d'informations sur ces attributs.
+
+
+
+
+
+
+
+== Disques internes pour les données système
+
+En plus du stockage des données utilisateur, BlueXP achète également le cloud pour les données système.
+
+ifdef::aws[]
+
+
+
+=== AWS
+
+* Trois disques par nœud pour les données de démarrage, root et core :
++
+** Disque io1 de 45 Gio pour les données de démarrage
+** Disque gp3 140 Gio pour les données racines
+** Disque gp2 540 Gio pour les données centrales
+
+
+* Un instantané EBS pour chaque disque d'initialisation et disque racine
++
+
+NOTE: Les snapshots sont créés automatiquement au redémarrage.
+
+* Pour les paires HA, un volume EBS pour l'instance Mediator, qui est d'environ 8 Gio
+* Lorsque vous activez le chiffrement des données dans AWS à l'aide du service de gestion des clés (KMS), les disques racine et de démarrage pour Cloud Volumes ONTAP sont également chiffrés. Cela comprend le disque de démarrage de l'instance médiateur dans une paire HA. Les disques sont chiffrés à l'aide du CMK que vous sélectionnez lors de la création de l'environnement de travail.
+
+
+
+TIP: Dans AWS, la mémoire NVRAM est sur le disque de démarrage.
+
+endif::aws[]
+
+ifdef::azure[]
+
+
+
+=== Azure (un seul nœud)
+
+* Trois disques SSD Premium :
++
+** Un disque de 10 Gio pour les données de démarrage
+** Un disque de 140 Gio pour les données racines
+** Un disque de 512 Gio pour la NVRAM
++
+Si la machine virtuelle que vous choisissez pour Cloud Volumes ONTAP prend en charge les disques SSD Ultra, le système utilise un SSD Ultra de 32 Gio pour la mémoire NVRAM, plutôt qu'un SSD Premium.
+
+
+
+* Un disque dur standard de 1024 Gio pour économiser les cœurs
+* Un snapshot Azure pour chaque disque d'initialisation et disque racine
+* Par défaut, chaque disque dans Azure est chiffré au repos.
+
+
+
+
+=== Azure (paire HA)
+
+.Paires HA avec un blob de pages
+* Deux disques SSD Premium de 10 Gio pour le volume de démarrage (un par nœud)
+* Deux blobs de page Premium de stockage de 140 Gio pour le volume racine (un par nœud)
+* Deux disques durs standard de 1024 Gio pour les cœurs économiques (un par nœud)
+* Deux disques SSD Premium de 512 Gio pour la NVRAM (un par nœud)
+* Un snapshot Azure pour chaque disque d'initialisation et disque racine
++
+
+NOTE: Les snapshots sont créés automatiquement au redémarrage.
+
+* Par défaut, chaque disque dans Azure est chiffré au repos.
+
+
+.Paires HAUTE DISPONIBILITÉ dans plusieurs zones de disponibilité
+* Deux disques SSD Premium de 10 Gio pour le volume de démarrage (un par nœud)
+* Deux blobs de page de stockage Premium 512 Gio pour le volume racine (un par nœud)
+* Deux disques durs standard de 1024 Gio pour les cœurs économiques (un par nœud)
+* Deux disques SSD Premium de 512 Gio pour la NVRAM (un par nœud)
+* Un snapshot Azure pour chaque disque d'initialisation et disque racine
++
+
+NOTE: Les snapshots sont créés automatiquement au redémarrage.
+
+* Par défaut, chaque disque dans Azure est chiffré au repos.
+
+
+endif::azure[]
+
+ifdef::gcp[]
+
+
+
+=== Google Cloud (nœud unique)
+
+* Un disque persistant SSD de 10 Gio pour les données de démarrage
+* Un disque persistant SSD de 64 Gio pour les données racines
+* Un disque persistant SSD de 500 Gio pour la NVRAM
+* Un disque persistant standard de 315 Gio pour économiser les cœurs
+* Snapshots pour les données de démarrage et racines
++
+
+NOTE: Les snapshots sont créés automatiquement au redémarrage.
+
+* Les disques de démarrage et racine sont chiffrés par défaut.
+
+
+
+
+=== Google Cloud (paire HA)
+
+* Deux disques persistants SSD de 10 Gio pour les données de démarrage
+* Quatre disques persistants SSD de 64 Gio pour les données racines
+* Deux disques persistants SSD de 500 Gio pour la NVRAM
+* Deux disques persistants standard de 315 Gio pour économiser les cœurs
+* Un disque persistant standard de 10 Gio pour les données médiateurs
+* Un disque persistant standard de 10 Gio pour les données de démarrage médiateur
+* Snapshots pour les données de démarrage et racines
++
+
+NOTE: Les snapshots sont créés automatiquement au redémarrage.
+
+* Les disques de démarrage et racine sont chiffrés par défaut.
+
+
+endif::gcp[]
+
+
+
+=== Où résident les disques
+
+BlueXP dispose du stockage comme suit :
+
+* Les données de démarrage résident sur un disque relié à l'instance ou à la machine virtuelle.
++
+Ce disque, qui contient l'image d'amorçage, n'est pas disponible pour Cloud Volumes ONTAP.
+
+* Les données root, qui contiennent la configuration du système et les journaux, résident dans aggr0.
+* Le volume racine de la machine virtuelle de stockage (SVM) réside dans aggr1.
+* Les volumes de données résident également dans aggr1.
+

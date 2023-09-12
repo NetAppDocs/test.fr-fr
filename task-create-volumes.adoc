@@ -1,0 +1,314 @@
+---
+sidebar: sidebar 
+permalink: task-create-volumes.html 
+keywords: storage, provisioning, iscsi, nfs, cifs, volumes, create a volume, add a volume, create volumes, add volumes, creating a volume, adding a volume, provision volume, provision a volume, provisioning volumes, add volume to second node, add volume to node 2, templates, cloud backup 
+summary: Si vous avez besoin de plus de stockage après le lancement de votre système Cloud Volumes ONTAP initial, vous pouvez créer de nouveaux volumes FlexVol pour NFS, CIFS ou iSCSI à partir de BlueXP. 
+---
+= Créer des volumes FlexVol
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Si vous avez besoin de plus de stockage après le lancement de votre système Cloud Volumes ONTAP initial, vous pouvez créer de nouveaux volumes FlexVol pour NFS, CIFS ou iSCSI à partir de BlueXP.
+
+BlueXP offre plusieurs façons de créer un nouveau volume :
+
+* Spécifiez les détails d'un nouveau volume et laissez BlueXP gérer pour vous les agrégats de données sous-jacents. <<create-a-volume,En savoir plus >>>>
+* Créez un volume sur un agrégat de données de votre choix. <<create-a-volume,En savoir plus >>>>
+* Créer un volume à partir d'un modèle afin d'optimiser le volume en fonction des besoins de workloads pour certaines applications, telles que les bases de données ou les services de streaming. <<create-a-volume-from-a-template,En savoir plus >>>>
+* Créer un volume sur le second nœud dans une configuration HA. <<create-volume-second-node,En savoir plus >>>>
+
+
+
+
+== Avant de commencer
+
+Remarques sur le provisionnement des volumes :
+
+* Lorsque vous créez un volume iSCSI, BlueXP crée automatiquement un LUN pour vous. Nous avons simplifié la gestion en créant un seul LUN par volume, donc aucune gestion n'est nécessaire. Une fois le volume créé, link:https://docs.netapp.com/us-en/bluexp-cloud-volumes-ontap/task-connect-lun.html["Utilisez l'IQN pour vous connecter à la LUN à partir de vos hôtes"^].
+* Vous pouvez créer des LUN supplémentaires depuis System Manager ou l'interface de ligne de commandes.
+
+
+ifdef::aws[]
+
+* Si vous souhaitez utiliser CIFS dans AWS, vous devez avoir configuré DNS et Active Directory. Pour plus de détails, voir link:reference-networking-aws.html["Configuration réseau requise pour Cloud Volumes ONTAP pour AWS"].
+* Si votre configuration Cloud Volumes ONTAP prend en charge la fonctionnalité Amazon EBS Elastic volumes, vous pouvez vouloir la faire link:concept-aws-elastic-volumes.html["en savoir plus sur ce qui se passe lorsque vous créez un volume"].
+
+
+endif::aws[]
+
+
+
+== Créer un volume
+
+La manière la plus courante de créer un volume est de spécifier le type de volume dont vous avez besoin, puis BlueXP gère l'allocation de disque pour vous. Mais vous pouvez également choisir l'agrégat spécifique sur lequel vous voulez créer le volume.
+
+.Étapes
+. Dans le menu de navigation de gauche, sélectionnez *stockage > Canvas*.
+. Sur la page Canevas, double-cliquez sur le nom du système Cloud Volumes ONTAP sur lequel vous souhaitez provisionner un volume FlexVol.
+. Créez un nouveau volume en laissant BlueXP gérer l'allocation de disque pour vous ou choisissez un agrégat spécifique pour le volume.
++
+Il est recommandé de choisir un agrégat spécifique uniquement si vous comprenez bien les agrégats de données de votre système Cloud Volumes ONTAP.
+
++
+[role="tabbed-block"]
+====
+.Tout agrégat
+--
+Dans l'onglet vue d'ensemble, accédez à la mosaïque volumes et cliquez sur *Ajouter un volume*.
+image:screenshot_add_volume_button.png["Capture d'écran du bouton Ajouter un volume sous l'onglet vue d'ensemble."]
+
+--
+.Agrégat spécifique
+--
+Dans l'onglet Aggregates, accédez à la mosaïque d'agrégat souhaitée. Cliquez sur l'icône de menu, puis cliquez sur *Ajouter un volume*.
+image:screenshot_add_volume_button_agg.png["Capture d'écran du bouton Ajouter un volume sous l'onglet agrégats."]
+
+--
+====
+. Suivez les étapes de l'assistant pour créer le volume.
++
+.. *Volumes, Détails, protection et balises* : saisissez les détails de base du volume et sélectionnez une stratégie Snapshot.
++
+Certains des champs de cette page sont explicites. La liste suivante décrit les champs pour lesquels vous pourriez avoir besoin de conseils :
+
++
+[cols="2,6"]
+|===
+| Champ | Description 
+
+
+| Nom du volume | Nom identifiable que vous pouvez saisir pour le nouveau volume. 
+
+
+| Taille du volume | La taille maximale que vous pouvez saisir dépend en grande partie de l'activation du provisionnement fin, ce qui vous permet de créer un volume plus grand que le stockage physique actuellement disponible. 
+
+
+| Étiquettes | Les balises que vous ajoutez à un volume sont associées à l' https://docs.netapp.com/us-en/bluexp-remediation/task-using-tags.html["Service modèles d'applications"^], qui peut vous aider à organiser et à simplifier la gestion de vos ressources. 
+
+
+| VM de stockage (SVM) | Une VM de stockage est une machine virtuelle exécutée dans ONTAP, qui fournit des services de données et de stockage à vos clients. On peut le connaître comme un SVM ou un vserver. La solution Cloud Volumes ONTAP est configurée par défaut avec une seule machine virtuelle de stockage, mais certaines configurations prennent en charge des machines virtuelles de stockage supplémentaires. Vous pouvez spécifier la VM de stockage du nouveau volume. 
+
+
+| Stratégie Snapshot | Une stratégie de copie Snapshot spécifie la fréquence et le nombre de copies Snapshot créées automatiquement. Une copie Snapshot de NetApp est une image système de fichiers instantanée qui n'a aucun impact sur les performances et nécessite un stockage minimal. Vous pouvez choisir la règle par défaut ou aucune. Vous pouvez en choisir aucune pour les données transitoires : par exemple, tempdb pour Microsoft SQL Server. 
+|===
+.. *Protocole* : Choisissez un protocole pour le volume (NFS, CIFS ou iSCSI), puis fournissez les informations requises.
++
+Si vous sélectionnez CIFS et qu'un serveur n'est pas configuré, BlueXP vous invite à configurer la connectivité CIFS après avoir cliqué sur *Suivant*.
+
++
+link:concept-client-protocols.html["En savoir plus sur les versions et les protocoles clients pris en charge"].
+
++
+Les sections suivantes décrivent les champs pour lesquels vous aurez peut-être besoin de conseils. Les descriptions sont organisées par protocole.
+
++
+[role="tabbed-block"]
+====
+.NFS
+--
+Contrôle d'accès:: Choisissez une export policy personnalisée pour que le volume soit disponible pour les clients.
+Export-policy:: Définit les clients dans le sous-réseau qui peuvent accéder au volume. Par défaut, BlueXP entre une valeur qui donne accès à toutes les instances du sous-réseau.
+
+
+--
+.CIFS
+--
+Autorisations et utilisateurs/groupes:: Permet de contrôler le niveau d'accès à un partage SMB pour les utilisateurs et les groupes (également appelés listes de contrôle d'accès ou ACL). Vous pouvez spécifier des utilisateurs ou des groupes Windows locaux ou de domaine, ou des utilisateurs ou des groupes UNIX. Si vous spécifiez un nom d'utilisateur Windows de domaine, vous devez inclure le domaine de l'utilisateur au format domaine\nom_utilisateur.
+Adresse IP principale et secondaire DNS:: Les adresses IP des serveurs DNS qui fournissent la résolution de noms pour le serveur CIFS. Les serveurs DNS répertoriés doivent contenir les enregistrements d'emplacement de service (SRV) nécessaires à la localisation des serveurs LDAP et des contrôleurs de domaine Active Directory pour le domaine auquel le serveur CIFS se joindra.
++
+--
+ifdef::gcp[]
+
+--
+
+
+Si vous configurez Google Managed Active Directory, l'accès à AD est possible par défaut avec l'adresse IP 169.254.169.254.
+
+endif::gcp[]
+
+Domaine Active Directory à rejoindre:: Le FQDN du domaine Active Directory (AD) auquel vous souhaitez joindre le serveur CIFS.
+Informations d'identification autorisées à rejoindre le domaine:: Nom et mot de passe d'un compte Windows disposant de privilèges suffisants pour ajouter des ordinateurs à l'unité d'organisation spécifiée dans le domaine AD.
+Nom NetBIOS du serveur CIFS:: Nom de serveur CIFS unique dans le domaine AD.
+Unité organisationnelle:: Unité organisationnelle du domaine AD à associer au serveur CIFS. La valeur par défaut est CN=Computers.
+
+
+ifdef::aws[]
+
+*** Pour configurer Microsoft AD géré par AWS en tant que serveur AD pour Cloud Volumes ONTAP, entrez *ou=ordinateurs,ou=corp* dans ce champ.
+
+
+endif::aws[]
+
+ifdef::azure[]
+
+*** Pour configurer les services de domaine Azure AD en tant que serveur AD pour Cloud Volumes ONTAP, entrez *ou=ordinateurs ADDC* ou *ou=utilisateurs ADDC* dans ce champ.
+https://docs.microsoft.com/en-us/azure/active-directory-domain-services/create-ou["Documentation Azure : créez une unité organisationnelle dans un domaine géré Azure AD Domain Services"^]
+
+
+endif::azure[]
+
+ifdef::gcp[]
+
+*** Pour configurer Google Managed Microsoft AD en tant que serveur AD pour Cloud Volumes ONTAP, entrez *ou=ordinateurs,ou=Cloud* dans ce champ.
+https://cloud.google.com/managed-microsoft-ad/docs/manage-active-directory-objects#organizational_units["Google Cloud Documentation : les unités organisationnelles de Google Managed Microsoft AD"^]
+
+
+endif::gcp[]
+
+Domaine DNS:: Le domaine DNS de la machine virtuelle de stockage Cloud Volumes ONTAP (SVM). Dans la plupart des cas, le domaine est identique au domaine AD.
+Serveur NTP:: Sélectionnez *utiliser le domaine Active Directory* pour configurer un serveur NTP à l'aide du DNS Active Directory. Si vous devez configurer un serveur NTP à l'aide d'une autre adresse, vous devez utiliser l'API. Voir la https://docs.netapp.com/us-en/bluexp-automation/index.html["Documents d'automatisation BlueXP"^] pour plus d'informations.
++
+--
+Notez que vous ne pouvez configurer un serveur NTP que lors de la création d'un serveur CIFS. Elle n'est pas configurable après la création du serveur CIFS.
+
+--
+
+
+--
+.ISCSI
+--
+LUN:: Les cibles de stockage iSCSI sont appelées LUN (unités logiques) et sont présentées aux hôtes sous forme de périphériques de blocs standard. Lorsque vous créez un volume iSCSI, BlueXP crée automatiquement un LUN pour vous. Nous l'avons simplifié en créant un seul LUN par volume, ce qui évite toute intervention de gestion. Une fois le volume créé, link:task-connect-lun.html["Utilisez l'IQN pour vous connecter à la LUN à partir de vos hôtes"].
+Groupe initiateur:: Groupes initiateurs (igroups) spécifiez les hôtes qui peuvent accéder aux LUN spécifiés sur le système de stockage
+Initiateur hôte (IQN):: Les cibles iSCSI se connectent au réseau via des cartes réseau Ethernet (NIC) standard, des cartes TOE (TCP Offload Engine) avec des initiateurs logiciels, des adaptateurs réseau convergés (CNA) ou des adaptateurs de buste hôte dédiés (HBA) et sont identifiés par des noms qualifiés iSCSI (IQN).
+
+
+--
+====
+.. *Type de disque* : choisissez un type de disque sous-jacent pour le volume en fonction de vos besoins en termes de performances et de coûts.
++
+ifdef::aws[]
+
++
+*** link:https://docs.netapp.com/us-en/bluexp-cloud-volumes-ontap/task-planning-your-config.html#size-your-system-in-aws["Dimensionnement de votre système dans AWS"^]
+
+
+
+
+
+
+endif::aws[]
+
+ifdef::azure[]
+
+* link:https://docs.netapp.com/us-en/bluexp-cloud-volumes-ontap/task-planning-your-config-azure.html#size-your-system-in-azure["Dimensionnement du système dans Azure"^]
+
+
+endif::azure[]
+
+ifdef::gcp[]
+
+* link:https://docs.netapp.com/us-en/bluexp-cloud-volumes-ontap/task-planning-your-config-gcp.html#size-your-system-in-gcp["Dimensionnement du système dans Google Cloud"^]
+
+
+endif::gcp[]
+
+. *Profil d'utilisation et stratégie de hiérarchisation* : choisissez d'activer ou de désactiver les fonctions d'efficacité du stockage sur le volume, puis sélectionnez un link:concept-data-tiering.html["règle de tiering des volumes"].
++
+ONTAP comprend plusieurs fonctionnalités d'efficacité du stockage qui permettent de réduire la quantité totale de stockage nécessaire. Les fonctionnalités d'efficacité du stockage NetApp offrent les avantages suivants :
+
++
+Provisionnement fin:: Met à la disposition des hôtes ou des utilisateurs une quantité de stockage logique supérieure au stockage effectivement présent dans votre pool physique. L'espace de stockage est alloué de manière dynamique, et non au préalable, à chaque volume lors de l'écriture des données.
+Déduplication:: Améliore l'efficacité en identifiant les blocs de données identiques et en les remplaçant par des références à un seul bloc partagé. Cette technique réduit les besoins de stockage en éliminant les blocs de données redondants qui résident dans le même volume.
+Compression:: Réduit la capacité physique requise pour stocker les données en les compressant dans un volume sur un stockage primaire, secondaire ou d'archivage.
+
+
+. *Revue* : consultez les détails du volume, puis cliquez sur *Ajouter*.
+
+
+.Résultat
+BlueXP crée le volume sur le système Cloud Volumes ONTAP.
+
+
+
+== Créer un volume à partir d'un modèle
+
+Si votre entreprise a créé des modèles de volume Cloud Volumes ONTAP pour vous permettre de déployer des volumes optimisés pour répondre aux besoins de workloads de certaines applications, suivez les étapes de cette section.
+
+Le modèle doit faciliter votre travail car certains paramètres de volume seront déjà définis dans le modèle, tels que le type de disque, la taille, le protocole, la stratégie Snapshot, le fournisseur de cloud, entre autres. Lorsqu'un paramètre est déjà prédéfini, il vous suffit de passer au paramètre de volume suivant.
+
+
+NOTE: Vous pouvez créer des volumes NFS ou CIFS uniquement lors de l'utilisation de modèles.
+
+.Étapes
+. Dans le menu de navigation de gauche, sélectionnez *stockage > Canvas*.
+. Sur la page Canevas, cliquez sur le nom du système Cloud Volumes ONTAP dans lequel vous souhaitez provisionner un volume.
+. Accédez à l'onglet volumes et cliquez sur *Ajouter un volume* > *Nouveau volume à partir du modèle*.
++
+image:screenshot_add_volume_template.png["Capture d'écran indiquant comment ajouter un nouveau volume à partir d'un modèle."]
+
+. Dans la page _Select Template_, sélectionnez le modèle à utiliser pour créer le volume et cliquez sur *Next*.
++
+image:screenshot_select_template_cvo.png["Capture d'écran des modèles d'application disponibles."]
+
++
+La page _Editor_ s'affiche.
+
++
+image:screenshot_define_cvo_vol_from_template.png["Capture d'écran montrant un modèle vierge que vous devez remplir pour créer un volume."]
+
+. Au-dessus du panneau _action_, entrez un nom pour le modèle.
+. Sous _Context_, l'environnement de travail contient le nom de l'environnement de travail avec lequel vous avez démarré. Sélectionnez la *VM de stockage* où le volume sera créé.
+. Ajoutez des valeurs pour tous les paramètres qui ne sont pas codés en dur à partir du modèle. Voir <<create-a-volume,Créer un volume>> Pour obtenir des informations détaillées sur tous les paramètres nécessaires au déploiement d'un volume Cloud Volumes ONTAP.
+. Cliquez sur *appliquer* pour enregistrer les paramètres configurés dans l'action sélectionnée.
+. Si vous n'avez pas besoin de définir d'autres actions (par exemple, configuration de la sauvegarde et de la restauration BlueXP), cliquez sur *Enregistrer le modèle*.
++
+S'il existe d'autres actions, cliquez sur l'action dans le volet gauche pour afficher les paramètres à compléter.
+
++
+image:screenshot_template_select_next_action.png["Capture d'écran indiquant comment sélectionner des actions supplémentaires à réaliser."]
+
++
+Par exemple, si l'action Activer Cloud Backup sur volume nécessite que vous sélectionniez une règle de sauvegarde, vous pouvez le faire maintenant.
+
+. Une fois la configuration des actions du modèle terminée, cliquez sur *Enregistrer le modèle*.
+
+
+.Résultat
+Cloud Volumes ONTAP provisionne le volume et affiche une page afin que vous puissiez voir sa progression.
+
+image:screenshot_template_creating_resource_cvo.png["Capture d'écran indiquant la progression de la création de votre nouveau volume à partir du modèle."]
+
+Par ailleurs, si une action secondaire est implémentée dans le modèle, par exemple pour l'activation de la sauvegarde et de la restauration BlueXP sur le volume, cette action est également exécutée.
+
+
+
+== Créer un volume sur le second nœud dans une configuration HA
+
+Par défaut, BlueXP crée des volumes sur le premier nœud d'une configuration HA. Si vous avez besoin d'une configuration active-active, dans laquelle les deux nœuds servent les données aux clients, vous devez créer des agrégats et des volumes sur le second nœud.
+
+.Étapes
+. Dans le menu de navigation de gauche, sélectionnez *stockage > Canvas*.
+. Sur la page Canevas, double-cliquez sur le nom de l'environnement de travail Cloud Volumes ONTAP sur lequel vous souhaitez gérer les agrégats.
+. Dans l'onglet Aggregates, cliquez sur *Ajouter un agrégat*.
+. A partir de l'écran _Add aggregate_, créez l'agrégat.
++
+image:screenshot_add_aggregate_cvo.png["Capture d'écran montrant la progression de l'ajout d'un agrégat."]
+
+. Pour le nœud principal, choisissez le second nœud dans la paire HA.
+. Une fois que BlueXP a créé l'agrégat, sélectionnez-le, puis cliquez sur *Créer un volume*.
+. Entrez les détails du nouveau volume, puis cliquez sur *Créer*.
+
+
+.Résultat
+BlueXP crée le volume sur le second nœud de la paire haute disponibilité.
+
+ifdef::aws[]
+
+
+TIP: Pour les paires HA déployées dans plusieurs zones de disponibilité AWS, vous devez monter le volume sur les clients en utilisant l'adresse IP flottante du nœud sur lequel réside le volume.
+
+endif::aws[]
+
+
+
+== Après avoir créé un volume
+
+Si vous avez provisionné un partage CIFS, donnez aux utilisateurs ou aux groupes des autorisations sur les fichiers et les dossiers et vérifiez que ces utilisateurs peuvent accéder au partage et créer un fichier.
+
+Si vous souhaitez appliquer des quotas aux volumes, vous devez utiliser System Manager ou l'interface de ligne de commande. Les quotas vous permettent de restreindre ou de suivre l'espace disque et le nombre de fichiers utilisés par un utilisateur, un groupe ou un qtree.

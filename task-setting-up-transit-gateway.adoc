@@ -1,0 +1,93 @@
+---
+sidebar: sidebar 
+permalink: task-setting-up-transit-gateway.html 
+keywords: transit gateway, aws, amazon web services, transit gateway, floating ip, client access, nas, outside, vpc, virtual private cloud, route table 
+summary: 'Configurez une passerelle de transit AWS pour permettre à un client NAS d"accéder à des adresses IP flottantes depuis l"extérieur sur le VPC où réside Cloud Volumes ONTAP. Cette fonctionnalité est avantageuse car les adresses IP flottantes migrent automatiquement entre les nœuds en cas de défaillances.' 
+---
+= Configuration d'une passerelle de transit AWS pour les paires HA dans plusieurs AZS
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Configurez une passerelle de transit AWS pour autoriser l'accès à une paire HA link:reference-networking-aws.html#requirements-for-ha-pairs-in-multiple-azs["Adresses IP flottantes"] Depuis l'extérieur du VPC, où réside la paire HA.
+
+Lorsqu'une configuration Cloud Volumes ONTAP HA est répartie sur plusieurs zones de disponibilité AWS, des adresses IP flottantes sont nécessaires pour l'accès aux données NAS depuis le VPC. Ces adresses IP flottantes peuvent migrer entre les nœuds en cas de défaillance, mais elles ne sont pas accessibles de manière native en dehors du VPC. Des adresses IP privées séparées permettent un accès aux données depuis l'extérieur du VPC, mais elles ne permettent pas de procéder à un basculement automatique.
+
+Des adresses IP flottantes sont également nécessaires pour l'interface de gestion du cluster et la LIF de gestion du SVM facultative.
+
+Si vous configurez une passerelle de transit AWS, vous activez l'accès aux adresses IP flottantes depuis l'extérieur sur le VPC où réside la paire haute disponibilité. Les clients NAS et les outils de gestion NetApp en dehors du VPC peuvent accéder aux adresses IP flottantes.
+
+Voici un exemple illustrant deux VPC connectés par une passerelle de transit. Un système haute disponibilité réside dans un VPC, tandis qu'un client réside dans l'autre. Vous pouvez ensuite monter un volume NAS sur le client à l'aide de l'adresse IP flottante.
+
+image:diagram_transit_gateway.png["Un schéma qui montre une configuration haute disponibilité dans un VPC, avec des adresses IP flottantes acheminées vers Enis, un client dans un autre VPC, avec des adresses IP flottantes acheminées vers la passerelle de transit, et une passerelle de transit, avec des adresses IP flottantes acheminées vers la table de routage VPC1."]
+
+Les étapes suivantes montrent comment configurer une configuration similaire.
+
+.Étapes
+. https://docs.aws.amazon.com/vpc/latest/tgw/tgw-getting-started.html["Créez une passerelle de transit et connectez les VPC à la passerelle"^].
+. Associez les VPC à la table de routage de la passerelle de transit.
++
+.. Dans le service *VPC*, cliquez sur *Transit Gateway route tables*.
+.. Sélectionnez la table de routage.
+.. Cliquez sur *associations*, puis sélectionnez *Créer association*.
+.. Choisissez les pièces jointes (les VPC) à associer, puis cliquez sur *Créer une association*.
+
+
+. Créer des routes dans la table de routage de la passerelle de transit en spécifiant les adresses IP flottantes de la paire HA.
++
+Vous trouverez les adresses IP flottantes sur la page informations sur l'environnement de travail dans BlueXP. Voici un exemple :
+
++
+image:screenshot_floating_ips.gif["Copie d'écran de BlueXP qui affiche les adresses IP flottantes pour l'interface de gestion du cluster, deux interfaces de données NFS et CIFS, et l'interface de gestion SVM."]
+
++
+L'exemple d'image suivant montre la table de routage pour la passerelle de transit. Il comprend les routes vers les blocs CIDR des deux VPC et quatre adresses IP flottantes utilisées par Cloud Volumes ONTAP.
+
++
+image:screenshot_transit_gateway1.png["Capture d'écran de la console AWS affichant la table de route de la passerelle de transit. Il comprend les routes vers les blocs CIDR des deux VPC et quatre adresses IP flottantes utilisées par Cloud Volumes ONTAP."]
+
+. Modifiez la table de routage des VPC qui doivent accéder aux adresses IP flottantes.
++
+.. Ajoutez des entrées de route aux adresses IP flottantes.
+.. Ajoutez une entrée de route au bloc CIDR du VPC où réside la paire HA.
++
+L'exemple d'image suivant montre la table de route pour VPC 2, qui comprend les routes vers VPC 1 et les adresses IP flottantes.
+
++
+image:screenshot_transit_gateway2.png["Une capture d'écran de la console AWS montre la table de routage du VPC 2, qui inclut les routes vers le VPC 1 et les adresses IP flottantes."]
+
+
+
+. Modifiez la table de routage du VPC de la paire HA en ajoutant une route vers le VPC qui doit accéder aux adresses IP flottantes.
++
+Cette étape est importante car elle termine le routage entre les VPC.
+
++
+L'exemple d'image suivant montre la table de routage pour VPC 1. Elle inclut une route vers les adresses IP flottantes et vers VPC 2, c'est-à-dire où réside un client. BlueXP a automatiquement ajouté les adresses IP flottantes à la table de routage lors du déploiement de la paire HA.
+
++
+image:screenshot_transit_gateway3.png["Une capture d'écran de la console AWS montre la table de la route pour VPC 1. Elle inclut une route vers les adresses IP flottantes et vers VPC 2, c'est-à-dire où réside un client."]
+
+. Montez les volumes sur des clients à l'aide de l'adresse IP flottante.
++
+Vous pouvez trouver l'adresse IP correcte dans BlueXP via l'option *Mount Command* sous le panneau gérer les volumes de BlueXP.
+
++
+image::screenshot_mount_option.png[400]
+
+. Si vous montez un volume NFS, configurez la export policy pour qu'elle corresponde au sous-réseau du VPC client.
++
+link:task-manage-volumes.html["Découvrez comment modifier un volume"].
+
+
+
+* Liens connexes*
+
+* link:concept-ha.html["Paires haute disponibilité dans AWS"]
+* link:reference-networking-aws.html["Configuration réseau requise pour Cloud Volumes ONTAP dans AWS"]
+

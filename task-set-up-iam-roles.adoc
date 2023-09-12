@@ -1,0 +1,275 @@
+---
+sidebar: sidebar 
+permalink: task-set-up-iam-roles.html 
+keywords: iam role, mediator role, cloud volumes ontap role, policy, iam policy, permissions, cloud backup 
+summary: Les rôles IAM avec les autorisations requises doivent être associés à chaque nœud Cloud Volumes ONTAP. Il en va de même pour le médiateur HA. Il est plus facile de laisser BlueXP créer les rôles IAM pour vous, mais vous pouvez utiliser vos propres rôles. 
+---
+= Configurer les rôles IAM pour Cloud Volumes ONTAP
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Les rôles IAM avec les autorisations requises doivent être associés à chaque nœud Cloud Volumes ONTAP. Il en va de même pour le médiateur HA. Il est plus facile de laisser BlueXP créer les rôles IAM pour vous, mais vous pouvez utiliser vos propres rôles.
+
+Cette tâche est facultative. Lorsque vous créez un environnement de travail Cloud Volumes ONTAP, l'option par défaut est de laisser BlueXP créer les rôles IAM pour vous. Si les politiques de sécurité de votre entreprise exigent que vous créiez vous-même les rôles IAM, suivez les étapes ci-dessous.
+
+
+NOTE: La fourniture de votre propre rôle IAM est requise dans l'environnement des services cloud AWS commerciaux. link:task-getting-started-aws-c2s.html["Découvrez comment déployer Cloud Volumes ONTAP dans C2S"].
+
+.Étapes
+. Accédez à la console IAM AWS.
+. Créez des règles IAM qui incluent les autorisations suivantes :
++
+** Règle de base pour les nœuds Cloud Volumes ONTAP
++
+[role="tabbed-block"]
+====
+.Régions standard
+--
+[source, json]
+----
+{
+	"Version": "2012-10-17",
+	"Statement": [{
+			"Action": "s3:ListAllMyBuckets",
+			"Resource": "arn:aws:s3:::*",
+			"Effect": "Allow"
+		}, {
+			"Action": [
+				"s3:ListBucket",
+				"s3:GetBucketLocation"
+			],
+			"Resource": "arn:aws:s3:::fabric-pool-*",
+			"Effect": "Allow"
+		}, {
+			"Action": [
+				"s3:GetObject",
+				"s3:PutObject",
+				"s3:DeleteObject"
+			],
+			"Resource": "arn:aws:s3:::fabric-pool-*",
+			"Effect": "Allow"
+		}
+	]
+}
+----
+--
+.GovCloud (USA)
+--
+[source, json]
+----
+{
+    "Version": "2012-10-17",
+    "Statement": [{
+        "Action": "s3:ListAllMyBuckets",
+        "Resource": "arn:aws-us-gov:s3:::*",
+        "Effect": "Allow"
+    }, {
+        "Action": [
+            "s3:ListBucket",
+            "s3:GetBucketLocation"
+        ],
+        "Resource": "arn:aws-us-gov:s3:::fabric-pool-*",
+        "Effect": "Allow"
+    }, {
+        "Action": [
+            "s3:GetObject",
+            "s3:PutObject",
+            "s3:DeleteObject"
+        ],
+        "Resource": "arn:aws-us-gov:s3:::fabric-pool-*",
+        "Effect": "Allow"
+    }]
+}
+----
+--
+.Environnement C2S
+--
+[source, json]
+----
+{
+    "Version": "2012-10-17",
+    "Statement": [{
+        "Action": "s3:ListAllMyBuckets",
+        "Resource": "arn:aws-iso:s3:::*",
+        "Effect": "Allow"
+    }, {
+        "Action": [
+            "s3:ListBucket",
+            "s3:GetBucketLocation"
+        ],
+        "Resource": "arn:aws-iso:s3:::fabric-pool-*",
+        "Effect": "Allow"
+    }, {
+        "Action": [
+            "s3:GetObject",
+            "s3:PutObject",
+            "s3:DeleteObject"
+        ],
+        "Resource": "arn:aws-iso:s3:::fabric-pool-*",
+        "Effect": "Allow"
+    }]
+}
+----
+--
+====
+** Règle de sauvegarde pour les nœuds Cloud Volumes ONTAP
++
+Si vous prévoyez d'utiliser la sauvegarde et la restauration BlueXP avec vos systèmes Cloud Volumes ONTAP, le rôle IAM des nœuds doit inclure la seconde règle présentée ci-dessous.
+
++
+[role="tabbed-block"]
+====
+.Régions standard
+--
+[source, json]
+----
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": [
+                "s3:ListBucket",
+                "s3:GetBucketLocation"
+            ],
+            "Resource": "arn:aws:s3:::netapp-backup*",
+            "Effect": "Allow"
+        },
+        {
+            "Action": [
+                "s3:GetObject",
+                "s3:PutObject",
+                "s3:DeleteObject",
+                "s3:ListAllMyBuckets",
+                "s3:PutObjectTagging",
+                "s3:GetObjectTagging",
+                "s3:RestoreObject",
+                "s3:GetBucketObjectLockConfiguration",
+                "s3:GetObjectRetention",
+                "s3:PutBucketObjectLockConfiguration",
+                "s3:PutObjectRetention"
+            ],
+            "Resource": "arn:aws:s3:::netapp-backup*/*",
+            "Effect": "Allow"
+        }
+    ]
+}
+----
+--
+.GovCloud (USA)
+--
+[source, json]
+----
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": [
+                "s3:ListBucket",
+                "s3:GetBucketLocation"
+            ],
+            "Resource": "arn:aws-us-gov:s3:::netapp-backup*",
+            "Effect": "Allow"
+        },
+        {
+            "Action": [
+                "s3:GetObject",
+                "s3:PutObject",
+                "s3:DeleteObject",
+                "s3:ListAllMyBuckets",
+                "s3:PutObjectTagging",
+                "s3:GetObjectTagging",
+                "s3:RestoreObject",
+                "s3:GetBucketObjectLockConfiguration",
+                "s3:GetObjectRetention",
+                "s3:PutBucketObjectLockConfiguration",
+                "s3:PutObjectRetention"
+            ],
+            "Resource": "arn:aws-us-gov:s3:::netapp-backup*/*",
+            "Effect": "Allow"
+        }
+    ]
+}
+----
+--
+.Environnement C2S
+--
+[source, json]
+----
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": [
+                "s3:ListBucket",
+                "s3:GetBucketLocation"
+            ],
+            "Resource": "arn:aws-iso:s3:::netapp-backup*",
+            "Effect": "Allow"
+        },
+        {
+            "Action": [
+                "s3:GetObject",
+                "s3:PutObject",
+                "s3:DeleteObject",
+                "s3:ListAllMyBuckets",
+                "s3:PutObjectTagging",
+                "s3:GetObjectTagging",
+                "s3:RestoreObject",
+                "s3:GetBucketObjectLockConfiguration",
+                "s3:GetObjectRetention",
+                "s3:PutBucketObjectLockConfiguration",
+                "s3:PutObjectRetention"
+            ],
+            "Resource": "arn:aws-iso:s3:::netapp-backup*/*",
+            "Effect": "Allow"
+        }
+    ]
+}
+----
+--
+====
+** Ha médiateur
++
+--
+[source, json]
+----
+{
+	"Version": "2012-10-17",
+	"Statement": [{
+			"Effect": "Allow",
+			"Action": [
+				"ec2:AssignPrivateIpAddresses",
+				"ec2:CreateRoute",
+				"ec2:DeleteRoute",
+				"ec2:DescribeNetworkInterfaces",
+				"ec2:DescribeRouteTables",
+				"ec2:DescribeVpcs",
+				"ec2:ReplaceRoute",
+				"ec2:UnassignPrivateIpAddresses"
+                "sts:AssumeRole"
+                "ec2:DescribeSubnets"
+			],
+			"Resource": "*"
+		}
+	]
+}
+----
+--
+
+
+. Créez un rôle IAM et associez les règles que vous avez créées au rôle.
+
+
+.Résultat
+Vous disposez désormais de rôles IAM que vous pouvez sélectionner lorsque vous créez un nouvel environnement de travail Cloud Volumes ONTAP.
+
+.Plus d'informations
+* https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_create.html["Documentation AWS : création de règles IAM"^]
+* https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create.html["Documentation AWS : création des rôles IAM"^]
+

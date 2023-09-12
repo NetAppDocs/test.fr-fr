@@ -1,0 +1,364 @@
+---
+sidebar: sidebar 
+permalink: reference-security-groups.html 
+keywords: security group, security groups, rules, ports, aws, inbound, outbound, rules 
+summary: BlueXP crée des groupes de sécurité AWS qui incluent les règles entrantes et sortantes nécessaires au bon fonctionnement de Cloud Volumes ONTAP. Vous pouvez vous référer aux ports à des fins de test ou si vous préférez que votre utilise ses propres groupes de sécurité. 
+---
+= Règles de groupe de sécurité pour AWS
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+BlueXP crée des groupes de sécurité AWS qui incluent les règles entrantes et sortantes nécessaires au bon fonctionnement de Cloud Volumes ONTAP. Vous pouvez vous référer aux ports à des fins de test ou si vous préférez que votre utilise ses propres groupes de sécurité.
+
+
+
+== Règles pour Cloud Volumes ONTAP
+
+Le groupe de sécurité pour Cloud Volumes ONTAP requiert des règles entrantes et sortantes.
+
+
+
+=== Règles entrantes
+
+Lorsque vous créez un environnement de travail et choisissez un groupe de sécurité prédéfini, vous pouvez choisir d'autoriser le trafic dans l'un des éléments suivants :
+
+* *VPC sélectionné uniquement* : la source du trafic entrant est la plage de sous-réseau du VPC pour le système Cloud Volumes ONTAP et la plage de sous-réseau du VPC où réside le connecteur. Il s'agit de l'option recommandée.
+* *Tous les VPC* : la source du trafic entrant est la plage IP 0.0.0.0/0.
+
+
+[cols="10,10,80"]
+|===
+| Protocole | Port | Objectif 
+
+
+| Tous les protocoles ICMP | Tout | Envoi d'une requête ping à l'instance 
+
+
+| HTTP | 80 | Accès HTTP à la console Web System Manager à l'aide de l'adresse IP du LIF de gestion de cluster 
+
+
+| HTTPS | 443 | Connectivité avec le connecteur et l'accès HTTPS à la console Web System Manager via l'adresse IP du LIF de cluster management 
+
+
+| SSH | 22 | Accès SSH à l'adresse IP du LIF de gestion de cluster ou d'un LIF de gestion de nœud 
+
+
+| TCP | 111 | Appel de procédure à distance pour NFS 
+
+
+| TCP | 139 | Session de service NetBIOS pour CIFS 
+
+
+| TCP | 161-162 | Protocole de gestion de réseau simple 
+
+
+| TCP | 445 | Microsoft SMB/CIFS sur TCP avec encadrement NetBIOS 
+
+
+| TCP | 658 | Montage NFS 
+
+
+| TCP | 749 | Kerberos 
+
+
+| TCP | 2049 | Démon du serveur NFS 
+
+
+| TCP | 3260 | Accès iSCSI via le LIF de données iSCSI 
+
+
+| TCP | 4045 | Démon de verrouillage NFS 
+
+
+| TCP | 4046 | Surveillance de l'état du réseau pour NFS 
+
+
+| TCP | 10000 | Sauvegarde avec NDMP 
+
+
+| TCP | 11104 | Gestion des sessions de communication intercluster pour SnapMirror 
+
+
+| TCP | 11105 | Transfert de données SnapMirror à l'aide de LIF intercluster 
+
+
+| UDP | 111 | Appel de procédure à distance pour NFS 
+
+
+| UDP | 161-162 | Protocole de gestion de réseau simple 
+
+
+| UDP | 658 | Montage NFS 
+
+
+| UDP | 2049 | Démon du serveur NFS 
+
+
+| UDP | 4045 | Démon de verrouillage NFS 
+
+
+| UDP | 4046 | Surveillance de l'état du réseau pour NFS 
+
+
+| UDP | 4049 | Protocole NFS rquotad 
+|===
+
+
+=== Règles de sortie
+
+Le groupe de sécurité prédéfini pour Cloud Volumes ONTAP ouvre tout le trafic sortant. Si cela est acceptable, suivez les règles de base de l'appel sortant. Si vous avez besoin de règles plus rigides, utilisez les règles de sortie avancées.
+
+
+
+==== Règles de base pour les appels sortants
+
+Le groupe de sécurité prédéfini pour Cloud Volumes ONTAP inclut les règles de sortie suivantes.
+
+[cols="20,20,60"]
+|===
+| Protocole | Port | Objectif 
+
+
+| Tous les protocoles ICMP | Tout | Tout le trafic sortant 
+
+
+| Tous les protocoles TCP | Tout | Tout le trafic sortant 
+
+
+| Tous UDP | Tout | Tout le trafic sortant 
+|===
+
+
+==== Règles de sortie avancées
+
+Si vous avez besoin de règles rigides pour le trafic sortant, vous pouvez utiliser les informations suivantes pour ouvrir uniquement les ports requis pour la communication sortante par Cloud Volumes ONTAP.
+
+
+NOTE: La source est l'interface (adresse IP) du système Cloud Volumes ONTAP.
+
+[cols="10,10,6,20,20,34"]
+|===
+| Service | Protocole | Port | Source | Destination | Objectif 
+
+
+.18+| Active Directory | TCP | 88 | FRV de gestion des nœuds | Forêt Active Directory | Authentification Kerberos V. 
+
+
+| UDP | 137 | FRV de gestion des nœuds | Forêt Active Directory | Service de noms NetBIOS 
+
+
+| UDP | 138 | FRV de gestion des nœuds | Forêt Active Directory | Service de datagrammes NetBIOS 
+
+
+| TCP | 139 | FRV de gestion des nœuds | Forêt Active Directory | Session de service NetBIOS 
+
+
+| TCP ET UDP | 389 | FRV de gestion des nœuds | Forêt Active Directory | LDAP 
+
+
+| TCP | 445 | FRV de gestion des nœuds | Forêt Active Directory | Microsoft SMB/CIFS sur TCP avec encadrement NetBIOS 
+
+
+| TCP | 464 | FRV de gestion des nœuds | Forêt Active Directory | Modification et définition du mot de passe Kerberos V (SET_CHANGE) 
+
+
+| UDP | 464 | FRV de gestion des nœuds | Forêt Active Directory | Administration des clés Kerberos 
+
+
+| TCP | 749 | FRV de gestion des nœuds | Forêt Active Directory | Modification et définition du mot de passe Kerberos V (RPCSEC_GSS) 
+
+
+| TCP | 88 | LIF de données (NFS, CIFS, iSCSI) | Forêt Active Directory | Authentification Kerberos V. 
+
+
+| UDP | 137 | FRV de données (NFS, CIFS) | Forêt Active Directory | Service de noms NetBIOS 
+
+
+| UDP | 138 | FRV de données (NFS, CIFS) | Forêt Active Directory | Service de datagrammes NetBIOS 
+
+
+| TCP | 139 | FRV de données (NFS, CIFS) | Forêt Active Directory | Session de service NetBIOS 
+
+
+| TCP ET UDP | 389 | FRV de données (NFS, CIFS) | Forêt Active Directory | LDAP 
+
+
+| TCP | 445 | FRV de données (NFS, CIFS) | Forêt Active Directory | Microsoft SMB/CIFS sur TCP avec encadrement NetBIOS 
+
+
+| TCP | 464 | FRV de données (NFS, CIFS) | Forêt Active Directory | Modification et définition du mot de passe Kerberos V (SET_CHANGE) 
+
+
+| UDP | 464 | FRV de données (NFS, CIFS) | Forêt Active Directory | Administration des clés Kerberos 
+
+
+| TCP | 749 | FRV de données (NFS, CIFS) | Forêt Active Directory | Modification et définition du mot de passe Kerberos V (RPCSEC_GSS) 
+
+
+.3+| AutoSupport | HTTPS | 443 | FRV de gestion des nœuds | support.netapp.com | AutoSupport (HTTPS est le protocole par défaut) 
+
+
+| HTTP | 80 | FRV de gestion des nœuds | support.netapp.com | AutoSupport (uniquement si le protocole de transport est passé de HTTPS à HTTP) 
+
+
+| TCP | 3128 | FRV de gestion des nœuds | Connecteur | Envoi de messages AutoSupport via un serveur proxy sur le connecteur, si aucune connexion Internet sortante n'est disponible 
+
+
+| Sauvegarde vers S3 | TCP | 5010 | FRV InterCluster | Sauvegarder le terminal ou restaurer le terminal | Des opérations de sauvegarde et de restauration pour la fonctionnalité Backup vers S3 
+
+
+.3+| Cluster | Tout le trafic | Tout le trafic | Tous les LIF sur un nœud | Tous les LIF de l'autre nœud | Communications InterCluster (Cloud Volumes ONTAP HA uniquement) 
+
+
+| TCP | 3000 | FRV de gestion des nœuds | Ha médiateur | Appels ZAPI (Cloud Volumes ONTAP HA uniquement) 
+
+
+| ICMP | 1 | FRV de gestion des nœuds | Ha médiateur | Rester en vie (Cloud Volumes ONTAP HA uniquement) 
+
+
+| Sauvegardes de la configuration | HTTP | 80 | FRV de gestion des nœuds | \Http://<connector-IP-address>/occm/offboxconfig | Envoyer des sauvegardes de configuration au connecteur. link:https://docs.netapp.com/us-en/ontap/system-admin/node-cluster-config-backed-up-automatically-concept.html["En savoir plus sur les fichiers de sauvegarde de configuration"^]. 
+
+
+| DHCP | UDP | 68 | FRV de gestion des nœuds | DHCP | Client DHCP pour la première configuration 
+
+
+| DHCPS | UDP | 67 | FRV de gestion des nœuds | DHCP | Serveur DHCP 
+
+
+| DNS | UDP | 53 | FRV de gestion des nœuds et FRV de données (NFS, CIFS) | DNS | DNS 
+
+
+| NDMP | TCP | 18600-18699 | FRV de gestion des nœuds | Serveurs de destination | Copie NDMP 
+
+
+| SMTP | TCP | 25 | FRV de gestion des nœuds | Serveur de messagerie | Les alertes SMTP peuvent être utilisées pour AutoSupport 
+
+
+.4+| SNMP | TCP | 161 | FRV de gestion des nœuds | Serveur de surveillance | Surveillance par des interruptions SNMP 
+
+
+| UDP | 161 | FRV de gestion des nœuds | Serveur de surveillance | Surveillance par des interruptions SNMP 
+
+
+| TCP | 162 | FRV de gestion des nœuds | Serveur de surveillance | Surveillance par des interruptions SNMP 
+
+
+| UDP | 162 | FRV de gestion des nœuds | Serveur de surveillance | Surveillance par des interruptions SNMP 
+
+
+.2+| SnapMirror | TCP | 11104 | FRV InterCluster | Baies de stockage inter-clusters ONTAP | Gestion des sessions de communication intercluster pour SnapMirror 
+
+
+| TCP | 11105 | FRV InterCluster | Baies de stockage inter-clusters ONTAP | Transfert de données SnapMirror 
+
+
+| Syslog | UDP | 514 | FRV de gestion des nœuds | Serveur Syslog | Messages de transfert syslog 
+|===
+
+
+== Règles pour le groupe de sécurité externe du médiateur de haute disponibilité
+
+Le groupe de sécurité externe prédéfini pour le médiateur Cloud Volumes ONTAP HA inclut les règles entrantes et sortantes suivantes.
+
+
+
+=== Règles entrantes
+
+Le groupe de sécurité prédéfini pour le médiateur HA inclut la règle entrante suivante.
+
+[cols="20,20,20,40"]
+|===
+| Protocole | Port | Source | Objectif 
+
+
+| TCP | 3000 | CIDR du connecteur | Accès à l'API RESTful depuis le connecteur 
+|===
+
+
+=== Règles de sortie
+
+Le groupe de sécurité prédéfini du médiateur HA ouvre tout le trafic sortant. Si cela est acceptable, suivez les règles de base de l'appel sortant. Si vous avez besoin de règles plus rigides, utilisez les règles de sortie avancées.
+
+
+
+==== Règles de base pour les appels sortants
+
+Le groupe de sécurité prédéfini du médiateur HA inclut les règles de sortie suivantes.
+
+[cols="20,20,60"]
+|===
+| Protocole | Port | Objectif 
+
+
+| Tous les protocoles TCP | Tout | Tout le trafic sortant 
+
+
+| Tous UDP | Tout | Tout le trafic sortant 
+|===
+
+
+==== Règles de sortie avancées
+
+Si vous avez besoin de règles rigides pour le trafic sortant, vous pouvez utiliser les informations suivantes pour ouvrir uniquement les ports requis pour la communication sortante par le médiateur haute disponibilité.
+
+[cols="10,10,30,40"]
+|===
+| Protocole | Port | Destination | Objectif 
+
+
+| HTTP | 80 | Adresse IP du connecteur sur l'instance AWS EC2 | Télécharger les mises à niveau pour le médiateur 
+
+
+| HTTPS | 443 | ec2.amazonaws.com | Assistance pour le basculement du stockage 
+
+
+| UDP | 53 | ec2.amazonaws.com | Assistance pour le basculement du stockage 
+|===
+
+NOTE: Plutôt que d'ouvrir les ports 443 et 53, vous pouvez créer un terminal VPC d'interface à partir du sous-réseau cible vers le service AWS EC2.
+
+
+
+== Règles du groupe de sécurité interne de la configuration haute disponibilité
+
+Le groupe de sécurité interne prédéfini pour une configuration Cloud Volumes ONTAP HA comprend les règles suivantes. Ce groupe de sécurité permet la communication entre les nœuds HA et entre le médiateur et les nœuds.
+
+BlueXP crée toujours ce groupe de sécurité. Vous n'avez pas la possibilité d'utiliser vos propres ressources.
+
+
+
+=== Règles entrantes
+
+Le groupe de sécurité prédéfini inclut les règles entrantes suivantes.
+
+[cols="20,20,60"]
+|===
+| Protocole | Port | Objectif 
+
+
+| Tout le trafic | Tout | Communication entre le médiateur HA et les nœuds HA 
+|===
+
+
+=== Règles de sortie
+
+Le groupe de sécurité prédéfini inclut les règles de sortie suivantes.
+
+[cols="20,20,60"]
+|===
+| Protocole | Port | Objectif 
+
+
+| Tout le trafic | Tout | Communication entre le médiateur HA et les nœuds HA 
+|===
+
+
+== Règles pour le connecteur
+
+https://docs.netapp.com/us-en/bluexp-setup-admin/reference-ports-aws.html["Afficher les règles de groupe de sécurité du connecteur"^]
