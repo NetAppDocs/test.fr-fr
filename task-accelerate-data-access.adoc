@@ -1,0 +1,31 @@
+---
+sidebar: sidebar 
+permalink: task-accelerate-data-access.html 
+keywords: flexcache, flexcache volumes, create a flexcache volume, provision flexcache, create flexcache volume 
+summary: 'Un volume FlexCache est un volume de stockage qui met en cache les données lues par NFS à partir d"un volume d"origine ou source. Les lectures suivantes des données mises en cache permettent un accès plus rapide à ces données.' 
+---
+= Accélération de l'accès aux données avec les volumes FlexCache
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Un volume FlexCache est un volume de stockage qui met en cache les données de lecture SMB et NFS à partir d'un volume d'origine (ou source). Les lectures suivantes des données mises en cache permettent un accès plus rapide à ces données.
+
+Les volumes FlexCache peuvent être utilisés pour accélérer l'accès aux données ou pour décharger le trafic des volumes fortement sollicités. Les volumes FlexCache contribuent à améliorer les performances, en particulier lorsque les clients doivent accéder de façon répétée aux mêmes données, car elles peuvent être servies directement sans avoir à accéder au volume d'origine. Les volumes FlexCache fonctionnent parfaitement pour les charges de travail système intensives en lecture.
+
+BlueXP assure la gestion des volumes FlexCache avec le link:https://docs.netapp.com/us-en/bluexp-volume-caching/index.html["Mise en cache du volume BlueXP"^] services.
+
+Vous pouvez également utiliser l'interface de ligne de commandes ONTAP ou ONTAP System Manager pour créer et gérer les volumes FlexCache :
+
+* http://docs.netapp.com/ontap-9/topic/com.netapp.doc.pow-fc-mgmt/home.html["Guide de puissance des volumes FlexCache pour un accès plus rapide aux données"^]
+* http://docs.netapp.com/ontap-9/topic/com.netapp.doc.onc-sm-help-960/GUID-07F4C213-076D-4FE8-A8E3-410F49498D49.html["Création de volumes FlexCache dans System Manager"^]
+
+
+BlueXP génère une licence FlexCache pour tous les nouveaux systèmes Cloud Volumes ONTAP. La licence inclut une limite d'utilisation de 500 Gio.
+
+video::PBNPVRUeT1o[youtube,width=848,height=480]

@@ -1,0 +1,28 @@
+---
+sidebar: sidebar 
+permalink: task-manage-svm-dr.html 
+keywords: storage virtual machine, vserver, svm, storage vm, svm dr, disaster recovery, svm disaster recovery, storage vm dr 
+summary: 'BlueXP ne propose pas de prise en charge de la configuration ou de l"orchestration pour la reprise après incident des machines virtuelles de stockage. Vous devez utiliser System Manager ou l"interface de ligne de commandes.' 
+---
+= Configuration de la reprise d'activité SVM
+:toc: macro
+:hardbreaks:
+:allow-uri-read: 
+:toc: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+:toc-position: content
+
+
+[role="lead"]
+BlueXP ne prend pas en charge l'installation ou l'orchestration pour la reprise d'activité des machines virtuelles de stockage (SVM). Vous devez utiliser System Manager ou l'interface de ligne de commandes.
+
+Si vous configurez la réplication SnapMirror SVM entre deux systèmes Cloud Volumes ONTAP, la réplication doit se faire entre deux systèmes de paire HA ou deux systèmes à un seul nœud. Il n'est pas possible de configurer la réplication SnapMirror SVM entre une paire haute disponibilité et un système à un seul nœud.
+
+Reportez-vous aux documents suivants pour obtenir des instructions sur l'interface de ligne de commande.
+
+* https://library.netapp.com/ecm/ecm_get_file/ECMLP2839856["Guide de préparation rapide pour la reprise après incident du SVM"^]
+* https://library.netapp.com/ecm/ecm_get_file/ECMLP2839857["Guide de reprise après incident de SVM Express"^]
+

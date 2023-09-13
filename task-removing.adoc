@@ -1,0 +1,39 @@
+---
+sidebar: sidebar 
+permalink: task-removing.html 
+keywords: working environments, removing, remove, rediscover 
+summary: 'L"administrateur des comptes peut supprimer un environnement de travail Cloud Volumes ONTAP pour le déplacer vers un autre système ou pour résoudre les problèmes de détection.' 
+---
+= Suppression des environnements de travail Cloud Volumes ONTAP
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+L'administrateur des comptes peut supprimer un environnement de travail Cloud Volumes ONTAP pour le déplacer vers un autre système ou pour résoudre les problèmes de détection.
+
+.Description de la tâche
+La suppression d'un environnement de travail Cloud Volumes ONTAP le supprime de BlueXP. Il ne supprime pas le système Cloud Volumes ONTAP. Vous pourrez par la suite redécouvrir l'environnement de travail.
+
+La suppression d'un environnement de travail de BlueXP vous permet d'effectuer les opérations suivantes :
+
+* Redécouvrez-le dans un autre espace de travail
+* Redécouvrez-le à partir d'un autre système BlueXP
+* Redécouvrez-le si vous avez rencontré des problèmes lors de la découverte initiale
+
+
+.Étapes
+. Sur la page Canevas, double-cliquez sur l'environnement de travail à supprimer.
+. Dans le coin supérieur droit de la console BlueXP, cliquez sur l'icône ellipse et sélectionnez *Supprimer de l'espace de travail*.
++
+image:screenshot_settings_remove.png["Capture d'écran affichant l'option « Supprimer de l'espace de travail » dans le coin supérieur droit de la console BlueXP."]
+
+. Dans la fenêtre Revue à partir de l'espace de travail, cliquez sur *Supprimer*.
+
+
+.Résultat
+BlueXP supprime l'environnement de travail. Les utilisateurs peuvent redécouvrir cet environnement de travail à tout moment à partir de la page Canvas.

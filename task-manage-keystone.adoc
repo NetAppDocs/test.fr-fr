@@ -1,0 +1,98 @@
+---
+sidebar: sidebar 
+permalink: task-manage-keystone.html 
+keywords: license, licensing, install, keystone, request capacity, link subscription, add keystone subscription, keystone subscription, digital wallet, keystone flex 
+summary: 'La page de portefeuille digital BlueXP vous permet de gérer les licences pour Cloud Volumes ONTAP à partir d"un emplacement unique. Vous pouvez ajouter de nouvelles licences et mettre à jour des licences existantes.' 
+---
+= Gestion des abonnements Keystone
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Gérez vos abonnements Keystone à partir du portefeuille digital BlueXP en activant les abonnements pour une utilisation avec Cloud Volumes ONTAP. Vous pouvez également demander des modifications à la capacité engagée et annuler la liaison des abonnements.
+
+Un _abonnement Keystone_ est un service de stockage avec paiement à l'utilisation proposé par NetApp.
+
+Le portefeuille digital BlueXP_ vous permet de gérer les licences pour Cloud Volumes ONTAP à partir d'un emplacement unique. Vous pouvez ajouter de nouvelles licences et mettre à jour des licences existantes.
+
+https://docs.netapp.com/us-en/bluexp-cloud-volumes-ontap/concept-licensing.html["En savoir plus sur les licences Cloud Volumes ONTAP"].
+
+
+
+== Autoriser votre compte
+
+Avant de pouvoir utiliser et gérer les abonnements Keystone dans BlueXP, vous devez contacter NetApp afin d'autoriser votre compte utilisateur BlueXP avec vos abonnements Keystone.
+
+.Étapes
+. Dans le menu de navigation BlueXP, sélectionnez *gouvernance > porte-monnaie numérique*.
+. Sélectionnez *Keystone*.
+. Si vous voyez la page *Bienvenue dans NetApp Keystone*, envoyez un e-mail à l'adresse indiquée sur la page.
++
+Un représentant NetApp traitera votre demande en autorisant votre compte utilisateur à accéder aux abonnements.
+
+. Revenez à l'abonnement *Keystone* pour afficher vos abonnements.
++
+image:screenshot-keystone-overview.png["Capture d'écran affichant la liste des abonnements Keystone."]
+
+
+
+.Et la suite ?
+Associez les abonnements que vous souhaitez utiliser avec Cloud Volumes ONTAP.
+
+
+
+== Associer un abonnement
+
+Une fois que NetApp a autorisé votre compte, vous devez lier les abonnements Keystone pour les utiliser avec Cloud Volumes ONTAP. Cette action permet aux utilisateurs de sélectionner l'abonnement comme méthode de facturation pour les nouveaux systèmes Cloud Volumes ONTAP.
+
+.Étapes
+. Dans le menu de navigation BlueXP, sélectionnez *gouvernance > porte-monnaie numérique*.
+. Sélectionnez *Keystone*.
+. Pour l'abonnement que vous souhaitez lier, cliquez sur image:icon-action.png["Icône représentant trois points côte à côte"] Et sélectionnez *Link*.
++
+image:screenshot-keystone-link.png["Capture d'écran affichant l'option de lien pour un abonnement."]
+
+
+
+.Résultat
+L'abonnement est désormais lié à votre compte BlueXP et disponible pour la création d'un environnement de travail Cloud Volumes ONTAP.
+
+
+
+== Demandez plus ou moins de capacité dédiée
+
+Si vous devez ajuster la capacité engagée pour un abonnement, vous pouvez envoyer une demande directement à partir de l'interface BlueXP.
+
+.Étapes
+. Dans le menu de navigation BlueXP, sélectionnez *gouvernance > porte-monnaie numérique*.
+. Sélectionnez *Keystone*.
+. Pour l'abonnement pour lequel vous souhaitez ajuster la capacité, cliquez sur image:icon-action.png["Icône représentant trois points côte à côte"] Et sélectionnez *Afficher le détail et modifier*.
+. Saisissez la capacité d'engagement requise pour un ou plusieurs abonnements.
++
+image:screenshot-keystone-request.png["Capture d'écran indiquant la possibilité de demander une modification de la capacité demandée pour un abonnement."]
+
+. Faites défiler vers le bas, saisissez les détails supplémentaires de la demande, puis cliquez sur *Envoyer*.
+
+
+.Résultat
+Votre demande crée un ticket dans le système NetApp.
+
+
+
+== Dissocier un abonnement
+
+Si vous ne souhaitez plus utiliser un abonnement Keystone avec les nouveaux systèmes Cloud Volumes ONTAP, vous pouvez annuler le lien de cet abonnement. Notez que vous ne pouvez dissocier qu'un abonnement qui n'est pas associé à un abonnement Cloud Volumes ONTAP existant.
+
+.Étapes
+. Dans le menu de navigation BlueXP, sélectionnez *gouvernance > porte-monnaie numérique*.
+. Sélectionnez *Keystone*.
+. Pour l'abonnement que vous souhaitez dissocier, cliquez sur image:icon-action.png["Icône représentant trois points côte à côte"] Et sélectionnez *Unlink*.
+
+
+.Résultat
+L'abonnement n'est plus lié à votre compte BlueXP et ne peut plus être sélectionné lors de la création d'un environnement de travail Cloud Volumes ONTAP.

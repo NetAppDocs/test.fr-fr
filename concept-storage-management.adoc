@@ -1,0 +1,146 @@
+---
+sidebar: sidebar 
+permalink: concept-storage-management.html 
+keywords: provisioning, capacity management, storage provisioning, manual, automatic, advanced allocation, aggregates, thin provisioning, free space, mode, BlueXP, cloud manager 
+summary: BlueXP offre une gestion simplifiée et avancée du stockage Cloud Volumes ONTAP. 
+---
+= Gestion du stockage
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+BlueXP offre une gestion simplifiée et avancée du stockage Cloud Volumes ONTAP.
+
+
+CAUTION: Tous les disques et agrégats doivent être créés et supprimés directement depuis BlueXP. Vous ne devez pas effectuer ces actions à partir d'un autre outil de gestion. Cela peut avoir un impact sur la stabilité du système, entraver la possibilité d'ajouter des disques à l'avenir et générer potentiellement des frais de fournisseur de cloud redondant.
+
+
+
+== Provisionnement du stockage
+
+BlueXP simplifie le provisionnement du stockage pour Cloud Volumes ONTAP en vous achetant des disques et en gérant des agrégats. Il vous suffit de créer des volumes. Si vous le souhaitez, vous pouvez utiliser une option d'allocation avancée pour provisionner vous-même des agrégats.
+
+
+
+=== Provisionnement simplifié
+
+Les agrégats fournissent un stockage cloud aux volumes. BlueXP crée des agrégats pour vous lors du lancement d'une instance et pour le provisionnement de volumes supplémentaires.
+
+Lorsque vous créez un volume, BlueXP fait l'une des trois choses suivantes :
+
+* Il place le volume sur un agrégat existant qui dispose d'un espace libre suffisant.
+* Il place le volume sur un agrégat existant en achetant plus de disques pour cet agrégat.
+
+
+ifdef::aws[]
+
++
+Dans le cas d'un agrégat dans AWS qui prend en charge Elastic volumes, BlueXP augmente également la taille des disques d'un groupe RAID. link:concept-aws-elastic-volumes.html["En savoir plus sur la prise en charge d'Elastic volumes"].
+
+endif::aws[]
+
+* Il achète des disques pour un nouvel agrégat et place le volume sur cet agrégat.
+
+
+BlueXP détermine où placer un nouveau volume en se intéressant à plusieurs facteurs : la taille maximale d'un agrégat, l'activation ou non du provisionnement fin et les seuils d'espace disponible pour les agrégats.
+
+
+TIP: L'administrateur du compte peut modifier les seuils d'espace libre à partir de la page *Paramètres*.
+
+ifdef::aws[]
+
+
+
+==== Sélection de la taille du disque pour les agrégats dans AWS
+
+Lorsque BlueXP crée de nouveaux agrégats pour Cloud Volumes ONTAP dans AWS, il augmente progressivement la taille du disque dans un agrégat, à mesure que le nombre d'agrégats du système augmente. BlueXP vous garantit ainsi que vous pouvez utiliser la capacité maximale du système avant d'atteindre le nombre maximal de disques de données autorisés par AWS.
+
+Par exemple, BlueXP peut choisir les tailles de disque suivantes :
+
+[cols="3*"]
+|===
+| Numéro d'agrégat | Taille du disque | Capacité d'agrégat max. 
+
+
+| 1 | 500 Gio | 3 Tio 
+
+
+| 4 | 1 To | 6 Tio 
+
+
+| 6 | 2 To | 12 Tio 
+|===
+
+NOTE: Ce comportement ne s'applique pas aux agrégats qui prennent en charge la fonctionnalité Amazon EBS Elastic volumes. Les agrégats sur lesquels Elastic volumes sont activés comprennent un ou deux groupes RAID. Chaque groupe RAID dispose de quatre disques identiques de même capacité. link:concept-aws-elastic-volumes.html["En savoir plus sur la prise en charge d'Elastic volumes"].
+
+Vous pouvez choisir vous-même la taille du disque en utilisant l'option d'allocation avancée.
+
+endif::aws[]
+
+
+
+=== Allocation avancée
+
+Au lieu de laisser BlueXP gérer des agrégats pour vous, vous pouvez le faire vous-même. link:task-create-aggregates.html["À partir de la page *allocation avancée*"], vous pouvez créer de nouveaux agrégats qui incluent un nombre spécifique de disques, ajouter des disques à un agrégat existant et créer des volumes dans des agrégats spécifiques.
+
+
+
+== Gestion de la capacité
+
+L'administrateur du compte peut choisir si BlueXP vous informe des décisions relatives à la capacité de stockage ou si BlueXP gère automatiquement les besoins en capacité pour vous.
+
+Ce comportement est déterminé par le _Capacity Management mode_ sur un connecteur. Le mode de gestion de la capacité concerne tous les systèmes Cloud Volumes ONTAP gérés par ce connecteur. Si vous avez un autre connecteur, il peut être configuré différemment.
+
+
+
+=== Gestion automatique de la capacité
+
+Le mode de gestion de la capacité est défini sur automatique par défaut. Dans ce mode, BlueXP achète automatiquement de nouveaux disques pour les instances Cloud Volumes ONTAP lorsque davantage de capacité est nécessaire, supprime les ensembles de disques (agrégats) inutilisés, déplace des volumes entre les agrégats si nécessaire et tente de tomber en panne des disques.
+
+Les exemples suivants illustrent le fonctionnement de ce mode :
+
+* Si un agrégat atteint le seuil de capacité et dispose d'espace pour plus de disques, BlueXP achète automatiquement de nouveaux disques pour cet agrégat afin que les volumes puissent continuer à augmenter.
++
+BlueXP vérifie le ratio d'espace libre toutes les 15 minutes pour déterminer s'il doit acheter des disques supplémentaires.
+
+
+
+ifdef::aws[]
+
++
+Dans le cas d'un agrégat dans AWS qui prend en charge Elastic volumes, BlueXP augmente également la taille des disques d'un groupe RAID. link:concept-aws-elastic-volumes.html["En savoir plus sur la prise en charge d'Elastic volumes"].
+
+endif::aws[]
+
+* Lorsqu'un agrégat atteint le seuil de capacité et qu'il ne prend pas en charge de disques supplémentaires, BlueXP déplace automatiquement un volume de cet agrégat vers un agrégat disposant de la capacité disponible ou vers un nouvel agrégat.
++
+Si BlueXP crée un nouvel agrégat pour le volume, il choisit une taille de disque adaptée à la taille de ce volume.
+
++
+Notez que l'espace libre est désormais disponible sur l'agrégat d'origine. Les volumes existants ou les nouveaux volumes peuvent utiliser cet espace. Dans ce scénario, l'espace ne peut pas être retourné dans le Cloud provocé.
+
+* Si un agrégat ne contient aucun volume pendant plus de 12 heures, BlueXP le supprime.
+
+
+
+
+==== Gestion des LUN avec gestion automatique de la capacité
+
+La gestion automatique de la capacité de BlueXP ne s'applique pas aux LUN. Lorsque BlueXP crée un LUN, il désactive la fonction Autogrow.
+
+
+
+=== Gestion manuelle de la capacité
+
+Si l'administrateur de compte définit le mode gestion de la capacité sur manuel, BlueXP affiche les messages action requise lorsque des décisions de capacité doivent être prises. Les mêmes exemples décrits en mode automatique s'appliquent au mode manuel, mais il vous appartient d'accepter les actions.
+
+
+
+=== En savoir plus >>
+
+link:task-manage-capacity-settings.html["Apprenez à modifier le mode de gestion de la capacité"].

@@ -1,0 +1,44 @@
+---
+sidebar: sidebar 
+permalink: reference-limitations.html 
+keywords: limitations, flexgroup, ontap s3, s3 configuration, svm dr, svm disaster recovery, disaster recovery, storage vm dr, BlueXP, cloud manager 
+summary: Les limitations connues identifient les plateformes, les périphériques ou les fonctions qui ne sont pas pris en charge par cette version du produit, ou qui ne fonctionnent pas correctement avec elle. Examinez attentivement ces limites. 
+---
+= Limites connues
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Les limitations connues identifient les plateformes, les périphériques ou les fonctions qui ne sont pas pris en charge par cette version du produit, ou qui ne fonctionnent pas correctement avec elle. Examinez attentivement ces limites.
+
+Ces limitations sont spécifiques à la gestion Cloud Volumes ONTAP dans BlueXP. Pour afficher les limites avec le logiciel Cloud Volumes ONTAP lui-même, https://docs.netapp.com/us-en/cloud-volumes-ontap-relnotes/reference-limitations.html["Accédez aux notes de version de Cloud Volumes ONTAP"^]
+
+
+
+== BlueXP ne prend pas en charge la création des volumes FlexGroup
+
+Cloud Volumes ONTAP prend en charge les volumes FlexGroup, mais BlueXP ne prend pas encore en charge la création de volumes FlexGroup. Si vous créez un volume FlexGroup à partir de System Manager ou de l'interface de ligne de commande, définissez le mode gestion de la capacité de BlueXP sur Manuel. Le mode automatique peut ne pas fonctionner correctement avec les volumes FlexGroup.
+
+
+NOTE: La création de volumes FlexGroup dans BlueXP est prévue pour une prochaine version.
+
+
+
+== BlueXP ne prend pas en charge S3 avec Cloud Volumes ONTAP
+
+Cloud Volumes ONTAP prend en charge S3 en tant qu'option de stockage scale-out, mais BlueXP n'offre aucune fonctionnalité de gestion pour cette fonctionnalité. Il est recommandé d'utiliser l'interface de ligne de commandes pour configurer l'accès des clients S3 à partir d'Cloud Volumes ONTAP. Pour plus de détails, reportez-vous à la http://docs.netapp.com/ontap-9/topic/com.netapp.doc.pow-s3-cg/home.html["Guide de l'alimentation de la configuration S3"^].
+
+link:concept-client-protocols.html["En savoir plus sur la prise en charge de Cloud Volumes ONTAP pour S3 et d'autres protocoles client"].
+
+
+
+== BlueXP ne prend pas en charge la reprise après incident pour les machines virtuelles de stockage
+
+BlueXP ne prend pas en charge l'installation ou l'orchestration pour la reprise d'activité des machines virtuelles de stockage (SVM). Vous devez utiliser System Manager ou l'interface de ligne de commandes.
+
+link:task-manage-svm-dr.html["En savoir plus sur la reprise d'activité des SVM"].

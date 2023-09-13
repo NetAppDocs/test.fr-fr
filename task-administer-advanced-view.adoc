@@ -1,0 +1,106 @@
+---
+sidebar: sidebar 
+permalink: task-administer-advanced-view.html 
+keywords: system manager, advanced view, access system manager, load system manager, use system manager, cloud tiering 
+summary: 'Si vous avez besoin d"effectuer une gestion avancée d"Cloud Volumes ONTAP, vous pouvez utiliser ONTAP System Manager, interface de gestion fournie avec un système ONTAP. Nous avons inclus l"interface System Manager directement dans BlueXP afin que vous n"ayez pas besoin de laisser BlueXP pour une gestion avancée.' 
+---
+= Administrer Cloud Volumes ONTAP à l'aide de la vue avancée
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Si vous avez besoin d'effectuer une gestion avancée d'Cloud Volumes ONTAP, vous pouvez utiliser ONTAP System Manager, interface de gestion fournie avec un système ONTAP. Nous avons inclus l'interface System Manager directement dans BlueXP afin que vous n'ayez pas besoin de laisser BlueXP pour une gestion avancée.
+
+Cette vue avancée est disponible sous forme d'aperçu. Nous prévoyons d'affiner cette expérience et d'ajouter des améliorations dans les prochaines versions. Envoyez-nous vos commentaires à l'aide de l'outil de chat In-Product.
+
+
+
+== Caractéristiques
+
+La vue avancée de BlueXP vous donne accès à des fonctions de gestion supplémentaires :
+
+* Gestion avancée du stockage
++
+Gestion des groupes de cohérence, des partages, des qtrees, des quotas et des machines virtuelles de stockage.
+
+* Gestion de la mise en réseau
++
+Gérez les IPspaces, les interfaces réseau, les ensembles de ports et les ports ethernet.
+
+* Événements et travaux
++
+Affichez les journaux d'événements, les alertes système, les tâches et les journaux d'audit.
+
+* Protection avancée des données
++
+Protection des VM de stockage, des LUN et des groupes de cohérence
+
+* Gestion des hôtes
++
+Configurez les groupes initiateurs SAN et les clients NFS.
+
+
+
+
+
+== Configurations compatibles
+
+La gestion avancée via System Manager est prise en charge avec Cloud Volumes ONTAP 9.10.0 et versions ultérieures dans les régions cloud standard.
+
+L'intégration de System Manager n'est pas prise en charge dans les régions GovCloud ni dans les régions ne disposant pas d'accès Internet sortant.
+
+
+
+== Limites
+
+Quelques fonctionnalités qui s'affichent dans l'interface de System Manager ne sont pas prises en charge avec Cloud Volumes ONTAP :
+
+* Tiering BlueXP
++
+Le service de Tiering BlueXP n'est pas pris en charge avec Cloud Volumes ONTAP. Le Tiering des données vers le stockage objet doit être configuré directement depuis la vue standard de BlueXP lors de la création de volumes.
+
+* Tiers
++
+La gestion des agrégats (y compris les niveaux locaux et les niveaux cloud) n'est pas prise en charge par System Manager. Vous devez gérer des agrégats directement depuis BlueXP Standard View.
+
+* Mises à niveau du micrologiciel
++
+Les mises à jour automatiques du micrologiciel de la page *Cluster > Paramètres* ne sont pas prises en charge avec Cloud Volumes ONTAP.
+
+
+
+Par ailleurs, le contrôle d'accès basé sur des rôles depuis System Manager n'est pas pris en charge.
+
+
+
+== Comment démarrer
+
+Ouvrez un environnement de travail Cloud Volumes ONTAP et cliquez sur l'option vue avancée.
+
+.Étapes
+. Dans le menu de navigation de gauche, sélectionnez *stockage > Canvas*.
+. Sur la page Canevas, double-cliquez sur le nom d'un système Cloud Volumes ONTAP.
+. Dans le coin supérieur droit, cliquez sur *basculer vers la vue avancée*.
++
+image:screenshot_advanced_view.png["Capture d'écran d'un environnement de travail Cloud Volumes ONTAP affichant l'option basculer vers la vue avancée."]
+
+. Si le message de confirmation apparaît, lisez-le et cliquez sur *Fermer*.
+. Utilisez System Manager pour gérer Cloud Volumes ONTAP.
+. Si nécessaire, cliquez sur *basculer vers la vue standard* pour revenir à la gestion standard via BlueXP.
+
+
+
+
+== Aide sur l'utilisation de System Manager
+
+Si vous avez besoin d'aide pour utiliser System Manager avec Cloud Volumes ONTAP, vous pouvez voir https://docs.netapp.com/us-en/ontap/index.html["Documentation ONTAP"^] pour obtenir des instructions détaillées. Voici quelques liens utiles :
+
+* https://docs.netapp.com/us-en/ontap/volume-admin-overview-concept.html["Gestion des volumes et des LUN"^]
+* https://docs.netapp.com/us-en/ontap/network-manage-overview-concept.html["Gestion du réseau"^]
+* https://docs.netapp.com/us-en/ontap/concept_dp_overview.html["Protection des données"^]
+

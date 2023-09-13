@@ -1,0 +1,90 @@
+---
+sidebar: sidebar 
+permalink: task-managing-state.html 
+keywords: schedule, schedules, scheduling, shutdowns, shut down, restart, stop, stopping, turn off, weekday, weekend 
+summary: Vous pouvez arrêter et démarrer Cloud Volumes ONTAP depuis BlueXP pour gérer vos coûts de calcul du cloud. 
+---
+= Gestion de l'état du Cloud Volumes ONTAP
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Vous pouvez arrêter et démarrer Cloud Volumes ONTAP depuis BlueXP pour gérer vos coûts de calcul du cloud.
+
+
+
+== Planification des arrêts automatiques de Cloud Volumes ONTAP
+
+Vous pouvez arrêter Cloud Volumes ONTAP à des intervalles réguliers afin de réduire les coûts de calcul. Au lieu de le faire manuellement, vous pouvez configurer BlueXP pour qu'il s'arrête automatiquement puis redémarre les systèmes à des moments spécifiques.
+
+.Description de la tâche
+* Lorsque vous planifiez un arrêt automatique de votre système Cloud Volumes ONTAP, BlueXP reporte l'arrêt si un transfert de données actif est en cours.
++
+BlueXP arrête le système une fois le transfert terminé.
+
+* Cette tâche planifie les arrêts automatiques des deux nœuds d'une paire haute disponibilité.
+* Les snapshots des disques de démarrage et racine ne sont pas créés lors de la mise hors tension de Cloud Volumes ONTAP au cours des arrêts programmés.
++
+Les instantanés sont automatiquement créés uniquement lors d'un arrêt manuel, comme décrit dans la section suivante.
+
+
+
+.Étapes
+. Sur la page Canevas, double-cliquez sur l'environnement de travail souhaité.
+. Dans l'onglet vue d'ensemble, cliquez sur le panneau fonctionnalités, puis cliquez sur l'icône en forme de crayon en regard de *temps d'arrêt programmé*.
++
+image::screenshot_schedule_downtime.png[400]
+
+. Spécifiez la planification de l'arrêt :
++
+.. Choisissez si vous souhaitez arrêter le système tous les jours, tous les jours de semaine, tous les week-ends ou toute combinaison des trois options.
+.. Indiquez quand vous souhaitez désactiver le système et pendant combien de temps vous voulez le désactiver.
++
+*Exemple*
+
++
+L'image suivante montre un planning qui demande à BlueXP d'arrêter le système tous les samedis à 20:00 (8 h 00) pendant 12 heures. BlueXP redémarre le système tous les lundis à 12:00
+
++
+image:screenshot_schedule_downtime_window.png["Capture d'écran : affiche l'écran planifier les temps d'arrêt."]
+
+
+
+. Cliquez sur *Enregistrer*.
+
+
+.Résultat
+BlueXP enregistre le planning. L'élément correspondant à la ligne de temps d'arrêt planifié sous le panneau fonctions affiche « activé ».
+
+
+
+== Arrêt d'Cloud Volumes ONTAP
+
+L'arrêt de Cloud Volumes ONTAP vous permet d'économiser de l'espace de calcul et de créer des snapshots des disques racines et de démarrage, ce qui peut être utile pour la résolution des problèmes.
+
+
+NOTE: Pour réduire les coûts, BlueXP supprime régulièrement les anciens snapshots des disques racine et de démarrage. Seuls les deux instantanés les plus récents sont conservés pour les disques racine et de démarrage.
+
+.Description de la tâche
+Lorsque vous arrêtez une paire haute disponibilité, BlueXP arrête les deux nœuds.
+
+.Étapes
+. Dans l'environnement de travail, cliquez sur l'icône *Désactiver*.
++
+image:screenshot_turn_off_redesign.png["Capture d'écran : affiche l'icône permettant de désactiver un système Cloud Volumes ONTAP."]
+
+. Conservez l'option de création de snapshots activés car les snapshots peuvent activer la récupération du système.
+. Cliquez sur *Désactiver*.
++
+L'arrêt du système peut prendre jusqu'à quelques minutes. Vous pouvez redémarrer les systèmes ultérieurement à partir de la page de l'environnement de travail.
+
++
+
+NOTE: Les snapshots sont créés automatiquement au redémarrage.
+
+

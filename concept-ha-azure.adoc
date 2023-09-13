@@ -1,0 +1,115 @@
+---
+sidebar: sidebar 
+permalink: concept-ha-azure.html 
+keywords: high availability, HA, concepts, understanding, overview, takeover, giveback, rpo, rto, nondisruptive, ha pairs, node, nodes, recovery point objective, recovery time objective, nas, nfs, cifs, iscsi, mpio, alua, failover, failure, azure, shared storage, active, passive, load balancer, availability set, storage accounts, page blobs 
+summary: 'Une paire haute disponibilité Cloud Volumes ONTAP offre une fiabilité exceptionnelle et la continuité de l"activité en cas de défaillances dans votre environnement cloud. Dans Azure, le stockage est partagé entre les deux nœuds.' 
+---
+= Paires haute disponibilité dans Azure
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Une paire haute disponibilité Cloud Volumes ONTAP offre une fiabilité exceptionnelle et la continuité de l'activité en cas de défaillances dans votre environnement cloud. Dans Azure, le stockage est partagé entre les deux nœuds.
+
+
+
+== Composants DE HAUTE DISPONIBILITÉ
+
+
+
+=== Configuration de zone de disponibilité unique HAUTE DISPONIBILITÉ avec objets blob de pages
+
+La configuration d'objets blob de pages Cloud Volumes ONTAP HA dans Azure comprend les composants suivants :
+
+image:diagram_ha_azure.png["Image conceptuelle qui affiche un équilibreur de charge gérant le trafic entrant depuis BlueXP et les clients, deux nœuds Cloud Volumes ONTAP dans un jeu de disponibilité, des disques SSD pour les données de démarrage et des blobs de page pour les données client."]
+
+Notez les éléments suivants concernant les composants Azure que BlueXP déploie pour vous :
+
+Équilibreur de la charge Azure Standard:: Le répartiteur de charge gère le trafic entrant vers la paire haute disponibilité Cloud Volumes ONTAP.
+Ensemble de disponibilité:: Le jeu de disponibilité Azure est un regroupement logique des nœuds Cloud Volumes ONTAP. L'ensemble de disponibilité garantit que les nœuds se trouvent dans des domaines de défaillance et de mise à jour différents pour assurer la redondance et la disponibilité. https://docs.microsoft.com/en-us/azure/virtual-machines/availability-set-overview["Pour en savoir plus sur les ensembles de disponibilité, consultez la documentation Azure"^].
+Disques:: Les données client résident sur les blobs de la page Premium Storage. Chaque nœud a accès au stockage de l'autre nœud. Du stockage supplémentaire est également requis pour link:https://docs.netapp.com/us-en/bluexp-cloud-volumes-ontap/reference-default-configs.html#azure-ha-pair["des données « boot », « root » et « core »"^].
+Comptes de stockage::
++
+--
+* Un seul compte de stockage est nécessaire pour les disques gérés.
+* Un ou plusieurs comptes de stockage sont requis pour les blobs de la page stockage Premium, car la limite de capacité de disque par compte de stockage est atteinte.
++
+https://docs.microsoft.com/en-us/azure/storage/common/storage-scalability-targets["Documentation Azure : objectifs d'évolutivité et de performances du stockage Azure pour les comptes de stockage"^].
+
+* Un seul compte de stockage est nécessaire pour le Tiering des données vers le stockage Azure Blob.
+* Depuis Cloud Volumes ONTAP 9.7, les comptes de stockage créés par BlueXP pour les paires haute disponibilité sont des comptes de stockage v2 à usage général.
+* Vous pouvez activer une connexion HTTPS à partir d'une paire haute disponibilité Cloud Volumes ONTAP 9.7 vers des comptes de stockage Azure lors de la création d'un environnement de travail. Notez que l'activation de cette option peut avoir un impact sur les performances d'écriture. Vous ne pouvez pas modifier le paramètre après avoir créé l'environnement de travail.
+
+
+--
+
+
+
+
+=== Configuration à zone de disponibilité unique HAUTE DISPONIBILITÉ avec disques gérés partagés
+
+Une configuration à zone de disponibilité unique de Cloud Volumes ONTAP HA s'exécutant sur le disque géré partagé comprend les composants suivants :
+
+image:diagram_ha_azure_saz_lrs.png["Image conceptuelle qui montre un équilibreur de charge gérant le trafic entrant depuis BlueXP et les clients, deux nœuds Cloud Volumes ONTAP dans un ensemble de disponibilité, des disques SSD pour les données de démarrage et des disques gérés LRS pour les données client."]
+
+Notez les éléments suivants concernant les composants Azure que BlueXP déploie pour vous :
+
+Équilibreur de la charge Azure Standard:: Le répartiteur de charge gère le trafic entrant vers la paire haute disponibilité Cloud Volumes ONTAP.
+Ensemble de disponibilité:: Le jeu de disponibilité Azure est un regroupement logique des nœuds Cloud Volumes ONTAP. L'ensemble de disponibilité garantit que les nœuds se trouvent dans des domaines de défaillance et de mise à jour différents pour assurer la redondance et la disponibilité. https://docs.microsoft.com/en-us/azure/virtual-machines/availability-set-overview["Pour en savoir plus sur les ensembles de disponibilité, consultez la documentation Azure"^].
+Disques:: Les données client résident sur des disques gérés LRS (stockage redondant local). Chaque nœud a accès au stockage de l'autre nœud. Du stockage supplémentaire est également requis pour link:https://docs.netapp.com/us-en/bluexp-cloud-volumes-ontap/reference-default-configs.html#azure-ha-pair["Données d'amorçage, racine, racine du partenaire, cœur et données NVRAM"^].
+Comptes de stockage:: Les comptes de stockage sont utilisés pour les déploiements sur disques gérés pour la gestion des journaux de diagnostic et le Tiering sur le stockage d'objets blob.
+
+
+
+
+=== Configuration HAUTE DISPONIBILITÉ de plusieurs zones de disponibilité
+
+Une configuration de plusieurs zones de disponibilité Cloud Volumes ONTAP HA dans Azure inclut les composants suivants :
+
+image:diagram_ha_azure_maz.png["Image conceptuelle qui affiche un équilibreur de charge gérant le trafic entrant de BlueXP et de clients, deux nœuds Cloud Volumes ONTAP dans deux zones de disponibilité, des disques SSD pour les données de démarrage et des disques gérés pour les données client."]
+
+Notez les éléments suivants concernant les composants Azure que BlueXP déploie pour vous :
+
+Équilibreur de la charge Azure Standard:: Le répartiteur de charge gère le trafic entrant vers la paire haute disponibilité Cloud Volumes ONTAP.
+Zones de disponibilité:: Deux nœuds Cloud Volumes ONTAP sont déployés sur différentes zones de disponibilité. Les zones de disponibilité garantissent que les nœuds se trouvent dans différents domaines de défaillance. https://learn.microsoft.com/en-us/azure/virtual-machines/disks-redundancy#zone-redundant-storage-for-managed-disks["En savoir plus sur le stockage redondant par zone Azure pour les disques gérés dans la documentation Azure"^].
+Disques:: Les données clients résident sur des disques gérés ZRS (zone-redondant Storage). Chaque nœud a accès au stockage de l'autre nœud. Du stockage supplémentaire est également requis pour link:https://docs.netapp.com/us-en/bluexp-cloud-volumes-ontap/reference-default-configs.html#azure-ha-pair["données de démarrage, racine, racine partenaire et données principales"^].
+Comptes de stockage:: Les comptes de stockage sont utilisés pour les déploiements sur disques gérés pour la gestion des journaux de diagnostic et le Tiering sur le stockage d'objets blob.
+
+
+
+
+== RPO et RTO
+
+Une configuration haute disponibilité maintient la haute disponibilité de vos données comme suit :
+
+* L'objectif du point de récupération (RPO) est de 0 seconde.
+Vos données sont transactionnaires, sans perte de données.
+* L'objectif de délai de restauration (RTO) est de 120 secondes.
+En cas de panne, les données doivent être disponibles en moins de 120 secondes.
+
+
+
+
+== Reprise et remise du stockage
+
+À l'instar d'un cluster ONTAP physique, le stockage d'une paire HA Azure est partagé entre les nœuds. Des connexions au stockage du partenaire permettent à chaque nœud d'accéder au stockage de l'autre nœud dans le cas d'un _basculement_. Les mécanismes de basculement de chemin réseau garantissent que les clients et les hôtes continuent de communiquer avec le nœud survivant. Le partenaire _fournit_ du stockage supplémentaire lorsque le nœud est revenu en ligne.
+
+Pour les configurations NAS, les adresses IP des données migrent automatiquement entre les nœuds haute disponibilité en cas de défaillance.
+
+Pour iSCSI, Cloud Volumes ONTAP utilise les E/S multichemins (MPIO) et l'accès aux unités logiques asymétriques (ALUA) pour gérer le basculement de chemin entre les chemins optimisés et non optimisés.
+
+
+NOTE: Pour plus d'informations sur les configurations hôtes spécifiques qui prennent en charge ALUA, consultez le http://mysupport.netapp.com/matrix["Matrice d'interopérabilité NetApp"^] Et le Guide d'installation et de configuration des utilitaires hôtes pour votre système d'exploitation hôte.
+
+Le basculement, la resynchronisation et le rétablissement du stockage sont automatiques par défaut. Aucune action de l'utilisateur n'est requise.
+
+
+
+== Configurations de stockage
+
+Vous pouvez utiliser une paire HA comme configuration active-active, dans laquelle les deux nœuds servent les données aux clients ou comme configuration active-passive, dans laquelle le nœud passif répond aux demandes de données uniquement s'il a pris en charge le stockage pour le nœud actif.

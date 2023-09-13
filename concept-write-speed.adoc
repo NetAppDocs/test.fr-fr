@@ -1,0 +1,153 @@
+---
+sidebar: sidebar 
+permalink: concept-write-speed.html 
+keywords: write speed, high write speed, normal write speed, nvfail, writing speed, ldm, low durability mode 
+summary: 'BlueXP vous permet de choisir une vitesse d"écriture normale ou élevée pour Cloud Volumes ONTAP. Avant de choisir une vitesse d"écriture, vous devez comprendre les différences entre les paramètres normaux et élevés et les risques et les recommandations lors de l"utilisation de la vitesse d"écriture élevée.' 
+---
+= Vitesse d'écriture
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+BlueXP vous permet de choisir une vitesse d'écriture normale ou élevée pour la plupart des configurations Cloud Volumes ONTAP. Avant de choisir une vitesse d'écriture, vous devez comprendre les différences entre les paramètres normaux et élevés et les risques et les recommandations lors de l'utilisation de la vitesse d'écriture élevée.
+
+
+
+== Vitesse d'écriture standard
+
+Lorsque vous choisissez la vitesse d'écriture standard, les données sont écrites directement sur le disque. Lors de l'écriture directe des données sur le disque, réduit le risque de perte de données en cas de panne système non planifiée ou de défaillance en cascade impliquant une panne système non planifiée (paires haute disponibilité uniquement).
+
+La vitesse d'écriture normale est l'option par défaut.
+
+
+
+== Vitesse d'écriture élevée
+
+Lorsque vous choisissez la vitesse d'écriture élevée, les données sont mises en tampon dans la mémoire avant d'être écrites sur le disque, ce qui accélère les performances d'écriture. Toutefois, la mise en cache peut entraîner une perte de données en cas de panne système.
+
+Le volume de données pouvant être perdues en cas de panne système correspond à l'étendue des deux derniers points de cohérence. Le point de cohérence consiste à écrire des données mises en tampon sur le disque. Un point de cohérence se produit lorsque le journal d'écriture est plein ou après 10 secondes (selon la première éventualité). Toutefois, les performances du stockage fournies par votre fournisseur cloud peuvent affecter le temps de traitement des points de cohérence.
+
+
+
+=== Quand utiliser une vitesse d'écriture élevée
+
+Optez pour la vitesse d'écriture élevée si vos workloads nécessitent des performances d'écriture rapides et que vous ne craignez pas de perdre des données en cas de panne système non planifiée ou de défaillance en cascade impliquant une panne système non planifiée (paires haute disponibilité uniquement).
+
+
+
+=== Recommandations lors de l'utilisation d'une vitesse d'écriture élevée
+
+Si vous activez la vitesse d'écriture élevée, vous devez assurer la protection de l'écriture au niveau de la couche applicative ou que les applications tolèrent la perte de données, si elle se produit.
+
+ifdef::aws[]
+
+
+
+=== Vitesse d'écriture élevée avec une paire HA dans AWS
+
+Si vous prévoyez d'activer une vitesse d'écriture élevée sur une paire haute disponibilité dans AWS, vous devriez connaître les différences de niveaux de protection entre un déploiement de plusieurs zones de disponibilité (AZ) et un déploiement d'AZ unique. Le déploiement d'une paire haute disponibilité dans plusieurs AZS offre davantage de résilience et peut aider à limiter les risques de perte de données.
+
+link:concept-ha.html["En savoir plus sur les paires haute disponibilité dans AWS"].
+
+endif::aws[]
+
+
+
+=== Configurations qui prennent en charge une vitesse d'écriture élevée
+
+Toutes les configurations Cloud Volumes ONTAP ne prennent pas en charge une vitesse d'écriture élevée. Ces configurations utilisent la vitesse d'écriture standard par défaut.
+
+ifdef::aws[]
+
+
+
+==== AWS
+
+Si vous utilisez un système à un seul nœud, Cloud Volumes ONTAP prend en charge une vitesse d'écriture élevée avec tous les types d'instances.
+
+Dès la version 9.8, Cloud Volumes ONTAP prend en charge une vitesse d'écriture élevée avec des paires HA lorsque vous utilisez presque tous les types d'instances EC2 pris en charge, sauf pour les instances m5.XLarge et r5.XLarge.
+
+https://docs.netapp.com/us-en/cloud-volumes-ontap-relnotes/reference-configs-aws.html["En savoir plus sur les instances Amazon EC2 prises en charge par Cloud Volumes ONTAP"^].
+
+endif::aws[]
+
+ifdef::azure[]
+
+
+
+==== Azure
+
+Si vous utilisez un système à un seul nœud, Cloud Volumes ONTAP prend en charge une vitesse d'écriture élevée pour tous les types de VM.
+
+Si vous utilisez une paire haute disponibilité, Cloud Volumes ONTAP prend en charge une vitesse d'écriture élevée avec plusieurs types de VM, à partir de la version 9.8.1. Accédez au https://docs.netapp.com/us-en/cloud-volumes-ontap-relnotes/reference-configs-azure.html["Notes de version de Cloud Volumes ONTAP"^] Pour afficher les types de VM qui prennent en charge une vitesse d'écriture élevée.
+
+endif::azure[]
+
+ifdef::gcp[]
+
+
+
+==== Google Cloud
+
+Si vous utilisez un système à un seul nœud, Cloud Volumes ONTAP prend en charge une vitesse d'écriture élevée pour tous les types de machines.
+
+Si vous utilisez une paire haute disponibilité, Cloud Volumes ONTAP prend en charge la vitesse d'écriture élevée avec plusieurs types de machines virtuelles, à commencer par la version 9.13.0. Accédez au https://docs.netapp.com/us-en/cloud-volumes-ontap-relnotes/reference-configs-gcp.html#supported-configurations-by-license["Notes de version de Cloud Volumes ONTAP"^] Pour afficher les types de VM qui prennent en charge une vitesse d'écriture élevée.
+
+https://docs.netapp.com/us-en/cloud-volumes-ontap-relnotes/reference-configs-gcp.html["Découvrez plus en détail les types de machines Google Cloud pris en charge par Cloud Volumes ONTAP"^].
+
+endif::gcp[]
+
+
+
+== Comment sélectionner une vitesse d'écriture
+
+Vous pouvez choisir une vitesse d'écriture lorsque vous créez un nouvel environnement de travail et que vous le pouvez link:task-modify-write-speed.html["modifier la vitesse d'écriture d'un système existant"].
+
+
+
+== Que faut-il attendre si une perte de données se produit
+
+Si une perte de données est due à une vitesse d'écriture élevée, le système de gestion des événements (EMS) signale les deux événements suivants :
+
+* Cloud Volumes ONTAP 9.12.1 ou version ultérieure
++
+ NOTICE nv.data.loss.possible: An unexpected shutdown occurred while in high write speed mode, which possibly caused a loss of data.
+* Cloud Volumes ONTAP 9.11.0 à 9.11.1
++
+ DEBUG nv.check.failed: NVRAM check failed with error "NVRAM disabled due to dirty shutdown with High Write Speed mode"
++
+ ERROR wafl.root.content.changed: Contents of the root volume '' might have changed. Verify that all recent configuration changes are still in effect..
+* Cloud Volumes ONTAP 9.8 à 9.10.1
++
+ DEBUG nv.check.failed: NVRAM check failed with error "NVRAM disabled due to dirty shutdown"
++
+ ERROR wafl.root.content.changed: Contents of the root volume '' might have changed. Verify that all recent configuration changes are still in effect.
+
+
+Dans ce cas, Cloud Volumes ONTAP doit être capable de démarrer et de continuer à transmettre des données sans l'intervention de l'utilisateur.
+
+
+
+== Comment arrêter l'accès aux données en cas de perte
+
+Si vous êtes préoccupé par la perte de données, que les applications cessent de s'exécuter en cas de perte de données et que l'accès aux données doit être repris après que le problème de perte de données a été correctement résolu, vous pouvez utiliser l'option NVFAIL de la CLI pour atteindre cet objectif.
+
+Pour activer l'option NVFAIL:: `vol modify -volume <vol-name> -nvfail on`
+Pour vérifier les paramètres NVFAIL:: `vol show -volume <vol-name> -fields nvfail`
+Pour désactiver l'option NVFAIL:: `vol modify -volume <vol-name> -nvfail off`
+
+
+En cas de perte de données, un volume NFS ou iSCSI avec NVFAIL activé devrait cesser de transmettre les données (le protocole CIFS n'a aucun impact, ce qui est sans état, n'a aucun impact). Pour plus de détails, reportez-vous à https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-mcc-mgmt-dr/GUID-40D04B8A-01F7-4E87-8161-E30BD80F5B7F.html["Impact de NVFAIL sur l'accès aux volumes NFS ou aux LUN"^].
+
+Pour vérifier l'état NVFAIL:: `vol show -fields in-nvfailed-state`
+
+
+Une fois le problème de perte de données résolu, vous pouvez effacer l'état NVFAIL et le volume sera disponible pour l'accès aux données.
+
+Pour effacer l'état NVFAIL:: `vol modify -volume <vol-name> -in-nvfailed-state false`
+

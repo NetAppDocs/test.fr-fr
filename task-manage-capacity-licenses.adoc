@@ -1,0 +1,231 @@
+---
+sidebar: sidebar 
+permalink: task-manage-capacity-licenses.html 
+keywords: license, licensing, capacity license, capacity based license, add license, install license, digital wallet 
+summary: Gérez vos licences basées sur la capacité depuis le portefeuille digital BlueXP pour vous assurer que votre compte NetApp dispose de suffisamment de capacité pour vos systèmes Cloud Volumes ONTAP. 
+---
+= Gestion des licences basées sur la capacité
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Gérez vos licences basées sur la capacité depuis le portefeuille digital BlueXP pour vous assurer que votre compte NetApp dispose de suffisamment de capacité pour vos systèmes Cloud Volumes ONTAP.
+
+_Licences basées sur la capacité_ vous pouvez payer pour Cloud Volumes ONTAP par Tio de capacité.
+
+Le portefeuille digital BlueXP_ vous permet de gérer les licences pour Cloud Volumes ONTAP à partir d'un emplacement unique. Vous pouvez ajouter de nouvelles licences et mettre à jour des licences existantes.
+
+https://docs.netapp.com/us-en/bluexp-cloud-volumes-ontap/concept-licensing.html["En savoir plus sur les licences Cloud Volumes ONTAP"].
+
+
+
+== Ajout des licences au portefeuille digital BlueXP
+
+Une fois que vous aurez acheté une licence auprès de votre ingénieur commercial NetApp, NetApp vous enverra un e-mail contenant le numéro de série et les informations supplémentaires relatives aux licences.
+
+En attendant, BlueXP interroge automatiquement le service des licences NetApp pour obtenir des informations sur les licences associées à votre compte du site de support NetApp. S'il n'y a pas d'erreur, BlueXP ajoute automatiquement les licences au portefeuille digital.
+
+Si BlueXP ne peut pas ajouter la licence, vous devez les ajouter manuellement au portefeuille digital. Par exemple, si le connecteur est installé dans un emplacement qui n'a pas accès à Internet, vous devrez ajouter vous-même les licences. <<Ajoutez des licences achetées à votre compte,Découvrez comment ajouter des licences achetées à votre compte>>.
+
+
+
+== Affichez la capacité consommée dans votre compte
+
+Le portefeuille digital BlueXP vous indique la capacité totale consommée de votre compte et la capacité consommée par le package de licences. Cela vous permet de mieux comprendre la façon dont vous achetez de la capacité supplémentaire et si celle-ci est nécessaire.
+
+.Étapes
+. Dans le menu de navigation BlueXP, sélectionnez *gouvernance > porte-monnaie numérique*.
+. Dans l'onglet *Cloud Volumes ONTAP*, conservez *licences basées sur la capacité* sélectionné.
+. Consultez le récapitulatif des packages, qui indique la capacité consommée, la capacité totale préallouée et la capacité totale PAYGO.
++
+** _Capacité totale consommée_ correspond à la capacité totale provisionnée de tous les systèmes Cloud Volumes ONTAP de votre compte NetApp. La charge dépend de la taille de provisionnement de chaque volume, peu importe l'espace local, utilisé, stocké ou effectif au sein du volume.
+** _La capacité totale préallouée_ correspond à la capacité totale sous licence (BYOL ou contrat Marketplace) que vous avez achetée auprès de NetApp.
+** _Total PAYGO_ est la capacité totale provisionnée via des abonnements Cloud Marketplace. Le chargement via PAYGO n'est utilisé que si la capacité consommée est supérieure à la capacité sous licence ou si aucune licence BYOL n'est disponible dans le portefeuille digital BlueXP.
++
+Voici un exemple de résumé des packages Cloud Volumes ONTAP dans le portefeuille digital BlueXP :
+
++
+image:screenshot_capacity-based-licenses.png["Capture d'écran affichant un récapitulatif des packages Cloud Volumes ONTAP incluant la capacité totale consommée, la capacité totale préallouée (contrats BYOL et Marketplace) et la capacité totale PAYGO, ou provisionnée dans le portefeuille digital BlueXP."]
+
+
+
+. Sous le récapitulatif, consultez la capacité consommée pour chaque package de licences.
++
+** _Consumed Capacity_ indique la capacité des volumes de ce package. Pour plus de détails sur un pack spécifique, placez le curseur de la souris sur l'info-bulle.
++
+Pour mieux comprendre les capacités affichées dans le pack Essentials, vous devez connaître le fonctionnement de la charge. https://docs.netapp.com/us-en/bluexp-cloud-volumes-ontap/concept-licensing.html#notes-about-charging["En savoir plus sur le chargement pour le pack Essentials"].
+
+** _La capacité recommandée_ correspond à la capacité sous licence (BYOL ou contrat Marketplace) que vous avez achetée auprès de NetApp.
++
+*** _BYOL_ indique la capacité sous licence achetée auprès de NetApp pour ce type de package.
+*** _Contrats Marketplace_ indique la capacité sous licence que vous avez achetée avec un contrat Marketplace pour ce type de package.
+
+
+** _PAYGO_ vous indique la capacité consommée par modèle de consommation de licence.
++
+Voici un exemple de compte avec plusieurs packages de licences :
+
++
+image:screenshot-digital-wallet-packages.png["Capture d'écran affichant la capacité consommée, la capacité préallouée et PAYGO ou provisionnée pour les packages essentiels et professionnels."]
+
+
+
+
+
+
+
+== Télécharger les rapports d'utilisation
+
+Les administrateurs de compte peuvent télécharger quatre rapports d'utilisation depuis le portefeuille digital de BlueXP. Ces rapports d'utilisation fournissent des détails sur la capacité de vos abonnements et vous indiquent comment vous facturez les ressources de vos abonnements Cloud Volumes ONTAP. Les rapports téléchargeables capturent des données à un moment donné et peuvent être facilement partagés avec d'autres personnes.
+
+image:screenshot-digital-wallet-usage-report.png["La capture d'écran affiche la page des licences basées sur la capacité du portefeuille digital Cloud Volumes ONTAP et met en évidence le bouton de rapport d'utilisation."]
+
+Les rapports suivants peuvent être téléchargés. Les valeurs de capacité indiquées sont en Tio.
+
+* *Utilisation de haut niveau*: Ce rapport vous indique exactement ce qui se trouve dans la carte "Résumé des paquets Cloud Volumes ONTAP" du portefeuille numérique. Il contient les informations suivantes :
++
+** Capacité totale consommée
+** Capacité totale préallouée
+** Capacité BYOL totale
+** Capacité totale des contrats Marketplace
+** Capacité totale de PAYGO
+
+
+* *Utilisation du paquet Cloud Volumes ONTAP*: Ce rapport vous montre exactement ce qui est sur les cartes de paquet dans le portefeuille numérique. Il contient les informations suivantes pour chaque package, à l'exception du package d'E/S optimisées :
++
+** Capacité totale consommée
+** Capacité totale préallouée
+** Capacité BYOL totale
+** Capacité totale des contrats Marketplace
+** Capacité totale de PAYGO
+
+
+* *Utilisation des machines virtuelles de stockage* : ce rapport montre comment la capacité chargée est répartie entre les systèmes Cloud Volumes ONTAP et les machines virtuelles de stockage (SVM). Ces informations ne sont disponibles sur aucun écran du portefeuille numérique. Il contient les informations suivantes :
++
+** ID et nom de l'environnement de travail (affiché sous forme d'UUID)
+** Le cloud
+** Identifiant de compte NetApp
+** Configuration de l'environnement de travail
+** Nom du SVM
+** Capacité provisionnée
+** Déduplication de la capacité chargée
+** Période de facturation du marché
+** Groupe ou fonctionnalité Cloud Volumes ONTAP
+** Nom de l'abonnement à SaaS Marketplace en charge
+** ID d'abonnement SaaS Marketplace en charge
+** Type de workload
+
+
+* *Utilisation des volumes* : ce rapport indique comment la capacité chargée est répartie par les volumes dans un environnement de travail. Ces informations ne sont disponibles sur aucun écran du portefeuille numérique. Il contient les informations suivantes :
++
+** ID et nom de l'environnement de travail (affiché sous forme d'UUID)
+** Nom SVN
+** ID du volume
+** Type de volume
+** Capacité provisionnée du volume
++
+
+NOTE: Les volumes FlexClone ne sont pas inclus dans ce rapport, car ces types de volumes n'entraînent pas de frais.
+
+
+
+
+
+.Étapes
+. Dans le menu de navigation BlueXP, sélectionnez *gouvernance > porte-monnaie numérique*.
+. Dans l'onglet *Cloud Volumes ONTAP*, conservez *licences basées sur la capacité* sélectionné et cliquez sur *Rapport d'utilisation*.
++
+Le rapport d'utilisation est téléchargé.
+
+. Ouvrez le fichier téléchargé pour accéder aux rapports.
+
+
+
+
+== Ajoutez des licences achetées à votre compte
+
+Si les licences que vous avez achetées ne s'affichent pas dans le portefeuille digital BlueXP, vous devrez les ajouter à BlueXP afin que la capacité soit disponible pour Cloud Volumes ONTAP.
+
+.Ce dont vous avez besoin
+* Vous devez fournir à BlueXP le numéro de série de la licence ou du fichier de licence.
+* Pour saisir le numéro de série, vous devez d'abord le faire https://docs.netapp.com/us-en/bluexp-setup-admin/task-adding-nss-accounts.html["Ajoutez votre compte sur le site de support NetApp à BlueXP"^]. Il s'agit du compte du site de support NetApp autorisé à accéder au numéro de série.
+
+
+.Étapes
+. Dans le menu de navigation BlueXP, sélectionnez *gouvernance > porte-monnaie numérique*.
+. Dans l'onglet *Cloud Volumes ONTAP*, sélectionnez *licences basées sur la capacité* et cliquez sur *Ajouter licence*.
+. Entrez le numéro de série de la licence basée sur la capacité ou téléchargez le fichier de licence.
++
+Si vous avez saisi un numéro de série, vous devez également sélectionner le compte du site de support NetApp autorisé à accéder au numéro de série.
+
+. Cliquez sur *Ajouter une licence*.
+
+
+
+
+== Mettez à jour une licence basée sur la capacité
+
+Si vous avez acheté de la capacité supplémentaire ou prolongé la durée de votre licence, BlueXP met automatiquement à jour la licence dans le portefeuille digital. Vous n'avez rien à faire.
+
+Cependant, si vous avez déployé BlueXP dans un emplacement qui n'a pas d'accès à Internet, vous devrez mettre à jour la licence manuellement dans BlueXP.
+
+.Ce dont vous avez besoin
+Le fichier de licence (ou _files_ si vous avez une paire HA).
+
+.Étapes
+. Dans le menu de navigation BlueXP, sélectionnez *gouvernance > porte-monnaie numérique*.
+. Dans l'onglet *Cloud Volumes ONTAP*, cliquez sur le menu d'action en regard de la licence et sélectionnez *mettre à jour la licence*.
+. Téléchargez le fichier de licence.
+. Cliquez sur *Télécharger la licence*.
+
+
+
+
+== Changer les méthodes de charge
+
+Vous pouvez modifier la méthode de facturation d'un système Cloud Volumes ONTAP utilisant des licences basées sur la capacité. Par exemple, si vous avez déployé un système Cloud Volumes ONTAP avec le pack Essentials, vous pouvez le remplacer par le pack Professional si vos besoins évoluent.
+
+ifdef::azure[]
+
+.Restriction
+La modification de la licence Edge cache depuis ou vers n'est pas prise en charge.
+
+endif::azure[]
+
+.Remarque importante
+Si vous disposez d'une offre ou d'un contrat privé sur le marché de votre fournisseur cloud, le fait de changer de méthode de facturation non incluse dans votre contrat entraînera une facturation en fonction du modèle BYOL (si vous avez acheté une licence auprès de NetApp) ou du modèle de facturation PAYGO.
+
+.Étapes
+. Dans le menu de navigation BlueXP, sélectionnez *gouvernance > porte-monnaie numérique*.
+. Dans l'onglet *Cloud Volumes ONTAP*, cliquez sur *changer la méthode de chargement*.
++
+image:screenshot-digital-wallet-charging-method-button.png["Capture d'écran de la page Cloud Volumes ONTAP du portefeuille digital BlueXP où le bouton changer de méthode de facturation se trouve juste au-dessus du tableau."]
+
+. Sélectionnez un environnement de travail, choisissez la nouvelle méthode de charge, puis confirmez que la modification du type de colis affectera les frais de service.
++
+image:screenshot-digital-wallet-charging-method.png["Capture d'écran de la boîte de dialogue changer la méthode de charge dans laquelle vous choisissez une nouvelle méthode de charge pour un environnement de travail Cloud Volumes ONTAP."]
+
+. Cliquez sur *changer la méthode de charge*.
+
+
+.Résultat
+BlueXP modifie la méthode de charge du système Cloud Volumes ONTAP.
+
+Notez également que le portefeuille digital BlueXP actualise la capacité consommée pour chaque type de pack en fonction des modifications que vous venez d'apporter.
+
+
+
+== Suppression d'une licence basée sur la capacité
+
+Si une licence basée sur la capacité a expiré et n'est plus utilisée, vous pouvez la supprimer à tout moment.
+
+.Étapes
+. Dans le menu de navigation BlueXP, sélectionnez *gouvernance > porte-monnaie numérique*.
+. Dans l'onglet *Cloud Volumes ONTAP*, cliquez sur le menu d'action en regard de la licence et sélectionnez *Supprimer la licence*.
+. Cliquez sur *Supprimer* pour confirmer.
+

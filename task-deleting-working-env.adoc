@@ -1,0 +1,48 @@
+---
+sidebar: sidebar 
+permalink: task-deleting-working-env.html 
+keywords: terminate, delete, working environment, remove, terminate working environment, terminate instance, delete cloud volumes ontap, delete instance, delete working environment, delete backups, cloud backup, cloud data sense 
+summary: 'Vous devez toujours supprimer des systèmes Cloud Volumes ONTAP de BlueXP, plutôt que de la console de votre fournisseur cloud. Par exemple, si vous terminez une instance Cloud Volumes ONTAP sous licence par votre fournisseur cloud, vous ne pouvez pas utiliser la clé de licence pour une autre instance. Vous devez supprimer l"environnement de travail de BlueXP pour libérer la licence.' 
+---
+= Suppression d'un système Cloud Volumes ONTAP
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Vous devez toujours supprimer des systèmes Cloud Volumes ONTAP de BlueXP, plutôt que de la console de votre fournisseur cloud. Par exemple, si vous terminez une instance Cloud Volumes ONTAP sous licence par votre fournisseur cloud, vous ne pouvez pas utiliser la clé de licence pour une autre instance. Vous devez supprimer l'environnement de travail de BlueXP pour libérer la licence.
+
+Lorsque vous supprimez un environnement de travail, BlueXP met fin aux instances Cloud Volumes ONTAP et supprime les disques et les snapshots.
+
+Les ressources gérées par d'autres services, tels que les sauvegardes pour la sauvegarde et la restauration BlueXP, et les instances de classification BlueXP ne sont pas supprimées lorsque vous supprimez un environnement de travail. Vous devrez les supprimer manuellement vous-même. Si ce n'est pas le cas, vous continuerez à recevoir des frais pour ces ressources.
+
+
+NOTE: Lorsque BlueXP déploie Cloud Volumes ONTAP dans votre fournisseur cloud, il assure la protection des instances. Cette option permet d'éviter les raccordements accidentels.
+
+.Étapes
+. Si vous avez activé la sauvegarde et la restauration BlueXP dans l'environnement de travail, déterminez si les données sauvegardées sont toujours requises https://docs.netapp.com/us-en/bluexp-backup-recovery/task-manage-backups-ontap.html#deleting-backups["supprimez les sauvegardes, si nécessaire"^].
++
+La sauvegarde et la restauration BlueXP sont indépendantes de Cloud Volumes ONTAP. La sauvegarde et la restauration BlueXP ne suppriment pas automatiquement les sauvegardes lorsque vous supprimez un système Cloud Volumes ONTAP. De plus, l'interface utilisateur ne prend pas en charge la suppression des sauvegardes après la suppression du système.
+
+. Si vous avez activé la classification BlueXP sur cet environnement de travail et qu'aucun autre environnement de travail n'utilise ce service, vous devez supprimer l'instance du service.
++
+https://docs.netapp.com/us-en/bluexp-classification/concept-cloud-compliance.html#the-cloud-data-sense-instance["En savoir plus sur l'instance de classification BlueXP"^].
+
+. Supprimer l'environnement de travail Cloud Volumes ONTAP.
++
+.. Sur la page Canevas, double-cliquez sur le nom de l'environnement de travail Cloud Volumes ONTAP que vous souhaitez supprimer.
+.. Dans le coin supérieur droit de la console BlueXP, cliquez sur l'icône de l'ellipse, puis sélectionnez *Supprimer*.
++
+image:screenshot_settings_delete.png["Capture d'écran affichant le menu disponible dans l'environnement de travail contenant l'action Supprimer."]
+
+.. Dans la fenêtre Supprimer l'environnement de travail, saisissez le nom de l'environnement de travail, puis cliquez sur *Supprimer*.
++
+La suppression de l'environnement de travail peut prendre jusqu'à 5 minutes.
+
+
+
+

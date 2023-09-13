@@ -1,0 +1,55 @@
+---
+sidebar: sidebar 
+permalink: task-change-ec2-instance.html 
+keywords: ec2 instance type, change ec2 instance type, change instance type, modify instance type, modify ec2 instance, amazon ec2 
+summary: 'Vous pouvez choisir parmi plusieurs instances ou types lorsque vous lancez Cloud Volumes ONTAP dans AWS. Vous pouvez modifier le type d"instance à tout moment si vous déterminez qu"il est sous-dimensionné ou surdimensionné en fonction de vos besoins.' 
+---
+= Modifiez le type d'instance EC2 pour Cloud Volumes ONTAP
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Vous pouvez choisir parmi plusieurs instances ou types lorsque vous lancez Cloud Volumes ONTAP dans AWS. Vous pouvez modifier le type d'instance à tout moment si vous déterminez qu'il est sous-dimensionné ou surdimensionné en fonction de vos besoins.
+
+.Description de la tâche
+* Le rétablissement automatique doit être activé sur une paire Cloud Volumes ONTAP HA (paramètre par défaut). Si ce n'est pas le cas, l'opération échouera.
++
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-hacg/GUID-3F50DE15-0D01-49A5-BEFD-D529713EC1FA.html["Documentation ONTAP 9 : commandes pour la configuration du rétablissement automatique"^]
+
+* La modification du type d'instance peut affecter les frais de service AWS.
+* L'opération redémarre Cloud Volumes ONTAP.
++
+Pour les systèmes à nœud unique, les E/S sont interrompues.
+
++
+Pour les paires HA, le changement n'est pas perturbateur. Les paires HA continuent de servir les données.
+
++
+
+TIP: BlueXP change aisément un nœud à la fois en lançant le basculement et en attente de retour. L'équipe d'assurance qualité de NetApp a testé l'écriture et la lecture des fichiers pendant ce processus et n'a rencontré aucun problème côté client. Au fur et à mesure des changements de connexion, nous avons constaté des tentatives d'E/S au niveau des E/S, mais la couche applicative a pu faire face à ces courtes « connexions » NFS/CIFS.
+
+
+
+.Référence
+Pour obtenir la liste des types d'instances pris en charge dans AWS, reportez-vous à la section link:https://docs.netapp.com/us-en/cloud-volumes-ontap-relnotes/reference-configs-aws.html#supported-ec2-compute["Instances EC2 prises en charge"^].
+
+.Étapes
+. Sur la page Canevas, sélectionnez l'environnement de travail.
+. Dans l'onglet vue d'ensemble, cliquez sur le panneau fonctionnalités, puis cliquez sur l'icône en forme de crayon en regard de *Type d'instance*.
++
+image::screenshot_features_instance_type.png[400]
+
++
+.. Si vous utilisez une licence PAYGO basée sur des nœuds, vous pouvez choisir une autre licence et un autre type d'instance en cliquant sur l'icône en forme de crayon en regard de *Type de licence*.
+
+
+. Choisissez un type d'instance, cochez la case pour confirmer que vous comprenez les implications de la modification, puis cliquez sur *Modifier*.
+
+
+.Résultat
+Cloud Volumes ONTAP redémarre avec la nouvelle configuration.
