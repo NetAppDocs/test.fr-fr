@@ -44,10 +44,6 @@ Recherchez dans la base de connaissances BlueXP des articles utiles pour résoud
 +
 Rejoignez la communauté BlueXP pour suivre des discussions en cours ou en créer de nouveaux.
 
-* Courrier électronique :ng-cloudmanager-feedback@netapp.com[E-mail de commentaires]
-+
-Nous accordons une grande importance à vos commentaires. Envoyez vos commentaires pour nous aider à améliorer BlueXP.
-
 
 
 

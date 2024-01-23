@@ -4076,8 +4076,6 @@ Pour créer une subvention, reportez-vous à la section <block ref="2e58dbc76dde
   <block id="9a3db1abe5491d0eb9bb5d125981356c" category="paragraph">Recherchez dans la base de connaissances BlueXP des articles utiles pour résoudre les problèmes.</block>
   <block id="410fdb9caa9c64da2ff3f88f4836960d" category="list-text"><block ref="410fdb9caa9c64da2ff3f88f4836960d" category="inline-link-rx"></block></block>
   <block id="00c5fef3bb9d593ae96bf5d2ee60354a" category="paragraph">Rejoignez la communauté BlueXP pour suivre des discussions en cours ou en créer de nouveaux.</block>
-  <block id="80b1b0d2b1ebf2b3cba2d25759801afd" category="list-text">Courrier électronique :ng-cloudmanager-feedback@netapp.com[E-mail de commentaires]</block>
-  <block id="6702efec14563f45f1ee2f8c613b8ad8" category="paragraph">Nous accordons une grande importance à vos commentaires. Envoyez vos commentaires pour nous aider à améliorer BlueXP.</block>
   <block id="d88bacf2a9fdcbbc844edcba97c34e30" category="section-title">Créez un dossier de demande de support auprès du support NetApp</block>
   <block id="82812db645b6ff5e9c2a24ddfb66c8d6" category="paragraph">Outre les options d'auto-support mentionnées ci-dessus, vous pouvez travailler avec un spécialiste du support NetApp pour résoudre tous les problèmes après avoir activé le service de support.</block>
   <block id="920fe1428c19533eda6222fe7e58efbe" category="inline-link">Découvrez comment gérer les identifiants associés à votre connexion BlueXP</block>
@@ -5155,4 +5153,35 @@ Dans le cas d'un agrégat dans AWS qui prend en charge Elastic volumes, BlueXP a
   <block id="3880ae5df9fdc4d0fc4a6d00a2239530" category="paragraph">Pour bénéficier du support technique spécifique à BlueXP et à ses solutions et services de stockage, utilisez les options de support décrites ci-dessous.</block>
   <block id="85a772bebde3e95966723beb7a641685" category="paragraph">Certaines configurations Cloud Volumes ONTAP incluent le stockage NVMe local, que Cloud Volumes ONTAP utilise _Flash cache_ pour de meilleures performances. Ajout d'une ligne pour le test de mise à jour de token.</block>
   <block id="f1186c9ba34a61c2fa682874b26fd08d" category="paragraph">Cloud Volumes ONTAP est une appliance de stockage exclusivement logicielle qui exécute le logiciel de gestion des données ONTAP dans le cloud. Pour le test suivant, il fournit un stockage haute performance avec les principales fonctionnalités suivantes :</block>
+  <block id="db19a2aeddd86c6afbd5d3983a9579d2" category="section-title">Test du remplacement de caractères AsciiDoc et des attributs intrinsèques</block>
+  <block id="6d8c8e2d0adf3332b744316a6ebdbf75" category="paragraph">Tests de bout en bout via la localisation et la publication de toutes les langues.</block>
+  <block id="9c8ae0945940e5baec5a93c4c8ec869e" category="paragraph-title">Astérisque</block>
+  <block id="019791a796a02f18a46a3dcb39b816e7" category="paragraph">{asterisk}
+Texte{Asterisk}
+Texte {Asterisk}
+Texte {Asterisk} texte</block>
+  <block id="22ed5e498bf77d3a1534c7e861ebb5a4" category="paragraph-title">Double-deux points</block>
+  <block id="c864eac8459131738baec5694d99d481" category="paragraph">{deux-deux-deux}
+Texte{deux-deux-deux}
+Texte {deux-deux-deux}
+Texte {deux-deux-deux} texte</block>
+  <block id="2349b5a4555c8daaba967bb9d648e02a" category="paragraph-title">Barre verticale</block>
+  <block id="a92de313c578d9511ef232e68df3ecac" category="paragraph">{vbar}
+Texte{vbar}
+Texte {vbar}
+Texte {vbar} texte</block>
+  <block id="32ba78fe43257d3e7f88e3935a8ea0d4" category="paragraph-title">Plus</block>
+  <block id="058acd890f3615536573cc493a22c8c6" category="paragraph">{plus}
+Texte {plus}
+Texte {plus}
+Texte {plus} texte</block>
+  <block id="52d20dd6a39397247940a5255508a9eb" category="paragraph-title">Équerres</block>
+  <block id="688d8707adb64eca76570a9f9f4fccab" category="paragraph">{startsb} et {endsb}
+Texte{startsb} et texte{endsb}
+Texte {startsb} et texte {endsb}
+Texte {startsb} et texte {endsb}</block>
+  <block id="077918e5e759dea8ebe9b14af40f6a8c" category="paragraph-title">Espace non-cassant</block>
+  <block id="f606f03b9471e3c22a0e9412852320bd" category="paragraph">Avant{nbsp}après</block>
+  <block id="64e9073b4fb50b91766ce8b5e61945c1" category="paragraph-title">Espace de largeur nulle</block>
+  <block id="589a92e5ac7fd2654f5ce5d9594f5e7c" category="paragraph">Avant{zwsp}après</block>
 </blocks>

@@ -42,3 +42,45 @@ link:concept-client-protocols.html["En savoir plus sur la prise en charge de Clo
 BlueXP ne prend pas en charge l'installation ou l'orchestration pour la reprise d'activité des machines virtuelles de stockage (SVM). Vous devez utiliser System Manager ou l'interface de ligne de commandes.
 
 link:task-manage-svm-dr.html["En savoir plus sur la reprise d'activité des SVM"].
+
+
+
+== Test du remplacement de caractères AsciiDoc et des attributs intrinsèques
+
+Tests de bout en bout via la localisation et la publication de toutes les langues.
+
+.Astérisque
+{asterisk}
+Texte{Asterisk}
+Texte {Asterisk}
+Texte {Asterisk} texte
+
+.Double-deux points
+{deux-deux-deux}
+Texte{deux-deux-deux}
+Texte {deux-deux-deux}
+Texte {deux-deux-deux} texte
+
+.Barre verticale
+{vbar}
+Texte{vbar}
+Texte {vbar}
+Texte {vbar} texte
+
+.Plus
+{plus}
+Texte {plus}
+Texte {plus}
+Texte {plus} texte
+
+.Équerres
+{startsb} et {endsb}
+Texte{startsb} et texte{endsb}
+Texte {startsb} et texte {endsb}
+Texte {startsb} et texte {endsb}
+
+.Espace non-cassant
+Avant{nbsp}après
+
+.Espace de largeur nulle
+Avant{zwsp}après
