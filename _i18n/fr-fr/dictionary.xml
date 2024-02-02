@@ -1512,7 +1512,6 @@ En cas de panne, les données doivent être disponibles en moins de 120 secondes
   <block id="e3cd99e4aa330ae6bdfb3754d83ae962" category="list-text">Si vous avez un compte partenaire ou revendeur, vous pouvez ajouter un ou plusieurs comptes NSS, mais ils ne peuvent pas être ajoutés en même temps que les comptes au niveau du client.</block>
   <block id="c0e0b7ff0de9558404e9b77ece42948a" category="list-text">Sélectionnez *gestion NSS &gt; Ajouter un compte NSS*.</block>
   <block id="85b9386ed443776127e099931d73448a" category="list-text">Lorsque vous y êtes invité, sélectionnez *Continuer* pour être redirigé vers une page de connexion Microsoft.</block>
-  <block id="19d089db572ee6a1e154a0c9c9e57bfd" category="paragraph">NetApp utilise Microsoft Azure Active Directory comme fournisseur d'identités pour les services d'authentification spécifiques au support et aux licences.</block>
   <block id="465ec6d5eafa3524c948c99d8bfcd306" category="list-text">Sur la page de connexion, indiquez l'adresse e-mail et le mot de passe que vous avez enregistrés sur le site de support NetApp pour réaliser le processus d'authentification.</block>
   <block id="cbc6cc3bb022583403171b447b2a962c" category="paragraph">Ces actions permettent à BlueXP d'utiliser votre compte NSS pour des opérations telles que le téléchargement de licences, la vérification de la mise à niveau logicielle et les inscriptions de support futures.</block>
   <block id="ec084bb25ed5b934c09b361069c246b2" category="list-text">Le compte NSS doit être un compte de niveau client (pas un compte invité ou temporaire). Vous pouvez avoir plusieurs comptes NSS de niveau client.</block>
@@ -5184,4 +5183,5 @@ Texte {startsb} et texte {endsb}</block>
   <block id="f606f03b9471e3c22a0e9412852320bd" category="paragraph">Avant{nbsp}après</block>
   <block id="64e9073b4fb50b91766ce8b5e61945c1" category="paragraph-title">Espace de largeur nulle</block>
   <block id="589a92e5ac7fd2654f5ce5d9594f5e7c" category="paragraph">Avant{zwsp}après</block>
+  <block id="d59e0b46782e48a01966e5c7ccc38d17" category="paragraph">NetApp utilise Microsoft Entra ID comme fournisseur d'identité pour les services d'authentification spécifiques à la prise en charge et à l'octroi de licences.</block>
 </blocks>
