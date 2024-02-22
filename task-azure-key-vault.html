@@ -1,0 +1,3315 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head class="at-element-marker">
+  <title>Gérez les clés avec Azure Key Vault | NetApp Documentation</title>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge,chrome=1">
+  <meta http-equiv="language" content="en">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="og:title" content="Gérez les clés avec Azure Key Vault | NetApp Documentation" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://docs.netapp.com/fr-fr/test/task-azure-key-vault.html" />
+	<meta property="og:description" content="Utilisez Azure Key Vault pour votre service tiers de gestion des clés." />
+  <meta property="og:image" content="https://docs.netapp.com/fr-fr/test/images/logo-tophat-social.png" />
+  <meta property="og:image:alt" content="NetApp Logo" />
+  <meta name="format-detection" content="telephone=no">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="encoding" content="utf-8">
+  <meta http-equiv="nss-type" content="Product Documentation"/>
+  <meta http-equiv="nss-subtype" content="User Guide"/><meta name="description" content="Utilisez Azure Key Vault pour votre service tiers de gestion des clés.">
+  <meta name="keywords" content=" azure, encryption, NVE, NetApp volume encryption, KMIP, azure key vault"><!-- Icons -->
+  <link rel="icon" href="/fr-fr/test/images/favicon.ico" type="image/x-icon">
+
+  <!-- RSS Feed --><link rel="alternate" type="application/rss+xml" title="NetApp Documentation" href="/fr-fr/test/feed.xml"><!-- CSS Definitions: NetApp CSS should be defined after generic css -->
+
+
+  <!-- Combined CSS -->
+  <link rel="stylesheet" type="text/css" href="/fr-fr/test/css/ie-netappdocs.css">
+
+  
+  <link rel="stylesheet" href="/fr-fr/test/css/ie-landing-page.css" type="text/css">
+  <link rel="stylesheet" href="/fr-fr/test/css/ie-tabbed-blocks.css" type="text/css">
+  <!-- Canonical url -->
+  <link rel="canonical" href="https://docs.netapp.com/fr-fr/test/task-azure-key-vault.html" />
+  <link rel="alternate" hreflang="x-default" href="https://docs.netapp.com/us-en/test/task-azure-key-vault.html" />
+  <link rel="alternate" hreflang="fr" href="https://docs.netapp.com/fr-fr/test/task-azure-key-vault.html" />
+  <link rel="alternate" hreflang="en" href="https://docs.netapp.com/us-en/test/task-azure-key-vault.html" />
+  <link rel="alternate" hreflang="ja" href="https://docs.netapp.com/ja-jp/test/task-azure-key-vault.html" />
+  <link rel="alternate" hreflang="ko" href="https://docs.netapp.com/ko-kr/test/task-azure-key-vault.html" />
+  <link rel="alternate" hreflang="zh-Hans" href="https://docs.netapp.com/zh-cn/test/task-azure-key-vault.html" />
+  <link rel="alternate" hreflang="zh-Hant" href="https://docs.netapp.com/zh-tw/test/task-azure-key-vault.html" />
+  <link rel="alternate" hreflang="de" href="https://docs.netapp.com/de-de/test/task-azure-key-vault.html" />
+  <link rel="alternate" hreflang="es" href="https://docs.netapp.com/es-es/test/task-azure-key-vault.html" />
+  <link rel="alternate" hreflang="it" href="https://docs.netapp.com/it-it/test/task-azure-key-vault.html" />
+  <!-- Top level site integrations -->
+<script type="text/javascript" src="https://cdn.cookielaw.org/consent/72570c5c-fe30-465f-b0e0-b77f7fb4ae34/OtAutoBlock.js"></script>
+    <script type="text/javascript" src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" charset="UTF-8" data-document-language="true" data-domain-script="72570c5c-fe30-465f-b0e0-b77f7fb4ae34"></script>
+    <script type="text/javascript">function OptanonWrapper() { }</script>
+    <script type="text/plain" class="optanon-category-C0002" src="https://assets.adobedtm.com/60287eadf1ee/c284da483c83/launch-e9ff3acac59f.min.js"></script>
+    <script class="optanon-category-C0001">(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.setAttributeNode(d.createAttribute('data-ot-ignore'));j.setAttribute('class','optanon-category-C0001');j.async=true;
+        j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl+'';f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-MD73T9M');</script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  
+  <script>
+    $(document).ready(function() {
+      const MASTHEAD_OFFSET = 65;
+      const SECTIONS = $("main h2, main h3");
+      // PAGE NAV - Init
+      if (SECTIONS.length == 0) {
+        // remove if there is no elements
+        /*
+        $("#ie-right-navbar").remove();
+        $("#ie-right-navbar-collapse").remove();
+        */
+      } else {
+        $(".page-nav-title").css('display', 'block');
+        for (var i = 0; i < SECTIONS.length; i++) {
+          var sectionId = $(SECTIONS[i]).attr('id');
+          var sectionName = $(SECTIONS[i]).text();
+          var subClass = $(SECTIONS[i]).is("h3") ? ' page-nav__sublink' : '';
+          $("#page-menu").append('<li class="page-nav-item"><a href="#' + sectionId + '" class="page-nav__link' + subClass + '">' + sectionName + '</a></li>');
+        }
+      }
+    });
+  </script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+  <!-- Used for Product Family Page Sidebar Visibility --><!-- Used to import Promise for IE. Required for SearchKit -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.5/bluebird.min.js"></script><script src='/fr-fr/test/js/na-search.js'></script><script src='/fr-fr/test/js/ie-clouddocs.js'></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><script>
+    /*
+      $(document).ready(function() {
+          $("#tg-sb-link").click(function() {
+              $("#tg-sb-sidebar").toggle();
+              $("#tg-sb-content").toggleClass('col-md-9');
+              $("#tg-sb-content").toggleClass('col-md-12');
+              $("#tg-sb-icon").toggleClass('fa-toggle-on');
+              $("#tg-sb-icon").toggleClass('fa-toggle-off');
+          });
+      });
+      */
+  </script>
+  <script src='/fr-fr/test/js/custom-dropdown.js'></script>
+  <script src='/fr-fr/test/js/FileSaver.min.js'></script>
+  <script src='/fr-fr/test/js/jszip-utils.min.js'></script>
+  <script src='/fr-fr/test/js/jszip.min.js'></script><script src='/fr-fr/test/js/ie-pdf-ux.js'></script></head>
+
+
+  <body class role="document" data-flavor="">
+    <div class="skip-to-main">
+      <a href="#main" >Skip to main content</a>
+    </div><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MD73T9M"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript><div id="page" class="">
+      <div id="ie-phone-menu" class=""></div>
+      <div id="ie-content-wrap" class="">
+        <nav id="ie-new-header">
+    <ul>
+        <li id="ie-phone-menu-button">
+            <a href="#">
+                <image id="" src="/fr-fr/test/images/hamburger.svg" alt="menu" />
+            </a>
+        </li>
+
+        <li>
+            <a href="https://www.netapp.com/fr">
+                <image id="ie-header-logo" src="/fr-fr/test/images/netapp_logo.svg" alt="netapp" />
+            </a>
+        </li>
+        <li id="ie-header-docs">
+            <a href="https://www.netapp.com/fr/support-and-training/documentation/">Documents</a>
+        </li>
+
+        <!-- Empty container to push header left with or without lang selector -->
+        <li id="empty-container" style="margin-left: auto">
+        </li>
+        <!-- Start Language Selector --><li id="ie-language-dropdown">
+            <div id="language-dropdown" class="custom-dropdown custom-dropdown-lang">
+                <div class="custom-dropdown-select custom-dropdown-select-lang">
+                    <img src="/fr-fr/test/images/language_white_24dp.svg" class="n-globe__icon" />
+                    <span class="lang-name">Français</span>
+                    <img src="/fr-fr/test/images/dropdown-arrow.svg" alt="" class="custom-icon chevrondown header invisible" />
+                    <img src="/fr-fr/test/images/dropdown-arrow.svg" alt="" class="custom-icon chevronup header" />
+                    </button>
+                </div>
+
+                <ul class="custom-dropdown-menu"><li>
+                        <a href="https://docs.netapp.com/fr-fr/test/task-azure-key-vault.html"
+                            target="_self"><span translate="no" class="notranslate">Français</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/us-en/test/task-azure-key-vault.html"
+                            target="_self"><span translate="no" class="notranslate">English</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/ja-jp/test/task-azure-key-vault.html"
+                            target="_self"><span translate="no" class="notranslate">日本語</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/ko-kr/test/task-azure-key-vault.html"
+                            target="_self"><span translate="no" class="notranslate">한국어</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/zh-cn/test/task-azure-key-vault.html"
+                            target="_self"><span translate="no" class="notranslate">简体中文</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/zh-tw/test/task-azure-key-vault.html"
+                            target="_self"><span translate="no" class="notranslate">繁體中文</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/de-de/test/task-azure-key-vault.html"
+                            target="_self"><span translate="no" class="notranslate">Deutsch</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/es-es/test/task-azure-key-vault.html"
+                            target="_self"><span translate="no" class="notranslate">Español</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/it-it/test/task-azure-key-vault.html"
+                            target="_self"><span translate="no" class="notranslate">Italiano</span></a>
+                    </li></ul>
+            </div>
+            </li>
+        <!-- End Language Selector -->
+
+
+        <li id="ie-allnetapp">
+            <div id="allnetapp-dropdown" class="custom-dropdown custom-dropdown-allnetapp">
+                <div class="custom-dropdown-select custom-dropdown-select-allnetapp">
+                    <img src="/fr-fr/test/images/apps_white_24dp.svg" alt="" class="allnetapp-icon" />
+                    <span class="allnetapp-name">Tout NetApp</span>
+                    <img src="/fr-fr/test/images/dropdown-arrow.svg" alt="" class="custom-icon chevrondown header invisible" />
+                    <img src="/fr-fr/test/images/dropdown-arrow.svg" alt="" class="custom-icon chevronup header" />
+                    </button>
+                </div>
+
+                <ul class="custom-dropdown-menu allnetapp-dropdown">
+                    <li>
+                        <a href="https://bluexp.netapp.com/fr/"
+                            target="_self"><span translate="no" class="notranslate">BlueXP</span></a>
+                    </li>
+                    <li>
+                        <a href="https://mysupport.netapp.com/site/"
+                            target="_self"><span translate="no" class="notranslate">Support</span></a>
+                    </li>
+                    <li>
+                        <a href="https://kb.netapp.com/"
+                            target="_self"><span translate="no" class="notranslate">Base de connaissances</span></a>
+                    </li>
+                    <li>
+                        <a href="https://www.netapp.com/fr/support-and-training/netapp-learning-services/"
+                            target="_self"><span translate="no" class="notranslate">Formation</span></a>
+                    </li>
+                </ul>
+            </div>
+
+        </li>
+
+    </ul>
+</nav>
+
+        <main id="n-main-content" class="n-main-content">
+          <!-- Start Documentation Content -->
+<div class="ie-main">
+
+<div id="ie-new-sidebar-collapse" style="display: none">
+    <img id="sidebar-expand" class="ie-searchbox-icon" src="/fr-fr/test/images/double_arrow.svg" alt="" />
+</div>
+<div id="ie-new-sidebar">
+    <div id="ie-product-identity-lockup">
+        <div id="sidebar-collapse" class="">
+            <img src="/fr-fr/test/images/double_arrow.svg" alt="" />
+        </div>
+        <div id="ie-breadcrumb" class="">
+  <ul class="ie-breadcrumb">
+    <li class="">
+      <a href="https://docs.netapp.com">Tous les documents</a>
+    </li>
+    
+    
+    <li class="">
+      <a href="https://docs.netapp.com/us-en/cloud/">Documents sur le cloud</a>
+    </li>
+    
+
+    
+    <li class="">
+      <a href="https://docs.netapp.com/fr-fr/bluexp-family/">
+        BlueXP
+      </a>
+    </li>
+    
+  </ul>
+  
+  <div class="ie-product-name" >
+    <!--<a href="/fr-fr/test/">-->
+      Cloud Volumes ONTAP
+    <!--</a>-->
+  </div>
+</div>
+
+            
+<div id="ie-selectors"><div id="version-dropdown-new" class="custom-dropdown" >
+  <div class="custom-dropdown-select unselected" title=" 9.13.1">
+    <label>Version</label>
+    <span translate="no" class="notranslate">9.13.1</span>
+    <img src="/fr-fr/test/images/dropdown-arrow.svg" alt="" class="custom-icon chevrondown version invisible" />
+    <img src="/fr-fr/test/images/dropdown-arrow.svg" alt="" class="custom-icon chevronup version" />
+  </div>
+
+  <ul class="custom-dropdown-menu"><li>
+      
+      <a href="https://docs.netapp.com/fr-fr/cloud-volumes-ontap-relnotes/task-azure-key-vault.html" target="_self">
+        <span translate="no" class="notranslate"><span class="version"> 9.13.1</span></span>
+      </a>
+                     
+    </li>
+    <li>
+      
+      <a href="https://docs.netapp.com/fr-fr/cloud-volumes-ontap-9130-relnotes/task-azure-key-vault.html" target="_self">
+        <span translate="no" class="notranslate"><span class="version"> 9.13.0</span></span>
+      </a>
+                     
+    </li>
+    <li>
+      
+      <a href="https://docs.netapp.com/fr-fr/cloud-volumes-ontap-9121-relnotes/task-azure-key-vault.html" target="_self">
+        <span translate="no" class="notranslate"><span class="version"> 9.12.1</span></span>
+      </a>
+                     
+    </li>
+    <li>
+      
+      <a href="https://docs.netapp.com/fr-fr/cloud-volumes-ontap-9120-relnotes/task-azure-key-vault.html" target="_self">
+        <span translate="no" class="notranslate"><span class="version"> 9.12.0</span></span>
+      </a>
+                     
+    </li>
+    <li>
+      
+      <a href="https://docs.netapp.com/fr-fr/cloud-volumes-ontap-9111-relnotes/task-azure-key-vault.html" target="_self">
+        <span translate="no" class="notranslate"><span class="version"> 9.11.1</span></span>
+      </a>
+                     
+    </li>
+    <li>
+      
+      <a href="https://docs.netapp.com/fr-fr/cloud-volumes-ontap-9110-relnotes/task-azure-key-vault.html" target="_self">
+        <span translate="no" class="notranslate"><span class="version"> 9.11.0</span></span>
+      </a>
+                     
+    </li>
+    <li>
+      
+      <a href="https://docs.netapp.com/fr-fr/cloud-volumes-ontap-9101-relnotes/task-azure-key-vault.html" target="_self">
+        <span translate="no" class="notranslate"><span class="version"> 9.10.1</span></span>
+      </a>
+                     
+    </li>
+    <li>
+      
+      <a href="https://docs.netapp.com/fr-fr/cloud-volumes-ontap-9100-relnotes/task-azure-key-vault.html" target="_self">
+        <span translate="no" class="notranslate"><span class="version"> 9.10.0</span></span>
+      </a>
+                     
+    </li>
+    <li>
+      
+      <a href="https://docs.netapp.com/fr-fr/cloud-volumes-ontap-991-relnotes/task-azure-key-vault.html" target="_self">
+        <span translate="no" class="notranslate"><span class="version"> 9.9.1</span></span>
+      </a>
+                     
+    </li>
+    <li>
+      
+      <a href="https://docs.netapp.com/fr-fr/cloud-volumes-ontap-990-relnotes/task-azure-key-vault.html" target="_self">
+        <span translate="no" class="notranslate"><span class="version"> 9.9.0</span></span>
+      </a>
+                     
+    </li>
+    <li>
+      
+      <a href="https://docs.netapp.com/fr-fr/cloud-volumes-ontap-98-relnotes/task-azure-key-vault.html" target="_self">
+        <span translate="no" class="notranslate"><span class="version"> 9.8</span></span>
+      </a>
+                     
+    </li>
+    <li>
+      
+      <a href="https://docs.netapp.com/fr-fr/cloud-volumes-ontap-97-relnotes/task-azure-key-vault.html" target="_self">
+        <span translate="no" class="notranslate"><span class="version"> 9.7</span></span>
+      </a>
+                     
+    </li>
+    <li>
+      
+      <a href="https://docs.netapp.com/fr-fr/cloud-volumes-ontap-96-relnotes/task-azure-key-vault.html" target="_self">
+        <span translate="no" class="notranslate"><span class="version"> 9.6</span></span>
+      </a>
+                     
+    </li>
+    <li>
+      
+      <a href="https://docs.netapp.com/fr-fr/cloud-volumes-ontap-95-relnotes/task-azure-key-vault.html" target="_self">
+        <span translate="no" class="notranslate"><span class="version"> 9.5</span></span>
+      </a>
+                     
+    </li>
+    <li>
+      
+      <a href="https://docs.netapp.com/fr-fr/cloud-volumes-ontap-94-relnotes/task-azure-key-vault.html" target="_self">
+        <span translate="no" class="notranslate"><span class="version"> 9.4</span></span>
+      </a>
+                     
+    </li>
+    <li>
+      
+      <a href="https://docs.netapp.com/fr-fr/cloud-volumes-ontap-93-relnotes/task-azure-key-vault.html" target="_self">
+        <span translate="no" class="notranslate"><span class="version"> 9.3</span></span>
+      </a>
+                     
+    </li>
+    
+  </ul>
+</div>
+<div id="flavor-dropdown" class="custom-dropdown" data-url="/fr-fr/test/task-azure-key-vault.html">
+  
+  <div class="custom-dropdown-select unselected flavor" title="Tous les fournisseurs cloud">
+    <label>Ou du fournisseur cloud</label>
+    <span>Tous les fournisseurs cloud</span>
+    <img src="/fr-fr/test/images/dropdown-arrow.svg" alt="" class="custom-icon chevrondown flavor invisible" />
+    <img src="/fr-fr/test/images/dropdown-arrow.svg" alt="" class="custom-icon chevronup flavor" />
+  </div>
+  
+
+  <ul class="custom-dropdown-menu">
+    
+    
+    <li data-value="aws" data-url="/fr-fr/test/aws">Amazon Web Services</li>
+    
+    
+    
+    <li data-value="gcp" data-url="/fr-fr/test/gcp">Google Cloud</li>
+    
+    
+    
+    <li data-value="azure" data-url="/fr-fr/test/azure/task-azure-key-vault.html">Microsoft Azure
+    </li>
+    
+    
+    <li data-url="/fr-fr/test/task-azure-key-vault.html">Tous les fournisseurs cloud</li>
+  </ul>
+</div>
+</div>
+        
+        
+
+<div id="ie-searchbox" class="ie-searchbox-sidebar ">
+    <img class="ie-searchbox-icon" src="/fr-fr/test/images/loupe.svg" alt=""/>
+    <div id="react-search" 
+        data-search-html="/fr-fr/test/search.html" 
+        data-type="widget"
+        data-placeholder="Rechercher dans la documentation"
+        data-no-results-found="Aucun résultat trouvé pour : {query}"
+        data-did-you-mean="Rechercher {suggestion}."
+        data-no-results-found-did-you-mean="Aucun résultat n'a été trouvé pour {query}. Voulez-vous dire {suggestion} ?"
+        data-results-found="{hitCount} résultats"
+        data-error-message="Une erreur s'est produite. Merci de réessayer."
+        data-error-reset="Réinitialiser la recherche"
+        data-sk-es-pf-indexes="" 
+        data-flavor="">
+    </div>
+</div>
+        
+    </div>
+    <div id="ie-new-toc"><script>
+  let sidebarAccordion = true;
+
+  /* specific css rules for Mac */
+  if(navigator.platform.match('Mac') !== null) {
+    document.body.setAttribute('class', 'OSX');
+  }
+
+</script>
+
+<div id="ie-sidebar-container">
+  <ul id="ie-sidebar-list" ><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Documentation Cloud Volumes ONTAP"
+      data-li-level="1#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/index.html" 
+    ><a class="ie-sidebar-menuitem-1 " href="/fr-fr/test/index.html">
+        Documentation Cloud Volumes ONTAP
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Notes de mise à jour"
+      data-li-level="1" 
+      class=" sidebar-folder    "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-1  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/test/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/test/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Notes de mise à jour</div>-->
+         Notes de mise à jour
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Quoi de neuf"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/whats-new.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/fr-fr/test/whats-new.html">
+        Quoi de neuf
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Limites connues"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/reference-limitations.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/fr-fr/test/reference-limitations.html">
+        Limites connues
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Notes de version de Cloud Volumes ONTAP"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/whats-new-ontap.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/fr-fr/test/whats-new-ontap.html">
+        Notes de version de Cloud Volumes ONTAP
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Commencez"
+      data-li-level="1" 
+      class=" sidebar-folder    "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-1  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/test/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/test/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Commencez</div>-->
+         Commencez
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Découvrez Cloud Volumes ONTAP"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/concept-overview-cvo.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/fr-fr/test/concept-overview-cvo.html">
+        Découvrez Cloud Volumes ONTAP
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Versions prises en charge pour les nouveaux déploiements"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/reference-versions.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/fr-fr/test/reference-versions.html">
+        Versions prises en charge pour les nouveaux déploiements
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Lancez-vous dans Amazon Web Services"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/test/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/test/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Lancez-vous dans Amazon Web Services</div>-->
+         Lancez-vous dans Amazon Web Services
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Démarrage rapide"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-getting-started-aws.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/task-getting-started-aws.html">
+        Démarrage rapide
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Planification de la configuration"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-planning-your-config.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/task-planning-your-config.html">
+        Planification de la configuration
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configurez votre réseau"
+      data-li-level="3" 
+      class=" sidebar-folder    "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-3  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/test/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/test/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Configurez votre réseau</div>-->
+         Configurez votre réseau
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration réseau requise"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/reference-networking-aws.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/fr-fr/test/reference-networking-aws.html">
+        Configuration réseau requise
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration d'une passerelle de transit AWS"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-setting-up-transit-gateway.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/fr-fr/test/task-setting-up-transit-gateway.html">
+        Configuration d'une passerelle de transit AWS
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Déploiement d'une paire haute disponibilité dans un sous-réseau partagé"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-deploy-aws-shared-vpc.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/fr-fr/test/task-deploy-aws-shared-vpc.html">
+        Déploiement d'une paire haute disponibilité dans un sous-réseau partagé
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Règles de groupe de sécurité pour AWS"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/reference-security-groups.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/fr-fr/test/reference-security-groups.html">
+        Règles de groupe de sécurité pour AWS
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration du KMS AWS"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-setting-up-kms.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/task-setting-up-kms.html">
+        Configuration du KMS AWS
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configurer les rôles IAM"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-set-up-iam-roles.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/task-set-up-iam-roles.html">
+        Configurer les rôles IAM
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration des licences"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-set-up-licensing-aws.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/task-set-up-licensing-aws.html">
+        Configuration des licences
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Lancement d'Cloud Volumes ONTAP dans AWS"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-deploying-otc-aws.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/task-deploying-otc-aws.html">
+        Lancement d'Cloud Volumes ONTAP dans AWS
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Lancez-vous dans AWS C2S"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-getting-started-aws-c2s.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/task-getting-started-aws-c2s.html">
+        Lancez-vous dans AWS C2S
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Commencez avec Microsoft Azure"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/test/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/test/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Commencez avec Microsoft Azure</div>-->
+         Commencez avec Microsoft Azure
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Démarrage rapide"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-getting-started-azure.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/task-getting-started-azure.html">
+        Démarrage rapide
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Planification de la configuration"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-planning-your-config-azure.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/task-planning-your-config-azure.html">
+        Planification de la configuration
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configurez votre réseau"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/reference-networking-azure.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/reference-networking-azure.html">
+        Configurez votre réseau
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configurez le chiffrement à l'aide de votre clé"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-set-up-azure-encryption.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/task-set-up-azure-encryption.html">
+        Configurez le chiffrement à l'aide de votre clé
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration des licences"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-set-up-licensing-azure.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/task-set-up-licensing-azure.html">
+        Configuration des licences
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Activer le mode haute disponibilité"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-azure-high-availability-mode.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/task-azure-high-availability-mode.html">
+        Activer le mode haute disponibilité
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Lancez Cloud Volumes ONTAP dans Azure"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-deploying-otc-azure.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/task-deploying-otc-azure.html">
+        Lancez Cloud Volumes ONTAP dans Azure
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Lancez-vous dans Google Cloud"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/test/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/test/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Lancez-vous dans Google Cloud</div>-->
+         Lancez-vous dans Google Cloud
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Démarrage rapide"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-getting-started-gcp.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/task-getting-started-gcp.html">
+        Démarrage rapide
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Planification de la configuration"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-planning-your-config-gcp.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/task-planning-your-config-gcp.html">
+        Planification de la configuration
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configurez votre réseau"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/reference-networking-gcp.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/reference-networking-gcp.html">
+        Configurez votre réseau
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Planifiez les contrôles de service VPC"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/reference-vpc-service-controls-gcp.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/reference-vpc-service-controls-gcp.html">
+        Planifiez les contrôles de service VPC
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Créez un compte de service"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-creating-gcp-service-account.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/task-creating-gcp-service-account.html">
+        Créez un compte de service
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Utilisez des clés de chiffrement gérées par le client"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-setting-up-gcp-encryption.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/task-setting-up-gcp-encryption.html">
+        Utilisez des clés de chiffrement gérées par le client
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration des licences"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-set-up-licensing-google.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/task-set-up-licensing-google.html">
+        Configuration des licences
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Lancez Cloud Volumes ONTAP dans Google Cloud"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-deploying-gcp.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/task-deploying-gcp.html">
+        Lancez Cloud Volumes ONTAP dans Google Cloud
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Vérification des images Google Cloud Platform"
+      data-li-level="3" 
+      class=" sidebar-folder    "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-3  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/test/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/test/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Vérification des images Google Cloud Platform</div>-->
+         Vérification des images Google Cloud Platform
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Présentation"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/concept-gcp-image-verification.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/fr-fr/test/concept-gcp-image-verification.html">
+        Présentation
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Convertir l'image au format brut sur GCP"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-gcp-convert-image-raw.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/fr-fr/test/task-gcp-convert-image-raw.html">
+        Convertir l'image au format brut sur GCP
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Vérification de la signature d'image"
+      data-li-level="4" 
+      class=" sidebar-folder    "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-4  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/test/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/test/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Vérification de la signature d'image</div>-->
+         Vérification de la signature d'image
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Vérifiez les images signées GCP"
+      data-li-level="5#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/concept-gcp-verify-signed-image.html" 
+    ><a class="ie-sidebar-menuitem-5 " href="/fr-fr/test/concept-gcp-verify-signed-image.html">
+        Vérifiez les images signées GCP
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Vérifiez le contenu à l'aide d'OpenSSL"
+      data-li-level="5#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-verify-openssl-gcp.html" 
+    ><a class="ie-sidebar-menuitem-5 " href="/fr-fr/test/task-verify-openssl-gcp.html">
+        Vérifiez le contenu à l'aide d'OpenSSL
+      </a></li></ul></li></ul></li></ul></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Utiliser Cloud Volumes ONTAP"
+      data-li-level="1" 
+      class=" sidebar-folder    "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-1  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/test/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/test/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Utiliser Cloud Volumes ONTAP</div>-->
+         Utiliser Cloud Volumes ONTAP
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Gestion des licences"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/test/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/test/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Gestion des licences</div>-->
+         Gestion des licences
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Gestion des licences basées sur la capacité"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-manage-capacity-licenses.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/task-manage-capacity-licenses.html">
+        Gestion des licences basées sur la capacité
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Gestion des abonnements Keystone"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-manage-keystone.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/task-manage-keystone.html">
+        Gestion des abonnements Keystone
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Gestion des licences basées sur des nœuds"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-manage-node-licenses.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/task-manage-node-licenses.html">
+        Gestion des licences basées sur des nœuds
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Administration des volumes et des LUN"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/test/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/test/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Administration des volumes et des LUN</div>-->
+         Administration des volumes et des LUN
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Créer des volumes"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-create-volumes.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/task-create-volumes.html">
+        Créer des volumes
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Gérer les volumes existants"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-manage-volumes.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/task-manage-volumes.html">
+        Gérer les volumes existants
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Transférez les données inactives vers le stockage objet"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-tiering.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/task-tiering.html">
+        Transférez les données inactives vers le stockage objet
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Connectez une LUN à un hôte"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-connect-lun.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/task-connect-lun.html">
+        Connectez une LUN à un hôte
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Accélérez l'accès aux données avec FlexCache"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-accelerate-data-access.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/task-accelerate-data-access.html">
+        Accélérez l'accès aux données avec FlexCache
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Administration d'agrégats"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/test/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/test/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Administration d'agrégats</div>-->
+         Administration d'agrégats
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Créer des agrégats"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-create-aggregates.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/task-create-aggregates.html">
+        Créer des agrégats
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Gérez les agrégats existants"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-manage-aggregates.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/task-manage-aggregates.html">
+        Gérez les agrégats existants
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Gérer les paramètres de capacité"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-manage-capacity-settings.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/task-manage-capacity-settings.html">
+        Gérer les paramètres de capacité
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Administration des machines virtuelles de stockage"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/test/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/test/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Administration des machines virtuelles de stockage</div>-->
+         Administration des machines virtuelles de stockage
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Compatible avec les machines virtuelles de stockage dans BlueXP"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-managing-svms.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/task-managing-svms.html">
+        Compatible avec les machines virtuelles de stockage dans BlueXP
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Créez des machines virtuelles de stockage dans AWS"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-managing-svms-aws.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/task-managing-svms-aws.html">
+        Créez des machines virtuelles de stockage dans AWS
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Créez des machines virtuelles de stockage dans Azure"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-managing-svms-azure.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/task-managing-svms-azure.html">
+        Créez des machines virtuelles de stockage dans Azure
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Création de machines virtuelles de stockage dans Google Cloud"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-managing-svms-gcp.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/task-managing-svms-gcp.html">
+        Création de machines virtuelles de stockage dans Google Cloud
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration de la reprise d'activité SVM"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-manage-svm-dr.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/task-manage-svm-dr.html">
+        Configuration de la reprise d'activité SVM
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Sécurité et chiffrement des données"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/test/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/test/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Sécurité et chiffrement des données</div>-->
+         Sécurité et chiffrement des données
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Chiffrement des volumes avec le chiffrement NetApp"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-encrypting-volumes.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/task-encrypting-volumes.html">
+        Chiffrement des volumes avec le chiffrement NetApp
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Gérez les clés avec le service de gestion des clés AWS"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-aws-key-management.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/task-aws-key-management.html">
+        Gérez les clés avec le service de gestion des clés AWS
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Gérez les clés avec Azure Key Vault"
+      data-li-level="3#" 
+      class="  ie-sidebar-selected    "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-azure-key-vault.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/task-azure-key-vault.html">
+        Gérez les clés avec Azure Key Vault
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Gérez les clés via Google Cloud KMS"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-google-key-manager.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/task-google-key-manager.html">
+        Gérez les clés via Google Cloud KMS
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Améliorez la protection par ransomware"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-protecting-ransomware.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/task-protecting-ransomware.html">
+        Améliorez la protection par ransomware
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Administration du système"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/test/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/test/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Administration du système</div>-->
+         Administration du système
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Mettez à niveau Cloud Volumes ONTAP"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-updating-ontap-cloud.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/task-updating-ontap-cloud.html">
+        Mettez à niveau Cloud Volumes ONTAP
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Enregistrez les systèmes avec paiement à l'utilisation"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-registering.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/task-registering.html">
+        Enregistrez les systèmes avec paiement à l'utilisation
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Arrêter et démarrer un système"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-managing-state.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/task-managing-state.html">
+        Arrêter et démarrer un système
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Synchroniser l'heure du système"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-sync-time.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/task-sync-time.html">
+        Synchroniser l'heure du système
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Modifier la vitesse d'écriture du système"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-modify-write-speed.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/task-modify-write-speed.html">
+        Modifier la vitesse d'écriture du système
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Modifier le mot de passe système"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-change-password.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/task-change-password.html">
+        Modifier le mot de passe système
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Ajouter, supprimer ou supprimer des systèmes"
+      data-li-level="3" 
+      class=" sidebar-folder    "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-3  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/test/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/test/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Ajouter, supprimer ou supprimer des systèmes</div>-->
+         Ajouter, supprimer ou supprimer des systèmes
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Ajouter un système existant"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-adding-systems.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/fr-fr/test/task-adding-systems.html">
+        Ajouter un système existant
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Supprimez un environnement de travail"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-removing.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/fr-fr/test/task-removing.html">
+        Supprimez un environnement de travail
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Supprimer un système"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-deleting-working-env.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/fr-fr/test/task-deleting-working-env.html">
+        Supprimer un système
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Administration AWS"
+      data-li-level="3" 
+      class=" sidebar-folder    "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-3  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/test/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/test/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Administration AWS</div>-->
+         Administration AWS
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Modifiez le type d'instance EC2"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-change-ec2-instance.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/fr-fr/test/task-change-ec2-instance.html">
+        Modifiez le type d'instance EC2
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Modifier les tables de routage pour les paires haute disponibilité"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-change-route-tables.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/fr-fr/test/task-change-route-tables.html">
+        Modifier les tables de routage pour les paires haute disponibilité
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configurer la création d'un groupe de placement"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="task-configure-placement-group-failure-aws.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/fr-fr/test/task-configure-placement-group-failure-aws.html">
+        Configurer la création d'un groupe de placement
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Administration d'Azure"
+      data-li-level="3" 
+      class=" sidebar-folder    "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-3  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/test/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/test/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Administration d'Azure</div>-->
+         Administration d'Azure
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Modifier le type de machine virtuelle Azure"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-change-azure-vm.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/fr-fr/test/task-change-azure-vm.html">
+        Modifier le type de machine virtuelle Azure
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Remplacement des verrouillages CIFS"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-overriding-cifs-locks.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/fr-fr/test/task-overriding-cifs-locks.html">
+        Remplacement des verrouillages CIFS
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Utilisez une liaison privée Azure ou des terminaux de service"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-enabling-private-link.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/fr-fr/test/task-enabling-private-link.html">
+        Utilisez une liaison privée Azure ou des terminaux de service
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Déplacer des groupes de ressources"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-moving-resource-groups-azure.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/fr-fr/test/task-moving-resource-groups-azure.html">
+        Déplacer des groupes de ressources
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Administration Google Cloud"
+      data-li-level="3" 
+      class=" sidebar-folder    "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-3  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/test/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/test/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Administration Google Cloud</div>-->
+         Administration Google Cloud
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Modifier le type de machine"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-change-gcp-machine.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/fr-fr/test/task-change-gcp-machine.html">
+        Modifier le type de machine
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Administration depuis System Manager"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-administer-advanced-view.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/task-administer-advanced-view.html">
+        Administration depuis System Manager
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Administration depuis l'interface de ligne de commandes"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-connecting-to-otc.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/task-connecting-to-otc.html">
+        Administration depuis l'interface de ligne de commandes
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="État de santé du système et événements"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/test/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/test/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> État de santé du système et événements</div>-->
+         État de santé du système et événements
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Vérifiez la configuration de AutoSupport"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-verify-autosupport.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/task-verify-autosupport.html">
+        Vérifiez la configuration de AutoSupport
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configurer EMS"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-configure-ems.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/task-configure-ems.html">
+        Configurer EMS
+      </a></li></ul></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Concepts"
+      data-li-level="1" 
+      class=" sidebar-folder    "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-1  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/test/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/test/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Concepts</div>-->
+         Concepts
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Licences"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/concept-licensing.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/fr-fr/test/concept-licensing.html">
+        Licences
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Stockage"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/test/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/test/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Stockage</div>-->
+         Stockage
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Protocoles clients"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/concept-client-protocols.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/concept-client-protocols.html">
+        Protocoles clients
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Disques et agrégats"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/concept-storage.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/concept-storage.html">
+        Disques et agrégats
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Volumes flexibles dans AWS"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/concept-aws-elastic-volumes.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/concept-aws-elastic-volumes.html">
+        Volumes flexibles dans AWS
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Tiering des données"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/concept-data-tiering.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/concept-data-tiering.html">
+        Tiering des données
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Gestion du stockage"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/concept-storage-management.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/concept-storage-management.html">
+        Gestion du stockage
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Vitesse d'écriture"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/concept-write-speed.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/concept-write-speed.html">
+        Vitesse d'écriture
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Flash cache"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/concept-flash-cache.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/concept-flash-cache.html">
+        Flash cache
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Stockage WORM"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/concept-worm.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/concept-worm.html">
+        Stockage WORM
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Paires haute disponibilité"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/test/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/test/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Paires haute disponibilité</div>-->
+         Paires haute disponibilité
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Paires HA dans AWS"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/concept-ha.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/concept-ha.html">
+        Paires HA dans AWS
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Paires HA dans Azure"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/concept-ha-azure.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/concept-ha-azure.html">
+        Paires HA dans Azure
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Paires HAUTE DISPONIBILITÉ dans GCP"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/concept-ha-google-cloud.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/concept-ha-google-cloud.html">
+        Paires HAUTE DISPONIBILITÉ dans GCP
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Actions lors de l'acquisition du stockage"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/concept-degraded-ha-pair.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/concept-degraded-ha-pair.html">
+        Actions lors de l'acquisition du stockage
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Sécurité"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/concept-security.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/fr-fr/test/concept-security.html">
+        Sécurité
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Performance"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/concept-performance.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/fr-fr/test/concept-performance.html">
+        Performance
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Gestion du modèle BYOL basé sur des nœuds"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/concept-license-management.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/fr-fr/test/concept-license-management.html">
+        Gestion du modèle BYOL basé sur des nœuds
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Conseiller digital AutoSupport et Active IQ"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/concept-active-iq.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/fr-fr/test/concept-active-iq.html">
+        Conseiller digital AutoSupport et Active IQ
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configurations par défaut"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/reference-default-configs.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/fr-fr/test/reference-default-configs.html">
+        Configurations par défaut
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Connaissances et support"
+      data-li-level="1" 
+      class=" sidebar-folder    "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-1  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/test/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/test/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Connaissances et support</div>-->
+         Connaissances et support
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="S'inscrire pour obtenir de l'aide"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-support-registration.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/fr-fr/test/task-support-registration.html">
+        S'inscrire pour obtenir de l'aide
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Obtenez de l'aide"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-get-help.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/fr-fr/test/task-get-help.html">
+        Obtenez de l'aide
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Mentions légales"
+      data-li-level="1#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/legal-notices.html" 
+    ><a class="ie-sidebar-menuitem-1 " href="/fr-fr/test/legal-notices.html">
+        Mentions légales
+      </a></li></ul>
+</div>
+<script>
+
+  $(".ie-sidebar-button").click(function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    expandedLI = $('li.ie-sidebar-expand')
+
+    const li = $(this).closest("li");
+
+    const parentsLI = $(li).parents('li');
+
+    expandedLI.map(element => {
+      if (sidebarAccordion && !li.hasClass('ie-sidebar-expand') && jQuery.inArray(expandedLI[element], parentsLI) == -1) {
+        $(expandedLI[element]).toggleClass('ie-sidebar-expand');
+        $(expandedLI[element]).children("ul").animate({ height: 'toggle' }, 400, function () {
+          $(li).children("ul").toggleClass('ie-sidebar-open');
+
+        })
+      }
+
+    })
+
+    $(li).toggleClass('ie-sidebar-expand');
+    $(li).children("ul").animate({ height: 'toggle' }, 400, function () {
+      $(li).children("ul").toggleClass('ie-sidebar-open');
+    })
+  });
+
+
+  
+    $("li.ie-sidebar-selected").parents('ul').toggleClass("ie-sidebar-open");
+    $("li.ie-sidebar-selected").toggleClass("ie-sidebar-expand")
+    $("ul.ie-sidebar-open").parent().toggleClass("ie-sidebar-expand");
+    $("li.ie-sidebar-selected").children('ul').toggleClass("ie-sidebar-open")
+  
+  
+</script>
+    </div>
+</div>
+<script>
+
+    
+    let sidebarScrollTopPosition = 0;
+    $("#ie-new-toc").on("scroll", function () {
+        if (sidebarScrollTopPosition == 0) {
+            $.cookie("sidebarScroll", $("#ie-new-toc").scrollTop(), {
+                path: "/fr-fr/test"
+            });
+        }
+
+        if ($("#ie-new-toc").scrollTop() > 0) {
+            $('#ie-product-identity-lockup').addClass('ie-addShadow');
+        } else {
+            $('#ie-product-identity-lockup').removeClass('ie-addShadow');
+        }
+    });
+
+    $(function () {
+        if ($.cookie("sidebarScroll")) {
+            $("#ie-new-toc").scrollTop($.cookie("sidebarScroll"));
+        }
+    });
+
+    function setSidebarBottom() {
+        const footerGap = PXinViewport($(".n-footer"));
+        document.getElementById("ie-new-sidebar").style.bottom = Math.max(0, footerGap) + "px";
+    }
+
+    window.onscroll = () => {
+        setSidebarBottom();
+    };
+
+    $("#sidebar-collapse").click(function (e) {
+        const sidebarWidth = $("#ie-new-sidebar").width() - $("#ie-new-sidebar-collapse").width();
+        e.preventDefault();
+        const width = $(".ie-content-pane").width();
+        const marginLeft = parseInt($(".ie-content-pane").css('marginLeft'));
+
+        if ($.cookie("sidebarScroll")) {
+            sidebarScrollTopPosition = $.cookie("sidebarScroll");
+        }
+
+        $("#ie-new-sidebar").animate({ width: 'toggle' }, 350, function () {
+            $("#ie-new-sidebar-collapse").show();
+            $("#ie-new-sidebar").removeClass("open")
+            $("#ie-new-sidebar").addClass("close")
+            $("#ie-new-sidebar").removeAttr("style")
+        });
+        $(".ie-content-pane").animate({ width: (width + sidebarWidth), marginLeft: (marginLeft - sidebarWidth) }, 350, function () {
+            resizeContent()
+        })
+
+    });
+    $("#sidebar-expand").click(function (e) {
+        const sidebarWidth = $("#ie-new-sidebar").width() - $("#ie-new-sidebar-collapse").width();
+        e.preventDefault();
+        const width = $(".ie-content-pane").width();
+        const marginLeft = parseInt($(".ie-content-pane").css('marginLeft'));
+
+        $("#ie-new-sidebar").animate({ width: 'toggle' }, 250, function () {
+            $('#ie-new-sidebar').css('display', 'flex');
+            $("#ie-new-sidebar-collapse").hide();
+            $("#ie-new-sidebar").removeClass("close")
+            $("#ie-new-sidebar").addClass("open")
+            setSidebarBottom();
+
+            if (sidebarScrollTopPosition != 0) {
+                $.cookie("sidebarScroll", sidebarScrollTopPosition, {
+                    path: "/fr-fr/test"
+                })
+                $("#ie-new-toc").scrollTop(sidebarScrollTopPosition);
+                sidebarScrollTopPosition = 0;
+            }
+        });
+        $(".ie-content-pane").animate({ width: (width - sidebarWidth), 'marginLeft': (marginLeft + sidebarWidth) }, 250, function () {
+            resizeContent()
+        })
+    });
+    function resizeContent() {
+        const sidebarWidth = $("#ie-new-sidebar").width() - $("#ie-new-sidebar-collapse").width();
+        const rightNavbarVisible =  $("#ie-right-navbar").css('display') && $("#ie-right-navbar").css('display') != 'none';
+        const sidebarVisible = $("#ie-new-sidebar").css('display') != 'none';
+        const rightNavbarWidth = $("#ie-right-navbar").width();
+        const rightNavbarCollapseWidth = $("#ie-right-navbar-collapse").width();
+        const rightNavbarCollapseVisible = $("#ie-right-navbar-collapse").css('display') && $("#ie-right-navbar-collapse").css('display') != 'none';
+        
+        if (rightNavbarVisible && sidebarVisible) {
+            $(".ie-content-pane").width(`calc(100% - ${sidebarWidth + rightNavbarWidth}px)`)
+            $(".ie-content-pane").css('marginLeft', `${sidebarWidth}px`)
+        } else if (sidebarVisible) {
+            $(".ie-content-pane").css('marginLeft', `${sidebarWidth}px`)
+            if (rightNavbarCollapseVisible) {
+                $(".ie-content-pane").width(`calc(100% - ${sidebarWidth + rightNavbarCollapseWidth}px)`)
+            } else {
+                $(".ie-content-pane").width(`calc(100% - ${$("#ie-new-sidebar").width()}px)`)
+            }
+
+        } else if (rightNavbarVisible) {
+            $(".ie-content-pane").css('marginLeft', `${$("#ie-new-sidebar-collapse").width()}px`)
+            $(".ie-content-pane").width(`calc(100% - ${rightNavbarWidth}px)`)
+        } else {
+            $(".ie-content-pane").css('marginLeft', `${$("#ie-new-sidebar-collapse").width()}px`)
+            if (rightNavbarCollapseVisible) {
+                $(".ie-content-pane").width(`calc(100% - ${rightNavbarCollapseWidth}px)`);
+            } else {
+                $(".ie-content-pane").width(`calc(100% - ${$("#ie-new-sidebar-collapse").width()}px) `);
+            }
+            
+        }
+    }
+    $(window).on("resize load", function () {
+        setSidebarBottom();
+        resizeContent()
+    });
+
+
+</script>
+
+<div class="ie-content-pane ie-component-detail-content ie-component-detail-content--show-code">
+    <!-- Begin of page container --><article class="page-content" id="main">
+      <!-- include utility.html -->
+      <div class="ie-info-disclaimer">
+    <span>
+      <div class="ie-info-disclaimer-container">
+        <div class="ie-info-disclaimer-icon">
+          <img src="/fr-fr/test/images/notification-icons.svg" class="luci-icon" alt="" />
+        </div>
+        <div class="ie-info-disclaimer-content">
+          <span> La version française est une traduction automatique. La version anglaise prévaut sur la française en cas de divergence. </span>
+        </div>
+        <div style="clear:both;"></div>
+      </div>
+    </span>
+  </div><div class="ie-component-detail-heading-wrap">
+  <h1 class="ie-component-detail-heading">Gérez les clés avec Azure Key Vault</h1>
+</div>
+
+<div id="ie-byline">
+  
+<div class="page-details">
+    
+        
+            <time datetime="2023-09-13 15:07:41 +0000">09/13/2023</time>
+        
+    
+    
+        <span>Contributeurs
+        </span>
+    
+    
+</div>
+<div class="page-controls">
+    <div id="contribute-dropdown" class="custom-dropdown custom-dropdown-contrib" >
+        <div class="custom-dropdown-select custom-dropdown-select-contrib">
+        <span class="contrib-name"><img src="/fr-fr/test/images/discuss-sm.svg" alt="" class="github-icon" />Suggérer des modifications</span>
+        <img src="/fr-fr/test/images/dropdown-arrow.svg" alt="" class="custom-icon chevrondown invisible" />
+        <img src="/fr-fr/test/images/dropdown-arrow.svg" alt="" class="custom-icon chevronup" />
+        </div>
+        <ul class="custom-dropdown-menu suggested-changes-dropdown"><li>
+                <a target="_blank" href="https://github.com/NetAppDocs/test.fr-fr/issues/new?template=new-from-page.yml&page-url=https://docs.netapp.com/fr-fr/test/task-azure-key-vault.html&page-title=Gérez les clés avec Azure Key Vault" class="page-nav-contribute-link" role="button">Demander des modifications de la documentation</a>
+            </li><li> 
+                <a target="_blank" href="https://github.com/NetAppDocs/test/blob/main/task-azure-key-vault.adoc" class="page-nav-contribute-link" role="button">Modifier cette page</a>
+            </li><li><a target="_blank" href="https://docs.netapp.com/us-en/contribute/" class="page-nav-contribute-link"  >En savoir plus sur les contributions</a></li>
+        </ul>
+    </div>
+    <div id="pdf-control-container">
+        <div class="n-pdf-header">
+            <a id="toggleButtonPdf" class="n-pdf-button" type="button">
+                <img class="adobe-icon" src="/fr-fr/test/images/pdf-icon.png" alt="" width="16" height="16"/>PDF<img src="/fr-fr/test/images/dropdown-arrow.svg" class="custom-icon" alt="" />
+            </a>
+        </div>
+        <div class="n-pdf-body-container">
+            <ul id="toggleContainerPdf" class="n-pdf-body" style="display:none;"><li class="pdf-ux-container">
+                    
+                    
+                    
+                    <a target="_blank" class="pdf-download-link" href="/fr-fr/test/pdfs/fullsite-sidebar/Documentation_Cloud_Volumes_ONTAP.pdf" >
+                    <img src="/fr-fr/test/images/pdf-icon.png" alt="" width="16" height="16"/>Un fichier PDF de toute la documentation</a>
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/test/pdfs/sidebar/Notes_de_mise_à_jour.pdf" 
+            
+          >
+            <img src="/fr-fr/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Notes de mise à jour
+          </a>
+          
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/test/pdfs/sidebar/Commencez.pdf" 
+            
+          >
+            <img src="/fr-fr/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Commencez
+          </a>
+          
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/test/pdfs/sidebar/Lancez_vous_dans_Amazon_Web_Services.pdf" 
+            
+          >
+            <img src="/fr-fr/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Lancez-vous dans Amazon Web Services
+          </a>
+          
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/test/pdfs/sidebar/Configurez_votre_réseau.pdf" 
+            
+          >
+            <img src="/fr-fr/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Configurez votre réseau
+          </a>
+          
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/test/pdfs/sidebar/Commencez_avec_Microsoft_Azure.pdf" 
+            
+          >
+            <img src="/fr-fr/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Commencez avec Microsoft Azure
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/test/pdfs/sidebar/Lancez_vous_dans_Google_Cloud.pdf" 
+            
+          >
+            <img src="/fr-fr/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Lancez-vous dans Google Cloud
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/test/pdfs/sidebar/Vérification_des_images_Google_Cloud_Platform.pdf" 
+            
+          >
+            <img src="/fr-fr/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Vérification des images Google Cloud Platform
+          </a>
+          
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/test/pdfs/sidebar/Vérification_de_la_signature_d_image.pdf" 
+            
+          >
+            <img src="/fr-fr/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Vérification de la signature d'image
+          </a>
+          
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/test/pdfs/sidebar/Utiliser_Cloud_Volumes_ONTAP.pdf" 
+            
+          >
+            <img src="/fr-fr/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Utiliser Cloud Volumes ONTAP
+          </a>
+          
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/test/pdfs/sidebar/Gestion_des_licences.pdf" 
+            
+          >
+            <img src="/fr-fr/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Gestion des licences
+          </a>
+          
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/test/pdfs/sidebar/Administration_des_volumes_et_des_LUN.pdf" 
+            
+          >
+            <img src="/fr-fr/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Administration des volumes et des LUN
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/test/pdfs/sidebar/Administration_d_agrégats.pdf" 
+            
+          >
+            <img src="/fr-fr/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Administration d'agrégats
+          </a>
+          
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/test/pdfs/sidebar/Administration_des_machines_virtuelles_de_stockage.pdf" 
+            
+          >
+            <img src="/fr-fr/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Administration des machines virtuelles de stockage
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/test/pdfs/sidebar/Sécurité_et_chiffrement_des_données.pdf" 
+            
+          >
+            <img src="/fr-fr/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Sécurité et chiffrement des données
+          </a>
+          
+
+
+
+
+    <ul class="subfolders" id="pdf-remove" style="display:none;"><li class="active"></li></ul>
+  
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/test/pdfs/sidebar/Administration_du_système.pdf" 
+            
+          >
+            <img src="/fr-fr/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Administration du système
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/test/pdfs/sidebar/Ajouter__supprimer_ou_supprimer_des_systèmes.pdf" 
+            
+          >
+            <img src="/fr-fr/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Ajouter, supprimer ou supprimer des systèmes
+          </a>
+          
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/test/pdfs/sidebar/Administration_AWS.pdf" 
+            
+          >
+            <img src="/fr-fr/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Administration AWS
+          </a>
+          
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/test/pdfs/sidebar/Administration_d_Azure.pdf" 
+            
+          >
+            <img src="/fr-fr/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Administration d'Azure
+          </a>
+          
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/test/pdfs/sidebar/Administration_Google_Cloud.pdf" 
+            
+          >
+            <img src="/fr-fr/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Administration Google Cloud
+          </a>
+          
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/test/pdfs/sidebar/État_de_santé_du_système_et_événements.pdf" 
+            
+          >
+            <img src="/fr-fr/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            État de santé du système et événements
+          </a>
+          
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/test/pdfs/sidebar/Concepts.pdf" 
+            
+          >
+            <img src="/fr-fr/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Concepts
+          </a>
+          
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/test/pdfs/sidebar/Stockage.pdf" 
+            
+          >
+            <img src="/fr-fr/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Stockage
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/test/pdfs/sidebar/Paires_haute_disponibilité.pdf" 
+            
+          >
+            <img src="/fr-fr/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Paires haute disponibilité
+          </a>
+          
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/test/pdfs/sidebar/Connaissances_et_support.pdf" 
+            
+          >
+            <img src="/fr-fr/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Connaissances et support
+          </a>
+          
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+</li></ul>
+            <div class="zip-pdf-link-container" style="display: none;">   
+                <a href="#" id="zipPdf">
+                <img src="/fr-fr/test/images/pdf-zip.png" alt="" width="16" height="16"/>
+                <pre>Plusieurs fichiers PDF<span class="zip-size"></span></pre>
+                </a><div id="zip-link-popup" class="hide">
+    <div class="inner-modal">
+        <div class="downloading-progress">
+            <div class="spinner"></div>
+            <h1>Creating your file...</h1>
+            <div>This may take a few minutes. Thanks for your patience.</div>
+            <button class="cancel-download-btn" type="button">Cancel</button>
+        </div>
+        <div class="download-complete hide">
+            <div class="done-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/></svg>
+            </div>
+            <div>Your file is ready</div>
+            <button class="cancel-download-btn" type="button">OK</button>
+        </div>
+    </div>
+</div>
+<script>
+    $(".cancel-download-btn").click(function(){
+        $("#zip-link-popup").addClass("hide");
+        $("#zip-link-popup .downloading-progress").removeClass("hide");
+        $("#zip-link-popup .download-complete").addClass("hide");
+    });
+</script></div>
+        </div>
+    </div>        
+<script>
+$("#toggleContainerPdf li.active:last-child").parents('ul.subfolders').toggle('display');
+$("#toggleButtonPdf").on('click', function(e){ 
+    e.stopPropagation();
+    $("#toggleContainerPdf").toggle('display');
+    $(".n-pdf-body-container .zip-pdf-link-container").toggle('display');
+});
+
+//hide is by clicking outside pdfcontainer
+$(document).on('click', function (e) {
+    if ($('#toggleContainerPdf').is(':visible') && !$('.n-pdf-body-container').is(e.target) && !$('.n-pdf-body-container').has(e.target).length)  {
+        
+        $("#toggleContainerPdf").toggle('display');
+        $(".n-pdf-body-container .zip-pdf-link-container").toggle('display');
+        $("#toggleButtonPdf").removeClass("active");
+    }
+});
+</script>
+<script>
+    function getPdfLocation() {
+        const pdfLocation = window.scrollX + document.querySelector('#pdf-control-container').getBoundingClientRect().left
+        if (pdfLocation < 450) {
+            $(".n-pdf-body-container").addClass("block")
+        } else {
+            $(".n-pdf-body-container").removeClass("block")
+        }
+    
+    }
+    $( window ).on( "resize", function() {
+        getPdfLocation()
+} );
+</script>
+<script>
+    const pdfButtonWidth =  $(".n-pdf-header").width();
+    const pdfMenuWidth = $(".n-pdf-body-container").width();
+    $(".n-pdf-body-container").css('margin-left', `calc(${pdfButtonWidth - pdfMenuWidth}px)`);
+</script>
+</div>
+
+    
+
+</div>
+
+
+
+
+<div class="content-to-index">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Vous pouvez utiliser <a href="https://docs.microsoft.com/en-us/azure/key-vault/general/basic-concepts" target="_blank" rel="noopener">"Azure Key Vault (AKV)"</a> Afin de protéger vos clés de chiffrement ONTAP dans une application déployée dans Azure.</p>
+</div>
+<div class="paragraph">
+<p>AKV peut être utilisé pour protéger <a href="https://docs.netapp.com/us-en/ontap/encryption-at-rest/configure-netapp-volume-encryption-concept.html" target="_blank" rel="noopener">"Clés NetApp Volume Encryption (NVE)"</a> Uniquement pour les SVM de données.</p>
+</div>
+<div class="paragraph">
+<p>La gestion des clés via AKV peut être activée via l'interface de ligne de commande ou l'API REST ONTAP.</p>
+</div>
+<div class="paragraph">
+<p>Lorsque vous utilisez AKV, notez que par défaut une LIF de SVM de données permet de communiquer avec le terminal de gestion des clés cloud. Un réseau de gestion de nœuds est utilisé pour communiquer avec les services d'authentification du fournisseur de cloud (login.microsoftonline.com). Si le réseau de cluster n'est pas configuré correctement, le cluster n'utilisera pas correctement le service de gestion des clés.</p>
+</div>
+<div class="ulist">
+<div class="title">Avant de commencer</div>
+<ul>
+<li>
+<p>Cloud Volumes ONTAP doit exécuter la version 9.10.1 ou ultérieure</p>
+</li>
+<li>
+<p>Licence Volume Encryption (VE) installée (la licence NetApp Volume Encryption est automatiquement installée sur chaque système Cloud Volumes ONTAP enregistré auprès du support NetApp).</p>
+</li>
+<li>
+<p>Vous devez disposer d'une licence MT_EK_MGMT (Multi-tenant Encryption Key Management)</p>
+</li>
+<li>
+<p>Vous devez être un administrateur de cluster ou de SVM</p>
+</li>
+<li>
+<p>Un abonnement Active Azure</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Limites</div>
+<ul>
+<li>
+<p>AKV ne peut être configuré que sur un SVM de données</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="processus-de-configuration">Processus de configuration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>La procédure décrite ci-dessus décrit comment enregistrer votre configuration Cloud Volumes ONTAP avec Azure et comment créer un coffre-fort de clés Azure et des clés. Si vous avez déjà effectué ces étapes, vérifiez que vous disposez des paramètres de configuration corrects, notamment dans <a href="#create-akv">Créez un coffre-fort de clés Azure</a>, puis passer à <a href="#ontap">Configuration Cloud Volumes ONTAP</a>.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#azure-app">Inscription aux applications Azure</a></p>
+</li>
+<li>
+<p><a href="#secret">Créez le secret du client Azure</a></p>
+</li>
+<li>
+<p><a href="#create-akv">Créez un coffre-fort de clés Azure</a></p>
+</li>
+<li>
+<p><a href="#key">Créez une clé de chiffrement</a></p>
+</li>
+<li>
+<p><a href="#AAD">Création d'un terminal Azure Active Directory (HA uniquement)</a></p>
+</li>
+<li>
+<p><a href="#ontap">Configuration Cloud Volumes ONTAP</a></p>
+</li>
+</ul>
+</div>
+<div id="azure-app" class="olist arabic">
+<div class="title">Inscription aux applications Azure</div>
+<ol class="arabic">
+<li>
+<p>Vous devez d'abord enregistrer votre application dans l'abonnement Azure que vous souhaitez que Cloud Volumes ONTAP utilise pour accéder au coffre-fort de clés Azure. Dans le portail Azure, sélectionnez <strong>enregistrements d'applications</strong>.</p>
+</li>
+<li>
+<p>Sélectionnez <strong>Nouvelle inscription</strong>.</p>
+</li>
+<li>
+<p>Indiquez un nom pour votre application et sélectionnez un type d'application pris en charge. Le locataire unique par défaut suffit pour l'utilisation d'Azure Key Vault. Sélectionnez <strong>Enregistrer</strong>.</p>
+</li>
+<li>
+<p>Dans la fenêtre Présentation d'Azure, sélectionnez l'application que vous avez enregistrée. Copiez l'ID de l'application (client) <strong> et l'ID du répertoire </strong>(locataire)** dans un emplacement sécurisé. Elles seront requises plus tard dans le processus d'inscription.</p>
+</li>
+</ol>
+</div>
+<div id="secret" class="olist arabic">
+<div class="title">Créez le secret du client Azure</div>
+<ol class="arabic">
+<li>
+<p>Sur le portail Azure pour l'enregistrement de votre application Azure Key Vault, sélectionnez le volet <strong>Certificates &amp; secrets</strong>.</p>
+</li>
+<li>
+<p>Sélectionnez <strong>Nouveau secret client</strong>. Entrez un nom significatif pour votre secret client. NetApp recommande une période d'expiration de 24 mois. Cependant, vos règles de gouvernance cloud peuvent varier.</p>
+</li>
+<li>
+<p>Cliquez sur <strong>Ajouter</strong> pour créer le secret client. Copiez la chaîne secrète répertoriée dans la colonne <strong>valeur</strong> et stockez-la dans un emplacement sécurisé pour une utilisation ultérieure dans <a href="#ontap">Configuration Cloud Volumes ONTAP</a>. La valeur secrète ne s'affiche plus après avoir naviré loin de la page.</p>
+</li>
+</ol>
+</div>
+<div id="create-akv" class="olist arabic">
+<div class="title">Créez un coffre-fort de clés Azure</div>
+<ol class="arabic">
+<li>
+<p>Si vous disposez déjà d'un coffre-fort de clés Azure, vous pouvez le connecter à votre configuration Cloud Volumes ONTAP. Toutefois, vous devez adapter les règles d'accès aux paramètres de ce processus.</p>
+</li>
+<li>
+<p>Dans le portail Azure, accédez à la section <strong>Key Vaults</strong>.</p>
+</li>
+<li>
+<p>Cliquez sur <strong>+Créer</strong> et entrez les informations requises, notamment le groupe de ressources, la région et le niveau de prix. De plus, entrez le nombre de jours de conservation des coffres-forts supprimés et sélectionnez <strong>Activer la protection de purge</strong> sur le coffre-fort de clés.</p>
+</li>
+<li>
+<p>Sélectionnez <strong>Suivant</strong> pour choisir une stratégie d'accès.</p>
+</li>
+<li>
+<p>Sélectionnez les options suivantes :</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Sous <strong>Configuration d'accès</strong>, sélectionnez la stratégie d'accès au coffre-fort **.</p>
+</li>
+<li>
+<p>Sous <strong>accès aux ressources</strong>, sélectionnez <strong>Azure Disk Encryption pour le chiffrement de volume</strong>.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Sélectionnez <strong>+Créer</strong> pour ajouter une stratégie d'accès.</p>
+</li>
+<li>
+<p>Sous <strong>configurer à partir d'un modèle</strong>, cliquez sur le menu déroulant, puis sélectionnez le modèle <strong>Key, Secret et Certificate Management</strong>.</p>
+</li>
+<li>
+<p>Choisissez chacun des menus déroulants d'autorisations (clé, secret, certificat), puis <strong>Sélectionner tout </strong> en haut de la liste des menus pour sélectionner toutes les autorisations disponibles. Vous devez avoir :</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Autorisations clés</strong> : 20 sélectionné</p>
+</li>
+<li>
+<p><strong>Autorisations secrètes</strong>: 8 sélectionnées</p>
+</li>
+<li>
+<p><strong>Autorisations de certificat</strong>: 16 sélectionné</p>
+<div class="paragraph">
+<p><span class="image"><img src="./media/screenshot-azure-key-secret-cert-all-list.png" alt="Capture d'écran de Créer une stratégie d'accès affichant toutes les sélections d'autorisations nécessaires à la création d'une stratégie d'accès"></span></p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Cliquez sur <strong>Suivant</strong> pour sélectionner l'application <strong>principal</strong> Azure enregistrée dans <a href="#azure-app">Inscription aux applications Azure</a>. Sélectionnez <strong>Suivant</strong>.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/test/images/note.svg" alt="Remarque">
+</td>
+<td class="content">
+Un seul principal peut être affecté par police.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/screenshot-azure-key-secret-cert-principal.png" alt="Capture d'écran de l'onglet principal de création d'une stratégie d'accès"></span></p>
+</div>
+</li>
+<li>
+<p>Cliquez sur <strong>Suivant</strong> deux fois jusqu'à votre arrivée à <strong>Revue et créer</strong>. Cliquez ensuite sur <strong>Créer</strong>.</p>
+</li>
+<li>
+<p>Sélectionnez <strong>Suivant</strong> pour passer aux options <strong>mise en réseau</strong>.</p>
+</li>
+<li>
+<p>Choisissez la méthode d'accès au réseau appropriée ou sélectionnez <strong>tous les réseaux</strong> et <strong>Revue + Créer</strong> pour créer le coffre-fort de clés. (La méthode d'accès au réseau peut être prescrite par une gouvernance ou par votre équipe de sécurité cloud.)</p>
+</li>
+<li>
+<p>Enregistrez l'URI du coffre-fort de clés : dans le coffre-fort de clés que vous avez créé, accédez au menu Aperçu et copiez l'URI du coffre-fort <strong>*</strong>* dans la colonne de droite. Vous en avez besoin pour une étape ultérieure.</p>
+</li>
+</ol>
+</div>
+<div id="key" class="olist arabic">
+<div class="title">Créez une clé de chiffrement</div>
+<ol class="arabic">
+<li>
+<p>Dans le menu du coffre-fort de clés créé pour Cloud Volumes ONTAP, accédez à l'option <strong>touches</strong>.</p>
+</li>
+<li>
+<p>Sélectionnez <strong>générer/importer</strong> pour créer une nouvelle clé.</p>
+</li>
+<li>
+<p>Laissez l'option par défaut sur <strong>générer</strong>.</p>
+</li>
+<li>
+<p>Fournissez les informations suivantes :</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Nom de la clé de chiffrement</p>
+</li>
+<li>
+<p>Type de clé : RSA</p>
+</li>
+<li>
+<p>Taille de la clé RSA : 2048</p>
+</li>
+<li>
+<p>Activé : oui</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Sélectionnez <strong>Créer</strong> pour créer la clé de cryptage.</p>
+</li>
+<li>
+<p>Revenez au menu <strong>touches</strong> et sélectionnez la touche que vous venez de créer.</p>
+</li>
+<li>
+<p>Sélectionnez l'ID de clé sous <strong>version actuelle</strong> pour afficher les propriétés de la clé.</p>
+</li>
+<li>
+<p>Repérez le champ <strong>Key identifier</strong>. Copiez l'URI vers mais sans inclure la chaîne hexadécimale.</p>
+</li>
+</ol>
+</div>
+<div id="AAD" class="olist arabic">
+<div class="title">Création d'un terminal Azure Active Directory (HA uniquement)</div>
+<ol class="arabic">
+<li>
+<p>Ce processus n'est requis que si vous configurez Azure Key Vault pour un environnement de travail Cloud Volumes ONTAP haute disponibilité.</p>
+</li>
+<li>
+<p>Dans le portail Azure, accédez à <strong>réseaux virtuels</strong>.</p>
+</li>
+<li>
+<p>Sélectionnez le réseau virtuel sur lequel vous avez déployé l'environnement de travail Cloud Volumes ONTAP et sélectionnez le menu <strong>sous-réseaux</strong> sur le côté gauche de la page.</p>
+</li>
+<li>
+<p>Sélectionnez dans la liste le nom de sous-réseau de votre déploiement Cloud Volumes ONTAP.</p>
+</li>
+<li>
+<p>Naviguez jusqu'à l'en-tête <strong>points d'extrémité du service</strong>. Dans le menu déroulant, sélectionnez les options suivantes :</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Microsoft.AzureActiveDirectory</strong></p>
+</li>
+<li>
+<p><strong>Microsoft.KeyVault</strong></p>
+</li>
+<li>
+<p><strong>Microsoft.Storage</strong> (facultatif)</p>
+<div class="paragraph">
+<p><span class="image"><img src="./media/screenshot-azure-service-endpoints-services.png" alt="Capture d'écran des points de terminaison de service montrant trois services sélectionnés"></span></p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Sélectionnez <strong>Enregistrer</strong> pour capturer vos paramètres.</p>
+</li>
+</ol>
+</div>
+<div id="ontap" class="olist arabic">
+<div class="title">Configuration Cloud Volumes ONTAP</div>
+<ol class="arabic">
+<li>
+<p>Connectez-vous à la LIF de gestion du cluster avec votre client SSH préféré.</p>
+</li>
+<li>
+<p>Entrez le mode de privilège avancé dans ONTAP :<br>
+<code>set advanced -con off</code></p>
+</li>
+<li>
+<p>Identifier le SVM de données souhaité et vérifier sa configuration DNS :<br>
+<code>vserver services name-service dns show</code></p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Si une entrée DNS pour le SVM de données souhaité existe et qu'elle contient une entrée pour le DNS Azure, aucune action n'est requise. Si ce n'est pas le cas, ajoutez une entrée de serveur DNS pour le SVM de données qui pointe vers le DNS Azure, le DNS privé ou le serveur sur site.  Ceci doit correspondre à l'entrée pour le SVM admin du cluster :<br>
+<code>vserver services name-service dns create -vserver <em>SVM_name</em> -domains <em>domain</em> -name-servers <em>IP_address</em></code></p>
+</li>
+<li>
+<p>Vérifier que le service DNS a été créé pour le SVM de données :<br>
+<code>vserver services name-service dns show</code></p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Activez le coffre-fort de clés Azure à l'aide de l'ID client et de l'ID locataire enregistrés après l'enregistrement de l'application :<br>
+<code>security key-manager external azure enable -vserver <em>SVM_name</em> -client-id <em>Azure_client_ID</em> -tenant-id <em>Azure_tenant_ID</em> -name <em>Azure_key_vault_name</em> -key-id <em>Azure_key_ID</em></code></p>
+</li>
+<li>
+<p>Vérifier le statut du gestionnaire de clés :<br>
+<code>security key-manager external azure check</code><br>
+Le résultat sera le suivant :</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>::*&gt; security key-manager external azure check
+
+Vserver: data_svm_name
+Node: akvlab01-01
+
+Category: service_reachability
+    Status: OK
+
+Category: ekmip_server
+    Status: OK
+
+Category: kms_wrapped_key_status
+    Status: UNKNOWN
+    Details: No volumes created yet for the vserver. Wrapped KEK status will be available after creating encrypted volumes.
+
+3 entries were displayed.</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Si le <code>service_reachability</code> l'état n'est pas <code>OK</code>, La SVM ne peut pas atteindre le service Azure Key Vault avec toutes les connectivités et autorisations requises. Assurez-vous que vos stratégies réseau et votre routage Azure ne bloquent pas votre vnet privé d'atteindre le point de terminaison public Azure KeyVault. Dans ce cas, envisagez d'utiliser un terminal privé Azure pour accéder au coffre-fort de clés à partir du vnet. Vous devrez peut-être aussi ajouter une entrée d'hôtes statiques sur votre SVM pour résoudre l'adresse IP privée de votre noeud final.</p>
+</div>
+<div class="paragraph">
+<p>Le <code>kms_wrapped_key_status</code> rapports <code>UNKNOWN</code> lors de la configuration initiale. Son statut devient <code>OK</code> une fois le premier volume crypté.</p>
+</div>
+</li>
+<li>
+<p>FACULTATIF : créez un volume de test pour vérifier le fonctionnement de NVE.</p>
+<div class="paragraph">
+<p><code>vol create -vserver <em>SVM_name</em> -volume <em>volume_name</em> -aggregate <em>aggr</em> -size <em>size</em> -state online -policy default</code></p>
+</div>
+<div class="paragraph">
+<p>S'il est correctement configuré, Cloud Volumes ONTAP crée automatiquement le volume et active le chiffrement de volume.</p>
+</div>
+</li>
+<li>
+<p>Confirmez que le volume a été créé et chiffré correctement. Si c'est le cas, le <code>-is-encrypted</code> le paramètre s'affiche comme <code>true</code>.<br>
+<code>vol show -vserver <em>SVM_name</em> -fields is-encrypted</code></p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+    </article>
+    <!-- Page Container -->
+  </div>
+
+  
+  <!-- Start Page Toolbar -->
+<div id="ie-right-navbar-collapse" class="close">
+  <img id="navbar-expand" class="ie-searchbox-icon" src="/fr-fr/test/images/double_arrow.svg" alt="" />
+</div>
+<div id="ie-right-navbar" class="open">
+  <div id="right-navbar-collapse">
+    <img src="/fr-fr/test/images/double_arrow.svg" alt="" />
+  </div>
+  <div class="page-nav-container">
+    <nav class="page-nav-fixed">
+      <div class="page-nav-title">Sur cette page</div>
+      <div class="page-nav-links">
+        <ul class="page-nav-inner" id="page-menu"></ul>
+      </div>
+    </nav>
+  </div>
+</div>
+
+
+<script>
+  resizeContent();
+  function setRightBarHeight() {
+    var h = 0;
+
+    // header 1
+    h += PXinViewport($('.n-footer'));
+    h += PXinViewport($('#ie-new-header'));
+
+    if ($('#ie-right-navbar').length) {
+      $('#ie-right-navbar').css({ height: `calc(100vh - ${h}px)` });
+    }
+    if ($('.page-nav-links').length) {
+      h += 98;
+      $('.page-nav-links').css({ height: `calc(100vh - ${h}px)` });
+    }
+  }
+
+  $(document).ready(function () {
+    // PAGE NAV - Click
+    const MASTHEAD_OFFSET = 65;
+    const SECTIONS = $("main h2, main h3");
+    let calculateActiveSection = false;
+    setTimeout(() => {
+      calculateActiveSection = true;
+    }, 100)
+
+    $(".page-nav__link").click(function (event) {
+      calculateActiveSection = false;
+      $(".page-nav__link").removeClass('page-nav__link--active');
+      var target = $(event.target);
+      target.addClass('page-nav__link--active');
+      location.hash = event.target.hash;
+      setTimeout(() => {
+        calculateActiveSection = true;
+      }, 100)
+
+    });
+
+    // PAGE NAV - Scroll
+    $(window).on('resize scroll', function () {
+      if (calculateActiveSection) {
+        var activeSection = getActiveSection(SECTIONS, MASTHEAD_OFFSET);
+        if (activeSection) {
+          var activeHref = $(activeSection).attr('id');
+          $(".page-nav__link").removeClass('page-nav__link--active');
+          $("#page-menu a[href=#" + activeHref + "]").addClass('page-nav__link--active');
+          if (location.hash != "#" + activeHref) {
+            if (history.replaceState) {
+              history.replaceState(null, null, "#" + activeHref);
+            }
+          }
+        }
+      }
+    });
+
+    $(".n-pdf-button").click(function () {
+      $(this).toggleClass("active");
+    });
+
+    $.fn.isVisibleAndInViewport = function () {
+      var elementTop = $(this).offset().top;
+      var elementBottom = elementTop + $(this).outerHeight();
+
+      var viewportTop = $(window).scrollTop();
+      var viewportBottom = viewportTop + $(window).height();
+
+      return elementBottom > viewportTop && elementTop < viewportBottom && $(this).is(":visible");
+    };
+
+
+    $(window).on('resize scroll', function () {
+      setRightBarHeight();
+    });
+
+    $(window).trigger('resize');
+
+
+  });
+
+  $("#right-navbar-collapse").click(function (e) {
+    const rightNavbarWidth = $("#ie-right-navbar").width() - $("#ie-right-navbar-collapse").width();
+    e.preventDefault();
+    const width = $(".ie-content-pane").width();
+
+    $("#ie-right-navbar").animate({ width: 'toggle' }, 350, function () {
+      $("#ie-right-navbar-collapse").removeClass("close")
+      $("#ie-right-navbar-collapse").addClass("open")
+      $("#ie-right-navbar").removeClass("open")
+      $("#ie-right-navbar").addClass("close")
+    });
+    $(".ie-content-pane").animate({ width: (width + rightNavbarWidth) }, 350, function () {
+      resizeContent()
+      setSidebarBottom();
+    })
+
+  });
+  $("#navbar-expand").click(function (e) {
+    const rightNavbarWidth = $("#ie-right-navbar").width() - $("#ie-right-navbar-collapse").width();
+    e.preventDefault();
+    const width = $(".ie-content-pane").width();
+    $("#ie-right-navbar").animate({ width: 'toggle' }, 250, function () {
+      $("#ie-right-navbar-collapse").removeClass("open")
+      $("#ie-right-navbar-collapse").addClass("close")
+      $("#ie-right-navbar").removeClass("close")
+      $("#ie-right-navbar").addClass("open")
+      setRightBarHeight();
+      setSidebarBottom();
+    });
+    $(".ie-content-pane").animate({ width: (width - rightNavbarWidth) }, 250, function () {
+      resizeContent()
+    })
+  });
+
+  function navbarResize() {
+    const rightNavbarResized = $("#ie-right-navbar-collapse").hasClass('resized');
+    if (window.innerWidth < 1024) {
+      $("#ie-right-navbar").removeClass("open")
+      $("#ie-right-navbar").addClass("close")
+      $("#ie-right-navbar").removeAttr("style")
+      $("#ie-right-navbar-collapse").removeClass("close")
+      $("#ie-right-navbar-collapse").addClass("open")
+      $("#ie-right-navbar-collapse").addClass("resized")
+    } else {
+      if (rightNavbarResized) {
+        $('#ie-right-navbar').removeClass('close');
+        $('#ie-right-navbar').addClass('open');
+        $("#ie-right-navbar-collapse").removeClass("resized")
+        $("#ie-right-navbar-collapse").removeClass("open")
+        $("#ie-right-navbar-collapse").addClass("close")
+      }
+    }
+    resizeContent()
+  }
+  navbarResize();
+  $(window).on('resize load', function () {
+    navbarResize()
+  });
+
+  function getActiveSection(sections, offset) {
+    var scrollPosition = $(window).scrollTop() + offset + 5;
+    var activeSection;
+    for (var i = 0; i < sections.length; i++) {
+      var el = $(sections[i]);
+      var activePosition = el.offset().top;
+      if (activePosition > scrollPosition) {
+        break;
+      }
+
+      activeSection = sections[i];
+    }
+
+    return activeSection;
+  }
+
+  $("a[href*=#]:not([href=#])").click(function () {
+    setTimeout(() => {
+      $(window).trigger('scroll');
+    }, 105)
+  })
+
+  const hashOnLoad = location.href.split("#")[1];
+  setTimeout(function () {
+    if (hashOnLoad) {
+      $(".page-nav__link").removeClass('page-nav__link--active');
+      $("#page-menu a[href=#" + hashOnLoad + "]").addClass('page-nav__link--active');
+    }
+  }, 100)
+
+</script>
+
+
+  <div style="clear: both"></div><!-- Main needs to have height --></div>
+
+        </main>
+
+        <footer class="n-footer">
+  <div class="n-footer__bottom">
+    <div class="n-container">
+        <div class="n-footer__left">
+          <li class="n-footer__copyright-link">
+                    <a href="https://www.netapp.com/company/legal/copyright/">© 2024 NetApp, Inc.</a>
+          </li>
+        </div>
+        <div class="n-footer__center">
+          <ul class="n-footer__copyright-list">
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/terms-of-use/">Conditions d'utilisation</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/privacy-policy/">Déclaration de confidentialité</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/cookie-policy/">Déclaration sur les cookies</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a class="ot-sdk-show-settings">Paramètres des cookies</a>
+            </li>
+          </ul>
+       </div>
+        <div class="n-footer__right">
+              <li class="n-footer__copyright-link">
+                <a target="_self" href="javascript:netapp_mailto()">Envoyer des commentaires à propos de cette page</a>
+              </li>
+        </div>
+     </div>
+  </div>
+</footer>
+
+      </div><!-- Elasticsearch JS -->
+      <script type="text/javascript" src='/fr-fr/test/js/bundle.js'></script>
+
+      <!-- Syntax Highlighting -->
+      <script type="text/javascript" src='/fr-fr/test/js/prism.js'></script>
+      <script type="text/javascript" src='/fr-fr/test/js/prism-curl.js'></script>
+    </div>
+    <script>
+      document.body.offsetWidth=1903;
+      cookieLaw = {}
+      cookieLaw.euCountry = "US";
+      cookieLaw.invoke = function(){return false;}
+    </script>
+    <script src='/fr-fr/test/js/ie-tabbed-blocks.js'></script>
+    <script src='/fr-fr/test/js/ie-sidebar.js'></script>
+  </body>
+
+</html>

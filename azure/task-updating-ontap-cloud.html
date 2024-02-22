@@ -1,0 +1,3106 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head class="at-element-marker">
+  <title>Mettez à niveau le logiciel Cloud Volumes ONTAP | NetApp Documentation</title>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge,chrome=1">
+  <meta http-equiv="language" content="en">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="og:title" content="Mettez à niveau le logiciel Cloud Volumes ONTAP | NetApp Documentation" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://docs.netapp.com/fr-fr/test/task-updating-ontap-cloud.html" />
+	<meta property="og:description" content="Mettez à niveau Cloud Volumes ONTAP depuis BlueXP pour accéder aux dernières nouvelles fonctionnalités et améliorations. Préparez les systèmes Cloud Volumes ..." />
+  <meta property="og:image" content="https://docs.netapp.com/fr-fr/test/images/logo-tophat-social.png" />
+  <meta property="og:image:alt" content="NetApp Logo" />
+  <meta name="format-detection" content="telephone=no">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="encoding" content="utf-8">
+  <meta http-equiv="nss-type" content="Product Documentation"/>
+  <meta http-equiv="nss-subtype" content="User Guide"/><meta name="description" content="Mettez à niveau Cloud Volumes ONTAP depuis BlueXP pour accéder aux dernières nouvelles fonctionnalités et améliorations. Préparez les systèmes Cloud Volumes ...">
+  <meta name="keywords" content=" update, updating, upgrading, upgrade, software, downgrade, downgrading, FTP, HTTP, mediator, local image, revert, reverting, downgrading, cloud backup"><!-- Icons -->
+  <link rel="icon" href="/fr-fr/test/images/favicon.ico" type="image/x-icon">
+
+  <!-- RSS Feed --><link rel="alternate" type="application/rss+xml" title="NetApp Documentation" href="/fr-fr/test/feed.xml"><!-- CSS Definitions: NetApp CSS should be defined after generic css -->
+
+
+  <!-- Combined CSS -->
+  <link rel="stylesheet" type="text/css" href="/fr-fr/test/css/ie-netappdocs.css">
+
+  
+  <link rel="stylesheet" href="/fr-fr/test/css/ie-landing-page.css" type="text/css">
+  <link rel="stylesheet" href="/fr-fr/test/css/ie-tabbed-blocks.css" type="text/css">
+  <!-- Canonical url -->
+  <link rel="canonical" href="https://docs.netapp.com/fr-fr/test/task-updating-ontap-cloud.html" />
+  <link rel="alternate" hreflang="x-default" href="https://docs.netapp.com/us-en/test/task-updating-ontap-cloud.html" />
+  <link rel="alternate" hreflang="fr" href="https://docs.netapp.com/fr-fr/test/task-updating-ontap-cloud.html" />
+  <link rel="alternate" hreflang="en" href="https://docs.netapp.com/us-en/test/task-updating-ontap-cloud.html" />
+  <link rel="alternate" hreflang="ja" href="https://docs.netapp.com/ja-jp/test/task-updating-ontap-cloud.html" />
+  <link rel="alternate" hreflang="ko" href="https://docs.netapp.com/ko-kr/test/task-updating-ontap-cloud.html" />
+  <link rel="alternate" hreflang="zh-Hans" href="https://docs.netapp.com/zh-cn/test/task-updating-ontap-cloud.html" />
+  <link rel="alternate" hreflang="zh-Hant" href="https://docs.netapp.com/zh-tw/test/task-updating-ontap-cloud.html" />
+  <link rel="alternate" hreflang="de" href="https://docs.netapp.com/de-de/test/task-updating-ontap-cloud.html" />
+  <link rel="alternate" hreflang="es" href="https://docs.netapp.com/es-es/test/task-updating-ontap-cloud.html" />
+  <link rel="alternate" hreflang="it" href="https://docs.netapp.com/it-it/test/task-updating-ontap-cloud.html" />
+  <!-- Top level site integrations -->
+<script type="text/javascript" src="https://cdn.cookielaw.org/consent/72570c5c-fe30-465f-b0e0-b77f7fb4ae34/OtAutoBlock.js"></script>
+    <script type="text/javascript" src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" charset="UTF-8" data-document-language="true" data-domain-script="72570c5c-fe30-465f-b0e0-b77f7fb4ae34"></script>
+    <script type="text/javascript">function OptanonWrapper() { }</script>
+    <script type="text/plain" class="optanon-category-C0002" src="https://assets.adobedtm.com/60287eadf1ee/c284da483c83/launch-e9ff3acac59f.min.js"></script>
+    <script class="optanon-category-C0001">(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.setAttributeNode(d.createAttribute('data-ot-ignore'));j.setAttribute('class','optanon-category-C0001');j.async=true;
+        j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl+'';f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-MD73T9M');</script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  
+  <script>
+    $(document).ready(function() {
+      const MASTHEAD_OFFSET = 65;
+      const SECTIONS = $("main h2, main h3");
+      // PAGE NAV - Init
+      if (SECTIONS.length == 0) {
+        // remove if there is no elements
+        /*
+        $("#ie-right-navbar").remove();
+        $("#ie-right-navbar-collapse").remove();
+        */
+      } else {
+        $(".page-nav-title").css('display', 'block');
+        for (var i = 0; i < SECTIONS.length; i++) {
+          var sectionId = $(SECTIONS[i]).attr('id');
+          var sectionName = $(SECTIONS[i]).text();
+          var subClass = $(SECTIONS[i]).is("h3") ? ' page-nav__sublink' : '';
+          $("#page-menu").append('<li class="page-nav-item"><a href="#' + sectionId + '" class="page-nav__link' + subClass + '">' + sectionName + '</a></li>');
+        }
+      }
+    });
+  </script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+  <!-- Used for Product Family Page Sidebar Visibility --><!-- Used to import Promise for IE. Required for SearchKit -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.5/bluebird.min.js"></script><script src='/fr-fr/test/js/na-search.js'></script><script src='/fr-fr/test/js/ie-clouddocs.js'></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><script>
+    /*
+      $(document).ready(function() {
+          $("#tg-sb-link").click(function() {
+              $("#tg-sb-sidebar").toggle();
+              $("#tg-sb-content").toggleClass('col-md-9');
+              $("#tg-sb-content").toggleClass('col-md-12');
+              $("#tg-sb-icon").toggleClass('fa-toggle-on');
+              $("#tg-sb-icon").toggleClass('fa-toggle-off');
+          });
+      });
+      */
+  </script>
+  <script src='/fr-fr/test/js/custom-dropdown.js'></script>
+  <script src='/fr-fr/test/js/FileSaver.min.js'></script>
+  <script src='/fr-fr/test/js/jszip-utils.min.js'></script>
+  <script src='/fr-fr/test/js/jszip.min.js'></script><script src='/fr-fr/test/js/ie-pdf-ux.js'></script></head>
+
+
+  <body class role="document" data-flavor="azure">
+    <div class="skip-to-main">
+      <a href="#main" >Skip to main content</a>
+    </div><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MD73T9M"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript><div id="page" class="">
+      <div id="ie-phone-menu" class=""></div>
+      <div id="ie-content-wrap" class="">
+        <nav id="ie-new-header">
+    <ul>
+        <li id="ie-phone-menu-button">
+            <a href="#">
+                <image id="" src="/fr-fr/test/images/hamburger.svg" alt="menu" />
+            </a>
+        </li>
+
+        <li>
+            <a href="https://www.netapp.com/fr">
+                <image id="ie-header-logo" src="/fr-fr/test/images/netapp_logo.svg" alt="netapp" />
+            </a>
+        </li>
+        <li id="ie-header-docs">
+            <a href="https://www.netapp.com/fr/support-and-training/documentation/">Documents</a>
+        </li>
+
+        <!-- Empty container to push header left with or without lang selector -->
+        <li id="empty-container" style="margin-left: auto">
+        </li>
+        <!-- Start Language Selector --><li id="ie-language-dropdown">
+            <div id="language-dropdown" class="custom-dropdown custom-dropdown-lang">
+                <div class="custom-dropdown-select custom-dropdown-select-lang">
+                    <img src="/fr-fr/test/images/language_white_24dp.svg" class="n-globe__icon" />
+                    <span class="lang-name">Français</span>
+                    <img src="/fr-fr/test/images/dropdown-arrow.svg" alt="" class="custom-icon chevrondown header invisible" />
+                    <img src="/fr-fr/test/images/dropdown-arrow.svg" alt="" class="custom-icon chevronup header" />
+                    </button>
+                </div>
+
+                <ul class="custom-dropdown-menu"><li>
+                        <a href="https://docs.netapp.com/fr-fr/test/task-updating-ontap-cloud.html"
+                            target="_self"><span translate="no" class="notranslate">Français</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/us-en/test/task-updating-ontap-cloud.html"
+                            target="_self"><span translate="no" class="notranslate">English</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/ja-jp/test/task-updating-ontap-cloud.html"
+                            target="_self"><span translate="no" class="notranslate">日本語</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/ko-kr/test/task-updating-ontap-cloud.html"
+                            target="_self"><span translate="no" class="notranslate">한국어</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/zh-cn/test/task-updating-ontap-cloud.html"
+                            target="_self"><span translate="no" class="notranslate">简体中文</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/zh-tw/test/task-updating-ontap-cloud.html"
+                            target="_self"><span translate="no" class="notranslate">繁體中文</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/de-de/test/task-updating-ontap-cloud.html"
+                            target="_self"><span translate="no" class="notranslate">Deutsch</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/es-es/test/task-updating-ontap-cloud.html"
+                            target="_self"><span translate="no" class="notranslate">Español</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/it-it/test/task-updating-ontap-cloud.html"
+                            target="_self"><span translate="no" class="notranslate">Italiano</span></a>
+                    </li></ul>
+            </div>
+            </li>
+        <!-- End Language Selector -->
+
+
+        <li id="ie-allnetapp">
+            <div id="allnetapp-dropdown" class="custom-dropdown custom-dropdown-allnetapp">
+                <div class="custom-dropdown-select custom-dropdown-select-allnetapp">
+                    <img src="/fr-fr/test/images/apps_white_24dp.svg" alt="" class="allnetapp-icon" />
+                    <span class="allnetapp-name">Tout NetApp</span>
+                    <img src="/fr-fr/test/images/dropdown-arrow.svg" alt="" class="custom-icon chevrondown header invisible" />
+                    <img src="/fr-fr/test/images/dropdown-arrow.svg" alt="" class="custom-icon chevronup header" />
+                    </button>
+                </div>
+
+                <ul class="custom-dropdown-menu allnetapp-dropdown">
+                    <li>
+                        <a href="https://bluexp.netapp.com/fr/"
+                            target="_self"><span translate="no" class="notranslate">BlueXP</span></a>
+                    </li>
+                    <li>
+                        <a href="https://mysupport.netapp.com/site/"
+                            target="_self"><span translate="no" class="notranslate">Support</span></a>
+                    </li>
+                    <li>
+                        <a href="https://kb.netapp.com/"
+                            target="_self"><span translate="no" class="notranslate">Base de connaissances</span></a>
+                    </li>
+                    <li>
+                        <a href="https://www.netapp.com/fr/support-and-training/netapp-learning-services/"
+                            target="_self"><span translate="no" class="notranslate">Formation</span></a>
+                    </li>
+                </ul>
+            </div>
+
+        </li>
+
+    </ul>
+</nav>
+
+        <main id="n-main-content" class="n-main-content">
+          <!-- Start Documentation Content -->
+<div class="ie-main">
+
+<div id="ie-new-sidebar-collapse" style="display: none">
+    <img id="sidebar-expand" class="ie-searchbox-icon" src="/fr-fr/test/images/double_arrow.svg" alt="" />
+</div>
+<div id="ie-new-sidebar">
+    <div id="ie-product-identity-lockup">
+        <div id="sidebar-collapse" class="">
+            <img src="/fr-fr/test/images/double_arrow.svg" alt="" />
+        </div>
+        <div id="ie-breadcrumb" class="">
+  <ul class="ie-breadcrumb">
+    <li class="">
+      <a href="https://docs.netapp.com">Tous les documents</a>
+    </li>
+    
+    
+    <li class="">
+      <a href="https://docs.netapp.com/us-en/cloud/">Documents sur le cloud</a>
+    </li>
+    
+
+    
+    <li class="">
+      <a href="https://docs.netapp.com/fr-fr/bluexp-family/">
+        BlueXP
+      </a>
+    </li>
+    
+  </ul>
+  
+  <div class="ie-product-name" >
+    <!--<a href="/fr-fr/test/">-->
+      Cloud Volumes ONTAP
+    <!--</a>-->
+  </div>
+</div>
+
+            
+<div id="ie-selectors"><div id="version-dropdown-new" class="custom-dropdown" >
+  <div class="custom-dropdown-select unselected" title=" 9.13.1">
+    <label>Version</label>
+    <span translate="no" class="notranslate">9.13.1</span>
+    <img src="/fr-fr/test/images/dropdown-arrow.svg" alt="" class="custom-icon chevrondown version invisible" />
+    <img src="/fr-fr/test/images/dropdown-arrow.svg" alt="" class="custom-icon chevronup version" />
+  </div>
+
+  <ul class="custom-dropdown-menu"><li>
+      
+      <a href="https://docs.netapp.com/fr-fr/cloud-volumes-ontap-relnotes/task-updating-ontap-cloud.html" target="_self">
+        <span translate="no" class="notranslate"><span class="version"> 9.13.1</span></span>
+      </a>
+                     
+    </li>
+    <li>
+      
+      <a href="https://docs.netapp.com/fr-fr/cloud-volumes-ontap-9130-relnotes/task-updating-ontap-cloud.html" target="_self">
+        <span translate="no" class="notranslate"><span class="version"> 9.13.0</span></span>
+      </a>
+                     
+    </li>
+    <li>
+      
+      <a href="https://docs.netapp.com/fr-fr/cloud-volumes-ontap-9121-relnotes/task-updating-ontap-cloud.html" target="_self">
+        <span translate="no" class="notranslate"><span class="version"> 9.12.1</span></span>
+      </a>
+                     
+    </li>
+    <li>
+      
+      <a href="https://docs.netapp.com/fr-fr/cloud-volumes-ontap-9120-relnotes/task-updating-ontap-cloud.html" target="_self">
+        <span translate="no" class="notranslate"><span class="version"> 9.12.0</span></span>
+      </a>
+                     
+    </li>
+    <li>
+      
+      <a href="https://docs.netapp.com/fr-fr/cloud-volumes-ontap-9111-relnotes/task-updating-ontap-cloud.html" target="_self">
+        <span translate="no" class="notranslate"><span class="version"> 9.11.1</span></span>
+      </a>
+                     
+    </li>
+    <li>
+      
+      <a href="https://docs.netapp.com/fr-fr/cloud-volumes-ontap-9110-relnotes/task-updating-ontap-cloud.html" target="_self">
+        <span translate="no" class="notranslate"><span class="version"> 9.11.0</span></span>
+      </a>
+                     
+    </li>
+    <li>
+      
+      <a href="https://docs.netapp.com/fr-fr/cloud-volumes-ontap-9101-relnotes/task-updating-ontap-cloud.html" target="_self">
+        <span translate="no" class="notranslate"><span class="version"> 9.10.1</span></span>
+      </a>
+                     
+    </li>
+    <li>
+      
+      <a href="https://docs.netapp.com/fr-fr/cloud-volumes-ontap-9100-relnotes/task-updating-ontap-cloud.html" target="_self">
+        <span translate="no" class="notranslate"><span class="version"> 9.10.0</span></span>
+      </a>
+                     
+    </li>
+    <li>
+      
+      <a href="https://docs.netapp.com/fr-fr/cloud-volumes-ontap-991-relnotes/task-updating-ontap-cloud.html" target="_self">
+        <span translate="no" class="notranslate"><span class="version"> 9.9.1</span></span>
+      </a>
+                     
+    </li>
+    <li>
+      
+      <a href="https://docs.netapp.com/fr-fr/cloud-volumes-ontap-990-relnotes/task-updating-ontap-cloud.html" target="_self">
+        <span translate="no" class="notranslate"><span class="version"> 9.9.0</span></span>
+      </a>
+                     
+    </li>
+    <li>
+      
+      <a href="https://docs.netapp.com/fr-fr/cloud-volumes-ontap-98-relnotes/task-updating-ontap-cloud.html" target="_self">
+        <span translate="no" class="notranslate"><span class="version"> 9.8</span></span>
+      </a>
+                     
+    </li>
+    <li>
+      
+      <a href="https://docs.netapp.com/fr-fr/cloud-volumes-ontap-97-relnotes/task-updating-ontap-cloud.html" target="_self">
+        <span translate="no" class="notranslate"><span class="version"> 9.7</span></span>
+      </a>
+                     
+    </li>
+    <li>
+      
+      <a href="https://docs.netapp.com/fr-fr/cloud-volumes-ontap-96-relnotes/task-updating-ontap-cloud.html" target="_self">
+        <span translate="no" class="notranslate"><span class="version"> 9.6</span></span>
+      </a>
+                     
+    </li>
+    <li>
+      
+      <a href="https://docs.netapp.com/fr-fr/cloud-volumes-ontap-95-relnotes/task-updating-ontap-cloud.html" target="_self">
+        <span translate="no" class="notranslate"><span class="version"> 9.5</span></span>
+      </a>
+                     
+    </li>
+    <li>
+      
+      <a href="https://docs.netapp.com/fr-fr/cloud-volumes-ontap-94-relnotes/task-updating-ontap-cloud.html" target="_self">
+        <span translate="no" class="notranslate"><span class="version"> 9.4</span></span>
+      </a>
+                     
+    </li>
+    <li>
+      
+      <a href="https://docs.netapp.com/fr-fr/cloud-volumes-ontap-93-relnotes/task-updating-ontap-cloud.html" target="_self">
+        <span translate="no" class="notranslate"><span class="version"> 9.3</span></span>
+      </a>
+                     
+    </li>
+    
+  </ul>
+</div>
+<div id="flavor-dropdown" class="custom-dropdown" data-url="/fr-fr/test/task-updating-ontap-cloud.html">
+  
+  
+  <div class="custom-dropdown-select selected" title="Azure">
+    <label>Ou du fournisseur cloud</label>
+    <div>Azure</div>  
+    <img src="/fr-fr/test/images/dropdown-arrow.svg" alt="" class="custom-icon chevrondown flavor invisible" />
+    <img src="/fr-fr/test/images/dropdown-arrow.svg" alt="" class="custom-icon chevronup flavor" />
+    <!--<img src="/fr-fr/test/images/dismiss.svg" class="custom-icon selected" id="remove-flavor" alt="" />-->
+  </div>
+  
+
+  <ul class="custom-dropdown-menu">
+    
+    
+    <li data-value="aws" data-url="/fr-fr/test/aws/task-updating-ontap-cloud.html">Amazon Web Services
+    </li>
+    
+    
+    
+    <li data-value="gcp" data-url="/fr-fr/test/gcp/task-updating-ontap-cloud.html">Google Cloud
+    </li>
+    
+    
+    
+    <li data-value="azure" data-url="/fr-fr/test/azure/task-updating-ontap-cloud.html">Microsoft Azure
+    </li>
+    
+    
+    <li data-url="/fr-fr/test/task-updating-ontap-cloud.html">Tous les fournisseurs cloud</li>
+  </ul>
+</div>
+</div>
+        
+        
+
+<div id="ie-searchbox" class="ie-searchbox-sidebar ">
+    <img class="ie-searchbox-icon" src="/fr-fr/test/images/loupe.svg" alt=""/>
+    <div id="react-search" 
+        data-search-html="/fr-fr/test/azure/search.html" 
+        data-type="widget"
+        data-placeholder="Rechercher dans la documentation"
+        data-no-results-found="Aucun résultat trouvé pour : {query}"
+        data-did-you-mean="Rechercher {suggestion}."
+        data-no-results-found-did-you-mean="Aucun résultat n'a été trouvé pour {query}. Voulez-vous dire {suggestion} ?"
+        data-results-found="{hitCount} résultats"
+        data-error-message="Une erreur s'est produite. Merci de réessayer."
+        data-error-reset="Réinitialiser la recherche"
+        data-sk-es-pf-indexes="" 
+        data-flavor="azure">
+    </div>
+</div>
+        
+    </div>
+    <div id="ie-new-toc"><script>
+  let sidebarAccordion = true;
+
+  /* specific css rules for Mac */
+  if(navigator.platform.match('Mac') !== null) {
+    document.body.setAttribute('class', 'OSX');
+  }
+
+</script>
+
+<div id="ie-sidebar-container">
+  <ul id="ie-sidebar-list" ><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Documentation Cloud Volumes ONTAP"
+      data-li-level="1#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/index.html" 
+    ><a class="ie-sidebar-menuitem-1 " href="/fr-fr/test/azure/index.html">
+        Documentation Cloud Volumes ONTAP
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Notes de mise à jour"
+      data-li-level="1" 
+      class=" sidebar-folder    "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-1  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/test/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/test/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Notes de mise à jour</div>-->
+         Notes de mise à jour
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Quoi de neuf"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/whats-new.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/fr-fr/test/azure/whats-new.html">
+        Quoi de neuf
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Limites connues"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/reference-limitations.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/fr-fr/test/azure/reference-limitations.html">
+        Limites connues
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Notes de version de Cloud Volumes ONTAP"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/whats-new-ontap.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/fr-fr/test/azure/whats-new-ontap.html">
+        Notes de version de Cloud Volumes ONTAP
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Commencez"
+      data-li-level="1" 
+      class=" sidebar-folder    "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-1  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/test/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/test/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Commencez</div>-->
+         Commencez
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Découvrez Cloud Volumes ONTAP"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/concept-overview-cvo.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/fr-fr/test/azure/concept-overview-cvo.html">
+        Découvrez Cloud Volumes ONTAP
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Versions prises en charge pour les nouveaux déploiements"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/reference-versions.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/fr-fr/test/azure/reference-versions.html">
+        Versions prises en charge pour les nouveaux déploiements
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Commencez avec Microsoft Azure"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/test/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/test/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Commencez avec Microsoft Azure</div>-->
+         Commencez avec Microsoft Azure
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Démarrage rapide"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/task-getting-started-azure.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/azure/task-getting-started-azure.html">
+        Démarrage rapide
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Planification de la configuration"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/task-planning-your-config-azure.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/azure/task-planning-your-config-azure.html">
+        Planification de la configuration
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configurez votre réseau"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/reference-networking-azure.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/azure/reference-networking-azure.html">
+        Configurez votre réseau
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configurez le chiffrement à l'aide de votre clé"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/task-set-up-azure-encryption.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/azure/task-set-up-azure-encryption.html">
+        Configurez le chiffrement à l'aide de votre clé
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration des licences"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/task-set-up-licensing-azure.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/azure/task-set-up-licensing-azure.html">
+        Configuration des licences
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Activer le mode haute disponibilité"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/task-azure-high-availability-mode.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/azure/task-azure-high-availability-mode.html">
+        Activer le mode haute disponibilité
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Lancez Cloud Volumes ONTAP dans Azure"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/task-deploying-otc-azure.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/azure/task-deploying-otc-azure.html">
+        Lancez Cloud Volumes ONTAP dans Azure
+      </a></li></ul></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Utiliser Cloud Volumes ONTAP"
+      data-li-level="1" 
+      class=" sidebar-folder    "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-1  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/test/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/test/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Utiliser Cloud Volumes ONTAP</div>-->
+         Utiliser Cloud Volumes ONTAP
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Gestion des licences"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/test/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/test/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Gestion des licences</div>-->
+         Gestion des licences
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Gestion des licences basées sur la capacité"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/task-manage-capacity-licenses.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/azure/task-manage-capacity-licenses.html">
+        Gestion des licences basées sur la capacité
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Gestion des abonnements Keystone"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/task-manage-keystone.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/azure/task-manage-keystone.html">
+        Gestion des abonnements Keystone
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Gestion des licences basées sur des nœuds"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/task-manage-node-licenses.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/azure/task-manage-node-licenses.html">
+        Gestion des licences basées sur des nœuds
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Administration des volumes et des LUN"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/test/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/test/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Administration des volumes et des LUN</div>-->
+         Administration des volumes et des LUN
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Créer des volumes"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/task-create-volumes.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/azure/task-create-volumes.html">
+        Créer des volumes
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Gérer les volumes existants"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/task-manage-volumes.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/azure/task-manage-volumes.html">
+        Gérer les volumes existants
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Transférez les données inactives vers le stockage objet"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/task-tiering.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/azure/task-tiering.html">
+        Transférez les données inactives vers le stockage objet
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Connectez une LUN à un hôte"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/task-connect-lun.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/azure/task-connect-lun.html">
+        Connectez une LUN à un hôte
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Accélérez l'accès aux données avec FlexCache"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/task-accelerate-data-access.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/azure/task-accelerate-data-access.html">
+        Accélérez l'accès aux données avec FlexCache
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Administration d'agrégats"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/test/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/test/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Administration d'agrégats</div>-->
+         Administration d'agrégats
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Créer des agrégats"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/task-create-aggregates.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/azure/task-create-aggregates.html">
+        Créer des agrégats
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Gérez les agrégats existants"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/task-manage-aggregates.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/azure/task-manage-aggregates.html">
+        Gérez les agrégats existants
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Gérer les paramètres de capacité"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/task-manage-capacity-settings.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/azure/task-manage-capacity-settings.html">
+        Gérer les paramètres de capacité
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Administration des machines virtuelles de stockage"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/test/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/test/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Administration des machines virtuelles de stockage</div>-->
+         Administration des machines virtuelles de stockage
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Compatible avec les machines virtuelles de stockage dans BlueXP"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/task-managing-svms.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/azure/task-managing-svms.html">
+        Compatible avec les machines virtuelles de stockage dans BlueXP
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Créez des machines virtuelles de stockage dans Azure"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/task-managing-svms-azure.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/azure/task-managing-svms-azure.html">
+        Créez des machines virtuelles de stockage dans Azure
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration de la reprise d'activité SVM"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/task-manage-svm-dr.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/azure/task-manage-svm-dr.html">
+        Configuration de la reprise d'activité SVM
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Sécurité et chiffrement des données"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/test/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/test/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Sécurité et chiffrement des données</div>-->
+         Sécurité et chiffrement des données
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Chiffrement des volumes avec le chiffrement NetApp"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/task-encrypting-volumes.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/azure/task-encrypting-volumes.html">
+        Chiffrement des volumes avec le chiffrement NetApp
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Gérez les clés avec Azure Key Vault"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/task-azure-key-vault.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/azure/task-azure-key-vault.html">
+        Gérez les clés avec Azure Key Vault
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Améliorez la protection par ransomware"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/task-protecting-ransomware.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/azure/task-protecting-ransomware.html">
+        Améliorez la protection par ransomware
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Administration du système"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/test/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/test/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Administration du système</div>-->
+         Administration du système
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Mettez à niveau Cloud Volumes ONTAP"
+      data-li-level="3#" 
+      class="  ie-sidebar-selected    "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/task-updating-ontap-cloud.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/azure/task-updating-ontap-cloud.html">
+        Mettez à niveau Cloud Volumes ONTAP
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Enregistrez les systèmes avec paiement à l'utilisation"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/task-registering.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/azure/task-registering.html">
+        Enregistrez les systèmes avec paiement à l'utilisation
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Arrêter et démarrer un système"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/task-managing-state.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/azure/task-managing-state.html">
+        Arrêter et démarrer un système
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Synchroniser l'heure du système"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/task-sync-time.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/azure/task-sync-time.html">
+        Synchroniser l'heure du système
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Modifier la vitesse d'écriture du système"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/task-modify-write-speed.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/azure/task-modify-write-speed.html">
+        Modifier la vitesse d'écriture du système
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Modifier le mot de passe système"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/task-change-password.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/azure/task-change-password.html">
+        Modifier le mot de passe système
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Ajouter, supprimer ou supprimer des systèmes"
+      data-li-level="3" 
+      class=" sidebar-folder    "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-3  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/test/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/test/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Ajouter, supprimer ou supprimer des systèmes</div>-->
+         Ajouter, supprimer ou supprimer des systèmes
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Ajouter un système existant"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/task-adding-systems.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/fr-fr/test/azure/task-adding-systems.html">
+        Ajouter un système existant
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Supprimez un environnement de travail"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/task-removing.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/fr-fr/test/azure/task-removing.html">
+        Supprimez un environnement de travail
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Supprimer un système"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/task-deleting-working-env.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/fr-fr/test/azure/task-deleting-working-env.html">
+        Supprimer un système
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Administration d'Azure"
+      data-li-level="3" 
+      class=" sidebar-folder    "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-3  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/test/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/test/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Administration d'Azure</div>-->
+         Administration d'Azure
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Modifier le type de machine virtuelle Azure"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/task-change-azure-vm.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/fr-fr/test/azure/task-change-azure-vm.html">
+        Modifier le type de machine virtuelle Azure
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Remplacement des verrouillages CIFS"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/task-overriding-cifs-locks.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/fr-fr/test/azure/task-overriding-cifs-locks.html">
+        Remplacement des verrouillages CIFS
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Utilisez une liaison privée Azure ou des terminaux de service"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/task-enabling-private-link.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/fr-fr/test/azure/task-enabling-private-link.html">
+        Utilisez une liaison privée Azure ou des terminaux de service
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Déplacer des groupes de ressources"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/task-moving-resource-groups-azure.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/fr-fr/test/azure/task-moving-resource-groups-azure.html">
+        Déplacer des groupes de ressources
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Administration depuis System Manager"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/task-administer-advanced-view.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/azure/task-administer-advanced-view.html">
+        Administration depuis System Manager
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Administration depuis l'interface de ligne de commandes"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/task-connecting-to-otc.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/azure/task-connecting-to-otc.html">
+        Administration depuis l'interface de ligne de commandes
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="État de santé du système et événements"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/test/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/test/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> État de santé du système et événements</div>-->
+         État de santé du système et événements
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Vérifiez la configuration de AutoSupport"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/task-verify-autosupport.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/azure/task-verify-autosupport.html">
+        Vérifiez la configuration de AutoSupport
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configurer EMS"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/task-configure-ems.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/azure/task-configure-ems.html">
+        Configurer EMS
+      </a></li></ul></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Concepts"
+      data-li-level="1" 
+      class=" sidebar-folder    "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-1  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/test/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/test/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Concepts</div>-->
+         Concepts
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Licences"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/concept-licensing.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/fr-fr/test/azure/concept-licensing.html">
+        Licences
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Stockage"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/test/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/test/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Stockage</div>-->
+         Stockage
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Protocoles clients"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/concept-client-protocols.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/azure/concept-client-protocols.html">
+        Protocoles clients
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Disques et agrégats"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/concept-storage.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/azure/concept-storage.html">
+        Disques et agrégats
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Tiering des données"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/concept-data-tiering.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/azure/concept-data-tiering.html">
+        Tiering des données
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Gestion du stockage"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/concept-storage-management.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/azure/concept-storage-management.html">
+        Gestion du stockage
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Vitesse d'écriture"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/concept-write-speed.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/azure/concept-write-speed.html">
+        Vitesse d'écriture
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Flash cache"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/concept-flash-cache.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/azure/concept-flash-cache.html">
+        Flash cache
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Stockage WORM"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/concept-worm.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/azure/concept-worm.html">
+        Stockage WORM
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Paires haute disponibilité"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/test/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/test/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Paires haute disponibilité</div>-->
+         Paires haute disponibilité
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Paires HA dans Azure"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/concept-ha-azure.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/azure/concept-ha-azure.html">
+        Paires HA dans Azure
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Actions lors de l'acquisition du stockage"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/concept-degraded-ha-pair.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/test/azure/concept-degraded-ha-pair.html">
+        Actions lors de l'acquisition du stockage
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Sécurité"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/concept-security.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/fr-fr/test/azure/concept-security.html">
+        Sécurité
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Performance"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/concept-performance.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/fr-fr/test/azure/concept-performance.html">
+        Performance
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Gestion du modèle BYOL basé sur des nœuds"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/concept-license-management.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/fr-fr/test/azure/concept-license-management.html">
+        Gestion du modèle BYOL basé sur des nœuds
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Conseiller digital AutoSupport et Active IQ"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/concept-active-iq.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/fr-fr/test/azure/concept-active-iq.html">
+        Conseiller digital AutoSupport et Active IQ
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configurations par défaut"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/reference-default-configs.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/fr-fr/test/azure/reference-default-configs.html">
+        Configurations par défaut
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Connaissances et support"
+      data-li-level="1" 
+      class=" sidebar-folder    "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-1  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/test/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/test/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Connaissances et support</div>-->
+         Connaissances et support
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="S'inscrire pour obtenir de l'aide"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/task-support-registration.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/fr-fr/test/azure/task-support-registration.html">
+        S'inscrire pour obtenir de l'aide
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Obtenez de l'aide"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/task-get-help.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/fr-fr/test/azure/task-get-help.html">
+        Obtenez de l'aide
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Mentions légales"
+      data-li-level="1#" 
+      class="   "
+      dale-page-url="/task-updating-ontap-cloud.html" 
+      dale-entry-url="/legal-notices.html" 
+    ><a class="ie-sidebar-menuitem-1 " href="/fr-fr/test/azure/legal-notices.html">
+        Mentions légales
+      </a></li></ul>
+</div>
+<script>
+
+  $(".ie-sidebar-button").click(function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    expandedLI = $('li.ie-sidebar-expand')
+
+    const li = $(this).closest("li");
+
+    const parentsLI = $(li).parents('li');
+
+    expandedLI.map(element => {
+      if (sidebarAccordion && !li.hasClass('ie-sidebar-expand') && jQuery.inArray(expandedLI[element], parentsLI) == -1) {
+        $(expandedLI[element]).toggleClass('ie-sidebar-expand');
+        $(expandedLI[element]).children("ul").animate({ height: 'toggle' }, 400, function () {
+          $(li).children("ul").toggleClass('ie-sidebar-open');
+
+        })
+      }
+
+    })
+
+    $(li).toggleClass('ie-sidebar-expand');
+    $(li).children("ul").animate({ height: 'toggle' }, 400, function () {
+      $(li).children("ul").toggleClass('ie-sidebar-open');
+    })
+  });
+
+
+  
+    $("li.ie-sidebar-selected").parents('ul').toggleClass("ie-sidebar-open");
+    $("li.ie-sidebar-selected").toggleClass("ie-sidebar-expand")
+    $("ul.ie-sidebar-open").parent().toggleClass("ie-sidebar-expand");
+    $("li.ie-sidebar-selected").children('ul').toggleClass("ie-sidebar-open")
+  
+  
+</script>
+    </div>
+</div>
+<script>
+
+    
+    let sidebarScrollTopPosition = 0;
+    $("#ie-new-toc").on("scroll", function () {
+        if (sidebarScrollTopPosition == 0) {
+            $.cookie("sidebarScroll", $("#ie-new-toc").scrollTop(), {
+                path: "/fr-fr/test"
+            });
+        }
+
+        if ($("#ie-new-toc").scrollTop() > 0) {
+            $('#ie-product-identity-lockup').addClass('ie-addShadow');
+        } else {
+            $('#ie-product-identity-lockup').removeClass('ie-addShadow');
+        }
+    });
+
+    $(function () {
+        if ($.cookie("sidebarScroll")) {
+            $("#ie-new-toc").scrollTop($.cookie("sidebarScroll"));
+        }
+    });
+
+    function setSidebarBottom() {
+        const footerGap = PXinViewport($(".n-footer"));
+        document.getElementById("ie-new-sidebar").style.bottom = Math.max(0, footerGap) + "px";
+    }
+
+    window.onscroll = () => {
+        setSidebarBottom();
+    };
+
+    $("#sidebar-collapse").click(function (e) {
+        const sidebarWidth = $("#ie-new-sidebar").width() - $("#ie-new-sidebar-collapse").width();
+        e.preventDefault();
+        const width = $(".ie-content-pane").width();
+        const marginLeft = parseInt($(".ie-content-pane").css('marginLeft'));
+
+        if ($.cookie("sidebarScroll")) {
+            sidebarScrollTopPosition = $.cookie("sidebarScroll");
+        }
+
+        $("#ie-new-sidebar").animate({ width: 'toggle' }, 350, function () {
+            $("#ie-new-sidebar-collapse").show();
+            $("#ie-new-sidebar").removeClass("open")
+            $("#ie-new-sidebar").addClass("close")
+            $("#ie-new-sidebar").removeAttr("style")
+        });
+        $(".ie-content-pane").animate({ width: (width + sidebarWidth), marginLeft: (marginLeft - sidebarWidth) }, 350, function () {
+            resizeContent()
+        })
+
+    });
+    $("#sidebar-expand").click(function (e) {
+        const sidebarWidth = $("#ie-new-sidebar").width() - $("#ie-new-sidebar-collapse").width();
+        e.preventDefault();
+        const width = $(".ie-content-pane").width();
+        const marginLeft = parseInt($(".ie-content-pane").css('marginLeft'));
+
+        $("#ie-new-sidebar").animate({ width: 'toggle' }, 250, function () {
+            $('#ie-new-sidebar').css('display', 'flex');
+            $("#ie-new-sidebar-collapse").hide();
+            $("#ie-new-sidebar").removeClass("close")
+            $("#ie-new-sidebar").addClass("open")
+            setSidebarBottom();
+
+            if (sidebarScrollTopPosition != 0) {
+                $.cookie("sidebarScroll", sidebarScrollTopPosition, {
+                    path: "/fr-fr/test"
+                })
+                $("#ie-new-toc").scrollTop(sidebarScrollTopPosition);
+                sidebarScrollTopPosition = 0;
+            }
+        });
+        $(".ie-content-pane").animate({ width: (width - sidebarWidth), 'marginLeft': (marginLeft + sidebarWidth) }, 250, function () {
+            resizeContent()
+        })
+    });
+    function resizeContent() {
+        const sidebarWidth = $("#ie-new-sidebar").width() - $("#ie-new-sidebar-collapse").width();
+        const rightNavbarVisible =  $("#ie-right-navbar").css('display') && $("#ie-right-navbar").css('display') != 'none';
+        const sidebarVisible = $("#ie-new-sidebar").css('display') != 'none';
+        const rightNavbarWidth = $("#ie-right-navbar").width();
+        const rightNavbarCollapseWidth = $("#ie-right-navbar-collapse").width();
+        const rightNavbarCollapseVisible = $("#ie-right-navbar-collapse").css('display') && $("#ie-right-navbar-collapse").css('display') != 'none';
+        
+        if (rightNavbarVisible && sidebarVisible) {
+            $(".ie-content-pane").width(`calc(100% - ${sidebarWidth + rightNavbarWidth}px)`)
+            $(".ie-content-pane").css('marginLeft', `${sidebarWidth}px`)
+        } else if (sidebarVisible) {
+            $(".ie-content-pane").css('marginLeft', `${sidebarWidth}px`)
+            if (rightNavbarCollapseVisible) {
+                $(".ie-content-pane").width(`calc(100% - ${sidebarWidth + rightNavbarCollapseWidth}px)`)
+            } else {
+                $(".ie-content-pane").width(`calc(100% - ${$("#ie-new-sidebar").width()}px)`)
+            }
+
+        } else if (rightNavbarVisible) {
+            $(".ie-content-pane").css('marginLeft', `${$("#ie-new-sidebar-collapse").width()}px`)
+            $(".ie-content-pane").width(`calc(100% - ${rightNavbarWidth}px)`)
+        } else {
+            $(".ie-content-pane").css('marginLeft', `${$("#ie-new-sidebar-collapse").width()}px`)
+            if (rightNavbarCollapseVisible) {
+                $(".ie-content-pane").width(`calc(100% - ${rightNavbarCollapseWidth}px)`);
+            } else {
+                $(".ie-content-pane").width(`calc(100% - ${$("#ie-new-sidebar-collapse").width()}px) `);
+            }
+            
+        }
+    }
+    $(window).on("resize load", function () {
+        setSidebarBottom();
+        resizeContent()
+    });
+
+
+</script>
+
+<div class="ie-content-pane ie-component-detail-content ie-component-detail-content--show-code">
+    <!-- Begin of page container --><article class="page-content" id="main">
+      <!-- include utility.html -->
+      <div class="ie-info-disclaimer">
+    <span>
+      <div class="ie-info-disclaimer-container">
+        <div class="ie-info-disclaimer-icon">
+          <img src="/fr-fr/test/images/notification-icons.svg" class="luci-icon" alt="" />
+        </div>
+        <div class="ie-info-disclaimer-content">
+          <span> La version française est une traduction automatique. La version anglaise prévaut sur la française en cas de divergence. </span>
+        </div>
+        <div style="clear:both;"></div>
+      </div>
+    </span>
+  </div><div class="ie-component-detail-heading-wrap">
+  <h1 class="ie-component-detail-heading">Mettez à niveau le logiciel Cloud Volumes ONTAP</h1>
+</div>
+
+<div id="ie-byline">
+  
+<div class="page-details">
+    
+        
+            <time datetime="2023-09-13 15:07:41 +0000">09/13/2023</time>
+        
+    
+    
+        <span>Contributeurs
+        </span>
+    
+    
+</div>
+<div class="page-controls">
+    <div id="contribute-dropdown" class="custom-dropdown custom-dropdown-contrib" >
+        <div class="custom-dropdown-select custom-dropdown-select-contrib">
+        <span class="contrib-name"><img src="/fr-fr/test/images/discuss-sm.svg" alt="" class="github-icon" />Suggérer des modifications</span>
+        <img src="/fr-fr/test/images/dropdown-arrow.svg" alt="" class="custom-icon chevrondown invisible" />
+        <img src="/fr-fr/test/images/dropdown-arrow.svg" alt="" class="custom-icon chevronup" />
+        </div>
+        <ul class="custom-dropdown-menu suggested-changes-dropdown"><li>
+                <a target="_blank" href="https://github.com/NetAppDocs/test.fr-fr/issues/new?template=new-from-page.yml&page-url=https://docs.netapp.com/fr-fr/test/task-updating-ontap-cloud.html&page-title=Mettez à niveau le logiciel Cloud Volumes ONTAP" class="page-nav-contribute-link" role="button">Demander des modifications de la documentation</a>
+            </li><li> 
+                <a target="_blank" href="https://github.com/NetAppDocs/test/blob/main/task-updating-ontap-cloud.adoc" class="page-nav-contribute-link" role="button">Modifier cette page</a>
+            </li><li><a target="_blank" href="https://docs.netapp.com/us-en/contribute/" class="page-nav-contribute-link"  >En savoir plus sur les contributions</a></li>
+        </ul>
+    </div>
+    <div id="pdf-control-container">
+        <div class="n-pdf-header">
+            <a id="toggleButtonPdf" class="n-pdf-button" type="button">
+                <img class="adobe-icon" src="/fr-fr/test/images/pdf-icon.png" alt="" width="16" height="16"/>PDF<img src="/fr-fr/test/images/dropdown-arrow.svg" class="custom-icon" alt="" />
+            </a>
+        </div>
+        <div class="n-pdf-body-container">
+            <ul id="toggleContainerPdf" class="n-pdf-body" style="display:none;"><li class="pdf-ux-container">
+                    
+                    
+                    
+                    <a target="_blank" class="pdf-download-link" href="/fr-fr/test/pdfs/azure/fullsite-sidebar/Documentation_Cloud_Volumes_ONTAP.pdf" >
+                    <img src="/fr-fr/test/images/pdf-icon.png" alt="" width="16" height="16"/>Un fichier PDF de toute la documentation</a>
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/test/pdfs/azure/sidebar/Notes_de_mise_à_jour.pdf" 
+            
+          >
+            <img src="/fr-fr/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Notes de mise à jour
+          </a>
+          
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/test/pdfs/azure/sidebar/Commencez.pdf" 
+            
+          >
+            <img src="/fr-fr/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Commencez
+          </a>
+          
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/test/pdfs/azure/sidebar/Lancez_vous_dans_Amazon_Web_Services.pdf" 
+            
+          >
+            <img src="/fr-fr/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Lancez-vous dans Amazon Web Services
+          </a>
+          
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/test/pdfs/azure/sidebar/Configurez_votre_réseau.pdf" 
+            
+          >
+            <img src="/fr-fr/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Configurez votre réseau
+          </a>
+          
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/test/pdfs/azure/sidebar/Commencez_avec_Microsoft_Azure.pdf" 
+            
+          >
+            <img src="/fr-fr/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Commencez avec Microsoft Azure
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/test/pdfs/azure/sidebar/Lancez_vous_dans_Google_Cloud.pdf" 
+            
+          >
+            <img src="/fr-fr/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Lancez-vous dans Google Cloud
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/test/pdfs/azure/sidebar/Vérification_des_images_Google_Cloud_Platform.pdf" 
+            
+          >
+            <img src="/fr-fr/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Vérification des images Google Cloud Platform
+          </a>
+          
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/test/pdfs/azure/sidebar/Vérification_de_la_signature_d_image.pdf" 
+            
+          >
+            <img src="/fr-fr/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Vérification de la signature d'image
+          </a>
+          
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/test/pdfs/azure/sidebar/Utiliser_Cloud_Volumes_ONTAP.pdf" 
+            
+          >
+            <img src="/fr-fr/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Utiliser Cloud Volumes ONTAP
+          </a>
+          
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/test/pdfs/azure/sidebar/Gestion_des_licences.pdf" 
+            
+          >
+            <img src="/fr-fr/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Gestion des licences
+          </a>
+          
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/test/pdfs/azure/sidebar/Administration_des_volumes_et_des_LUN.pdf" 
+            
+          >
+            <img src="/fr-fr/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Administration des volumes et des LUN
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/test/pdfs/azure/sidebar/Administration_d_agrégats.pdf" 
+            
+          >
+            <img src="/fr-fr/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Administration d'agrégats
+          </a>
+          
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/test/pdfs/azure/sidebar/Administration_des_machines_virtuelles_de_stockage.pdf" 
+            
+          >
+            <img src="/fr-fr/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Administration des machines virtuelles de stockage
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/test/pdfs/azure/sidebar/Sécurité_et_chiffrement_des_données.pdf" 
+            
+          >
+            <img src="/fr-fr/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Sécurité et chiffrement des données
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/test/pdfs/azure/sidebar/Administration_du_système.pdf" 
+            
+          >
+            <img src="/fr-fr/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Administration du système
+          </a>
+          
+    <ul class="subfolders" id="pdf-remove" style="display:none;"><li class="active"></li></ul>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/test/pdfs/azure/sidebar/Ajouter__supprimer_ou_supprimer_des_systèmes.pdf" 
+            
+          >
+            <img src="/fr-fr/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Ajouter, supprimer ou supprimer des systèmes
+          </a>
+          
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/test/pdfs/azure/sidebar/Administration_AWS.pdf" 
+            
+          >
+            <img src="/fr-fr/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Administration AWS
+          </a>
+          
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/test/pdfs/azure/sidebar/Administration_d_Azure.pdf" 
+            
+          >
+            <img src="/fr-fr/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Administration d'Azure
+          </a>
+          
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/test/pdfs/azure/sidebar/Administration_Google_Cloud.pdf" 
+            
+          >
+            <img src="/fr-fr/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Administration Google Cloud
+          </a>
+          
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/test/pdfs/azure/sidebar/État_de_santé_du_système_et_événements.pdf" 
+            
+          >
+            <img src="/fr-fr/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            État de santé du système et événements
+          </a>
+          
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/test/pdfs/azure/sidebar/Concepts.pdf" 
+            
+          >
+            <img src="/fr-fr/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Concepts
+          </a>
+          
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/test/pdfs/azure/sidebar/Stockage.pdf" 
+            
+          >
+            <img src="/fr-fr/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Stockage
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/test/pdfs/azure/sidebar/Paires_haute_disponibilité.pdf" 
+            
+          >
+            <img src="/fr-fr/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Paires haute disponibilité
+          </a>
+          
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/test/pdfs/azure/sidebar/Connaissances_et_support.pdf" 
+            
+          >
+            <img src="/fr-fr/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Connaissances et support
+          </a>
+          
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+</li></ul>
+            <div class="zip-pdf-link-container" style="display: none;">   
+                <a href="#" id="zipPdf">
+                <img src="/fr-fr/test/images/pdf-zip.png" alt="" width="16" height="16"/>
+                <pre>Plusieurs fichiers PDF<span class="zip-size"></span></pre>
+                </a><div id="zip-link-popup" class="hide">
+    <div class="inner-modal">
+        <div class="downloading-progress">
+            <div class="spinner"></div>
+            <h1>Creating your file...</h1>
+            <div>This may take a few minutes. Thanks for your patience.</div>
+            <button class="cancel-download-btn" type="button">Cancel</button>
+        </div>
+        <div class="download-complete hide">
+            <div class="done-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/></svg>
+            </div>
+            <div>Your file is ready</div>
+            <button class="cancel-download-btn" type="button">OK</button>
+        </div>
+    </div>
+</div>
+<script>
+    $(".cancel-download-btn").click(function(){
+        $("#zip-link-popup").addClass("hide");
+        $("#zip-link-popup .downloading-progress").removeClass("hide");
+        $("#zip-link-popup .download-complete").addClass("hide");
+    });
+</script></div>
+        </div>
+    </div>        
+<script>
+$("#toggleContainerPdf li.active:last-child").parents('ul.subfolders').toggle('display');
+$("#toggleButtonPdf").on('click', function(e){ 
+    e.stopPropagation();
+    $("#toggleContainerPdf").toggle('display');
+    $(".n-pdf-body-container .zip-pdf-link-container").toggle('display');
+});
+
+//hide is by clicking outside pdfcontainer
+$(document).on('click', function (e) {
+    if ($('#toggleContainerPdf').is(':visible') && !$('.n-pdf-body-container').is(e.target) && !$('.n-pdf-body-container').has(e.target).length)  {
+        
+        $("#toggleContainerPdf").toggle('display');
+        $(".n-pdf-body-container .zip-pdf-link-container").toggle('display');
+        $("#toggleButtonPdf").removeClass("active");
+    }
+});
+</script>
+<script>
+    function getPdfLocation() {
+        const pdfLocation = window.scrollX + document.querySelector('#pdf-control-container').getBoundingClientRect().left
+        if (pdfLocation < 450) {
+            $(".n-pdf-body-container").addClass("block")
+        } else {
+            $(".n-pdf-body-container").removeClass("block")
+        }
+    
+    }
+    $( window ).on( "resize", function() {
+        getPdfLocation()
+} );
+</script>
+<script>
+    const pdfButtonWidth =  $(".n-pdf-header").width();
+    const pdfMenuWidth = $(".n-pdf-body-container").width();
+    $(".n-pdf-body-container").css('margin-left', `calc(${pdfButtonWidth - pdfMenuWidth}px)`);
+</script>
+</div>
+
+    
+
+</div>
+
+
+
+
+<div class="content-to-index">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Mettez à niveau Cloud Volumes ONTAP depuis BlueXP pour accéder aux dernières nouvelles fonctionnalités et améliorations. Préparez les systèmes Cloud Volumes ONTAP avant de mettre à niveau le logiciel.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="présentation-de-la-mise-à-niveau">Présentation de la mise à niveau</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Avant de démarrer le processus de mise à niveau Cloud Volumes ONTAP, vous devez avoir connaissance des points suivants.</p>
+</div>
+<div class="sect2">
+<h3 id="mise-à-niveau-depuis-bluexp-uniquement">Mise à niveau depuis BlueXP uniquement</h3>
+<div class="paragraph">
+<p>Les mises à niveau de Cloud Volumes ONTAP doivent être effectuées depuis BlueXP. Vous ne devez pas mettre à niveau Cloud Volumes ONTAP à l'aide de System Manager ou de l'interface de ligne de commandes. Cela peut affecter la stabilité du système.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="comment-mettre-à-niveau">Comment mettre à niveau</h3>
+<div class="paragraph">
+<p>BlueXP offre deux façons de mettre à niveau Cloud Volumes ONTAP :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>En suivant les notifications de mise à niveau qui apparaissent dans l'environnement de travail</p>
+</li>
+<li>
+<p>En plaçant l'image de mise à niveau dans un emplacement HTTPS, puis en fournissant BlueXP avec l'URL</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="chemins-de-mise-à-niveau-pris-en-charge">Chemins de mise à niveau pris en charge</h3>
+<div class="paragraph">
+<p>La version de Cloud Volumes ONTAP sur laquelle vous pouvez effectuer la mise à niveau dépend de la version de Cloud Volumes ONTAP que vous utilisez actuellement.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Version actuelle</th>
+<th class="tableblock halign-left valign-top">Versions pouvant être directement mises à niveau vers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9.13.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9.13.1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" rowspan="2"><p class="tableblock">9.12.1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9.13.1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9.13.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9.12.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9.12.1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" rowspan="2"><p class="tableblock">9.11.1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9.12.1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9.12.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9.11.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9.11.1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" rowspan="2"><p class="tableblock">9.10.1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9.11.1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9.11.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9.10.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9.10.1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" rowspan="2"><p class="tableblock">9.9.1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9.10.1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9.10.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9.9.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9.9.1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9.8</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9.9.1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9.7</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9.8</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9.6</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9.7</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9.5</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9.6</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9.4</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9.5</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9.3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9.4</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9.2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9.3</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9.1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9.2</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9.1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8.3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9.0</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Notez ce qui suit :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Les chemins de mise à niveau pris en charge pour Cloud Volumes ONTAP sont différents de ceux d'un cluster ONTAP sur site.</p>
+</li>
+<li>
+<p>Si vous effectuez une mise à niveau en suivant les notifications de mise à niveau qui apparaissent dans un environnement de travail, BlueXP vous invite à effectuer une mise à niveau vers une version qui suit ces chemins de mise à niveau pris en charge.</p>
+</li>
+<li>
+<p>Si vous mettez une image de mise à niveau sur un emplacement HTTPS, veillez à suivre les chemins de mise à niveau pris en charge.</p>
+</li>
+<li>
+<p>Dans certains cas, vous devrez peut-être procéder à une mise à niveau plusieurs fois pour atteindre la version cible.</p>
+<div class="paragraph">
+<p>Par exemple, si vous utilisez la version 9.8 et que vous voulez passer à la version 9.10.1, vous devez d'abord passer à la version 9.9.1 puis à la version 9.10.1.</p>
+</div>
+</li>
+<li>
+<p>Pour les versions de correctif (P), vous pouvez mettre à niveau d'une version vers n'importe quelle version P de la prochaine version.</p>
+<div class="paragraph">
+<p>Voici quelques exemples :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>9.13.0 &gt; 9.13,1 P15</p>
+</li>
+<li>
+<p>9.12.1 &gt; 9,13,1 P2</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="rétablissement-ou-rétrogradation">Rétablissement ou rétrogradation</h3>
+<div class="paragraph">
+<p>La restauration ou la rétrogradation d'une version antérieure de Cloud Volumes ONTAP n'est pas prise en charge.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="inscription-au-support">Inscription au support</h3>
+<div class="paragraph">
+<p>Cloud Volumes ONTAP doit être enregistré auprès du service de support de NetApp pour mettre à niveau le logiciel à l'aide de l'une des méthodes décrites sur cette page. Cela s'applique à la fois à PAYGO et à BYOL. Vous devez le faire <a href="task-registering.html">"Enregistrer manuellement les systèmes PAYGO"</a>, Tandis que les systèmes BYOL sont enregistrés par défaut.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/test/images/tip.svg" alt="Astuce">
+</td>
+<td class="content">
+Un système qui n'est pas enregistré pour le support recevra toujours les notifications de mise à jour de logiciel qui apparaissent dans BlueXP lorsqu'une nouvelle version est disponible. Mais vous devrez enregistrer le système avant de pouvoir mettre à niveau le logiciel.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="mises-à-niveau-du-médiateur-ha">Mises à niveau du médiateur HA</h3>
+<div class="paragraph">
+<p>BlueXP met également à jour l'instance de médiateur si nécessaire lors du processus de mise à niveau de Cloud Volumes ONTAP.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="préparation-à-la-mise-à-niveau">Préparation à la mise à niveau</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Avant d'effectuer une mise à niveau, vous devez vérifier que vos systèmes sont prêts et apporter les modifications nécessaires à la configuration.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#planifiez-les-temps-dindisponibilité">Planifiez les temps d'indisponibilité</a></p>
+</li>
+<li>
+<p><a href="#vérifier-que-le-rétablissement-automatique-est-toujours-activé">Vérifier que le rétablissement automatique est toujours activé</a></p>
+</li>
+<li>
+<p><a href="#suspendre-les-transferts-snapmirror">Suspendre les transferts SnapMirror</a></p>
+</li>
+<li>
+<p><a href="#vérifiez-que-les-agrégats-sont-en-ligne">Vérifiez que les agrégats sont en ligne</a></p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="planifiez-les-temps-dindisponibilité">Planifiez les temps d'indisponibilité</h3>
+<div class="paragraph">
+<p>Lorsque vous mettez à niveau un système à un seul nœud, le processus de mise à niveau met le système hors ligne pendant 25 minutes au cours desquelles les E/S sont interrompues.</p>
+</div>
+<div class="paragraph">
+<p>Dans la plupart des cas, la mise à niveau d'une paire haute disponibilité s'effectue sans interruption des E/S. Au cours de ce processus de mise à niveau sans interruption, chaque nœud est mis à niveau en tandem afin de continuer à traiter les E/S aux clients.</p>
+</div>
+<div class="paragraph">
+<p>Les protocoles orientés session peuvent avoir des effets négatifs sur les clients et les applications dans certains domaines pendant les mises à niveau. Pour plus d'informations, <a href="https://docs.netapp.com/us-en/ontap/upgrade/concept_considerations_for_session_oriented_protocols.html" target="_blank" rel="noopener">"Reportez-vous à la documentation ONTAP"</a></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="vérifier-que-le-rétablissement-automatique-est-toujours-activé">Vérifier que le rétablissement automatique est toujours activé</h3>
+<div class="paragraph">
+<p>Le rétablissement automatique doit être activé sur une paire Cloud Volumes ONTAP HA (paramètre par défaut). Si ce n'est pas le cas, l'opération échouera.</p>
+</div>
+<div class="paragraph">
+<p><a href="http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-hacg/GUID-3F50DE15-0D01-49A5-BEFD-D529713EC1FA.html" target="_blank" rel="noopener">"Documentation ONTAP 9 : commandes pour la configuration du rétablissement automatique"</a></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="suspendre-les-transferts-snapmirror">Suspendre les transferts SnapMirror</h3>
+<div class="paragraph">
+<p>Si un système Cloud Volumes ONTAP a des relations SnapMirror actives, il est préférable de suspendre les transferts avant de mettre à jour le logiciel Cloud Volumes ONTAP. La suspension des transferts empêche les défaillances de SnapMirror. Vous devez suspendre les transferts depuis le système de destination.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/test/images/note.svg" alt="Remarque">
+</td>
+<td class="content">
+Même si la sauvegarde et la restauration BlueXP utilisent une implémentation de SnapMirror pour créer des fichiers de sauvegarde (appelé SnapMirror Cloud), il n'est pas nécessaire de suspendre les sauvegardes lors de la mise à niveau d'un système.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<div class="title">Description de la tâche</div>
+<p>Ces étapes décrivent l'utilisation de System Manager pour la version 9.3 et ultérieure.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Étapes</div>
+<ol class="arabic">
+<li>
+<p>Connectez-vous à System Manager à partir du système de destination.</p>
+<div class="paragraph">
+<p>Vous pouvez vous connecter à System Manager en pointant votre navigateur Web sur l'adresse IP de la LIF de gestion du cluster. L'adresse IP est disponible dans l'environnement de travail Cloud Volumes ONTAP.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/test/images/note.svg" alt="Remarque">
+</td>
+<td class="content">
+L'ordinateur à partir duquel vous accédez à BlueXP doit disposer d'une connexion réseau à Cloud Volumes ONTAP. Par exemple, vous devrez peut-être vous connecter à BlueXP à partir d'un hôte de saut situé dans le réseau de votre fournisseur de cloud.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Cliquez sur <strong>protection &gt; relations</strong>.</p>
+</li>
+<li>
+<p>Sélectionnez la relation et cliquez sur <strong>opérations &gt; Quiesce</strong>.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="vérifiez-que-les-agrégats-sont-en-ligne">Vérifiez que les agrégats sont en ligne</h3>
+<div class="paragraph">
+<p>Les agrégats pour Cloud Volumes ONTAP doivent être en ligne avant de mettre à jour le logiciel. Les agrégats doivent être en ligne dans la plupart des configurations, mais si ce n'est pas le cas, vous devez les mettre en ligne.</p>
+</div>
+<div class="paragraph">
+<div class="title">Description de la tâche</div>
+<p>Ces étapes décrivent l'utilisation de System Manager pour la version 9.3 et ultérieure.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Étapes</div>
+<ol class="arabic">
+<li>
+<p>Dans l'environnement de travail, cliquez sur l'onglet <strong>Aggregates</strong>.</p>
+</li>
+<li>
+<p>Sous le titre de l'agrégat, cliquez sur le bouton ellipse, puis sélectionnez <strong>Afficher les détails de l'agrégat</strong>.</p>
+<div class="paragraph">
+<p><span class="image"><img src="./media/screenshots_aggregate_details_state.png" alt="Capture d'écran : affiche le champ État lorsque vous affichez les informations d'un agrégat."></span></p>
+</div>
+</li>
+<li>
+<p>Si l'agrégat est hors ligne, utilisez System Manager pour mettre l'agrégat en ligne :</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Cliquez sur <strong>stockage &gt; agrégats et disques &gt; agrégats</strong>.</p>
+</li>
+<li>
+<p>Sélectionnez l'agrégat, puis cliquez sur <strong>plus d'actions &gt; État &gt; en ligne</strong>.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="mettez-à-niveau-cloud-volumes-ontap">Mettez à niveau Cloud Volumes ONTAP</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>BlueXP vous avertit lorsqu'une nouvelle version est disponible pour la mise à niveau. Vous pouvez démarrer le processus de mise à niveau à partir de cette notification. Pour plus de détails, voir <a href="#mise-à-niveau-depuis-les-notifications-bluexp">Mise à niveau depuis les notifications BlueXP</a>.</p>
+</div>
+<div class="paragraph">
+<p>Une autre façon d'effectuer des mises à niveau logicielles à l'aide d'une image sur une URL externe. Cette option est utile si BlueXP ne peut pas accéder au compartiment S3 pour mettre à niveau le logiciel ou si vous avez reçu un correctif. Pour plus de détails, voir <a href="#mise-à-niveau-à-partir-dune-image-disponible-sur-une-url">Mise à niveau à partir d'une image disponible sur une URL</a>.</p>
+</div>
+<div class="sect2">
+<h3 id="mise-à-niveau-depuis-les-notifications-bluexp">Mise à niveau depuis les notifications BlueXP</h3>
+<div class="paragraph">
+<p>BlueXP affiche une notification dans les environnements de travail Cloud Volumes ONTAP lorsqu'une nouvelle version de Cloud Volumes ONTAP est disponible :</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/screenshot_overview_upgrade.png" alt="Capture d'écran : affiche la notification Nouvelle version disponible qui s'affiche dans la page Canvas après avoir sélectionné un environnement de travail."></span></p>
+</div>
+<div class="paragraph">
+<p>Vous pouvez lancer le processus de mise à niveau à partir de cette notification, qui automatise le processus en obtenant l'image logicielle à partir d'un compartiment S3, en installant l'image, puis en redémarrant le système.</p>
+</div>
+<div class="paragraph">
+<div class="title">Avant de commencer</div>
+<p>Les opérations BlueXP, telles que la création de volume ou d'agrégat, ne doivent pas être en cours sur le système Cloud Volumes ONTAP.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Étapes</div>
+<ol class="arabic">
+<li>
+<p>Dans le menu de navigation de gauche, sélectionnez <strong>stockage &gt; Canvas</strong>.</p>
+</li>
+<li>
+<p>Sélectionnez un environnement de travail.</p>
+<div class="paragraph">
+<p>Une notification apparaît dans l'onglet vue d'ensemble si une nouvelle version est disponible :</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/screenshot_overview_upgrade.png" alt="Une capture d'écran qui montre « mettre à niveau maintenant ! » Sous l'onglet vue d'ensemble."></span></p>
+</div>
+</li>
+<li>
+<p>Si une nouvelle version est disponible, cliquez sur <strong>mettre à niveau maintenant!</strong></p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/test/images/note.svg" alt="Remarque">
+</td>
+<td class="content">
+Avant de pouvoir mettre à niveau Cloud Volumes ONTAP via la notification BlueXP, vous devez disposer d'un compte sur le site de support NetApp.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Sur la page Cloud Volumes ONTAP de mise à niveau, lisez le CLUF, puis sélectionnez <strong>J'ai lu et approuvé le CLUF</strong>.</p>
+</li>
+<li>
+<p>Cliquez sur <strong>Upgrade</strong>.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/test/images/note.svg" alt="Remarque">
+</td>
+<td class="content">
+La page Cloud Volumes ONTAP de mise à niveau sélectionne par défaut la dernière version Cloud Volumes ONTAP disponible pour la mise à niveau. Si disponible, vous pouvez sélectionner des versions plus anciennes de Cloud Volumes ONTAP pour votre mise à niveau en cliquant sur <strong>Sélectionner les versions plus anciennes</strong>.<br>
+Reportez-vous à la <a href="https://docs.netapp.com/us-en/bluexp-cloud-volumes-ontap/task-updating-ontap-cloud.html#supported-upgrade-paths" target="_blank" rel="noopener">"Liste des chemins de mise à niveau pris en charge"</a> Pour connaître le chemin de mise à niveau approprié en fonction de votre version Cloud Volumes ONTAP actuelle.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/screenshot_upgrade_select_versions.png" alt="Capture d'écran de la page mise à niveau de la version Cloud Volumes ONTAP."></span></p>
+</div>
+</li>
+<li>
+<p>Pour vérifier l'état de la mise à niveau, cliquez sur l'icône Paramètres et sélectionnez <strong>Timeline</strong>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<div class="title">Résultat</div>
+<p>BlueXP démarre la mise à niveau du logiciel. Vous pouvez effectuer des actions sur l'environnement de travail lorsque la mise à jour du logiciel est terminée.</p>
+</div>
+<div class="paragraph">
+<div class="title">Une fois que vous avez terminé</div>
+<p>Si vous avez suspendu les transferts SnapMirror, utilisez System Manager pour reprendre les transferts.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="mise-à-niveau-à-partir-dune-image-disponible-sur-une-url">Mise à niveau à partir d'une image disponible sur une URL</h3>
+<div class="paragraph">
+<p>Vous pouvez placer l'image du logiciel Cloud Volumes ONTAP sur le connecteur ou sur un serveur HTTP, puis lancer la mise à niveau du logiciel depuis BlueXP. Vous pouvez utiliser cette option si BlueXP ne peut pas accéder au compartiment S3 pour mettre à niveau le logiciel.</p>
+</div>
+<div class="ulist">
+<div class="title">Avant de commencer</div>
+<ul>
+<li>
+<p>Les opérations BlueXP, telles que la création de volume ou d'agrégat, ne doivent pas être en cours sur le système Cloud Volumes ONTAP.</p>
+</li>
+<li>
+<p>Si vous utilisez HTTPS pour héberger des images ONTAP, la mise à niveau peut échouer en raison de problèmes d'authentification SSL, qui sont causés par des certificats manquants. La solution consiste à générer et à installer un certificat signé CA à utiliser pour l'authentification entre ONTAP et BlueXP.</p>
+<div class="paragraph">
+<p>Accédez à la base de connaissances NetApp pour obtenir des instructions détaillées :</p>
+</div>
+<div class="paragraph">
+<p><a href="https://kb.netapp.com/Advice_and_Troubleshooting/Cloud_Services/Cloud_Manager/How_to_configure_Cloud_Manager_as_an_HTTPS_server_to_host_upgrade_images" target="_blank" rel="noopener">"Base de connaissances NetApp : comment configurer BlueXP en tant que serveur HTTPS pour héberger les images de mise à niveau"</a></p>
+</div>
+</li>
+</ul>
+</div>
+<div class="olist arabic">
+<div class="title">Étapes</div>
+<ol class="arabic">
+<li>
+<p>Facultatif : configurez un serveur HTTP pouvant héberger l'image logicielle Cloud Volumes ONTAP.</p>
+<div class="paragraph">
+<p>Si vous disposez d'une connexion VPN au réseau virtuel, vous pouvez placer l'image logicielle Cloud Volumes ONTAP sur un serveur HTTP de votre propre réseau. Sinon, vous devez placer le fichier sur un serveur HTTP dans le cloud.</p>
+</div>
+</li>
+<li>
+<p>Si vous utilisez votre propre groupe de sécurité pour Cloud Volumes ONTAP, assurez-vous que les règles sortantes autorisent les connexions HTTP afin que Cloud Volumes ONTAP puisse accéder à l'image logicielle.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/test/images/note.svg" alt="Remarque">
+</td>
+<td class="content">
+Le groupe de sécurité Cloud Volumes ONTAP prédéfini permet par défaut les connexions HTTP sortantes.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Obtenez l'image logicielle de <a href="https://mysupport.netapp.com/site/products/all/details/cloud-volumes-ontap/downloads-tab" target="_blank" rel="noopener">"Le site de support NetApp"</a>.</p>
+</li>
+<li>
+<p>Copiez l'image du logiciel dans un répertoire du connecteur ou sur un serveur HTTP à partir duquel le fichier sera servi.</p>
+<div class="paragraph">
+<p>Deux chemins sont disponibles. Le chemin correct dépend de la version de votre connecteur.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>/opt/application/netapp/cloudmanager/docker_occm/data/ontap/images/</code></p>
+</li>
+<li>
+<p><code>/opt/application/netapp/cloudmanager/ontap/images/</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Dans l'environnement de travail BlueXP, cliquez sur le bouton <strong>&#8230;&#8203; (Ellipse)</strong>, puis cliquez sur <strong>mettre à jour Cloud Volumes ONTAP</strong>.</p>
+</li>
+<li>
+<p>Sur la page mettre à jour la version de Cloud Volumes ONTAP, entrez l'URL, puis cliquez sur <strong>changer l'image</strong>.</p>
+<div class="paragraph">
+<p>Si vous avez copié l'image logicielle sur le connecteur dans le chemin indiqué ci-dessus, entrez l'URL suivante :</p>
+</div>
+<div class="paragraph">
+<p>\Http://&lt;Connector-private-IP-address&gt;/ontap/images/&lt;image-file-name&gt;</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/test/images/note.svg" alt="Remarque">
+</td>
+<td class="content">
+Dans l'URL, <strong>image-file-name</strong> doit suivre le format "COT.image.9.13.1P2.tgz".
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Cliquez sur <strong>Continuer</strong> pour confirmer.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<div class="title">Résultat</div>
+<p>BlueXP démarre la mise à jour logicielle. Vous pouvez effectuer des actions sur l'environnement de travail une fois la mise à jour logicielle terminée.</p>
+</div>
+<div class="paragraph">
+<div class="title">Une fois que vous avez terminé</div>
+<p>Si vous avez suspendu les transferts SnapMirror, utilisez System Manager pour reprendre les transferts.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+    </article>
+    <!-- Page Container -->
+  </div>
+
+  
+  <!-- Start Page Toolbar -->
+<div id="ie-right-navbar-collapse" class="close">
+  <img id="navbar-expand" class="ie-searchbox-icon" src="/fr-fr/test/images/double_arrow.svg" alt="" />
+</div>
+<div id="ie-right-navbar" class="open">
+  <div id="right-navbar-collapse">
+    <img src="/fr-fr/test/images/double_arrow.svg" alt="" />
+  </div>
+  <div class="page-nav-container">
+    <nav class="page-nav-fixed">
+      <div class="page-nav-title">Sur cette page</div>
+      <div class="page-nav-links">
+        <ul class="page-nav-inner" id="page-menu"></ul>
+      </div>
+    </nav>
+  </div>
+</div>
+
+
+<script>
+  resizeContent();
+  function setRightBarHeight() {
+    var h = 0;
+
+    // header 1
+    h += PXinViewport($('.n-footer'));
+    h += PXinViewport($('#ie-new-header'));
+
+    if ($('#ie-right-navbar').length) {
+      $('#ie-right-navbar').css({ height: `calc(100vh - ${h}px)` });
+    }
+    if ($('.page-nav-links').length) {
+      h += 98;
+      $('.page-nav-links').css({ height: `calc(100vh - ${h}px)` });
+    }
+  }
+
+  $(document).ready(function () {
+    // PAGE NAV - Click
+    const MASTHEAD_OFFSET = 65;
+    const SECTIONS = $("main h2, main h3");
+    let calculateActiveSection = false;
+    setTimeout(() => {
+      calculateActiveSection = true;
+    }, 100)
+
+    $(".page-nav__link").click(function (event) {
+      calculateActiveSection = false;
+      $(".page-nav__link").removeClass('page-nav__link--active');
+      var target = $(event.target);
+      target.addClass('page-nav__link--active');
+      location.hash = event.target.hash;
+      setTimeout(() => {
+        calculateActiveSection = true;
+      }, 100)
+
+    });
+
+    // PAGE NAV - Scroll
+    $(window).on('resize scroll', function () {
+      if (calculateActiveSection) {
+        var activeSection = getActiveSection(SECTIONS, MASTHEAD_OFFSET);
+        if (activeSection) {
+          var activeHref = $(activeSection).attr('id');
+          $(".page-nav__link").removeClass('page-nav__link--active');
+          $("#page-menu a[href=#" + activeHref + "]").addClass('page-nav__link--active');
+          if (location.hash != "#" + activeHref) {
+            if (history.replaceState) {
+              history.replaceState(null, null, "#" + activeHref);
+            }
+          }
+        }
+      }
+    });
+
+    $(".n-pdf-button").click(function () {
+      $(this).toggleClass("active");
+    });
+
+    $.fn.isVisibleAndInViewport = function () {
+      var elementTop = $(this).offset().top;
+      var elementBottom = elementTop + $(this).outerHeight();
+
+      var viewportTop = $(window).scrollTop();
+      var viewportBottom = viewportTop + $(window).height();
+
+      return elementBottom > viewportTop && elementTop < viewportBottom && $(this).is(":visible");
+    };
+
+
+    $(window).on('resize scroll', function () {
+      setRightBarHeight();
+    });
+
+    $(window).trigger('resize');
+
+
+  });
+
+  $("#right-navbar-collapse").click(function (e) {
+    const rightNavbarWidth = $("#ie-right-navbar").width() - $("#ie-right-navbar-collapse").width();
+    e.preventDefault();
+    const width = $(".ie-content-pane").width();
+
+    $("#ie-right-navbar").animate({ width: 'toggle' }, 350, function () {
+      $("#ie-right-navbar-collapse").removeClass("close")
+      $("#ie-right-navbar-collapse").addClass("open")
+      $("#ie-right-navbar").removeClass("open")
+      $("#ie-right-navbar").addClass("close")
+    });
+    $(".ie-content-pane").animate({ width: (width + rightNavbarWidth) }, 350, function () {
+      resizeContent()
+      setSidebarBottom();
+    })
+
+  });
+  $("#navbar-expand").click(function (e) {
+    const rightNavbarWidth = $("#ie-right-navbar").width() - $("#ie-right-navbar-collapse").width();
+    e.preventDefault();
+    const width = $(".ie-content-pane").width();
+    $("#ie-right-navbar").animate({ width: 'toggle' }, 250, function () {
+      $("#ie-right-navbar-collapse").removeClass("open")
+      $("#ie-right-navbar-collapse").addClass("close")
+      $("#ie-right-navbar").removeClass("close")
+      $("#ie-right-navbar").addClass("open")
+      setRightBarHeight();
+      setSidebarBottom();
+    });
+    $(".ie-content-pane").animate({ width: (width - rightNavbarWidth) }, 250, function () {
+      resizeContent()
+    })
+  });
+
+  function navbarResize() {
+    const rightNavbarResized = $("#ie-right-navbar-collapse").hasClass('resized');
+    if (window.innerWidth < 1024) {
+      $("#ie-right-navbar").removeClass("open")
+      $("#ie-right-navbar").addClass("close")
+      $("#ie-right-navbar").removeAttr("style")
+      $("#ie-right-navbar-collapse").removeClass("close")
+      $("#ie-right-navbar-collapse").addClass("open")
+      $("#ie-right-navbar-collapse").addClass("resized")
+    } else {
+      if (rightNavbarResized) {
+        $('#ie-right-navbar').removeClass('close');
+        $('#ie-right-navbar').addClass('open');
+        $("#ie-right-navbar-collapse").removeClass("resized")
+        $("#ie-right-navbar-collapse").removeClass("open")
+        $("#ie-right-navbar-collapse").addClass("close")
+      }
+    }
+    resizeContent()
+  }
+  navbarResize();
+  $(window).on('resize load', function () {
+    navbarResize()
+  });
+
+  function getActiveSection(sections, offset) {
+    var scrollPosition = $(window).scrollTop() + offset + 5;
+    var activeSection;
+    for (var i = 0; i < sections.length; i++) {
+      var el = $(sections[i]);
+      var activePosition = el.offset().top;
+      if (activePosition > scrollPosition) {
+        break;
+      }
+
+      activeSection = sections[i];
+    }
+
+    return activeSection;
+  }
+
+  $("a[href*=#]:not([href=#])").click(function () {
+    setTimeout(() => {
+      $(window).trigger('scroll');
+    }, 105)
+  })
+
+  const hashOnLoad = location.href.split("#")[1];
+  setTimeout(function () {
+    if (hashOnLoad) {
+      $(".page-nav__link").removeClass('page-nav__link--active');
+      $("#page-menu a[href=#" + hashOnLoad + "]").addClass('page-nav__link--active');
+    }
+  }, 100)
+
+</script>
+
+
+  <div style="clear: both"></div><!-- Main needs to have height --></div>
+
+        </main>
+
+        <footer class="n-footer">
+  <div class="n-footer__bottom">
+    <div class="n-container">
+        <div class="n-footer__left">
+          <li class="n-footer__copyright-link">
+                    <a href="https://www.netapp.com/company/legal/copyright/">© 2024 NetApp, Inc.</a>
+          </li>
+        </div>
+        <div class="n-footer__center">
+          <ul class="n-footer__copyright-list">
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/terms-of-use/">Conditions d'utilisation</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/privacy-policy/">Déclaration de confidentialité</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/cookie-policy/">Déclaration sur les cookies</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a class="ot-sdk-show-settings">Paramètres des cookies</a>
+            </li>
+          </ul>
+       </div>
+        <div class="n-footer__right">
+              <li class="n-footer__copyright-link">
+                <a target="_self" href="javascript:netapp_mailto()">Envoyer des commentaires à propos de cette page</a>
+              </li>
+        </div>
+     </div>
+  </div>
+</footer>
+
+      </div><!-- Elasticsearch JS -->
+      <script type="text/javascript" src='/fr-fr/test/js/bundle.js'></script>
+
+      <!-- Syntax Highlighting -->
+      <script type="text/javascript" src='/fr-fr/test/js/prism.js'></script>
+      <script type="text/javascript" src='/fr-fr/test/js/prism-curl.js'></script>
+    </div>
+    <script>
+      document.body.offsetWidth=1903;
+      cookieLaw = {}
+      cookieLaw.euCountry = "US";
+      cookieLaw.invoke = function(){return false;}
+    </script>
+    <script src='/fr-fr/test/js/ie-tabbed-blocks.js'></script>
+    <script src='/fr-fr/test/js/ie-sidebar.js'></script>
+  </body>
+
+</html>
