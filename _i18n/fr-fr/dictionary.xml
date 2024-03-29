@@ -5184,4 +5184,5 @@ Texte {startsb} et texte {endsb}</block>
   <block id="64e9073b4fb50b91766ce8b5e61945c1" category="paragraph-title">Espace de largeur nulle</block>
   <block id="589a92e5ac7fd2654f5ce5d9594f5e7c" category="paragraph">Avant{zwsp}après</block>
   <block id="d59e0b46782e48a01966e5c7ccc38d17" category="paragraph">NetApp utilise Microsoft Entra ID comme fournisseur d'identité pour les services d'authentification spécifiques à la prise en charge et à l'octroi de licences.</block>
+  <block id="1e7177c795477cb086ca058b93815a58" category="paragraph">Modification pour la localisation.</block>
 </blocks>
