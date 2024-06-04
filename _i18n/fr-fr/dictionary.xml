@@ -5185,5 +5185,5 @@ Texte {startsb} et texte {endsb}</block>
   <block id="589a92e5ac7fd2654f5ce5d9594f5e7c" category="paragraph">Avant{zwsp}après</block>
   <block id="d59e0b46782e48a01966e5c7ccc38d17" category="paragraph">NetApp utilise Microsoft Entra ID comme fournisseur d'identité pour les services d'authentification spécifiques à la prise en charge et à l'octroi de licences.</block>
   <block id="62dfedabf822fc3986bc7eb04a7ea341" category="paragraph">Le composant AutoSupport de ONTAP collecte les données de télémétrie et les envoie pour analyse. Le conseiller digital Active IQ analyse les données d'AutoSupport et fournit un support proactif et une optimisation. Avec l'intelligence artificielle, Active IQ peut identifier les problèmes potentiels et vous aider à les résoudre avant qu'ils n'affectent votre activité. Modification à des fins de test de mise en service.</block>
-  <block id="a243121cae38fa11182b684742bb34d4" category="paragraph">Modification pour la localisation. Activez le docbot.</block>
+  <block id="b90e0d6074e28fb6137e5000f4d79629" category="paragraph">Modification pour la localisation. Activer l'affichage docbot et test loc.</block>
 </blocks>
